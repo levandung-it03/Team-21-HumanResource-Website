@@ -1,0 +1,112 @@
+html {
+    background-image: url('/img/form_img.jpg');
+    background-size: 100vw;
+    background-repeat: no-repeat;
+}
+
+form {
+    margin: auto;
+    margin-top: 42px;
+    background-color: rgba(255, 255, 255, 0.8);
+    display: block;
+    max-width: 800px;
+    width: auto;
+    padding: 28px 50px;
+    border: 1px transparent solid;
+    border-radius: 20px;
+    box-shadow: 0 0 100px black;
+    color: var(--grey-text-form);
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+form #form-title {
+    display: block;
+    text-align: center;
+    font-size: 2.4rem;
+    font-weight: 700;
+    padding: 10px;
+}
+
+form .register-input {
+    position: relative;
+    display: inline-block;
+    width: 280px;
+    min-height: 84px !important;
+    margin-left: 50px;
+}
+
+.register-input label {
+    display: block;
+    padding: 4px;
+}
+
+.register-input input {
+    width: 240px;
+    height: 40px;
+    border: 2px #d1d0d0 solid;
+    border-radius: 20px;
+    padding: 16px;
+}
+
+.register-input .register-input_toggle-hidden {
+    position: absolute;
+    top: 42px;
+    right: 50px;
+}
+
+.register-input .register-input_toggle-hidden:hover {
+    cursor: pointer;
+}
+
+.register-input .register-input_toggle-hidden>.hidden {
+    display: none;
+}
+
+.register-input_err-message {
+    position: relative;
+}
+
+.err-message-block {
+    position: absolute;
+    display: none;
+    color: red;
+    font-size: 12px;
+}
+
+.register-select {
+    margin: 8px 0 8px 40px;
+    display: inline-block;
+}
+
+.register-select label {
+    display: block;
+}
+
+.register-select select {
+    height: 36px;
+    padding: 4px;
+    color: var(--grey-text-form);
+    border-radius: 20px;
+}
+.register-select#department {
+    margin-left: 50px;
+}
+.register-select select[name=department] {
+    min-width: 180px;
+}
+
+.register-select select:hover {
+    cursor: pointer;
+}
+
+form input[type=submit] {
+    padding: 12px 72px;
+    margin: auto;
+    margin-top: 30px;
+}
+
+form #form_registered {
+    text-align: center;
+    margin-top: 4px;
+}

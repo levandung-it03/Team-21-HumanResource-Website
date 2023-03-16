@@ -1,0 +1,58 @@
+@import url('https://fonts.googleapis.com/css?family=Muli&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Quicksand&display=swap');
+:root {
+    --grey-text-form: rgb(112, 102, 102);
+}
+/* Reset CSS */
+html {
+    box-sizing: border-box;
+    font-size: 16px;
+}
+
+*,
+*:before,
+*:after {
+    box-sizing: inherit;
+}
+
+body, h1, h2, h3, h4, h5, h6, p, ol, ul {
+    margin: 0;
+    padding: 0;
+    font-weight: normal;
+}
+
+ol,
+ul {
+    list-style: none;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+body {
+  font-family: 'Muli', sans-serif;
+  color: rgba(0, 0, 0, 0.8);
+  font-weight: 400;
+  line-height: 1.58;
+  letter-spacing: -.003em;
+  font-size: 20px;
+}
+
+form input[type=submit] {
+    display: block;
+    border: 2px #a5a5a5 solid;
+    background-color: rgba(206, 206, 206, 0.7);
+    color: var(--grey-text-form);
+    border-radius: 4px;
+    transition: background-color ease 0.2s;
+    transition: border-radius ease 0.3s;
+}
+
+form input[type=submit]:hover {
+    background-color: rgb(147, 147, 147);
+    color: white;
+    cursor: pointer;
+    border-radius: 22px;
+}
