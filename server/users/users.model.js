@@ -35,10 +35,13 @@ var schema = new mongoose.Schema({
     phone: {
         type: String,
     },
-    admin: Boolean,
     department: String,
     position: String,
     gender: String,
+    tokens: {
+        accessToken: String,
+        refreshToken: String,
+    }
 });
 
 // mongoose.model(<Collection_name>, <Schema_name>); method complies the request's data with schema

@@ -170,7 +170,7 @@ let submitFormCancellation = false;
                 return e.split('=');
             })
             
-            if (data[0] == "error_email") {
+            if (data[0] == "error_account.email") {
 
                 alert('Email đã tồn tại!');
 

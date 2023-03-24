@@ -16,7 +16,7 @@ form {
     border: 1px transparent solid;
     border-radius: 20px;
     box-shadow: 0 0 100px black;
-    color: var(--grey-text-form);
+    color: var(--grey-form-text);
     font-size: 0.9rem;
     font-weight: 600;
 }
@@ -80,7 +80,13 @@ form input[type=submit] {
     margin-top: 30px;
 }
 
-form #form_registered {
+.register-input #forgot-pass a {
+    position: absolute;
+    right: 12px;
+    top: 4px;
+}
+form #have-no-account {
+    display: block;
     text-align: center;
-    margin-top: 4px;
+    margin-top: 8px;
 }

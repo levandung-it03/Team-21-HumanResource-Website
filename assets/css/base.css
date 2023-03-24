@@ -1,7 +1,8 @@
 @import url('https://fonts.googleapis.com/css?family=Muli&display=swap');
 @import url('https://fonts.googleapis.com/css?family=Quicksand&display=swap');
 :root {
-    --grey-text-form: rgb(112, 102, 102);
+    --grey-form-text: rgb(112, 102, 102);
+    --blue-anchor-text: rgb(82, 82, 221);
 }
 /* Reset CSS */
 html {

@@ -1,8 +1,9 @@
 let submitFormCancellation = false;
 
+const $ = document.querySelector.bind(document);
+const $$ = document.querySelectorAll.bind(document);
+
 (function main() {
-    const $ = document.querySelector.bind(document);
-    const $$ = document.querySelectorAll.bind(document);
 
     const inputTags = [...$$('.register-input input')];
     const emailTag = $('input[name=email]');
@@ -56,10 +57,10 @@ let submitFormCancellation = false;
     (function createErrorMessages() {
         [...$$('.register-input .register-input_err-message')].forEach((e) => {
             e.innerHTML = `
-            <span class='err-message-block' id='${e.parentNode.id}'>
-                ${errorMessages[e.parentNode.id].message}
-            </span>
-        `;
+        <span class='err-message-block' id='${e.parentNode.id}'>
+            ${errorMessages[e.parentNode.id].message}
+        </span>
+    `;
         })
     })();
 
@@ -111,7 +112,7 @@ let submitFormCancellation = false;
                 alert('Mật khẩu không chính xác!');
             else if (data[0] == "error_adminCode")
                 alert('Admin code không chính xác!');
-                
+
             inputTags.reduce((accum, e) => {
                 e.value = data[accum][1];
                 return accum + 1;

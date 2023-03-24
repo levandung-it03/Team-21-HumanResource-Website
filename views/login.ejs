@@ -19,8 +19,12 @@
             <input name="email" type="text" placeholder="name.01@gmail.com" required>
             <div class="register-input_err-message"></div>
         </div>
+            
         <div class="register-input" id="password">
             <label for="password">Mật khẩu</label>
+            <span id="forgot-pass">
+                <a href="">Quên mật khẩu?</a>
+            </span>
             <input name="password" type="password" required>
             <div class="register-input_err-message"></div>
             <div class="register-input_toggle-hidden">
@@ -34,11 +38,10 @@
             <div class="register-input_err-message"></div>
         </div>
         <input type="submit" value="Đăng nhập">
-        <div id="form_registered">
-            <span>
-                <a href="">Quên mật khẩu?</a>
-            </span>
-        </div>
+        <span id="have-no-account">
+            Chưa có tài khoản?
+            <a href="http://localhost:3000/register"> Đăng ký ngay!</a>
+        </span>
     </form>
     <script src="/js/login.js"></script>
 </body>
