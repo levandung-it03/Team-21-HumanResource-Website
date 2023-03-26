@@ -5,7 +5,7 @@ const $$ = document.querySelectorAll.bind(document);
 
 (function main() {
 
-    const inputTags = [...$$('.register-input input')];
+    const inputTags = [...$$('.login-input input')];
     const emailTag = $('input[name=email]');
     const passwordTag = $('input[name=password]');
 
@@ -31,15 +31,6 @@ const $$ = document.querySelectorAll.bind(document);
             message: "Mật khẩu không đủ dài.",
             isValid: false,
         },
-        ['admin-right']: {
-            confirm: function (value) {
-                if (value == "") {
-                    this.isValie = false;
-                } else this.isValid = true;
-            },
-            message: "Admin Code không được để trống.",
-            isValid: false,
-        },
     };
 
 
@@ -55,7 +46,7 @@ const $$ = document.querySelectorAll.bind(document);
     }
 
     (function createErrorMessages() {
-        [...$$('.register-input .register-input_err-message')].forEach((e) => {
+        [...$$('.login-input .login-input_err-message')].forEach((e) => {
             e.innerHTML = `
         <span class='err-message-block' id='${e.parentNode.id}'>
             ${errorMessages[e.parentNode.id].message}
@@ -82,15 +73,15 @@ const $$ = document.querySelectorAll.bind(document);
     })();
 
     (function toggleHidingPassword() {
-        $$('.register-input_toggle-hidden i').forEach((e) => {
+        $$('.login-input_toggle-hidden i').forEach((e) => {
             e.onclick = (event) => {
                 if ([...event.target.classList].some((e) => e == "show-pass")) {
-                    $('.register-input_toggle-hidden .show-pass').classList.add("hidden");
-                    $('.register-input_toggle-hidden .hide-pass').classList.remove("hidden");
+                    $('.login-input_toggle-hidden .show-pass').classList.add("hidden");
+                    $('.login-input_toggle-hidden .hide-pass').classList.remove("hidden");
                     passwordTag.type = "text";
                 } else {
-                    $('.register-input_toggle-hidden .hide-pass').classList.add("hidden");
-                    $('.register-input_toggle-hidden .show-pass').classList.remove("hidden");
+                    $('.login-input_toggle-hidden .hide-pass').classList.add("hidden");
+                    $('.login-input_toggle-hidden .show-pass').classList.remove("hidden");
                     passwordTag.type = "password";
                 }
             }

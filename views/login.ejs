@@ -14,28 +14,23 @@
 <body>
     <form onsubmit="return submitFormCancellation" method="POST" action="/api/users/login/">
         <span id="form-title">Đăng nhập</span>
-        <div class="register-input" id="email">
+        <div class="login-input" id="email">
             <label for="email">Địa chỉ gmail</label>
             <input name="email" type="text" placeholder="name.01@gmail.com" required>
-            <div class="register-input_err-message"></div>
+            <div class="login-input_err-message"></div>
         </div>
             
-        <div class="register-input" id="password">
+        <div class="login-input" id="password">
             <label for="password">Mật khẩu</label>
             <span id="forgot-pass">
-                <a href="">Quên mật khẩu?</a>
+                <a href="/password">Quên mật khẩu?</a>
             </span>
             <input name="password" type="password" required>
-            <div class="register-input_err-message"></div>
-            <div class="register-input_toggle-hidden">
+            <div class="login-input_err-message"></div>
+            <div class="login-input_toggle-hidden">
                 <i class="show-pass fa-solid fa-eye"></i>
                 <i class="hide-pass hidden fa-regular fa-eye-slash"></i>
             </div>
-        </div>
-        <div class="register-input" id="admin-right">
-            <label for="admin-right">Admin Code</label>
-            <input name="admin-right" type="text" placeholder="0 or Admin Code" required>
-            <div class="register-input_err-message"></div>
         </div>
         <input type="submit" value="Đăng nhập">
         <span id="have-no-account">

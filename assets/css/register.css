@@ -93,7 +93,8 @@ form .register-input {
     margin-left: 50px;
 }
 .register-select select[name=department] {
-    min-width: 180px;
+    min-width: 240px;
+    margin-right: 50px;
 }
 
 .register-select select:hover {

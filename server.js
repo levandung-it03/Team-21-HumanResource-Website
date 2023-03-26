@@ -5,10 +5,10 @@ const bodyparser = require('body-parser');
 const path = require('path');
 
 const app = express();
-const connectDB = require('./server/database/connection');
+const connectDB = require('./server/users/users.DBconnection');
 
 dotenv.config( {path: 'config.env'});
-const PORT = process.env.PORT || 8080;
+const PORT = 3000;
 
 // pulic assets file
 app.use(express.static(path.join(__dirname, 'assets')));
@@ -30,8 +30,7 @@ app.use('/css', express.static(path.join(__dirname, "/assets/css")));
 app.use('/js', express.static(path.join(__dirname, "/assets/js")));
 app.use('/img', express.static(path.join(__dirname, "/assets/img")));
 
-
 // load routers
-app.use('/', require('./server/router/router'));
+app.use('/', require('./server/users/users.router'));
 
 app.listen(PORT, () => console.log(`Listening at http://localhost:${PORT}`));

@@ -6,14 +6,16 @@ require('dotenv').config();
 
 const renderMethods = require('./users.render');
 const usersController = require('./users.controller');
-const authController = require('../auth/auth.controller');
+const authMiddlewares = require('../auth/auth.middlewares');
 
 route.get('/register', renderMethods.register);
-route.get('/login', authController.checkingLogedIn, renderMethods.login);
-route.get('/admin', authController.verifyToken, renderMethods.adminHome);
-route.get('/employee', authController.verifyToken, renderMethods.employeeHome);
+route.get('/login', authMiddlewares.checkingLogedIn, renderMethods.login);
+route.get('/password', renderMethods.password);
+route.get('/home/admin', authMiddlewares.verifyToken, renderMethods.adminHome);
+route.get('/home/employee', authMiddlewares.verifyToken, renderMethods.employeeHome);
 
 route.post('/api/users/register', usersController.register);
 route.post('/api/users/login', usersController.login);
+route.post('/api/users/password', usersController.password);
 
 module.exports = route;

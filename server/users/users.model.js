@@ -24,11 +24,8 @@ var schema = new mongoose.Schema({
             type: String,
             required: true,
         },
-        ['admin-right']: {
-            type: String,
-            required: true,
-        },
     },
+    admin: String,
     ['hired-day']: {
         type: Date,
     },

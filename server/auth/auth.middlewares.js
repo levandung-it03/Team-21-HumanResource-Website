@@ -9,10 +9,10 @@ const userDBs = client.db('company').collection('userdbs');
 exports.verifyToken = async (req, res, next) => {
     try {
         const cookiesList = authMethods.handleCookie(req.headers.cookie);
-    
+        
         let accessToken = cookiesList.accessToken;
         const refreshToken = cookiesList.refreshToken;
-        const payload = { name: cookiesList.name, adminCode: cookiesList.adminCode };
+        const payload = { name: cookiesList.name, admin: cookiesList.admin };
 
         const accessTokenIsExpired = await authMethods.accessTokenIsExpried(accessToken);
         const refreshTokenIsValid = await authMethods.refreshTokenIsValid(refreshToken);
@@ -23,23 +23,31 @@ exports.verifyToken = async (req, res, next) => {
                 res.cookie('accessToken', accessToken);
             }
             else {
-                res.redirect('/login');
+                res.clearCookie('accessToken')
+                    .clearCookie('refreshToken')
+                    .clearCookie('name')
+                    .clearCookie('admin')
+                    .redirect('/login');
             }
         }
 
         jwt.verify(accessToken, process.env.ACCESS_TOKEN_SECRET, (err, decoded) => {
             if (err)    res.redirect('/login');
-            else    next();
+            else next();
         })
     } catch (err) {
-        res.redirect('/login');
+        res.clearCookie('accessToken')
+            .clearCookie('refreshToken')
+            .clearCookie('name')
+            .clearCookie('admin')
+            .redirect('/login');
     }
 }
 
 exports.checkingLogedIn = async (req, res, next) => {
     try {
         const cookiesList = authMethods.handleCookie(req.headers.cookie);
-        const adminCode = cookiesList.adminCode;
+        const admin = cookiesList.admin;
         let accessToken = cookiesList.accessToken;
         const payload = { name: cookiesList.name };
 
@@ -50,18 +58,26 @@ exports.checkingLogedIn = async (req, res, next) => {
         } else {
             jwt.verify(accessToken, process.env.ACCESS_TOKEN_SECRET, (err, decoded) => {
                 if (err) {
+                    res.clearCookie('accessToken')
+                        .clearCookie('refreshToken')
+                        .clearCookie('name')
+                        .clearCookie('admin');
                     next();
                 }
                 else {
-                    if (adminCode == "0") {
-                        res.redirect('/employee');
+                    if (admin == "0") {
+                        res.redirect('/home/employee');
                     } else {
-                        res.redirect('/admin');
+                        res.redirect('/home/admin');
                     }
                 }
             })
         }
     } catch (err) {
+        res.clearCookie('accessToken')
+            .clearCookie('refreshToken')
+            .clearCookie('name')
+            .clearCookie('admin');
         next();
     }
 }
