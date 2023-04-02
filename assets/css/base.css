@@ -3,6 +3,8 @@
 :root {
     --grey-form-text: rgb(112, 102, 102);
     --blue-anchor-text: rgb(82, 82, 221);
+    --grey-border: #a5a5a5;
+    --smoking-grey: rgba(206, 206, 206, 0.7);
 }
 /* Reset CSS */
 html {
@@ -41,10 +43,27 @@ body {
   font-size: 20px;
 }
 
+form {
+    margin: auto;
+    margin-top: 42px;
+    margin-bottom: 42px;
+    background-color: rgba(255, 255, 255, 0.85);
+    display: block;
+    max-width: 820px;
+    width: auto;
+    padding: 28px 56px;
+    border: 1px transparent solid;
+    border-radius: 20px;
+    box-shadow: 0 0 100px black;
+    color: var(--grey-text-form);
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
 form input[type=submit] {
     display: block;
-    border: 2px #a5a5a5 solid;
-    background-color: rgba(206, 206, 206, 0.7);
+    border: 2px var(--grey-border) solid;
+    background-color: var(--smoking-grey);
     color: var(--grey-text-form);
     border-radius: 4px;
     transition: background-color ease 0.2s;

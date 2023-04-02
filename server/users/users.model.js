@@ -2,7 +2,13 @@ const mongoose = require('mongoose');
 
 // method defind a schema for submitted data.
 var schema = new mongoose.Schema({
-    identifier: {
+    id: {
+        type: String,
+        required: true,
+        unique: true,
+    },
+    admin: Number,
+    employee_code: {
         type: String,
         required: true,
         unique: true,
@@ -11,9 +17,7 @@ var schema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    birthday: {
-        type: Date,
-    },
+    avatar_url: String,
     account: {
         email: {
             type: String,
@@ -25,20 +29,28 @@ var schema = new mongoose.Schema({
             required: true,
         },
     },
-    admin: String,
-    ['hired-day']: {
-        type: Date,
-    },
-    phone: {
+    identifier: {
         type: String,
+        required: true,
+        unique: true,
     },
-    department: String,
-    position: String,
+    identifier_date: String,
+    identifier_place: String,
     gender: String,
-    tokens: {
-        accessToken: String,
-        refreshToken: String,
-    }
+    birthday: Date,
+    birthplace: String,
+    country: String,
+    ethnic: String,
+    religion: String,
+    phone: String,
+    household: String,
+    temporary_address: String,
+    department: String,
+    employee_type: String,
+    position: String,
+    degree: String,
+    status: String,
+    refreshToken: String,
 });
 
 // mongoose.model(<Collection_name>, <Schema_name>); method complies the request's data with schema

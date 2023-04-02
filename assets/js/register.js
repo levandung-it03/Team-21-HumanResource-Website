@@ -40,7 +40,7 @@ let submitFormCancellation = false;
             },
             message: "Nhập đúng định dạng name.01@gmail.com",
             isValid: false,
-        },
+        },  
         password: {
             confirm: function (value) {
                 if (value.length > 7) {
