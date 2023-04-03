@@ -1,0 +1,56 @@
+<div id="category">
+    <div id="category_heading">
+        <div id="avatar">
+            <img src=<%= user.avatar_url %> alt="">
+        </div>
+        <div id="info">
+            <span id="info_title">
+                <%= user.name %>
+            </span>
+            <span id="info_right">
+                Quản trị viên
+            </span>
+        </div>
+    </div>
+    <div id="category_body">
+        <div class="category_items home">
+            <a href="/home" class="title">
+                Trang chủ
+            </a>
+        </div>
+        <div class="category_items general">
+            <a class="title">
+                Tổng quan
+                <i class="fa-solid fa-angle-down"></i>
+            </a>
+            <ul class="list hide">
+                <li class="index">
+                    <a href="/adimn/category/general/statistic" class="index_label">Thống kê</a>
+                </li>
+                <li class="index">
+                    <a href="" class="index_label">Danh sách nhân viên</a>
+                </li>
+                <li class="index">
+                    <a href="" class="index_label">Danh sách tài khoản</a>
+                </li>
+            </ul>
+        </div>
+        <div class="category_items general">
+            <a class="title">
+                Tổng quan
+                <i class="fa-solid fa-angle-down"></i>
+            </a>
+            <ul class="list hide">
+                <li class="index">
+                    <a href="" class="index_label">Thống kê</a>
+                </li>
+                <li class="index">
+                    <a href="" class="index_label">Danh sách nhân viên</a>
+                </li>
+                <li class="index">
+                    <a href="" class="index_label">Danh sách tài khoản</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>

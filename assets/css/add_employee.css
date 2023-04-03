@@ -1,0 +1,64 @@
+html {
+    background-image: url('/img/form_long_img.jpg');
+    background-size: 100vw;
+    background-repeat: no-repeat;
+}
+
+form #form-title {
+    display: block;
+    text-align: center;
+    font-size: 2.4rem;
+    font-weight: 700;
+    padding: 10px;
+}
+form .form_text-input,
+form .form_select-input {
+    display: inline-block;
+    min-width: 40%!important;
+    height: 72px;
+    margin: 6px 30px;
+}
+form .large-block {
+    width: 89%;
+}
+form .form_select-input select:focus,
+form .form_text-input input:focus {
+    background-color: var(--smoking-grey);
+}
+form .form_text-input label,
+form .form_select-input label {
+    display: block;
+}
+form .form_text-input input {
+    width: 100%;
+    padding: 12px;
+    border: solid 1px var(--grey-border);
+    border-radius: 6px;
+}
+form .form_select-input select {
+    width: 100%;
+    padding: 12px;
+    border: solid 1px var(--grey-border);
+    border-radius: 6px;
+}
+
+.register-select select:hover {
+    cursor: pointer;
+}
+
+form input[type=submit] {
+    padding: 12px 72px;
+    margin: auto;
+    margin-top: 30px;
+}
+
+.form_text-input_err-message {
+    position: relative;
+}
+
+.err-message-block {
+    position: absolute;
+    display: none;
+    color: red;
+    font-size: 0.8rem;
+}
