@@ -2,15 +2,6 @@ a {
     text-decoration: none;
     color: var(--white-text);
 }
-#category {
-    float: left;
-    width: 280px;
-    height: 100vh;
-    padding: 20px;
-    background-color: var(--x2-dark-blue);
-    color: var(--white-text);
-    font-size: 1rem;
-}
 #category_heading {
     display: flex;
     flex-wrap: wrap;

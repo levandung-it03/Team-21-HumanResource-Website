@@ -29,7 +29,7 @@ class renderMethods {
         res.render('password', { layout: './password' });
     }
     addEmployee(req, res) {
-        res.render('add_employee');
+        res.render('add_employee', { layout: './add_employee' });
     }
     async home(req, res) {
         try {

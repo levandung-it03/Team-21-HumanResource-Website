@@ -37,7 +37,7 @@ var schema = new mongoose.Schema({
     identifier_date: String,
     identifier_place: String,
     gender: String,
-    birthday: Date,
+    birthday: String,
     birthplace: String,
     country: String,
     ethnic: String,

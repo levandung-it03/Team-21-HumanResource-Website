@@ -26,7 +26,8 @@ route.post('/api/users/password', usersController.password);
 /**
  * @ADMIN_RIGHT_ACTIONS
  */
-route.get('/add-employee', authMiddlewares.verifyToken, authMiddlewares.verifyAdmin, renderMethods.addEmployee);
+// authMiddlewares.verifyToken, authMiddlewares.verifyAdmin,
+route.get('/add-employee', renderMethods.addEmployee);
 route.get('/adimn/category/general/statistic', authMiddlewares.verifyToken, authMiddlewares.verifyAdmin,  renderMethods.admin_statistic);
 
 route.post('/api/users/add-employee', authMiddlewares.verifyToken, cloudUpload.single('avatar'), usersController.addEmployee);

@@ -1,20 +1,37 @@
 @import url('https://fonts.googleapis.com/css?family=Muli&display=swap');
 @import url('https://fonts.googleapis.com/css?family=Quicksand&display=swap');
 :root {
+    --black-box-shadow: rgba(0, 0, 0, 0.2);
     --grey-form-text: rgb(112, 102, 102);
     --blue-anchor-text: rgb(82, 82, 221);
-    --blur-white: #F8F8FA;
+    --blur-white: #efefef;
     --white-text: #FFFFFF;
     --grey-border: #a5a5a5;
     --smoking-grey: rgba(206, 206, 206, 0.7);
     --x2-dark-blue: #183153;
     --blue: #3456FF;
     --green: rgb(139, 219, 19);
+    --red: rgb(234, 16, 16);
 }
 /* Reset CSS */
 html {
+    position: relative;
     box-sizing: border-box;
     font-size: 16px;
+    background-color: var(--blur-white);
+}
+#category {
+    position: absolute;
+    width: 280px;
+    height: 100%;
+    min-height: 100vh;
+    padding: 20px;
+    background-color: var(--x2-dark-blue);
+    color: var(--white-text);
+    font-size: 1rem;
+}
+main {
+    padding-left: 280px;
 }
 
 *,
@@ -84,4 +101,19 @@ form input[type=submit]:hover {
 
 .hide {
     display: none;
+}
+
+.status-block {
+    display: inline-block;
+    font-size: 0.8rem;
+    color: var(--white-text);
+    border: solid 1px transparent;
+    border-radius: 12px;
+    padding: 0 4px;
+}
+.working-status {
+    background-color: var(--green);
+}
+.resigned-status {
+    background-color: var(--red);
 }
