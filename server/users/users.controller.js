@@ -78,7 +78,7 @@ exports.addEmployee = async (req, res) => {
                             if (!err) {
                                 await userDBs.updateOne({ id: user_id }, { "$set": { avatar_url: result.url } })
                                 await usersMethods.sendingMail(sendingMailOptions);
-                                res.redirect('/home/' + user_id);
+                                res.redirect('/home');
                             }
                         });
                         stream.write(buffer);
@@ -92,6 +92,7 @@ exports.addEmployee = async (req, res) => {
             res.redirect(DOMAIN + '/add-employee?error=' + encodeURIComponent(`error_${Object.keys(err.keyValue)[0]}`) + prevData);
         })
 }
+
 exports.login = async (req, res) => {
     const email = req.body.email;
     const password = req.body.password;
@@ -117,7 +118,7 @@ exports.login = async (req, res) => {
                         .cookie('accessToken', accessToken, { httpOnly: true })
                         .cookie('refreshToken', refreshToken, { httpOnly: true })
                         .cookie('admin', user.admin)
-                        .redirect('/home/' + user.id);
+                        .redirect('/home');
             } else {
                 res.redirect(DOMAIN + '/login?error=' + encodeURIComponent('error_password') + prevData);
             }

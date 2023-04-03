@@ -3,6 +3,7 @@ const dotenv = require('dotenv');
 const morgan = require('morgan');
 const bodyparser = require('body-parser');
 const path = require('path');
+const ejsLayouts = require('express-ejs-layouts');
 
 const app = express();
 const connectDB = require('./server/users/users.DBconnection');
@@ -24,6 +25,10 @@ app.use(bodyparser.urlencoded({ extended: true }));
 
 // set view engines
 app.set('view engine', 'ejs');
+
+// set main layouts for ejs files.
+app.use(ejsLayouts);
+app.set('layout', './*');
 
 // load all assets files
 app.use('/css', express.static(path.join(__dirname, "/assets/css")));

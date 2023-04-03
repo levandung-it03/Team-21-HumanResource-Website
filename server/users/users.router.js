@@ -15,8 +15,7 @@ const authMiddlewares = require('../auth/auth.middlewares');
 /**
  * @EQUAL_RIGHT_ACTIONS
  */
-route.get('/home/:id', authMiddlewares.verifyToken, renderMethods.home);
-route.get('/home', renderMethods.singleHome);
+route.get('/home', authMiddlewares.verifyToken, renderMethods.home);
 route.get('/login', authMiddlewares.checkingLogedIn, renderMethods.login);
 route.get('/password', renderMethods.password);
 
@@ -28,6 +27,7 @@ route.post('/api/users/password', usersController.password);
  * @ADMIN_RIGHT_ACTIONS
  */
 route.get('/add-employee', authMiddlewares.verifyToken, authMiddlewares.verifyAdmin, renderMethods.addEmployee);
+route.get('/adimn/category/general/statistic', authMiddlewares.verifyToken, authMiddlewares.verifyAdmin,  renderMethods.admin_statistic);
 
 route.post('/api/users/add-employee', authMiddlewares.verifyToken, cloudUpload.single('avatar'), usersController.addEmployee);
 /**---------------------------------------------------------------------------------------------- */

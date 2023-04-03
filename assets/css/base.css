@@ -3,8 +3,13 @@
 :root {
     --grey-form-text: rgb(112, 102, 102);
     --blue-anchor-text: rgb(82, 82, 221);
+    --blur-white: #F8F8FA;
+    --white-text: #FFFFFF;
     --grey-border: #a5a5a5;
     --smoking-grey: rgba(206, 206, 206, 0.7);
+    --x2-dark-blue: #183153;
+    --blue: #3456FF;
+    --green: rgb(139, 219, 19);
 }
 /* Reset CSS */
 html {
@@ -75,4 +80,8 @@ form input[type=submit]:hover {
     color: white;
     cursor: pointer;
     border-radius: 22px;
+}
+
+.hide {
+    display: none;
 }
