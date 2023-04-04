@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="/css/base.css">
     <link rel="stylesheet" href="/css/category.css">
     <link rel="stylesheet" href="/css/employee_info.css">
+    <link rel="stylesheet" href="/css/add-employee.css">
 </head>
 <body>
     <%- include('../partials/admin-category.ejs'); %>
@@ -19,6 +20,11 @@
         <%- include('../partials/footer.ejs'); %>
     </main>
 
+    <script>
+        const $ = document.querySelector.bind(document);
+        const $$ = document.querySelectorAll.bind(document);
+    </script>
     <script src="/js/category.js"></script>
+    <script src="/js/add-employee.js"></script>
 </body>
 </html>

@@ -8,7 +8,11 @@
                 <%= user.name %>
             </span>
             <span id="info_right">
-                Quản trị viên
+                <% if (user.admin == "1") { %>
+                    Quản trị viên
+                <% } else { %>
+                    Nhân viên
+                <% } %>
             </span>
         </div>
     </div>
@@ -28,7 +32,7 @@
                     <a href="/adimn/category/general/statistic" class="index_label">Thống kê</a>
                 </li>
                 <li class="index">
-                    <a href="" class="index_label">Danh sách nhân viên</a>
+                    <a href="/adimn/category/general/employee-list" class="index_label">Danh sách nhân viên</a>
                 </li>
                 <li class="index">
                     <a href="" class="index_label">Danh sách tài khoản</a>
@@ -37,18 +41,12 @@
         </div>
         <div class="category_items general">
             <a class="title">
-                Tổng quan
+                Nhân viên
                 <i class="fa-solid fa-angle-down"></i>
             </a>
             <ul class="list hide">
                 <li class="index">
-                    <a href="" class="index_label">Thống kê</a>
-                </li>
-                <li class="index">
-                    <a href="" class="index_label">Danh sách nhân viên</a>
-                </li>
-                <li class="index">
-                    <a href="" class="index_label">Danh sách tài khoản</a>
+                    <a href="/adimn/category/employee/add-employee" class="index_label">Thêm nhân viên</a>
                 </li>
             </ul>
         </div>

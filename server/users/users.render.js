@@ -7,18 +7,23 @@ const { MongoClient } = require('mongodb');
 const { link } = require('fs');
 const client = new MongoClient(process.env.MONGO_URI);
 const userDBs = client.db('company').collection('userdbs');
-async function getUser(req) {
-    const cookiesList = authMethods.handleCookie(req.headers.cookie);
-    const name = decodeURIComponent(cookiesList.name);
-    const user = await userDBs.findOne({ name: name });
 
+async function getAllUser() {
+    const allUser = await userDBs.find({});
+    return await allUser.toArray();
+}
+
+async function getSpecifiedUser(name) {
+    const user = await userDBs.findOne({ name: name });
     return user;
 }
-async function adminOption(user) {
-    return {user: user, layout: './layouts/admin'};
-}
-async function employeeOption(user) {
-    return {user: user, layout: './layouts/employee'};
+
+async function getCurrentUser(req) {
+    const cookiesList = authMethods.handleCookie(req.headers.cookie);
+    const name = decodeURIComponent(cookiesList.name);
+    const user = await getSpecifiedUser(name);
+
+    return user;
 }
 
 class renderMethods {
@@ -28,23 +33,60 @@ class renderMethods {
     password(req, res) {
         res.render('password', { layout: './password' });
     }
-    addEmployee(req, res) {
-        res.render('add_employee', { layout: './add_employee' });
-    }
     async home(req, res) {
         try {
-            const user = await getUser(req);
+            const user = await getCurrentUser(req);
             if (user.admin == 0) {
-                res.render('home', await employeeOption(user));
+                res.render('home', {
+                    user: user,
+                    layout: './layouts/employee'
+                });
             } else if (user.admin == 1) {
-                res.render('home', await adminOption(user));
+                res.render('home', {
+                    user: user,
+                    layout: './layouts/admin'
+                });
             }
         } catch (err) {
             res.redirect('/login');
         }
     }
     async admin_statistic(req, res) {
-        res.render('admin_general_statistic', await adminOption(await getUser(req)));
+        try {
+            const allUsers = await getAllUser();
+            const user = await getCurrentUser(req);
+            res.render('admin_general_statistic', {
+                user: user,
+                employeeList: allUsers,
+                layout: './layouts/admin'
+            });
+        } catch (err) {
+            res.redirect('/login');
+        }
+    }
+    async admin_employeeList(req, res) {
+        try {
+            const allUsers = await getAllUser();
+            const user = await getCurrentUser(req);
+            res.render('admin_general_employee-list', {
+                user: user,
+                employeeList: allUsers,
+                layout: './layouts/admin'
+            });
+        } catch (err) {
+            res.redirect('/login');
+        }
+    }
+    async admin_addEmployee(req, res) {
+        try {
+            const user = await getCurrentUser(req);
+            res.render('admin_employee_add-employee', {
+                user: user,
+                layout: './layouts/admin'
+            });
+        } catch (err) {
+            res.redirect('/login');
+        }
     }
 }
 

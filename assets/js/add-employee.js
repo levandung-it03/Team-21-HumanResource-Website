@@ -1,6 +1,4 @@
 let submitFormCancellation = false;
-const $ = document.querySelector.bind(document);
-const $$ = document.querySelectorAll.bind(document);
 
 (function main() {
     const errorMessages = {
@@ -146,7 +144,7 @@ const $$ = document.querySelectorAll.bind(document);
 
             }
 
-            window.history.replaceState({}, "", "http://localhost:3000/add-employee");
+            window.history.replaceState({}, "", "http://localhost:3000/adimn/category/employee/add-employee");
             dataTags.forEach((tag, index) => {
                 if (tag.name == "avatar") return;
                 tag.value = data.find((e) => e[0] == tag.name)[1];

@@ -1,12 +1,7 @@
 const mongoose = require('mongoose');
 
 // method defind a schema for submitted data.
-var schema = new mongoose.Schema({
-    id: {
-        type: String,
-        required: true,
-        unique: true,
-    },
+var userSchema = new mongoose.Schema({
     admin: Number,
     employee_code: {
         type: String,
@@ -29,6 +24,7 @@ var schema = new mongoose.Schema({
             required: true,
         },
     },
+    dateCreated: String,
     identifier: {
         type: String,
         required: true,
@@ -51,10 +47,70 @@ var schema = new mongoose.Schema({
     degree: String,
     status: String,
     refreshToken: String,
-});
+}, { collection: 'userdbs' });
 
-// mongoose.model(<Collection_name>, <Schema_name>); method complies the request's data with schema
-var UserDb = mongoose.model('userdb', schema);
+var salarySchema = new mongoose.Schema({
+    employee_code: {
+        type: String,
+        required: true,
+        unique: true,
+    },
+    name: {
+        type: String,
+        required: true,
+    },
+    position: String,
+    department: String,
+    salaryList: [
+        {
+            year: Number,
+            month: Number,
+            originDay: Number,
+            dayOff: Number,
+            salary_per_day: Number,
+            multiple_salary: Number,
+            allowance: Number,
+            advanceSalaray: Number,
+            tax: Number,
+            bonusSalary: Number,
+            realSalary: Number
+        }
+    ]
+}, { collection: 'salary' });
 
+var departmentSchema = new mongoose.Schema({
+    department_code: {
+        type: String,
+        unique: true,
+        required: true,
+    },
+    department: {
+        type: String,
+        unique: true,
+        required: true,
+    },
+    dateCreated: String,
+}, { collection: 'department' });
+
+var positionSchema = new mongoose.Schema({
+    position_code: {
+        type: String,
+        unique: true,
+        required: true
+    },
+    position: {
+        type: String,
+        unique: true,
+        required: true
+    },
+    salary_per_day: Number
+}, { collection: 'position' });
+
+var UserDb = mongoose.model('userdbs', userSchema);
+var Salary = mongoose.model('salary', salarySchema);
+var Position = mongoose.model('position', positionSchema);
+var Department = mongoose.model('department', departmentSchema);
+
+// { UserDb, Salary, Position, Department }
 // export UserDb object
-module.exports = UserDb;
+module.exports = { UserDb, Salary };

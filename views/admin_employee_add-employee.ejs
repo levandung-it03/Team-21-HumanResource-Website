@@ -1,19 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <title>Thêm nhân viên</title>
-    <link rel="stylesheet" href="/css/base.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css"
-        integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="/css/add_employee.css">
-</head>
-
-<body>
-    <form method="POST" action="/api/users/add-employee" enctype="multipart/form-data" onsubmit="return submitFormCancellation">
-        <span id="form-title">Thêm nhân viên</span>
+<div id="add-employee">
+    <div id="form-title">
+        <span>Thêm nhân viên</span>
+    </div>
+    <form method="POST" action="/api/admin/add-employee" enctype="multipart/form-data" onsubmit="return submitFormCancellation">
         <div class="form_text-input more-condition" id="name">
             <label for="name">Họ và Tên</label>
             <input name="name" type="text" placeholder="Nguyễn Thị A" required>
@@ -28,6 +17,18 @@
             <input name="email" type="text" placeholder="name.01@gmail.com" required>
             <div class="form_text-input_err-message"></div>
         </div>
+        <div class="form_select-input" id="gender">
+            <label for="gender">Giới tính</label>
+            <select name="gender">
+                <option value="Nam">Nam</option>
+                <option value="Nữ">Nữ</option>
+            </select>
+        </div>
+        <div class="form_text-input" id="birthday">
+            <label for="birthday">Ngày sinh</label>
+            <input name="birthday" type="date" required>
+            <div class="form_text-input_err-message"></div>
+        </div>
         <div class="form_text-input more-condition" id="identifier">
             <label for="identifier">Số CCCD hoặc CMND</label>
             <input name="identifier" type="text" placeholder="038203032575" required>
@@ -40,18 +41,6 @@
         <div class="form_text-input" id="identifier_date">
             <label for="identifier_date">Ngày cấp</label>
             <input name="identifier_date" type="date" required>
-        </div>
-        <div class="form_select-input" id="gender">
-            <label for="gender">Giới tính</label>
-            <select name="gender">
-                <option value="Nam">Nam</option>
-                <option value="Nữ">Nữ</option>
-            </select>
-        </div>
-        <div class="form_text-input" id="birthday">
-            <label for="birthday">Ngày sinh</label>
-            <input name="birthday" type="date" required>
-            <div class="form_text-input_err-message"></div>
         </div>
         <div class="form_text-input more-condition" id="birthplace">
             <label for="birthplace">Nơi sinh</label>
@@ -124,8 +113,5 @@
             </select>
         </div>
         <input type="submit" value="Xác nhận">
-        <script src="/js/add_employee.js"></script>
     </form>
-</body>
-
-</html>
+</div>

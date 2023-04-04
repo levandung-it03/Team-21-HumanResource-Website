@@ -1,4 +1,4 @@
-const UserDb = require('./users.model');
+const { UserDb, Salary } = require('./users.model');
 const authMethods = require('../auth/auth.methods');
 require('dotenv').config();
 const { MongoClient } = require('mongodb');
@@ -11,6 +11,7 @@ const bcrypt = require('bcrypt');
 
 const client = new MongoClient(process.env.MONGO_URI);
 const userDBs = client.db('company').collection('userdbs');
+const salaryDBs = client.db('company').collection('salary');
 const DOMAIN = process.env.DOMAIN;
 const usersMethods = require('./users.methods');
 
@@ -19,14 +20,12 @@ const usersMethods = require('./users.methods');
 exports.addEmployee = async (req, res) => {
     if (!req.body) res.status(400).send({ message: "Content can not be empty!" }).end();
 
-    const user_id = usersMethods.getRandomUserId(req.body.identifier);
+    const employee_code = usersMethods.getRandomEmployeeCode();
     const prevData = usersMethods.createErrorString(req.body);
     const password = usersMethods.getRandomUserPassword();
     const hasedPassword = usersMethods.getHasedPassword(password);
-    const employee_code = usersMethods.getRandomEmployeeCode();
 
     const user = new UserDb({
-        id: user_id,
         admin: 0,
         employee_code: employee_code,
         name: req.body.name,
@@ -35,6 +34,7 @@ exports.addEmployee = async (req, res) => {
             email: req.body.email,
             password: hasedPassword,
         },
+        dateCreated: Date.now(),
         identifier: req.body.identifier,
         identifier_date: req.body.identifier_date,
         identifier_place: req.body.identifier_place,
@@ -71,14 +71,14 @@ exports.addEmployee = async (req, res) => {
     user.save(user)
         .then(async (data) => {
             sharp(req.file.path)
-                .resize({ height: 350 })
-                .toBuffer(async (err, buffer) => {
-                    try {
-                        const stream = cloudinary.uploader.upload_stream({ resource_type: 'image' }, async (err, result) => {
-                            if (!err) {
-                                await userDBs.updateOne({ id: user_id }, { "$set": { avatar_url: result.url } })
-                                await usersMethods.sendingMail(sendingMailOptions);
-                                res.redirect('/home');
+            .resize({ height: 350 })
+            .toBuffer(async (err, buffer) => {
+                try {
+                    const stream = cloudinary.uploader.upload_stream({ resource_type: 'image' }, async (err, result) => {
+                        if (!err) {
+                            await userDBs.updateOne({ employee_code: employee_code }, { "$set": { avatar_url: result.url } });
+                            await usersMethods.sendingMail(sendingMailOptions);
+                            res.redirect('/adimn/category/general/employee-list');
                             }
                         });
                         stream.write(buffer);
@@ -88,8 +88,9 @@ exports.addEmployee = async (req, res) => {
                     }
                 })
         })
-        .catch((err) => {   
-            res.redirect(DOMAIN + '/add-employee?error=' + encodeURIComponent(`error_${Object.keys(err.keyValue)[0]}`) + prevData);
+        .catch((err) => {
+            res.status(500).send({ mes: err.message });
+            // res.redirect(DOMAIN + '/adimn/category/employee/add-employee?error=' + encodeURIComponent(`error_${Object.keys(err.keyValue)[0]}`) + prevData);
         })
 }
 

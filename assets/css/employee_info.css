@@ -3,13 +3,13 @@
     padding: 10px;
 }
 #main #main_container {
-    margin: 12px;
+    margin: var(--form-margin);
     min-height: 60vh;
     background-color: white;
     border: solid 1px transparent;
-    border-radius: 12px;
+    border-radius: var(--form-border-radius);
     padding: 12px;
-    box-shadow: 4px 4px 20px var(--black-box-shadow);
+    box-shadow: var(--black-box-shadow);
 }
 #main_container_info {
     width: 100%;

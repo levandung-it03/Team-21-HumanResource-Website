@@ -27,10 +27,22 @@ route.post('/api/users/password', usersController.password);
  * @ADMIN_RIGHT_ACTIONS
  */
 // authMiddlewares.verifyToken, authMiddlewares.verifyAdmin,
-route.get('/add-employee', renderMethods.addEmployee);
-route.get('/adimn/category/general/statistic', authMiddlewares.verifyToken, authMiddlewares.verifyAdmin,  renderMethods.admin_statistic);
+route.get('/adimn/category/employee/add-employee',
+    authMiddlewares.verifyToken,
+    authMiddlewares.verifyAdmin,
+    renderMethods.admin_addEmployee);
+    
+route.get('/adimn/category/general/statistic',
+    authMiddlewares.verifyToken,
+    authMiddlewares.verifyAdmin,
+    renderMethods.admin_statistic);
 
-route.post('/api/users/add-employee', authMiddlewares.verifyToken, cloudUpload.single('avatar'), usersController.addEmployee);
+route.get('/adimn/category/general/employee-list',
+    authMiddlewares.verifyToken,
+    authMiddlewares.verifyAdmin,
+    renderMethods.admin_employeeList)
+
+route.post('/api/admin/add-employee', cloudUpload.single('avatar'), usersController.addEmployee);
 /**---------------------------------------------------------------------------------------------- */
 
 module.exports = route;

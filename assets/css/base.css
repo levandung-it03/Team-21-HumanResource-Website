@@ -1,37 +1,43 @@
 @import url('https://fonts.googleapis.com/css?family=Muli&display=swap');
 @import url('https://fonts.googleapis.com/css?family=Quicksand&display=swap');
 :root {
-    --black-box-shadow: rgba(0, 0, 0, 0.2);
+    --black-box-shadow: 4px 4px 20px rgba(0, 0, 0, 0.2);
     --grey-form-text: rgb(112, 102, 102);
-    --blue-anchor-text: rgb(82, 82, 221);
     --blur-white: #efefef;
     --white-text: #FFFFFF;
     --grey-border: #a5a5a5;
-    --smoking-grey: rgba(206, 206, 206, 0.7);
+    --smoking-grey: rgba(216, 216, 216, 0.7);
     --x2-dark-blue: #183153;
     --blue: #3456FF;
+    --blur-blue: rgb(0, 63, 151);
     --green: rgb(139, 219, 19);
     --red: rgb(234, 16, 16);
+
+    --footer-height: 40px;
+    --category-width: 20%;
+    --form-border-radius: 12px;
+    --form-margin: 12px;
 }
 /* Reset CSS */
 html {
     position: relative;
     box-sizing: border-box;
     font-size: 16px;
+    min-height: 100vh;
     background-color: var(--blur-white);
+    padding-bottom: var(--footer-height);
 }
 #category {
     position: absolute;
-    width: 280px;
+    width: var(--category-width);
     height: 100%;
-    min-height: 100vh;
     padding: 20px;
     background-color: var(--x2-dark-blue);
     color: var(--white-text);
     font-size: 1rem;
 }
 main {
-    padding-left: 280px;
+    padding-left: var(--category-width);
 }
 
 *,
@@ -63,23 +69,6 @@ body {
   line-height: 1.58;
   letter-spacing: -.003em;
   font-size: 20px;
-}
-
-form {
-    margin: auto;
-    margin-top: 42px;
-    margin-bottom: 42px;
-    background-color: rgba(255, 255, 255, 0.85);
-    display: block;
-    max-width: 820px;
-    width: auto;
-    padding: 28px 56px;
-    border: 1px transparent solid;
-    border-radius: 20px;
-    box-shadow: 0 0 100px black;
-    color: var(--grey-text-form);
-    font-size: 0.9rem;
-    font-weight: 600;
 }
 
 form input[type=submit] {
@@ -116,4 +105,28 @@ form input[type=submit]:hover {
 }
 .resigned-status {
     background-color: var(--red);
+}
+footer {
+    position: absolute;
+    background-color: #3787c3;
+    width: calc(100% - var(--category-width));
+    /* Position property made <footer>'s width depend on the <body> tag */
+    bottom: 0;
+    line-height: var(--footer-height);
+    border-top: solid 1px var(--blue);
+    color: var(--white-text);
+    font-size: 0.8rem;
+    text-align: center;
+}
+footer a {
+    text-decoration: underline;
+}
+
+header {
+    background-color: #3787c3;
+    width: 100%;
+    line-height: var(--footer-height);
+    border-top: solid 1px var(--blue);
+    color: var(--white-text);
+    font-size: 0.8rem;
 }
