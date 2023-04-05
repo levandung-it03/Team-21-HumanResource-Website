@@ -2,6 +2,7 @@ const { UserDb, Salary } = require('./users.model');
 const authMethods = require('../auth/auth.methods');
 require('dotenv').config();
 const { MongoClient } = require('mongodb');
+const { ObjectId } = require('mongodb');
 const path = require('path');
 const nodemailer = require('nodemailer');
 const jwt = require('jsonwebtoken');
@@ -15,10 +16,10 @@ const salaryDBs = client.db('company').collection('salary');
 const DOMAIN = process.env.DOMAIN;
 const usersMethods = require('./users.methods');
 
-(async function() { await client.connect() })();
-
 exports.addEmployee = async (req, res) => {
     if (!req.body) res.status(400).send({ message: "Content can not be empty!" }).end();
+
+    await client.connect();
 
     const employee_code = usersMethods.getRandomEmployeeCode();
     const prevData = usersMethods.createErrorString(req.body);
@@ -68,17 +69,17 @@ exports.addEmployee = async (req, res) => {
         }
     }
 
-    user.save(user)
+    await user.save(user)
         .then(async (data) => {
             sharp(req.file.path)
-            .resize({ height: 350 })
-            .toBuffer(async (err, buffer) => {
-                try {
-                    const stream = cloudinary.uploader.upload_stream({ resource_type: 'image' }, async (err, result) => {
-                        if (!err) {
-                            await userDBs.updateOne({ employee_code: employee_code }, { "$set": { avatar_url: result.url } });
-                            await usersMethods.sendingMail(sendingMailOptions);
-                            res.redirect('/adimn/category/general/employee-list');
+                .resize({ height: 350 })
+                .toBuffer(async (err, buffer) => {
+                    try {
+                        const stream = cloudinary.uploader.upload_stream({ resource_type: 'image' }, async (err, result) => {
+                            if (!err) {
+                                await userDBs.updateOne({ employee_code: employee_code }, { "$set": { avatar_url: result.url } });
+                                await usersMethods.sendingMail(sendingMailOptions);
+                                res.redirect('/admin/category/employee/employee-list');
                             }
                         });
                         stream.write(buffer);
@@ -89,8 +90,7 @@ exports.addEmployee = async (req, res) => {
                 })
         })
         .catch((err) => {
-            res.status(500).send({ mes: err.message });
-            // res.redirect(DOMAIN + '/adimn/category/employee/add-employee?error=' + encodeURIComponent(`error_${Object.keys(err.keyValue)[0]}`) + prevData);
+            res.redirect(DOMAIN + '/admin/category/employee/add-employee?error=' + encodeURIComponent(`error_${Object.keys(err.keyValue)[0]}`) + prevData);
         })
 }
 
@@ -102,9 +102,10 @@ exports.login = async (req, res) => {
 
     await client.connect();
     const user = await userDBs.findOne({ "account.email": email });
+    const id = user._id.toString();
 
-    const accessToken = authMethods.generateAccessToken({ name: user.name, admin: user.admin });
-    let refreshToken = authMethods.generateRefreshToken({ name: user.name, admin: user.admin });
+    const accessToken = authMethods.generateAccessToken({ id: id, admin: user.admin });
+    let refreshToken = authMethods.generateRefreshToken({ id: id, admin: user.admin });
 
     if (!user.refreshToken) {
         await userDBs.updateOne({ "account.email": email }, { "$set": { "tokens.refreshToken": refreshToken } });
@@ -115,11 +116,11 @@ exports.login = async (req, res) => {
     if (user) {
         bcrypt.compare(password, user.account.password, function (err, isValid) {
             if (isValid) {
-                res.cookie('name', user.name)
-                        .cookie('accessToken', accessToken, { httpOnly: true })
-                        .cookie('refreshToken', refreshToken, { httpOnly: true })
-                        .cookie('admin', user.admin)
-                        .redirect('/home');
+                res.cookie('id', id)
+                    .cookie('accessToken', accessToken, { httpOnly: true })
+                    .cookie('refreshToken', refreshToken, { httpOnly: true })
+                    .cookie('admin', user.admin)
+                    .redirect('/home');
             } else {
                 res.redirect(DOMAIN + '/login?error=' + encodeURIComponent('error_password') + prevData);
             }
@@ -148,7 +149,7 @@ exports.password = async (req, res) => {
                 type: "update_password",
                 newPassword: newPassword,
                 newHasedPassword: newHasedPassword,
-                updateNewPassword: async function(email, newHasedPassword) {
+                updateNewPassword: async function (email, newHasedPassword) {
                     await userDBs.updateOne(
                         { "account.email": email },
                         { "$set": { "account.password": newHasedPassword } }
@@ -162,4 +163,93 @@ exports.password = async (req, res) => {
         res.status(500).send({ err_message: err.message })
     }
 
+}
+
+exports.updateEmployee = async (req, res) => {
+    if (!req.body) res.status(400).send({ message: "Content can not be empty!" }).end();
+
+    await client.connect();
+
+    const prevData = usersMethods.createErrorString(req.body);
+    const id = req.params.id;
+    const user = await userDBs.findOne({ _id: new ObjectId(id) });
+
+    const userdb = {
+        admin: 0,
+        name: req.body.name,
+        account: {
+            email: req.body.email,
+            password: user.account.password
+        },
+        dateCreated: Date.now(),
+        identifier: req.body.identifier,
+        identifier_date: req.body.identifier_date,
+        identifier_place: req.body.identifier_place,
+        gender: req.body.gender,
+        birthday: req.body.birthday,
+        birthplace: req.body.birthplace,
+        country: req.body.country,
+        ethnic: req.body.ethnic,
+        religion: req.body.religion,
+        phone: req.body.phone,
+        household: req.body.household,
+        temporary_address: req.body.temporary_address,
+        department: req.body.department,
+        employee_type: req.body.employee_type,
+        position: req.body.position,
+        degree: req.body.degree,
+        status: req.body.status,
+    };
+
+    const sendingMailOptions = {
+        body: req.body,
+        subject: "HR Management Website",
+        html: `<div>
+                <p style="font-size: 18px">Administrator của chúng tôi đã thay đổi thông tin của bạn! Hãy đăng nhập để biết thêm thông tin chi tiết!</p>
+            </div>`,
+        flexibleOptions: {
+            type: null,
+        }
+    }
+
+    try {
+        await userDBs.updateOne({ _id: new ObjectId(id) }, { "$set": userdb })
+            .then(async (result) => {
+                await usersMethods.sendingMail(sendingMailOptions);
+                const old_url = user.avatar_url;
+                const public_id = old_url.split("/")[old_url.split("/").length - 1].split(".")[0];
+                try {
+                    await cloudinary.uploader.destroy(public_id);
+                    sharp(req.file.path)
+                        .resize({ height: 350 })
+                        .toBuffer(async (err, buffer) => {
+                            try {
+                                const stream = cloudinary.uploader.upload_stream({ resource_type: 'image' }, async (err, result) => {
+                                    if (!err) {
+                                        await userDBs.updateOne({ _id: new ObjectId(id) }, { "$set": { avatar_url: result.url } });
+                                        res.redirect('/admin/category/employee/employee-list');
+                                    }
+                                });
+                                stream.write(buffer);
+                                stream.end();
+                            } catch (err) {
+                                res.status(400).send({ uploadErrMessage: err.message });
+                            }
+                        })
+                } catch (err) {
+                    res.redirect('/admin/category/employee/employee-list');
+                }
+            })
+            .catch(err => {
+                res.status(500).send({ type: "update", mes: err.message });
+            })
+    } catch (err) {
+        res.redirect(DOMAIN + '/admin/category/employee/add-employee?error=' + encodeURIComponent(`error_${Object.keys(err.keyValue)[0]}`) + prevData);
+    }
+}
+
+exports.deleteEmployee = async (req, res) => {
+    const id = req.params.id;
+    await client.connect();
+    await userDBs.deleteOne({ _id: new ObjectId(id) })
 }

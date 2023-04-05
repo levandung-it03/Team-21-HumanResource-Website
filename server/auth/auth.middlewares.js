@@ -9,7 +9,7 @@ const userDBs = client.db('company').collection('userdbs');
 function clearCookiesAndReturnLogin(res) {
     res.clearCookie('accessToken')
         .clearCookie('refreshToken')
-        .clearCookie('name')
+        .clearCookie('id')
         .clearCookie('admin')
         .redirect('/login');
     return;
@@ -21,15 +21,15 @@ exports.verifyToken = async (req, res, next) => {
 
         let accessToken = cookiesList.accessToken;
         const refreshToken = cookiesList.refreshToken;
-        const payload = { name: cookiesList.name, admin: cookiesList.admin };
 
-        const accessTokenIsExpired = await authMethods.accessTokenIsExpried(accessToken);
-        const refreshTokenIsValid = await authMethods.refreshTokenIsValid(refreshToken);
+        const accessTokenIsExpired = authMethods.accessTokenIsExpried(accessToken);
+        const refreshTokenIsValid = authMethods.refreshTokenIsValid(refreshToken);
 
         if (accessTokenIsExpired) {
-            if (refreshTokenIsValid) {
+            if (refreshTokenIsValid.result) {
+                const payload = { id: refreshTokenIsValid.id, admin: refreshTokenIsValid.admin };
                 accessToken = authMethods.generateAccessToken(payload);
-                res.cookie('accessToken', accessToken);
+                await res.status(200).cookie('accessToken', accessToken);
             }
             else {
                 clearCookiesAndReturnLogin(res);
@@ -39,8 +39,7 @@ exports.verifyToken = async (req, res, next) => {
         jwt.verify(accessToken, process.env.ACCESS_TOKEN_SECRET, (err, decoded) => {
             if (decoded.admin == cookiesList.admin) {
                 next();
-            }
-            else {
+            } else {
                 clearCookiesAndReturnLogin(res);
             }
         })
@@ -49,36 +48,23 @@ exports.verifyToken = async (req, res, next) => {
     }
 }
 
-exports.verifyAdmin = (req, res, next) => {
-    const cookiesList = authMethods.handleCookie(req.headers.cookie);
-
-    jwt.verify(cookiesList.accessToken, process.env.ACCESS_TOKEN_SECRET, (err, decoded) => {
-        if (decoded.admin == 1) {
-            next();
-        }
-        else {
-            clearCookiesAndReturnLogin(res);
-        }
-    })
-}
-
 exports.checkingLogedIn = async (req, res, next) => {
     try {
         const cookiesList = authMethods.handleCookie(req.headers.cookie);
         const admin = cookiesList.admin;
         let accessToken = cookiesList.accessToken;
-        const payload = { name: cookiesList.name };
+        const payload = { id: cookiesList.id };
 
-        const accessTokenIsExpired = await authMethods.accessTokenIsExpried(accessToken);
+        const accessTokenIsExpired = authMethods.accessTokenIsExpried(accessToken);
 
-        if (accessTokenIsExpired) {
+        if (accessTokenIsExpired.result) {
             next();
         } else {
             jwt.verify(accessToken, process.env.ACCESS_TOKEN_SECRET, (err, decoded) => {
                 if (err) {
                     res.clearCookie('accessToken')
                         .clearCookie('refreshToken')
-                        .clearCookie('name')
+                        .clearCookie('id')
                         .clearCookie('admin');
                     next();
                 }
@@ -90,7 +76,7 @@ exports.checkingLogedIn = async (req, res, next) => {
     } catch (err) {
         res.clearCookie('accessToken')
             .clearCookie('refreshToken')
-            .clearCookie('name')
+            .clearCookie('id')
             .clearCookie('admin');
         next();
     }

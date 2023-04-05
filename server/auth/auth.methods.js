@@ -13,7 +13,7 @@ class authMethods {
     }
 
     accessTokenIsExpried (token) {
-        let result = false;
+        let result = null;
         jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, decoded) => {
             if (err) {
                 if (err.message == "jwt expired") {
@@ -27,13 +27,20 @@ class authMethods {
     }
 
     refreshTokenIsValid (token) {
-        let result = false;
+        let result = null;
         jwt.verify(token, process.env.REFRESH_TOKEN_SECRET, (err, decoded) => {
             if (err) {
-                result = false;
-                res.status(500).send(err);
+                result = {
+                    result: false,
+                    admin: decoded.admin,
+                    id: decoded.id
+                };
             } else {
-                result = true;
+                result = {
+                    result: true,
+                    admin: decoded.admin,
+                    id: decoded.id
+                };
             }
         })
         return result;

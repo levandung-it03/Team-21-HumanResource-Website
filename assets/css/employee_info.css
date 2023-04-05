@@ -2,6 +2,9 @@
     font-size: 2.4rem;
     padding: 10px;
 }
+#main #main_turn-back-btn a:hover {
+    background-color: rgb(109, 109, 255);
+}
 #main #main_container {
     margin: var(--form-margin);
     min-height: 60vh;

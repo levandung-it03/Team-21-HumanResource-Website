@@ -1,0 +1,109 @@
+table {
+    border-collapse: collapse;
+}
+th, td {
+    border: solid 1px var(--smoking-grey);
+}
+#employee_list #title span {
+    font-size: 2.4rem;
+    padding: 10px;
+}
+#employee_list table {
+    margin: var(--form-margin);
+    min-height: 60vh;
+    background-color: white;
+    border: solid 1px transparent;
+    border-radius: var(--form-border-radius);
+    padding: 12px;
+    box-shadow: var(--black-box-shadow);
+    font-size: 0.95rem;
+}
+#employee_list .table_title {
+    text-align: left;
+}
+#employee_list .table_title th i {
+    font-size: 0.7rem;
+    float: right;
+    line-height: 24px;
+    cursor: pointer;
+}
+#employee_list .table_title th {
+    padding: 6px;
+}
+#employee_list .table_title #ordinal {
+    width: 3%;
+    text-align: center;
+}
+#employee_list .table_title #employee_code {
+    width: 15%;
+    text-align: center;
+}
+#employee_list .table_title #avatar {
+    width: 16%;
+    text-align: center;
+}
+#employee_list .table_title #identifier {
+    width: 10%;
+}
+#employee_list .table_title #status {
+    width: 9%;
+}
+#employee_list .table_title #view-employee,
+#employee_list .table_title #update-employee,
+#employee_list .table_title #delete-employee {
+    text-align: center;
+}
+#employee_list .body {
+    max-height: 300px;
+}
+#employee_list .body td {
+    padding-left: 8px;
+}
+#employee_list .body #ordinal,
+#employee_list .body #employee_code,
+#employee_list .body #avatar {
+    padding-left: 0;
+    text-align: center;
+}
+#employee_list .body td.view-employee {
+    padding-left: 8px;
+    padding-right: 0;
+}
+#employee_list .body #avatar {
+    padding: 8px;
+}
+#employee_list .body .status-block {
+    display: table-cell;
+}
+#employee_list .body .interact-employee-btn {
+    padding: 4px;
+}
+#employee_list .body .interact-employee-btn a {
+    display: block;
+    text-align: center;
+    position: relative;
+    padding: 4px 0;
+    border: solid 1px transparent;
+    border-radius: 4px;
+}
+#employee_list .body .interact-employee-btn a:hover::after {
+    display: block;
+    content: "";
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    background-color: rgba(255, 255, 255, 0.5);
+    height: 40px;
+    width: 43px;
+}
+#employee_list .body .view-employee a {
+    background-color: var(--blue);
+    width: 40px;
+}
+#employee_list .body .update-employee a {
+    background-color: var(--green);
+}
+#employee_list .body .delete-employee a {
+    background-color: var(--red);
+    cursor: pointer;
+}

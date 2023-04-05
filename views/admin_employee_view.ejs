@@ -1,0 +1,45 @@
+<link rel="stylesheet" href="/css/employee_info.css">
+<div id="main">
+    <div id="turn-back-btn">
+        <a href="/admin/category/employee/employee-list"><i class="fa-solid fa-arrow-left-long"></i> Thoát</a>
+    </div>
+    <div id="main_container">
+        <div id="main_container_label">
+            <span>Mã nhân viên: <%= specifiedUser.employee_code %></span>
+        </div>
+        <div id="main_container_info">
+            <div id="avatar">
+                <img src=<%=specifiedUser.avatar_url %> alt="">
+            </div>
+            <ul class="info" id="grid-left">
+                <li class="info-item">Tên nhân viên: <b><%= specifiedUser.name %></b></li>
+                <li class="info-item">CMND, CCCD: <b><%= specifiedUser.identifier %></b></li>
+                <li class="info-item">Ngày cấp: <%= specifiedUser.identifier_date %></li>
+                <li class="info-item">Nơi cấp: <%= specifiedUser.identifier_place %></li>
+                <li class="info-item">Giới tính: <b><%= specifiedUser.gender %></b></li>
+                <li class="info-item">Ngày sinh: <b><%= specifiedUser.birthday %></b></li>
+                <li class="info-item">Nơi sinh: <b><%= specifiedUser.birthplace %></b></li>
+                <li class="info-item">Quốc gia: <%= specifiedUser.country %></li>
+                <li class="info-item">Dân tộc: <%= specifiedUser.ethnic %></li>
+                <li class="info-item">Số điện thoại: <b><%= specifiedUser.phone %></b></li>
+                <li class="info-item">Tôn giáo: <%= specifiedUser.religion %></li>
+            </ul>
+            <ul class="info" id="grid-right">
+                <li class="info-item">Hộ khẩu: <%= specifiedUser.household %></li>
+                <li class="info-item">Tạm trú: <%= specifiedUser.temporary_address %></li>
+                <li class="info-item">Phòng ban: <b><%= specifiedUser.department %></b></li>
+                <li class="info-item">Loại nhân viên: <%= specifiedUser.employee_type %></li>
+                <li class="info-item">Cấp bậc: <b><%= specifiedUser.position %></b></li>
+                <li class="info-item">Loại bằng cấp: <%= specifiedUser.degree %></li>
+                <li class="info-item">Ngày tạo: <%= specifiedUser.dateCreated %></li>
+                <li class="info-item ">Trạng thái: <span
+                <% if(specifiedUser.status == "Đang làm việc") { %>
+                    class="status-block working-status"
+                <% } else { %>
+                    class="status-block resigned-status"
+                <% } %>
+                ><%= specifiedUser.status %></span></li>
+            </ul>
+        </div>
+    </div>
+</div>

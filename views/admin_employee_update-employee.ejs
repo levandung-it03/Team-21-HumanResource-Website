@@ -1,84 +1,87 @@
-<link rel="stylesheet" href="/css/employee_add-employee.css">
-<div id="add-employee">
-    <div id="form-title">
-        <span>Thêm nhân viên</span>
+<link rel="stylesheet" href="/css/employee_update.css">
+<div id="update-employee">
+    <div id="turn-back-btn">
+        <a href="/admin/category/employee/employee-list"><i class="fa-solid fa-arrow-left-long"></i> Thoát</a>
     </div>
-    <form method="POST" action="/api/admin/add-employee" enctype="multipart/form-data" onsubmit="return submitFormCancellation">
+    <div id="form-title">
+        <span>Chỉnh sửa thông tin nhân viên</span>
+    </div>
+    <form method="POST" action="<%= '/api/admin/update-employee/' + specifiedUser._id.toString() %>" enctype="multipart/form-data" onsubmit="return submitFormCancellation">
         <div class="form_text-input more-condition" id="name">
             <label for="name">Họ và Tên</label>
-            <input name="name" type="text" placeholder="Nguyễn Thị A" required>
+            <input value="<%=specifiedUser.name%>" name="name" type="text" placeholder="Nguyễn Thị A" required>
             <div class="form_text-input_err-message"></div>
         </div>
         <div class="form_text-input" id="avatar">
             <label for="avatar">Ảnh đại diện</label>
-            <input name="avatar" type="file" accept="image/jpg" required>
+            <input name="avatar" type="file" accept="image/jpg">
         </div>
         <div class="form_text-input more-condition" id="email">
             <label for="email">Địa chỉ gmail</label>
-            <input name="email" type="text" placeholder="name.01@gmail.com" required>
+            <input value="<%= specifiedUser.account.email %>" name="email" type="text" placeholder="name.01@gmail.com" required>
             <div class="form_text-input_err-message"></div>
         </div>
         <div class="form_select-input" id="gender">
             <label for="gender">Giới tính</label>
-            <select name="gender">
+            <select data="<%= specifiedUser.gender %>" name="gender">
                 <option value="Nam">Nam</option>
                 <option value="Nữ">Nữ</option>
             </select>
         </div>
         <div class="form_text-input" id="birthday">
             <label for="birthday">Ngày sinh</label>
-            <input name="birthday" type="date" required>
+            <input value="<%= specifiedUser.birthday %>" name="birthday" type="date" required>
             <div class="form_text-input_err-message"></div>
         </div>
         <div class="form_text-input more-condition" id="identifier">
             <label for="identifier">Số CCCD hoặc CMND</label>
-            <input name="identifier" type="text" placeholder="038203032575" required>
+            <input value="<%= specifiedUser.identifier %>" name="identifier" type="text" placeholder="038203032575" required>
             <div class="form_text-input_err-message"></div>
         </div>
         <div class="form_text-input large-block" id="identifier_place">
             <label for="identifier_place">Nơi cấp</label>
-            <input name="identifier_place" type="text" placeholder="UBND phường Đa-Kao, Quận 1, thành phố Hồ Chí Minh" required>
+            <input value="<%= specifiedUser.identifier_place %>" name="identifier_place" type="text" placeholder="UBND phường Đa-Kao, Quận 1, thành phố Hồ Chí Minh" required>
         </div>
         <div class="form_text-input" id="identifier_date">
             <label for="identifier_date">Ngày cấp</label>
-            <input name="identifier_date" type="date" required>
+            <input value="<%= specifiedUser.identifier_date %>" name="identifier_date" type="date" required>
         </div>
         <div class="form_text-input more-condition" id="birthplace">
             <label for="birthplace">Nơi sinh</label>
-            <input name="birthplace" type="text" placeholder="Hà Nội" required>
+            <input value="<%= specifiedUser.birthplace %>" name="birthplace" type="text" placeholder="Hà Nội" required>
             <div class="form_text-input_err-message"></div>
         </div>
         <div class="form_text-input more-condition" id="country">
             <label for="country">Quốc gia</label>
-            <input name="country" type="text" value="Việt Nam" required>
+            <input value="<%= specifiedUser.country %>" name="country" type="text" value="Việt Nam" required>
             <div class="form_text-input_err-message"></div>
         </div>
         <div class="form_text-input more-condition" id="ethnic">
             <label for="ethnic">Dân tộc</label>
-            <input name="ethnic" type="text" placeholder="Kinh" required>
+            <input value="<%= specifiedUser.ethnic %>" name="ethnic" type="text" placeholder="Kinh" required>
             <div class="form_text-input_err-message"></div>
         </div>
         <div class="form_text-input more-condition" id="religion">
             <label for="religion">Tôn giáo</label>
-            <input name="religion" type="text" value="Không" required>
+            <input value="<%= specifiedUser.religion %>" name="religion" type="text" value="Không" required>
             <div class="form_text-input_err-message"></div>
         </div>
         <div class="form_text-input more-condition" id="phone">
             <label for="phone">Số điện thoại</label>
-            <input name="phone" type="text" placeholder="0963341278" required>
+            <input value="<%= specifiedUser.phone %>" name="phone" type="text" placeholder="0963341278" required>
             <div class="form_text-input_err-message"></div>
         </div>
         <div class="form_text-input large-block" id="household">
             <label for="household">Hộ khẩu</label>
-            <input name="household" type="text" placeholder="97 Man Thiện, phường Hiệp Phú, thành phố Thủ Đức, thành phố Hồ Chí Minh" required>
+            <input value="<%= specifiedUser.household %>" name="household" type="text" placeholder="97 Man Thiện, phường Hiệp Phú, thành phố Thủ Đức, thành phố Hồ Chí Minh" required>
         </div>
         <div class="form_text-input large-block" id="temporary_address">
             <label for="temporary_address">Tạm trú</label>
-            <input name="temporary_address" type="text" placeholder="97 Man Thiện, phường Hiệp Phú, thành phố Thủ Đức, thành phố Hồ Chí Minh" required>
+            <input value="<%= specifiedUser.temporary_address %>" name="temporary_address" type="text" placeholder="97 Man Thiện, phường Hiệp Phú, thành phố Thủ Đức, thành phố Hồ Chí Minh" required>
         </div>
         <div class="form_select-input" id="department">
             <label for="department">Phòng ban</label>
-            <select name="department">
+            <select data="<%= specifiedUser.department %>" name="department">
                 <option value="Marketing">Marketing</option>
                 <option value="Phát triển phần mềm">Phát triển phần mềm</option>
                 <option value="Kế toán">Kế toán</option>
@@ -87,14 +90,14 @@
         </div>
         <div class="form_select-input" id="employee_type">
             <label for="employee_type">Loại nhân viên</label>
-            <select name="employee_type">
+            <select data="<%= specifiedUser.employee_type %>" name="employee_type">
                 <option value="Tạm thời">Tạm thời</option>
                 <option value="Chính thức">Chính thức</option>
             </select>
         </div>
         <div class="form_select-input" id="position">
             <label for="position">Chức vụ</label>
-            <select name="position">
+            <select data="<%= specifiedUser.position %>" name="position">
                 <option value="Nhân viên">Nhân viên</option>
                 <option value="Trưởng nhóm">Trưởng nhóm</option>
                 <option value="Quản lý">Quản lý</option>
@@ -104,7 +107,7 @@
         </div>
         <div class="form_select-input" id="degree">
             <label for="degree">Loại bằng cấp</label>
-            <select name="degree">
+            <select data="<%= specifiedUser.degree %>" name="degree">
                 <option value="Phổ Thông">Phổ thông</option>
                 <option value="Cao Đẳng">Cao Đẳng</option>
                 <option value="Cử Nhân">Cử Nhân</option>
@@ -113,7 +116,14 @@
                 <option value="Tiến sỹ">Tiến sỹ</option>
             </select>
         </div>
+        <div class="form_select-input" id="status">
+            <label for="status">Trạng thái làm việc</label>
+            <select data="<%= specifiedUser.status %>" name="status">
+                <option value="Đang làm việc">Đang làm việc</option>
+                <option value="Đã nghỉ việc">Đã nghỉ việc</option>
+            </select>
+        </div>
         <input type="submit" value="Xác nhận">
     </form>
 </div>
-<script src="/js/employee_add-employee.js"></script>
+<script src="/js/employee_update.js"></script>

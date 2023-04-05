@@ -1,14 +1,15 @@
+<link rel="stylesheet" href="/css/category.css">
 <div id="category">
     <div id="category_heading">
         <div id="avatar">
-            <img src=<%= user.avatar_url %> alt="">
+            <img src=<%=user.avatar_url %> alt="">
         </div>
         <div id="info">
             <span id="info_title">
                 <%= user.name %>
             </span>
             <span id="info_right">
-                <% if (user.admin == "1") { %>
+                <% if (user.admin=="1" ) { %>
                     Quản trị viên
                 <% } else { %>
                     Nhân viên
@@ -23,21 +24,9 @@
             </a>
         </div>
         <div class="category_items general">
-            <a class="title">
+            <a href="/admin/category/general" class="title">
                 Tổng quan
-                <i class="fa-solid fa-angle-down"></i>
             </a>
-            <ul class="list hide">
-                <li class="index">
-                    <a href="/adimn/category/general/statistic" class="index_label">Thống kê</a>
-                </li>
-                <li class="index">
-                    <a href="/adimn/category/general/employee-list" class="index_label">Danh sách nhân viên</a>
-                </li>
-                <li class="index">
-                    <a href="" class="index_label">Danh sách tài khoản</a>
-                </li>
-            </ul>
         </div>
         <div class="category_items general">
             <a class="title">
@@ -46,9 +35,13 @@
             </a>
             <ul class="list hide">
                 <li class="index">
-                    <a href="/adimn/category/employee/add-employee" class="index_label">Thêm nhân viên</a>
+                    <a href="/admin/category/employee/employee-list" class="index_label">Danh sách nhân viên</a>
+                </li>
+                <li class="index">
+                    <a href="/admin/category/employee/add-employee" class="index_label">Thêm nhân viên</a>
                 </li>
             </ul>
         </div>
     </div>
 </div>
+<script src="/js/category.js"></script>

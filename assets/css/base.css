@@ -14,7 +14,7 @@
     --red: rgb(234, 16, 16);
 
     --footer-height: 40px;
-    --category-width: 20%;
+    --category-width: 17%;
     --form-border-radius: 12px;
     --form-margin: 12px;
 }
@@ -129,4 +129,20 @@ header {
     border-top: solid 1px var(--blue);
     color: var(--white-text);
     font-size: 0.8rem;
+}
+#turn-back-btn {
+    display: inline-block;
+}
+#turn-back-btn a {
+    display: inline-block;
+    font-size: 1rem;
+    background-color: var(--blue);
+    color: white;
+    margin: 10px 0 0 20px;
+    padding: 8px;
+    border-radius: 8px;
+    transition: background-color ease 0.3s;
+}
+#turn-back-btn a:hover {
+    background-color: rgb(120, 120, 255);
 }

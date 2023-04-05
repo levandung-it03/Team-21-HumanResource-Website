@@ -1,3 +1,4 @@
+
 (function main() {
     (function toggleHidingCatalog() {
         $$('#category_body .category_items').forEach((tag) => {
