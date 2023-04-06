@@ -1,0 +1,106 @@
+<link rel="stylesheet" href="/css/employee_list.css">
+<div id="employee_list">
+    <div id="title">
+        <span>Danh sách nhân viên</span>
+    </div>
+    <table>
+        <thead>
+            <tr class="table_title">
+                <th id="ordinal">
+                    <span class="title_name">STT</span>                 
+                </th>
+                <th id="employee_code">
+                    <span class="title_name">Mã nhân viên</span>
+                    <i class="fa-solid fa-sort" id="employee_code"></i>
+                </th>
+                <th id="avatar">
+                    <span class="title_name">Ảnh</span>
+                </th>
+                <th id="name">
+                    <span class="title_name">Tên nhân viên</span>
+                    <i class="fa-solid fa-sort" id="name"></i>
+                </th>
+                <th id="gender">
+                    <span class="title_name">Giới tính</span>
+                    <i class="fa-solid fa-sort" id="gender"></i>
+                </th>
+                <th id="birthday">
+                    <span class="title_name">Ngày sinh</span>
+                    <i class="fa-solid fa-sort" id="birthday"></i>
+                </th>
+                <th id="birthplace">
+                    <span class="title_name">Nơi sinh</span>
+                    <i class="fa-solid fa-sort" id="birthplace"></i>
+                </th>
+                <th id="identifier">
+                    <span class="title_name">CMND, CCCD</span>
+                    <i class="fa-solid fa-sort" id="identifier"></i>
+                </th>
+                <th id="status">
+                    <span class="title_name">Tình trạng</span>
+                    <i class="fa-solid fa-sort" id="status"></i>
+                </th>
+                <th id="view-employee">
+                    <span class="title_name">Xem</span>
+                </th>
+                <th id="update-employee">
+                    <span class="title_name">Sửa</span>
+                </th>
+                <th id="delete-employee">
+                    <span class="title_name">Xoá</span>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <% for (var i = 0; i < employeeList.length; i++) {%>
+                <tr class="body">
+                    <td class="body_anable-sorting" id="ordinal">
+                        <%= (i + 1) %>
+                    </td>
+                    <td class="body_anable-sorting" id="employee_code">
+                        <%= employeeList[i].employee_code %>
+                    </td>
+                    <td id="avatar">
+                        <img src=<%= employeeList[i].avatar_url %> alt="">
+                    </td>
+                    <td class="body_anable-sorting" id="name">
+                        <%= employeeList[i].name %>
+                    </td>
+                    <td class="body_anable-sorting" id="gender">
+                        <%= employeeList[i].gender %>
+                    </td>
+                    <td class="body_anable-sorting" id="birthday">
+                        <%= employeeList[i].birthday %>
+                    </td>
+                    <td class="body_anable-sorting" id="birthplace">
+                        <%= employeeList[i].birthplace %>
+                    </td>
+                    <td class="body_anable-sorting" id="identifier">
+                        <%= employeeList[i].identifier %>
+                    </td>
+                    <td>
+                        <% if(employeeList[i].status == "Đang làm việc") { %>
+                        <span class="body_anable-sorting status-block working-status" id="status">
+                        <% } else { %>
+                        <span class="body_anable-sorting status-block resigned-status" id="status">
+                        <% } %>
+                            <%= employeeList[i].status %>
+                        </span>
+                    </td>
+                    <td class="interact-employee-btn view-employee">
+                        <a href=<%= "/admin/category/employee/employee-list/view/" + employeeList[i]._id.toString() %>><i class="fa-solid fa-eye"></i></a>
+                    </td>
+                    <td class="interact-employee-btn update-employee">
+                        <a href=<%= "/admin/category/employee/employee-list/update/" + employeeList[i]._id.toString() %>><i class="fa-sharp fa-solid fa-pencil"></i></a>
+                    </td>
+                    <td class="interact-employee-btn delete-employee">
+                    <% if (employeeList[i].admin == 0) { %>
+                            <a id_user=<%= employeeList[i]._id.toString() %>><i class="fa-sharp fa-solid fa-trash"></i></a>
+                    <% } %>
+                    </td>
+                </tr>
+            <% } %>
+        </tbody>
+    </table>
+</div>
+<script src="/js/employee_list.js"></script>

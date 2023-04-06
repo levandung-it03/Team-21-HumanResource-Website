@@ -60,7 +60,7 @@ route.post('/api/admin/update-employee/:id',
     cloudUpload.single('avatar'),
     usersController.updateEmployee);
     
-route.delete('/admin/category/employee/employee-list/delete/:id',
+route.delete('/api/admin/delete-employee/:id',
     authMiddlewares.verifyToken,
     usersController.deleteEmployee);
 /**---------------------------------------------------------------------------------------------- */

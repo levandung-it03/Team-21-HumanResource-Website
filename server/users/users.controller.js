@@ -174,52 +174,19 @@ exports.updateEmployee = async (req, res) => {
     const id = req.params.id;
     const user = await userDBs.findOne({ _id: new ObjectId(id) });
 
-    const userdb = {
-        admin: 0,
-        name: req.body.name,
-        account: {
-            email: req.body.email,
-            password: user.account.password
-        },
-        dateCreated: Date.now(),
-        identifier: req.body.identifier,
-        identifier_date: req.body.identifier_date,
-        identifier_place: req.body.identifier_place,
-        gender: req.body.gender,
-        birthday: req.body.birthday,
-        birthplace: req.body.birthplace,
-        country: req.body.country,
-        ethnic: req.body.ethnic,
-        religion: req.body.religion,
-        phone: req.body.phone,
-        household: req.body.household,
-        temporary_address: req.body.temporary_address,
-        department: req.body.department,
-        employee_type: req.body.employee_type,
-        position: req.body.position,
-        degree: req.body.degree,
-        status: req.body.status,
+    const userdb = req.body;
+    const account = {
+        email: req.body.email,
+        password: user.account.password
     };
-
-    const sendingMailOptions = {
-        body: req.body,
-        subject: "HR Management Website",
-        html: `<div>
-                <p style="font-size: 18px">Administrator của chúng tôi đã thay đổi thông tin của bạn! Hãy đăng nhập để biết thêm thông tin chi tiết!</p>
-            </div>`,
-        flexibleOptions: {
-            type: null,
-        }
-    }
+    delete userdb.email;
+    userdb.account = account;
 
     try {
         await userDBs.updateOne({ _id: new ObjectId(id) }, { "$set": userdb })
             .then(async (result) => {
-                await usersMethods.sendingMail(sendingMailOptions);
-                const old_url = user.avatar_url;
-                const public_id = old_url.split("/")[old_url.split("/").length - 1].split(".")[0];
+                const public_id = usersMethods.getPublicIdByImageURL(user.avatar_url);
                 try {
-                    await cloudinary.uploader.destroy(public_id);
                     sharp(req.file.path)
                         .resize({ height: 350 })
                         .toBuffer(async (err, buffer) => {
@@ -227,6 +194,7 @@ exports.updateEmployee = async (req, res) => {
                                 const stream = cloudinary.uploader.upload_stream({ resource_type: 'image' }, async (err, result) => {
                                     if (!err) {
                                         await userDBs.updateOne({ _id: new ObjectId(id) }, { "$set": { avatar_url: result.url } });
+                                        cloudinary.uploader.destroy(public_id);
                                         res.redirect('/admin/category/employee/employee-list');
                                     }
                                 });
@@ -250,6 +218,15 @@ exports.updateEmployee = async (req, res) => {
 
 exports.deleteEmployee = async (req, res) => {
     const id = req.params.id;
+
     await client.connect();
-    await userDBs.deleteOne({ _id: new ObjectId(id) })
+    const user = await userDBs.findOne({ _id: new ObjectId(id) });
+    const avatar_url = user.avatar_url;
+    const public_id = usersMethods.getPublicIdByImageURL(avatar_url);
+
+    await cloudinary.uploader.destroy(public_id)
+        .then(async result => {
+            await userDBs.deleteOne({ _id: new ObjectId(id) });
+            res.end();
+        })
 }

@@ -45,6 +45,10 @@ class UsersMethods {
         return Date.now() + identifier;
     }
 
+    getPublicIdByImageURL(url) {
+        return url.split("/")[url.split("/").length - 1].split(".")[0];
+    }
+
     async sendingMail(options) {
         let transporter = nodemailer.createTransport({
             service: 'gmail',
