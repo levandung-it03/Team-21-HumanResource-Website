@@ -5,12 +5,17 @@ const DOMAIN = process.env.DOMAIN;
 
 const { MongoClient } = require('mongodb');
 const { ObjectId } = require('mongodb');
-const { link } = require('fs');
 const client = new MongoClient(process.env.MONGO_URI);
 const userDBs = client.db('company').collection('userdbs');
+const positionDBs = client.db('company').collection('position');
+
+async function getAllPosition() {
+    const allUser = positionDBs.find({});
+    return await allUser.toArray();
+}
 
 async function getAllUser() {
-    const allUser = await userDBs.find({});
+    const allUser = userDBs.find({});
     return await allUser.toArray();
 }
 
@@ -107,6 +112,43 @@ class renderMethods {
         try {
             const user = await getCurrentUser(req);
             res.render('admin_employee_add-employee', {
+                user: user,
+                layout: './layouts/admin'
+            });
+        } catch (err) {
+            res.redirect('/login');
+        }
+    }
+    async admin_accountList(req, res) {
+        try {
+            const allUsers = await getAllUser();
+            const user = await getCurrentUser(req);
+            res.render('admin_employee_account-list', {
+                user: user,
+                employeeList: allUsers,
+                layout: './layouts/admin'
+            });
+        } catch (err) {
+            res.redirect('/login');
+        }
+    }
+    async admin_positionList(req, res) {
+        try {
+            const positionList = await getAllPosition();
+            const user = await getCurrentUser(req);
+            res.render('admin_employee_position-list', {
+                user: user,
+                positionList: positionList,
+                layout: './layouts/admin'
+            });
+        } catch (err) {
+            res.redirect('/login');
+        }
+    }
+    async admin_addPosition(req, res) {
+        try {
+            const user = await getCurrentUser(req);
+            res.render('admin_employee_add-position', {
                 user: user,
                 layout: './layouts/admin'
             });

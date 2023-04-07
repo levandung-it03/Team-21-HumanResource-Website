@@ -103,7 +103,8 @@ var positionSchema = new mongoose.Schema({
         unique: true,
         required: true
     },
-    salary_per_day: Number
+    salary_per_day: Number,
+    dateCreated: String,
 }, { collection: 'position' });
 
 var UserDb = mongoose.model('userdbs', userSchema);
@@ -111,6 +112,4 @@ var Salary = mongoose.model('salary', salarySchema);
 var Position = mongoose.model('position', positionSchema);
 var Department = mongoose.model('department', departmentSchema);
 
-// { UserDb, Salary, Position, Department }
-// export UserDb object
-module.exports = { UserDb, Salary };
+module.exports = { UserDb, Position, Salary };

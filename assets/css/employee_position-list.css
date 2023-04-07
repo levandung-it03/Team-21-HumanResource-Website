@@ -1,0 +1,81 @@
+table {
+    border-collapse: collapse;
+}
+th, td {
+    border: solid 1px var(--smoking-grey);
+}
+#add-position #title {
+    display: inline-block;
+}
+#add-position #title span {
+    font-size: 2.4rem;
+    padding: 10px;
+}
+#add-position table {
+    margin: var(--form-margin);
+    min-height: 60vh;
+    background-color: white;
+    border: solid 1px transparent;
+    border-radius: var(--form-border-radius);
+    padding: 12px;
+    box-shadow: var(--black-box-shadow);
+    font-size: 0.95rem;
+}
+#add-position .table_title {
+    text-align: left;
+}
+#add-position .table_title th i {
+    font-size: 0.7rem;
+    float: right;
+    line-height: 24px;
+    cursor: pointer;
+}
+#add-position .table_title th {
+    padding: 6px;
+}
+#add-position .table_title #ordinal {
+    width: 3%;
+    text-align: center;
+}
+#add-position .table_title #position_code {
+    width: 15%;
+    text-align: center;
+}
+
+#add-position .table_title #delete-position {
+    text-align: center;
+}
+#add-position .body td {
+    padding-left: 8px;
+    line-height: 20px!important;
+}
+#add-position .body #ordinal,
+#add-position .body #position_code {
+    padding-left: 0;
+    text-align: center;
+}
+#add-position .body .interact-position-btn {
+    padding: 4px;
+}
+#add-position .body .interact-position-btn a {
+    display: block;
+    text-align: center;
+    position: relative;
+    padding: 4px 0;
+    border: solid 1px transparent;
+    border-radius: 4px;
+}
+#add-position .body .interact-position-btn a:hover::after {
+    display: block;
+    content: "";
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    background-color: rgba(255, 255, 255, 0.5);
+    height: 40px;
+    width: 41px;
+}
+#add-position .body .delete-position a {
+    background-color: var(--red);
+    cursor: pointer;
+}

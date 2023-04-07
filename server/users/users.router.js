@@ -41,6 +41,18 @@ route.get('/admin/category/employee/add-employee',
 route.get('/admin/category/employee/employee-list',
     authMiddlewares.verifyToken,
     renderMethods.admin_employeeList);
+    
+route.get('/admin/category/employee/account-list',
+    authMiddlewares.verifyToken,
+    renderMethods.admin_accountList);
+
+route.get('/admin/category/employee/position-list',
+    authMiddlewares.verifyToken,
+    renderMethods.admin_positionList);
+
+route.get('/admin/category/employee/add-position',
+    authMiddlewares.verifyToken,
+    renderMethods.admin_addPosition);
 
 route.get('/admin/category/employee/employee-list/view/:id',
     authMiddlewares.verifyToken,
@@ -59,6 +71,11 @@ route.post('/api/admin/update-employee/:id',
     authMiddlewares.verifyToken,
     cloudUpload.single('avatar'),
     usersController.updateEmployee);
+
+route.post('/api/admin/add-position',
+    authMiddlewares.verifyToken,
+    usersController.addPosition
+)
     
 route.delete('/api/admin/delete-employee/:id',
     authMiddlewares.verifyToken,

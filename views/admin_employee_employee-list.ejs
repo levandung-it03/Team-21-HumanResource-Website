@@ -3,6 +3,10 @@
     <div id="title">
         <span>Danh sách nhân viên</span>
     </div>
+    <div class="search">
+        <input class="search" type="text" placeholder="Tìm kiếm trả về mảng">
+        <i class="fa-solid fa-magnifying-glass"></i>
+    </div>
     <table>
         <thead>
             <tr class="table_title">
@@ -52,9 +56,9 @@
             </tr>
         </thead>
         <tbody>
-            <% for (var i = 0; i < employeeList.length; i++) {%>
-                <tr class="body">
-                    <td class="body_anable-sorting" id="ordinal">
+            <% for (var i = 0; i < employeeList.length; i++) { %>
+                <tr class="body" id=<%= i+1 %>>
+                    <td id="ordinal">
                         <%= (i + 1) %>
                     </td>
                     <td class="body_anable-sorting" id="employee_code">
@@ -80,9 +84,9 @@
                     </td>
                     <td>
                         <% if(employeeList[i].status == "Đang làm việc") { %>
-                        <span class="body_anable-sorting status-block working-status" id="status">
+                        <span class="body_anable-sorting status-block green-block" id="status">
                         <% } else { %>
-                        <span class="body_anable-sorting status-block resigned-status" id="status">
+                        <span class="body_anable-sorting status-block red-block" id="status">
                         <% } %>
                             <%= employeeList[i].status %>
                         </span>

@@ -1,0 +1,56 @@
+<link rel="stylesheet" href="/css/employee_position-list.css">
+<div id="add-position">
+    <div id="title">
+        <span>Danh sách chức vụ</span>
+    </div>
+    <div id="add-position">
+        <a href="/admin/category/employee/add-position">Thêm loại chức vụ</a>
+    </div>
+    <div class="search">
+        <input class="search" type="text" placeholder="Tìm kiếm trả về mảng">
+        <i class="fa-solid fa-magnifying-glass"></i>
+    </div>
+    <table>
+        <thead>
+            <tr class="table_title">
+                <th id="ordinal">
+                    <span class="title_name">STT</span>                 
+                </th>
+                <th id="position_code">
+                    <span class="title_name">Mã chức vụ</span>
+                    <i class="fa-solid fa-sort" id="position_code"></i>
+                </th>
+                <th id="position">
+                    <span class="title_name">Tên chức vụ</span>
+                    <i class="fa-solid fa-sort" id="position"></i>
+                </th>
+                <th id="salary_per_day">
+                    <span class="title_name">Lương cơ bản</span>
+                    <i class="fa-solid fa-sort" id="salary_per_day"></i>
+                </th>
+                <th id="dateCreated">
+                    <span class="title_name">Ngày tạo</span>
+                    <i class="fa-solid fa-sort" id="dateCreated"></i>
+                </th>
+                <th id="delete-employee">
+                    <span class="title_name">Xoá</span>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <% for (var i = 0; i < positionList.length; i++) { %>
+                <tr height="40px" class="body" id=<%= i+1 %>>
+                    <td id="ordinal"><%= (i + 1) %></td>
+                    <td class="body_anable-sorting" id="position_code"><%= positionList[i].position_code %></td>
+                    <td class="body_anable-sorting" id="position"><%= positionList[i].position %></td>
+                    <td class="body_anable-sorting" id="salary_per_day"><%= positionList[i].salary_per_day %></td>
+                    <td class="body_anable-sorting" id="dateCreated"><%= positionList[i].dateCreated %></td>
+                    <td class="interact-employee-btn delete-employee">
+                        <a id_user=<%= positionList[i]._id.toString() %>><i class="fa-sharp fa-solid fa-trash"></i></a>
+                    </td>
+                </tr>
+            <% } %>
+        </tbody>
+    </table>
+</div>
+<script src="/js/employee_position-list.js"></script>

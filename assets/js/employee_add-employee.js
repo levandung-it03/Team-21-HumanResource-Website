@@ -144,7 +144,7 @@ let submitFormCancellation = false;
 
             }
 
-            window.history.replaceState({}, "", "http://localhost:3000/adimn/category/employee/add-employee");
+            window.history.replaceState({}, "", "http://localhost:3000/admin/category/employee/add-employee");
             dataTags.forEach((tag, index) => {
                 if (tag.name == "avatar") return;
                 tag.value = data.find((e) => e[0] == tag.name)[1];

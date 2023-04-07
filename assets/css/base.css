@@ -10,7 +10,9 @@
     --x2-dark-blue: #183153;
     --blue: #3456FF;
     --blur-blue: rgb(0, 63, 151);
-    --green: rgb(139, 219, 19);
+    --green: rgb(0, 153, 110);
+    --light-green: rgb(17, 255, 0);
+    --blur-green: rgb(0, 255, 208);
     --red: rgb(234, 16, 16);
 
     --footer-height: 40px;
@@ -100,11 +102,25 @@ form input[type=submit]:hover {
     border-radius: 12px;
     padding: 0 4px;
 }
-.working-status {
+.green-block {
     background-color: var(--green);
 }
-.resigned-status {
+.light-green-block {
+    background-color: var(--light-green);
+    color: black;
+}
+.blur-green-block {
+    background-color: var(--blur-green);
+    color: black;
+}
+.red-block {
     background-color: var(--red);
+}
+.blue-right {
+    background-color: var(--blue);
+}
+.black-blue-block {
+    background-color: var(--blur-blue);
 }
 footer {
     position: absolute;
@@ -145,4 +161,39 @@ header {
 }
 #turn-back-btn a:hover {
     background-color: rgb(120, 120, 255);
+}
+#add-position {
+    display: inline-block;
+}
+#add-position a {
+    display: inline-block;
+    font-size: 1rem;
+    background-color: var(--blue);
+    color: white;
+    margin: 10px 0 0 20px;
+    padding: 8px;
+    border-radius: 8px;
+    transition: background-color ease 0.3s;
+}
+#add-position a:hover {
+    background-color: rgb(120, 120, 255);
+}
+
+div.search {
+    position: relative;
+    float: right;
+    margin: 16px 16px 0 0;
+}
+div.search input {
+    width: 240px;
+    padding: 10px;
+    border: solid 1px var(--grey-border);
+    border-radius: 8px;
+}
+div.search i {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 1rem;
+    cursor: pointer;
 }

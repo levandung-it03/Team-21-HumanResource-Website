@@ -125,6 +125,8 @@ let submitFormCancellation = false;
         })
     })();
 
+    const url = window.location.href.split("?")[0];
+    const id = url.split("/")[url.split("/").length - 1];
     const urlParams = new URLSearchParams(window.location.search);
     const myParam = urlParams.get('error');
     if (myParam) {
@@ -144,7 +146,7 @@ let submitFormCancellation = false;
 
             }
 
-            window.history.replaceState({}, "", "http://localhost:3000/adimn/category/employee/add-employee");
+            window.history.replaceState({}, "", "http://localhost:3000/admin/category/employee/update/" + id);
             dataTags.forEach((tag, index) => {
                 if (tag.name == "avatar") return;
                 tag.value = data.find((e) => e[0] == tag.name)[1];

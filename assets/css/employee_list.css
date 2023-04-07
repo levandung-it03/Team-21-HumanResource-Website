@@ -4,6 +4,9 @@ table {
 th, td {
     border: solid 1px var(--smoking-grey);
 }
+#employee_list #title {
+    display: inline-block;
+}
 #employee_list #title span {
     font-size: 2.4rem;
     padding: 10px;

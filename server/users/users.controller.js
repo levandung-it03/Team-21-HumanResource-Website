@@ -1,4 +1,4 @@
-const { UserDb, Salary } = require('./users.model');
+const { UserDb, Position, Salary } = require('./users.model');
 const authMethods = require('../auth/auth.methods');
 require('dotenv').config();
 const { MongoClient } = require('mongodb');
@@ -12,7 +12,8 @@ const bcrypt = require('bcrypt');
 
 const client = new MongoClient(process.env.MONGO_URI);
 const userDBs = client.db('company').collection('userdbs');
-const salaryDBs = client.db('company').collection('salary');
+const positionDBs = client.db('company').collection('position');
+// const salaryDBs = client.db('company').collection('salary');
 const DOMAIN = process.env.DOMAIN;
 const usersMethods = require('./users.methods');
 
@@ -182,38 +183,35 @@ exports.updateEmployee = async (req, res) => {
     delete userdb.email;
     userdb.account = account;
 
-    try {
-        await userDBs.updateOne({ _id: new ObjectId(id) }, { "$set": userdb })
-            .then(async (result) => {
-                const public_id = usersMethods.getPublicIdByImageURL(user.avatar_url);
-                try {
-                    sharp(req.file.path)
-                        .resize({ height: 350 })
-                        .toBuffer(async (err, buffer) => {
-                            try {
-                                const stream = cloudinary.uploader.upload_stream({ resource_type: 'image' }, async (err, result) => {
-                                    if (!err) {
-                                        await userDBs.updateOne({ _id: new ObjectId(id) }, { "$set": { avatar_url: result.url } });
-                                        cloudinary.uploader.destroy(public_id);
-                                        res.redirect('/admin/category/employee/employee-list');
-                                    }
-                                });
-                                stream.write(buffer);
-                                stream.end();
-                            } catch (err) {
-                                res.status(400).send({ uploadErrMessage: err.message });
-                            }
-                        })
-                } catch (err) {
-                    res.redirect('/admin/category/employee/employee-list');
-                }
-            })
-            .catch(err => {
-                res.status(500).send({ type: "update", mes: err.message });
-            })
-    } catch (err) {
-        res.redirect(DOMAIN + '/admin/category/employee/add-employee?error=' + encodeURIComponent(`error_${Object.keys(err.keyValue)[0]}`) + prevData);
-    }
+    await userDBs.updateOne({ _id: new ObjectId(id) }, { "$set": userdb })
+        .then(async (result) => {
+            const public_id = usersMethods.getPublicIdByImageURL(user.avatar_url);
+            try {
+                sharp(req.file.path)
+                    .resize({ height: 350 })
+                    .toBuffer(async (err, buffer) => {
+                        try {
+                            const stream = cloudinary.uploader.upload_stream({ resource_type: 'image' }, async (err, result) => {
+                                if (!err) {
+                                    await userDBs.updateOne({ _id: new ObjectId(id) }, { "$set": { avatar_url: result.url } });
+                                    cloudinary.uploader.destroy(public_id);
+                                    res.redirect('/admin/category/employee/employee-list');
+                                }
+                            });
+                            stream.write(buffer);
+                            stream.end();
+                        } catch (err) {
+                            res.status(400).send({ uploadErrMessage: err.message });
+                        }
+                    })
+            } catch (err) {
+                res.redirect('/admin/category/employee/employee-list');
+            }
+        })
+        .catch(err => {
+            res.redirect(DOMAIN + '/admin/category/employee/employee-list/update/' + id + '?error=' + encodeURIComponent(`error_${Object.keys(err.keyValue)[0]}`) + prevData);
+
+        })
 }
 
 exports.deleteEmployee = async (req, res) => {
@@ -228,5 +226,24 @@ exports.deleteEmployee = async (req, res) => {
         .then(async result => {
             await userDBs.deleteOne({ _id: new ObjectId(id) });
             res.end();
+        })
+}
+
+exports.addPosition = async (req, res) => {
+    await client.connect();
+    const positionObject = req.body;
+    positionObject.position_code = usersMethods.getRandomPositionCode();
+    
+    positionObject.dateCreated = usersMethods.getNowDate();
+    
+    const prevData = usersMethods.createErrorString(req.body);
+
+    const positionSchema = new Position(positionObject);
+    positionSchema.save()
+        .then(data => {
+            res.status(201).send(data);
+        })
+        .catch(err => {
+            res.redirect(DOMAIN + '/admin/category/employee/add-position?error=' + encodeURIComponent(`error_${Object.keys(err.keyValue)[0]}`) + prevData);
         })
 }
