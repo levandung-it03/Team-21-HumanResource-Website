@@ -46,14 +46,6 @@ route.get('/admin/category/employee/account-list',
     authMiddlewares.verifyToken,
     renderMethods.admin_accountList);
 
-route.get('/admin/category/employee/position-list',
-    authMiddlewares.verifyToken,
-    renderMethods.admin_positionList);
-
-route.get('/admin/category/employee/add-position',
-    authMiddlewares.verifyToken,
-    renderMethods.admin_addPosition);
-
 route.get('/admin/category/employee/employee-list/view/:id',
     authMiddlewares.verifyToken,
     renderMethods.admin_employeeView);
@@ -61,6 +53,14 @@ route.get('/admin/category/employee/employee-list/view/:id',
 route.get('/admin/category/employee/employee-list/update/:id',
     authMiddlewares.verifyToken,
     renderMethods.admin_updateEmployee);
+    
+route.get('/admin/category/employee/position-list',
+    authMiddlewares.verifyToken,
+    renderMethods.admin_positionList);
+
+route.get('/admin/category/employee/add-position',
+    authMiddlewares.verifyToken,
+    renderMethods.admin_addPosition);
 
 route.post('/api/admin/add-employee',
     authMiddlewares.verifyToken,
@@ -80,6 +80,10 @@ route.post('/api/admin/add-position',
 route.delete('/api/admin/delete-employee/:id',
     authMiddlewares.verifyToken,
     usersController.deleteEmployee);
+
+route.delete('/api/admin/delete-position/:id',
+    authMiddlewares.verifyToken,
+    usersController.deletePosition);
 /**---------------------------------------------------------------------------------------------- */
 
 module.exports = route;

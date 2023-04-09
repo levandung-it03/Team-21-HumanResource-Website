@@ -162,10 +162,10 @@ header {
 #turn-back-btn a:hover {
     background-color: rgb(120, 120, 255);
 }
-#add-position {
+#add-btn {
     display: inline-block;
 }
-#add-position a {
+#add-btn a {
     display: inline-block;
     font-size: 1rem;
     background-color: var(--blue);
@@ -175,7 +175,7 @@ header {
     border-radius: 8px;
     transition: background-color ease 0.3s;
 }
-#add-position a:hover {
+#add-btn a:hover {
     background-color: rgb(120, 120, 255);
 }
 

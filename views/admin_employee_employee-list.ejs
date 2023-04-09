@@ -42,7 +42,7 @@
                 </th>
                 <th id="status">
                     <span class="title_name">Tình trạng</span>
-                    <i class="fa-solid fa-sort" id="status"></i>
+                    <i class="fa-solid fa-sort light-block" id="status"></i>
                 </th>
                 <th id="view-employee">
                     <span class="title_name">Xem</span>
@@ -82,7 +82,7 @@
                     <td class="body_anable-sorting" id="identifier">
                         <%= employeeList[i].identifier %>
                     </td>
-                    <td>
+                    <td id="status">
                         <% if(employeeList[i].status == "Đang làm việc") { %>
                         <span class="body_anable-sorting status-block green-block" id="status">
                         <% } else { %>
@@ -99,7 +99,7 @@
                     </td>
                     <td class="interact-employee-btn delete-employee">
                     <% if (employeeList[i].admin == 0) { %>
-                            <a id_user=<%= employeeList[i]._id.toString() %>><i class="fa-sharp fa-solid fa-trash"></i></a>
+                            <a user_id=<%= employeeList[i]._id.toString() %>><i class="fa-sharp fa-solid fa-trash"></i></a>
                     <% } %>
                     </td>
                 </tr>

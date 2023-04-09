@@ -3,7 +3,7 @@
     <div id="title">
         <span>Danh sách chức vụ</span>
     </div>
-    <div id="add-position">
+    <div id="add-btn">
         <a href="/admin/category/employee/add-position">Thêm loại chức vụ</a>
     </div>
     <div class="search">
@@ -39,14 +39,14 @@
         </thead>
         <tbody>
             <% for (var i = 0; i < positionList.length; i++) { %>
-                <tr height="40px" class="body" id=<%= i+1 %>>
+                <tr class="body" id=<%= i+1 %>>
                     <td id="ordinal"><%= (i + 1) %></td>
                     <td class="body_anable-sorting" id="position_code"><%= positionList[i].position_code %></td>
                     <td class="body_anable-sorting" id="position"><%= positionList[i].position %></td>
-                    <td class="body_anable-sorting" id="salary_per_day"><%= positionList[i].salary_per_day %></td>
+                    <td class="body_anable-sorting" id="salary_per_day"><%= positionList[i].salary_per_day %>VNĐ/Ngày</td>
                     <td class="body_anable-sorting" id="dateCreated"><%= positionList[i].dateCreated %></td>
-                    <td class="interact-employee-btn delete-employee">
-                        <a id_user=<%= positionList[i]._id.toString() %>><i class="fa-sharp fa-solid fa-trash"></i></a>
+                    <td class="delete-position">
+                        <a position_id=<%= positionList[i]._id.toString() %>><i class="fa-sharp fa-solid fa-trash"></i></a>
                     </td>
                 </tr>
             <% } %>

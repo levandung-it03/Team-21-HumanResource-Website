@@ -34,15 +34,15 @@
                 </th>
                 <th id="employee_type">
                     <span class="title_name">Loại NV</span>
-                    <i class="fa-solid fa-sort" id="employee_type"></i>
+                    <i class="fa-solid fa-sort light-block" id="employee_type"></i>
                 </th>
                 <th id="right">
                     <span class="title_name">Quyền hạn</span>
-                    <i class="fa-solid fa-sort" id="right"></i>
+                    <i class="fa-solid fa-sort light-block" id="right"></i>
                 </th>
                 <th id="status">
                     <span class="title_name">Tình trạng</span>
-                    <i class="fa-solid fa-sort" id="status"></i>
+                    <i class="fa-solid fa-sort light-block" id="status"></i>
                 </th>
             </tr>
         </thead>
@@ -68,18 +68,18 @@
                     <td class="body_anable-sorting" id="phone">
                         <%= employeeList[i].phone %>
                     </td>
-                    <td>
+                    <td id="employee_type">
                         <% if(employeeList[i].employee_type == "Chính thức") { %>
-                            <span class="body_anable-sorting status-block green-block" id="employee-type">
+                            <span class="body_anable-sorting status-block green-block" id="employee_type">
                         <% } else if (employeeList[i].employee_type == "Bán thời gian") { %>
-                            <span class="body_anable-sorting status-block blur-green-block" id="employee-type">
+                            <span class="body_anable-sorting status-block blur-green-block" id="employee_type">
                         <% } else { %>
-                            <span class="body_anable-sorting status-block light-green-block" id="employee-type">
+                            <span class="body_anable-sorting status-block light-green-block" id="employee_type">
                         <% } %>
                             <%= employeeList[i].employee_type %>
                         </span>
                     </td>
-                    <td>
+                    <td id="right">
                         <% if(employeeList[i].admin == 1) { %>
                             <span class="body_anable-sorting status-block blue-right" id="right">
                                 Quản trị viên
@@ -89,7 +89,7 @@
                         <% } %>
                         </span>
                     </td>
-                    <td>
+                    <td id="status">
                         <% if(employeeList[i].status == "Đang làm việc") { %>
                         <span class="body_anable-sorting status-block green-block" id="status">
                         <% } else { %>

@@ -4,6 +4,11 @@ table {
 th, td {
     border: solid 1px var(--smoking-grey);
 }
+#add-position #add-btn {
+    float: right;
+    margin-right: 12px;
+    margin-top: 4px;
+}
 #add-position #title {
     display: inline-block;
 }
@@ -13,7 +18,6 @@ th, td {
 }
 #add-position table {
     margin: var(--form-margin);
-    min-height: 60vh;
     background-color: white;
     border: solid 1px transparent;
     border-radius: var(--form-border-radius);
@@ -25,6 +29,7 @@ th, td {
     text-align: left;
 }
 #add-position .table_title th i {
+    width: 20px;
     font-size: 0.7rem;
     float: right;
     line-height: 24px;
@@ -32,50 +37,43 @@ th, td {
 }
 #add-position .table_title th {
     padding: 6px;
+    text-align: center;
 }
-#add-position .table_title #ordinal {
+#add-position .table_title th#ordinal {
     width: 3%;
+}
+#add-position .table_title th#position_code {
+    width: 20%;
+}
+#add-position .table_title th#dateCreated {
+    width: 18%;
+}
+#add-position .table_title th#position {
+    width: 24%;
+}
+#add-position .table_title th#salary_per_day {
+    width: 18%;
+}
+#add-position .table_title th#delete-employee {
+    width: 10%;
+}
+#add-position tr.body td {
     text-align: center;
 }
-#add-position .table_title #position_code {
-    width: 15%;
-    text-align: center;
+#add-position tr.body .delete-position {
+    padding: 12px 24px 12px;
 }
-
-#add-position .table_title #delete-position {
-    text-align: center;
-}
-#add-position .body td {
-    padding-left: 8px;
-    line-height: 20px!important;
-}
-#add-position .body #ordinal,
-#add-position .body #position_code {
-    padding-left: 0;
-    text-align: center;
-}
-#add-position .body .interact-position-btn {
-    padding: 4px;
-}
-#add-position .body .interact-position-btn a {
+#add-position tr.body .delete-position a {
     display: block;
-    text-align: center;
-    position: relative;
-    padding: 4px 0;
+    margin: auto;
+    width: 50px;
+    line-height: 32px;
+    background-color: var(--red);
     border: solid 1px transparent;
     border-radius: 4px;
-}
-#add-position .body .interact-position-btn a:hover::after {
-    display: block;
-    content: "";
-    position: absolute;
-    top: -2px;
-    left: -2px;
-    background-color: rgba(255, 255, 255, 0.5);
-    height: 40px;
-    width: 41px;
-}
-#add-position .body .delete-position a {
-    background-color: var(--red);
     cursor: pointer;
+    transition: background-color ease 0.3s;
+}
+#add-position tr.body .delete-position a:hover {
+    background-color: rgb(238, 102, 102);
 }

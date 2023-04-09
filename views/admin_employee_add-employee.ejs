@@ -96,11 +96,9 @@
         <div class="form_select-input" id="position">
             <label for="position">Chức vụ</label>
             <select name="position">
-                <option value="Nhân viên">Nhân viên</option>
-                <option value="Trưởng nhóm">Trưởng nhóm</option>
-                <option value="Quản lý">Quản lý</option>
-                <option value="Phó Giám đốc">Phó Giám đốc</option>
-                <option value="Giám đốc">Giám đốc</option>
+                <% for (var index in positionList) { %>
+                    <option value="<%= positionList[index].position %>"><%= positionList[index].position %></option>
+                <% } %>
             </select>
         </div>
         <div class="form_select-input" id="degree">

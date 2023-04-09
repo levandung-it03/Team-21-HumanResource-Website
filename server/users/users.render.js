@@ -82,19 +82,6 @@ class renderMethods {
             res.redirect('/login');
         }
     }
-    async admin_updateEmployee(req, res) {
-        try {
-            const specifiedUser = await getSpecifiedUser(req.params.id);
-            const user = await getCurrentUser(req);
-            res.render('admin_employee_update-employee', {
-                user: user,
-                specifiedUser: specifiedUser,
-                layout: './layouts/admin'
-            });
-        } catch (err) {
-            res.redirect('/login');
-        }
-    }
     async admin_employeeView(req, res) {
         try {
             const specifiedUser = await getSpecifiedUser(req.params.id);
@@ -111,8 +98,25 @@ class renderMethods {
     async admin_addEmployee(req, res) {
         try {
             const user = await getCurrentUser(req);
+            const positionList = await getAllPosition();
             res.render('admin_employee_add-employee', {
                 user: user,
+                positionList: positionList,
+                layout: './layouts/admin'
+            });
+        } catch (err) {
+            res.redirect('/login');
+        }
+    }
+    async admin_updateEmployee(req, res) {
+        try {
+            const specifiedUser = await getSpecifiedUser(req.params.id);
+            const positionList = await getAllPosition();
+            const user = await getCurrentUser(req);
+            res.render('admin_employee_update-employee', {
+                user: user,
+                specifiedUser: specifiedUser,
+                positionList: positionList,
                 layout: './layouts/admin'
             });
         } catch (err) {

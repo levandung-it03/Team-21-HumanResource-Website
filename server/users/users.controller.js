@@ -233,17 +233,29 @@ exports.addPosition = async (req, res) => {
     await client.connect();
     const positionObject = req.body;
     positionObject.position_code = usersMethods.getRandomPositionCode();
-    
+
     positionObject.dateCreated = usersMethods.getNowDate();
-    
+
     const prevData = usersMethods.createErrorString(req.body);
 
     const positionSchema = new Position(positionObject);
     positionSchema.save()
         .then(data => {
-            res.status(201).send(data);
+            res.redirect('/admin/category/employee/position-list');
         })
         .catch(err => {
             res.redirect(DOMAIN + '/admin/category/employee/add-position?error=' + encodeURIComponent(`error_${Object.keys(err.keyValue)[0]}`) + prevData);
         })
+}
+
+exports.deletePosition = async (req, res) => {
+    const id = req.params.id;
+
+    try {
+        await client.connect();
+        await positionDBs.deleteOne({ _id: new ObjectId(id) });
+        res.end();
+    } catch (err) {
+        res.status(404).send({ mes: err.message });
+    }
 }
