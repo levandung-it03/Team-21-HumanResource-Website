@@ -1,11 +1,16 @@
 <link rel="stylesheet" href="/css/employee_account-list.css">
 <div id="account_list">
-    <div id="title">
-        <span>Danh sách tài khoản nhân viên</span>
-    </div>
-    <div class="search">
-        <input class="search" type="text" placeholder="Tìm kiếm trả về mảng">
-        <i class="fa-solid fa-magnifying-glass"></i>
+    <div id="heading">
+        <div class="hide" id="turn-back-btn">
+            <a href="/admin/category/employee/account-list"><i class="fa-solid fa-arrow-left-long"></i> Thoát</a>
+        </div>
+        <div id="title">
+            <span>Danh sách tài khoản nhân viên</span>
+        </div>
+        <div id="search">
+            <input class="search" type="text" placeholder="Tìm kiếm">
+            <i class="fa-solid fa-magnifying-glass"></i>
+        </div>
     </div>
     <table>
         <thead>
@@ -56,44 +61,44 @@
                         <img src=<%= employeeList[i].avatar_url %> alt="">
                     </td>
                     <%  const name = employeeList[i].name.split(' '); %>
-                    <td class="body_anable-sorting" id="first-name">
+                    <td class="body_enable-searching body_enable-sorting" id="first-name">
                         <%= name.slice(0, name.length - 1).join(" ") %>
                     </td>
-                    <td class="body_anable-sorting" id="last-name">
+                    <td class="body_enable-searching body_enable-sorting" id="last-name">
                         <%= name[name.length - 1] %>
                     </td>
-                    <td class="body_anable-sorting" id="email">
+                    <td class="body_enable-searching body_enable-sorting" id="email">
                         <%= employeeList[i].account.email %>
                     </td>
-                    <td class="body_anable-sorting" id="phone">
+                    <td class="body_enable-searching body_enable-sorting" id="phone">
                         <%= employeeList[i].phone %>
                     </td>
                     <td id="employee_type">
                         <% if(employeeList[i].employee_type == "Chính thức") { %>
-                            <span class="body_anable-sorting status-block green-block" id="employee_type">
+                            <span class="body_enable-searching body_enable-sorting status-block green-block" id="employee_type">
                         <% } else if (employeeList[i].employee_type == "Bán thời gian") { %>
-                            <span class="body_anable-sorting status-block blur-green-block" id="employee_type">
+                            <span class="body_enable-searching body_enable-sorting status-block blur-green-block" id="employee_type">
                         <% } else { %>
-                            <span class="body_anable-sorting status-block light-green-block" id="employee_type">
+                            <span class="body_enable-searching body_enable-sorting status-block light-green-block" id="employee_type">
                         <% } %>
                             <%= employeeList[i].employee_type %>
                         </span>
                     </td>
                     <td id="right">
                         <% if(employeeList[i].admin == 1) { %>
-                            <span class="body_anable-sorting status-block blue-right" id="right">
+                            <span class="body_enable-searching body_enable-sorting status-block blue-right" id="right">
                                 Quản trị viên
                         <% } else { %>
-                            <span class="body_anable-sorting status-block black-blue-block" id="right">
+                            <span class="body_enable-searching body_enable-sorting status-block black-blue-block" id="right">
                                 Nhân viên
                         <% } %>
                         </span>
                     </td>
                     <td id="status">
                         <% if(employeeList[i].status == "Đang làm việc") { %>
-                        <span class="body_anable-sorting status-block green-block" id="status">
+                        <span class="body_enable-searching body_enable-sorting status-block green-block" id="status">
                         <% } else { %>
-                        <span class="body_anable-sorting status-block red-block" id="status">
+                        <span class="body_enable-searching body_enable-sorting status-block red-block" id="status">
                         <% } %>
                             <%= employeeList[i].status %>
                         </span>

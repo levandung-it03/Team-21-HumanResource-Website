@@ -27,4 +27,17 @@
             }
         })
     })();
+
+    (function searchingEvent() {
+        $('div#search i').onclick = (e) => {
+            const inputTag = $('div#search input');
+            generalMethods.searchingMethod(inputTag);
+        }
+        $('div#search input').onkeyup = (e) => {
+            if (e.which == 13) {
+                const inputTag = e.target;
+                generalMethods.searchingMethod(inputTag);
+            }
+        }
+    })();
 })();

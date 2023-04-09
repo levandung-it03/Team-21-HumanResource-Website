@@ -1,11 +1,16 @@
 <link rel="stylesheet" href="/css/employee_list.css">
 <div id="employee_list">
-    <div id="title">
-        <span>Danh sách nhân viên</span>
-    </div>
-    <div class="search">
-        <input class="search" type="text" placeholder="Tìm kiếm trả về mảng">
-        <i class="fa-solid fa-magnifying-glass"></i>
+    <div id="heading">
+        <div class="hide" id="turn-back-btn">
+            <a href="/admin/category/employee/employee-list"><i class="fa-solid fa-arrow-left-long"></i> Thoát</a>
+        </div>
+        <div id="title">
+            <span>Danh sách nhân viên</span>
+        </div>
+        <div id="search">
+            <input class="search" type="text" placeholder="Tìm kiếm">
+            <i class="fa-solid fa-magnifying-glass"></i>
+        </div>
     </div>
     <table>
         <thead>
@@ -61,32 +66,32 @@
                     <td id="ordinal">
                         <%= (i + 1) %>
                     </td>
-                    <td class="body_anable-sorting" id="employee_code">
+                    <td class="body_enable-searching body_enable-sorting" id="employee_code">
                         <%= employeeList[i].employee_code %>
                     </td>
                     <td id="avatar">
                         <img src=<%= employeeList[i].avatar_url %> alt="">
                     </td>
-                    <td class="body_anable-sorting" id="name">
+                    <td class="body_enable-searching body_enable-sorting" id="name">
                         <%= employeeList[i].name %>
                     </td>
-                    <td class="body_anable-sorting" id="gender">
+                    <td class="body_enable-searching body_enable-sorting" id="gender">
                         <%= employeeList[i].gender %>
                     </td>
-                    <td class="body_anable-sorting" id="birthday">
+                    <td class="body_enable-searching body_enable-sorting" id="birthday">
                         <%= employeeList[i].birthday %>
                     </td>
-                    <td class="body_anable-sorting" id="birthplace">
+                    <td class="body_enable-searching body_enable-sorting" id="birthplace">
                         <%= employeeList[i].birthplace %>
                     </td>
-                    <td class="body_anable-sorting" id="identifier">
+                    <td class="body_enable-searching body_enable-sorting" id="identifier">
                         <%= employeeList[i].identifier %>
                     </td>
                     <td id="status">
                         <% if(employeeList[i].status == "Đang làm việc") { %>
-                        <span class="body_anable-sorting status-block green-block" id="status">
+                        <span class="body_enable-searching body_enable-sorting status-block green-block" id="status">
                         <% } else { %>
-                        <span class="body_anable-sorting status-block red-block" id="status">
+                        <span class="body_enable-searching body_enable-sorting status-block red-block" id="status">
                         <% } %>
                             <%= employeeList[i].status %>
                         </span>

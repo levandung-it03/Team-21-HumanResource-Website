@@ -1,10 +1,12 @@
 <link rel="stylesheet" href="/css/employee_update.css">
 <div id="update-employee">
-    <div id="turn-back-btn">
-        <a href="/admin/category/employee/employee-list"><i class="fa-solid fa-arrow-left-long"></i> Thoát</a>
-    </div>
-    <div id="form-title">
-        <span>Chỉnh sửa thông tin nhân viên</span>
+    <div id="heading">
+        <div class="hide" id="turn-back-btn">
+            <a href="/admin/category/employee/employee-list"><i class="fa-solid fa-arrow-left-long"></i> Thoát</a>
+        </div>
+        <div id="form-title">
+            <span>Chỉnh sửa thông tin nhân viên</span>
+        </div>
     </div>
     <form method="POST" action="<%= '/api/admin/update-employee/' + specifiedUser._id.toString() %>" enctype="multipart/form-data" onsubmit="return submitFormCancellation">
         <div class="form_text-input more-condition" id="name">

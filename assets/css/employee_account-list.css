@@ -4,16 +4,12 @@ table {
 th, td {
     border: solid 1px var(--smoking-grey);
 }
-#account_list #title {
-    display: inline-block;
-}
 #account_list #title span {
     font-size: 2.4rem;
     padding: 10px;
 }
 #account_list table {
     margin: var(--form-margin);
-    min-height: 60vh;
     background-color: white;
     border: solid 1px transparent;
     border-radius: var(--form-border-radius);

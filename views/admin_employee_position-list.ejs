@@ -1,14 +1,19 @@
 <link rel="stylesheet" href="/css/employee_position-list.css">
 <div id="add-position">
-    <div id="title">
-        <span>Danh sách chức vụ</span>
-    </div>
-    <div id="add-btn">
-        <a href="/admin/category/employee/add-position">Thêm loại chức vụ</a>
-    </div>
-    <div class="search">
-        <input class="search" type="text" placeholder="Tìm kiếm trả về mảng">
-        <i class="fa-solid fa-magnifying-glass"></i>
+    <div id="heading">
+        <div class="hide" id="turn-back-btn">
+            <a href="/admin/category/employee/position-list"><i class="fa-solid fa-arrow-left-long"></i> Thoát</a>
+        </div>
+        <div id="title">
+            <span>Danh sách chức vụ</span>
+        </div>
+        <div id="add-btn">
+            <a href="/admin/category/employee/add-position">Thêm loại chức vụ</a>
+        </div>
+        <div id="search">
+            <input class="search" type="text" placeholder="Tìm kiếm">
+            <i class="fa-solid fa-magnifying-glass"></i>
+        </div>
     </div>
     <table>
         <thead>
@@ -41,10 +46,10 @@
             <% for (var i = 0; i < positionList.length; i++) { %>
                 <tr class="body" id=<%= i+1 %>>
                     <td id="ordinal"><%= (i + 1) %></td>
-                    <td class="body_anable-sorting" id="position_code"><%= positionList[i].position_code %></td>
-                    <td class="body_anable-sorting" id="position"><%= positionList[i].position %></td>
-                    <td class="body_anable-sorting" id="salary_per_day"><%= positionList[i].salary_per_day %>VNĐ/Ngày</td>
-                    <td class="body_anable-sorting" id="dateCreated"><%= positionList[i].dateCreated %></td>
+                    <td class="body_enable-searching body_enable-sorting" id="position_code"><%= positionList[i].position_code %></td>
+                    <td class="body_enable-searching body_enable-sorting" id="position"><%= positionList[i].position %></td>
+                    <td class="body_enable-searching body_enable-sorting" id="salary_per_day"><%= positionList[i].salary_per_day %>VNĐ/Ngày</td>
+                    <td class="body_enable-searching body_enable-sorting" id="dateCreated"><%= positionList[i].dateCreated %></td>
                     <td class="delete-position">
                         <a position_id=<%= positionList[i]._id.toString() %>><i class="fa-sharp fa-solid fa-trash"></i></a>
                     </td>
