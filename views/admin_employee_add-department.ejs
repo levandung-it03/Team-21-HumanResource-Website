@@ -1,0 +1,25 @@
+<link rel="stylesheet" href="/css/employee_add-simple-db.css">
+<div id="add-department">
+    <div id="heading">
+        <div id="turn-back-btn">
+            <a href="/admin/category/employee/department-list"><i class="fa-solid fa-arrow-left-long"></i> Thoát</a>
+        </div>
+        <div id="title">
+            <span>Thêm phòng ban</span>
+        </div>
+    </div>
+    <form method="POST" action="/api/admin/add-department" onsubmit="return submitFormCancellation">
+        <div class="form_text-input more-condition" id="department">
+            <label for="department">Phòng ban</label>
+            <input name="department" type="text" placeholder="VD: Kế toán tài chính,..." required>
+            <div class="form_text-input_err-message"></div>
+        </div>
+        <div class="form_text-input more-condition" id="multipleSalary">
+            <label for="multipleSalary">Hệ số lương cơ bản</label>
+            <input name="multipleSalary" type="text" placeholder="VD: 1.3,..." required>
+            <div class="form_text-input_err-message"></div>
+        </div>
+        <input type="submit" value="Xác nhận">
+    </form>
+</div>
+<script src="/js/employee_add-department.js"></script>

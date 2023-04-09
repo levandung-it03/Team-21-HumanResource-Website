@@ -2,6 +2,20 @@ const $ = document.querySelector.bind(document);
 const $$ = document.querySelectorAll.bind(document);
 
 const generalMethods = {
+    trimInputData: function (inputTag) {
+        const words = inputTag.value.trim().split(" ");
+        let result = [];
+        for (let word of words) {
+            if (word !== "") {
+                word[0] = word[0].toUpperCase();
+                result.push(word);
+            }
+        }
+        inputTag.value = result.join(" ");
+    },
+    rejectWeirdCharOfNumberInputTags: function (e) {
+        if (!((48 <= e.which && e.which <= 57) || e.which == 190))  e.target.value = "";
+    },
     sortingMethod: function (tagSelector) {
         const tbodyTag = $('table tbody');
 
@@ -38,7 +52,7 @@ const generalMethods = {
             })
         }
         if (!result.length) {
-            $('table').innerHTML = '<p style="padding: 50px; font-size: 3rem;">Không tìm thấy kết quả của bạn!</p>';
+            $('table').innerHTML = '<p style="padding: 50px; font-size: 2rem;">Không tìm thấy kết quả của bạn!</p>';
 
         } else {
             $('tbody').innerHTML = result.map(tag => tag.outerHTML).join("");

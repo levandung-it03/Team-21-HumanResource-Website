@@ -89,6 +89,7 @@ var departmentSchema = new mongoose.Schema({
         unique: true,
         required: true,
     },
+    multipleSalary: Number,
     dateCreated: String,
 }, { collection: 'department' });
 
@@ -112,4 +113,4 @@ var Salary = mongoose.model('salary', salarySchema);
 var Position = mongoose.model('position', positionSchema);
 var Department = mongoose.model('department', departmentSchema);
 
-module.exports = { UserDb, Position, Salary };
+module.exports = { UserDb, Salary, Position, Department };

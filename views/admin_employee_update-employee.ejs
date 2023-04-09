@@ -1,7 +1,7 @@
 <link rel="stylesheet" href="/css/employee_update.css">
 <div id="update-employee">
     <div id="heading">
-        <div class="hide" id="turn-back-btn">
+        <div id="turn-back-btn">
             <a href="/admin/category/employee/employee-list"><i class="fa-solid fa-arrow-left-long"></i> Thoát</a>
         </div>
         <div id="form-title">
@@ -84,10 +84,9 @@
         <div class="form_select-input" id="department">
             <label for="department">Phòng ban</label>
             <select data="<%= specifiedUser.department %>" name="department">
-                <option value="Marketing">Marketing</option>
-                <option value="Phát triển phần mềm">Phát triển phần mềm</option>
-                <option value="Kế toán">Kế toán</option>
-                <option value="Pháp lý">Pháp lý</option>
+                <% for (var index in departmentList) { %>
+                    <option value="<%= departmentList[index].department %>"><%= departmentList[index].department %></option>
+                <% } %>
             </select>
         </div>
         <div class="form_select-input" id="employee_type">
@@ -100,7 +99,7 @@
         </div>
         <div class="form_select-input" id="position">
             <label for="position">Chức vụ</label>
-            <select name="position">
+            <select data="<%= specifiedUser.position %>" name="position">
                 <% for (var index in positionList) { %>
                     <option value="<%= positionList[index].position %>"><%= positionList[index].position %></option>
                 <% } %>

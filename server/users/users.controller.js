@@ -1,6 +1,5 @@
-const { UserDb, Position, Salary } = require('./users.model');
-const authMethods = require('../auth/auth.methods');
 require('dotenv').config();
+const DOMAIN = process.env.DOMAIN;
 const { MongoClient } = require('mongodb');
 const { ObjectId } = require('mongodb');
 const path = require('path');
@@ -12,10 +11,13 @@ const bcrypt = require('bcrypt');
 
 const client = new MongoClient(process.env.MONGO_URI);
 const userDBs = client.db('company').collection('userdbs');
+const salaryDBs = client.db('company').collection('salary');
 const positionDBs = client.db('company').collection('position');
-// const salaryDBs = client.db('company').collection('salary');
-const DOMAIN = process.env.DOMAIN;
+const departmentDBs = client.db('company').collection('department');
+
 const usersMethods = require('./users.methods');
+const authMethods = require('../auth/auth.methods');
+const { UserDb, Salary, Position, Department } = require('./users.model');
 
 exports.addEmployee = async (req, res) => {
     if (!req.body) res.status(400).send({ message: "Content can not be empty!" }).end();
@@ -254,6 +256,38 @@ exports.deletePosition = async (req, res) => {
     try {
         await client.connect();
         await positionDBs.deleteOne({ _id: new ObjectId(id) });
+        res.end();
+    } catch (err) {
+        res.status(404).send({ mes: err.message });
+    }
+}
+
+exports.addDepartment = async (req, res) => {
+    await client.connect();
+    const departmentObject = req.body;
+    departmentObject.department_code = usersMethods.getRandomDepartmentCode();
+
+    departmentObject.dateCreated = usersMethods.getNowDate();
+
+    const prevData = usersMethods.createErrorString(req.body);
+
+    const departmentSchema = new Department(departmentObject);
+    departmentSchema.save()
+        .then(data => {
+            res.redirect('/admin/category/employee/department-list');
+        })
+        .catch(err => {
+            res.status(500).send({ mes: err.message })
+            // res.redirect(DOMAIN + '/admin/category/employee/add-department?error=' + encodeURIComponent(`error_${Object.keys(err.keyValue)[0]}`) + prevData);
+        })
+}
+
+exports.deleteDepartment = async (req, res) => {
+    const id = req.params.id;
+
+    try {
+        await client.connect();
+        await departmentDBs.deleteOne({ _id: new ObjectId(id) });
         res.end();
     } catch (err) {
         res.status(404).send({ mes: err.message });

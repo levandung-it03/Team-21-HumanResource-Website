@@ -2,19 +2,23 @@ let submitFormCancellation = false;
 
 (function main() {
     const errorMessages = {
-        position: {
+        department: {
             confirm: function (value) {
                 this.isValid = value.split("").every((e) => isNaN(Number.parseInt(e)));
             },
-            message: "Tên chức vụ không hợp lệ.",
+            message: "Tên phòng ban không hợp lệ.",
             isValid: false,
         },
-        salary_per_day: {
+        multipleSalary: {
             confirm: function (value) {
-                this.isValid = value.split("").every((e) => !(isNaN(Number.parseInt(e)))) && (value.length >= 5);
-
+                const multiples = value.split(".");
+                if (multiples.length > 2) {
+                    this.isValid = false;
+                } else {
+                    this.isValid = !multiples.every(value => value.split("").every((e) => isNaN(Number.parseInt(e))));
+                }
             },
-            message: "Số tiền không đủ nhiều hoặc không hợp lệ.",
+            message: "Hệ số không hợp lệ.",
             isValid: false,
         },
     }
@@ -42,18 +46,16 @@ let submitFormCancellation = false;
         [...$$('.form_text-input .form_text-input_err-message')].forEach((e) => {
             const parentId = e.parentNode.id;
             e.innerHTML = `
-    <span class='err-message-block' id='${parentId}'>
-        ${errorMessages[parentId].message}
-    </span>
-`;
-        })
+            <span class='err-message-block' id='${parentId}'>
+                ${errorMessages[parentId].message}
+            </span>`;
+        });
     })();
 
     (function setUpstrictInputTags() {
         strictInputTags.forEach((tag) => {
             tag.onblur = (e) => {
                 generalMethods.trimInputData(e.target);
-
                 const errMesTagObject = errorMessages[tag.name];
                 const errTag = $(`div#${tag.name} span#${tag.name}`);
 
@@ -68,14 +70,14 @@ let submitFormCancellation = false;
     const urlParams = new URLSearchParams(window.location.search);
     const myParam = urlParams.get('error');
     if (myParam) {
-        alert('Loại vị trí này đã tồn tại!');
+        alert('Phòng ban này đã tồn tại!');
         (async function handleRedirect() {
             const dataMessages = myParam.split('?');
             const data = dataMessages.map((e) => {
                 return e.split('=');
             })
 
-            window.history.replaceState({}, "", "http://localhost:3000/admin/category/employee/add-position");
+            window.history.replaceState({}, "", "http://localhost:3000/admin/category/employee/add-department");
             strictInputTags.forEach((tag, index) => {
                 tag.value = data.find((e) => e[0] == tag.name)[1];
                 errorMessages[tag.name].confirm(tag.value);

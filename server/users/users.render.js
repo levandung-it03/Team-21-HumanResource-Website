@@ -8,6 +8,13 @@ const { ObjectId } = require('mongodb');
 const client = new MongoClient(process.env.MONGO_URI);
 const userDBs = client.db('company').collection('userdbs');
 const positionDBs = client.db('company').collection('position');
+const departmentDBs = client.db('company').collection('department');
+
+
+async function getAllDepartment() {
+    const allDepartment = departmentDBs.find({});
+    return await allDepartment.toArray();
+}
 
 async function getAllPosition() {
     const allUser = positionDBs.find({});
@@ -99,9 +106,11 @@ class renderMethods {
         try {
             const user = await getCurrentUser(req);
             const positionList = await getAllPosition();
+            const departmentList = await getAllDepartment();
             res.render('admin_employee_add-employee', {
                 user: user,
                 positionList: positionList,
+                departmentList: departmentList,
                 layout: './layouts/admin'
             });
         } catch (err) {
@@ -112,10 +121,12 @@ class renderMethods {
         try {
             const specifiedUser = await getSpecifiedUser(req.params.id);
             const positionList = await getAllPosition();
+            const departmentList = await getAllDepartment();
             const user = await getCurrentUser(req);
             res.render('admin_employee_update-employee', {
                 user: user,
                 specifiedUser: specifiedUser,
+                departmentList: departmentList,
                 positionList: positionList,
                 layout: './layouts/admin'
             });
@@ -153,6 +164,30 @@ class renderMethods {
         try {
             const user = await getCurrentUser(req);
             res.render('admin_employee_add-position', {
+                user: user,
+                layout: './layouts/admin'
+            });
+        } catch (err) {
+            res.redirect('/login');
+        }
+    }
+    async admin_departmentList(req, res) {
+        try {
+            const departmentList = await getAllDepartment();
+            const user = await getCurrentUser(req);
+            res.render('admin_employee_department-list', {
+                user: user,
+                departmentList: departmentList,
+                layout: './layouts/admin'
+            });
+        } catch (err) {
+            res.redirect('/login');
+        }
+    }
+    async admin_addDepartment(req, res) {
+        try {
+            const user = await getCurrentUser(req);
+            res.render('admin_employee_add-department', {
                 user: user,
                 layout: './layouts/admin'
             });

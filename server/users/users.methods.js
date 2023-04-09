@@ -80,6 +80,9 @@ class UsersMethods {
 
         return (year + "-" + month + "-" + date);
     }
+    getRandomDepartmentCode() {
+        return `PB${Date.now()}${Math.floor(Math.random() * 99)}`;
+    }
 }
 
 module.exports = new UsersMethods;

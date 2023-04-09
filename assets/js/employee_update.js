@@ -71,8 +71,7 @@ let submitFormCancellation = false;
                 if (value.length != 10) {
                     this.isValid = false;
                 } else {
-                    this.isValid = value.split("").every((e) => !isNaN(Number.parseInt(e)));
-                    this.isValid = (value[0] == "0");
+                    this.isValid = value.split("").every((e) => !isNaN(Number.parseInt(e))) && (value[0] == "0");
                 }
             },
             message: "Điện thoại chỉ gồm số và có 10 chữ số.",
@@ -115,6 +114,7 @@ let submitFormCancellation = false;
     (function setUpstrictInputTags() {
         strictInputTags.forEach((tag) => {
             tag.onblur = (e) => {
+                generalMethods.trimInputData(e.target);
                 const errMesTagObject = errorMessages[tag.name];
                 const errTag = $(`div#${tag.name} span#${tag.name}`);
 
@@ -160,7 +160,7 @@ let submitFormCancellation = false;
     (function recoverEmployeeSelectData() {
         const selectTags = [...$$('.form_select-input select')];
         selectTags.forEach((tag) => {
-            let value = tag.getAttribute('data');
+            let value = tag.getAttribute('data').trim();
             tag.querySelectorAll('option').forEach((optionTag) => {
                 if (optionTag.innerHTML == value) {
                     optionTag.selected = true;

@@ -1,15 +1,15 @@
 (function main() {
-    (function deletePosition() {
-        $$('td.delete-position a').forEach((tag) => {
+    (function deleteDepartment() {
+        $$('td.delete-department a').forEach((tag) => {
             tag.onclick = async (e) => {
                 if (confirm('Bạn chắc chắn muốn xoá loại nhân viên này chứ? Dữ liệu đã xoá không thể khôi phục!')) {
-                    const id = tag.getAttribute('position_id');
-                    await fetch(`/api/admin/delete-position/${id}`, {
+                    const id = tag.getAttribute('department_id');
+                    await fetch(`/api/admin/delete-department/${id}`, {
                         method: "DELETE",
                     })
                         .then((response) => {
-                            alert('Xoá loại chức vụ thành công!');
-                            window.location.href = "http://localhost:3000/admin/category/employee/position-list";
+                            alert('Xoá phòng ban thành công!');
+                            window.location.href = "http://localhost:3000/admin/category/employee/department-list";
                         })
                 }
             }

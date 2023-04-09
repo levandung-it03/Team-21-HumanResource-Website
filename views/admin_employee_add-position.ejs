@@ -1,16 +1,16 @@
-<link rel="stylesheet" href="/css/employee_add-position.css">
-<div id="add-employee">
+<link rel="stylesheet" href="/css/employee_add-simple-db.css">
+<div id="add-position">
     <div id="heading">
         <div id="turn-back-btn">
             <a href="/admin/category/employee/position-list"><i class="fa-solid fa-arrow-left-long"></i> Thoát</a>
         </div>
-        <div id="form-title">
+        <div id="title">
             <span>Thêm loại chức vụ</span>
         </div>
     </div>
     <form method="POST" action="/api/admin/add-position" onsubmit="return submitFormCancellation">
         <div class="form_text-input more-condition" id="position">
-            <label for="position">Loại loại chức vụ</label>
+            <label for="position">Loại chức vụ</label>
             <input name="position" type="text" placeholder="VD: Phó giám đốc,..." required>
             <div class="form_text-input_err-message"></div>
         </div>
