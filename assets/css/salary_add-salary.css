@@ -1,0 +1,74 @@
+html {
+    background-size: 100vw;
+    background-repeat: no-repeat;
+}
+#add-salary #form-title span {
+    font-size: 2.4rem;
+    padding: 10px;
+}
+
+form {
+    margin: var(--form-margin);
+    padding: calc(2 * var(--form-margin));
+    background-color: white;
+    display: block;
+    width: auto;
+    border: 1px transparent solid;
+    border-radius: var(--form-border-radius);
+    box-shadow: var(--black-box-shadow);
+    color: var(--grey-text-form);
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+form .form_text-input,
+form .form_select-input {
+    display: inline-block;
+    min-width: 31%!important;
+    height: 72px;
+    margin: 6px 12px;
+}
+form .large-block {
+    width: 98%;
+}
+form .form_select-input select:focus,
+form .form_text-input input:focus {
+    background-color: var(--smoking-grey);
+}
+form .form_text-input label,
+form .form_select-input label {
+    display: block;
+}
+form .form_text-input input {
+    width: 100%;
+    padding: 12px;
+    border: solid 1px var(--grey-border);
+    border-radius: 6px;
+}
+form .form_select-input select {
+    width: 100%;
+    padding: 12px;
+    border: solid 1px var(--grey-border);
+    border-radius: 6px;
+}
+
+.register-select select:hover {
+    cursor: pointer;
+}
+
+form input[type=submit] {
+    padding: 12px 72px;
+    margin: auto;
+    margin-top: 30px;
+}
+
+.form_text-input_err-message {
+    position: relative;
+}
+
+.err-message-block {
+    position: absolute;
+    display: none;
+    color: red;
+    font-size: 0.8rem;
+}

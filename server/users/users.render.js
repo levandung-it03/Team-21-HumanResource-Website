@@ -7,9 +7,14 @@ const { MongoClient } = require('mongodb');
 const { ObjectId } = require('mongodb');
 const client = new MongoClient(process.env.MONGO_URI);
 const userDBs = client.db('company').collection('userdbs');
+const salaryDBs = client.db('company').collection('salary');
 const positionDBs = client.db('company').collection('position');
 const departmentDBs = client.db('company').collection('department');
 
+async function getAllSalary() {
+    const allSalary = salaryDBs.find({});
+    return await allSalary.toArray();
+}
 
 async function getAllDepartment() {
     const allDepartment = departmentDBs.find({});
@@ -189,6 +194,38 @@ class renderMethods {
             const user = await getCurrentUser(req);
             res.render('admin_employee_add-department', {
                 user: user,
+                layout: './layouts/admin'
+            });
+        } catch (err) {
+            res.redirect('/login');
+        }
+    }
+    async admin_salaryList (req, res) {
+        try {
+            const salaryList = await getAllSalary();
+            const user = await getCurrentUser(req);
+            res.render('admin_salary_salary-list', {
+                user: user,
+                salaryList: salaryList,
+                layout: './layouts/admin'
+            });
+        } catch (err) {
+            res.redirect('/login');
+        }
+    }
+    async admin_addSalary (req, res) {
+        try {
+            const user = await getCurrentUser(req);
+            const allUsers = await getAllUser();
+            const salaryList = await getAllSalary();
+            const positionList = await getAllPosition();
+            const departmentList = await getAllDepartment();
+            res.render('admin_salary_add-salary', {
+                user: user,
+                allUsers: allUsers,
+                salaryList: salaryList,
+                positionList: positionList,
+                departmentList: departmentList,
                 layout: './layouts/admin'
             });
         } catch (err) {

@@ -62,7 +62,6 @@ let submitFormCancellation = false;
                 else errTag.style.display = "inline";
             }
         })
-        strictInputTags[1].onkeyup = generalMethods.rejectWeirdCharOfNumberInputTags;
     })();
 
     const urlParams = new URLSearchParams(window.location.search);

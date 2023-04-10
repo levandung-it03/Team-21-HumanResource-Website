@@ -60,19 +60,19 @@ var salarySchema = new mongoose.Schema({
         required: true,
     },
     position: String,
+    salary_per_day: Number,
     department: String,
+    multipleSalary: Number,
     salaryList: [
         {
             year: Number,
             month: Number,
-            originDay: Number,
+            totalDays: Number,
             dayOff: Number,
-            salary_per_day: Number,
-            multiple_salary: Number,
             allowance: Number,
             advanceSalaray: Number,
-            tax: Number,
             bonusSalary: Number,
+            tax: Number,
             realSalary: Number
         }
     ]

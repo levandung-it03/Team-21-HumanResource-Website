@@ -293,3 +293,7 @@ exports.deleteDepartment = async (req, res) => {
         res.status(404).send({ mes: err.message });
     }
 }
+
+exports.addSalary = async (req, res) => {
+    res.status(200).send(req.body);
+}
