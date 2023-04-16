@@ -132,7 +132,6 @@ route.delete('/api/admin/delete-salary/:id',
 route.delete('/api/admin/delete-employee-type/:id',
     authMiddlewares.verifyToken,
     usersController.deleteEmployeeType);
-
 /**---------------------------------------------------------------------------------------------- */
 
 module.exports = route;
