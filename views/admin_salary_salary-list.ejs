@@ -1,1 +1,69 @@
-<h1>This is Salary List</h1>
+<link rel="stylesheet" href="/css/salary_salary-list.css">
+<div id="salary-list">
+    <div id="heading">
+        <div class="hide" id="turn-back-btn">
+            <a href="/admin/category/salary/salary-list"><i class="fa-solid fa-arrow-left-long"></i> Thoát</a>
+        </div>
+        <div id="title">
+            <span>Danh sách tính lương</span>
+        </div>
+        <div id="search">
+            <input class="search" type="text" placeholder="Tìm kiếm">
+            <i class="fa-solid fa-magnifying-glass"></i>
+        </div>
+    </div>
+    <table>
+        <thead>
+            <tr class="table_title">
+                <th id="ordinal">
+                    <span class="title_name">STT</span>                 
+                </th>
+                <th id="employee_code">
+                    <span class="title_name">Mã nhân viên</span>
+                    <i class="fa-solid fa-sort" id="employee_code"></i>
+                </th>
+                <th id="name">
+                    <span class="title_name">Tên nhân viên</span>
+                    <i class="fa-solid fa-sort" id="name"></i>
+                </th>
+                <th id="department">
+                    <span class="title_name">Phòng ban</span>
+                    <i class="fa-solid fa-sort" id="department"></i>
+                </th>
+                <th id="position">
+                    <span class="title_name">Chức vụ</span>
+                    <i class="fa-solid fa-sort" id="position"></i>
+                </th>
+                <th id="realSalary">
+                    <span class="title_name">Thực lãnh (VNĐ)</span>
+                    <i class="fa-solid fa-sort" id="realSalary"></i>
+                </th>
+                <th id="dateCreated">
+                    <span class="title_name">Ngày chấm</span>
+                    <i class="fa-solid fa-sort" id="dateCreated"></i>
+                </th>
+                <th id="delete-salary">
+                    <span class="title_name">Xoá</span>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <% for (var i = 0; i < salaryInfoList.length; i++) { %>
+                <tr class="body" id=<%= i+1 %>>
+                    <td id="ordinal"><%= (i + 1) %></td>
+                    <td class="body_enable-searching body_enable-sorting" id="employee_code"><%= salaryInfoList[i].employee_code %></td>
+                    <td class="body_enable-searching body_enable-sorting" id="name"><%= salaryInfoList[i].name %></td>
+                    <td class="body_enable-searching body_enable-sorting" id="department"><%= salaryInfoList[i].department %></td>
+                    <td class="body_enable-searching body_enable-sorting" id="position"><%= salaryInfoList[i].position %></td>
+                    <%  const lastSalary = salaryInfoList[i].salaryList.pop(); %>
+                    <td class="body_enable-searching body_enable-sorting" id="realSalary"><%= lastSalary.realSalary %></td>
+                    <td class="body_enable-searching body_enable-sorting" id="dateCreated"><%= lastSalary.dateCreated %></td>
+                    <td class="delete-salary">
+                        <a id_salary=<%= salaryInfoList[i]._id.toString() %>><i class="fa-sharp fa-solid fa-trash"></i></a>
+                    </td>
+                </tr>
+            <% } %>
+        </tbody>
+    </table>
+</div>
+<script src="/js/salary_salary-list.js"></script>

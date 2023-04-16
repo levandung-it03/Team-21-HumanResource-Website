@@ -4,19 +4,19 @@ table {
 th, td {
     border: solid 1px var(--smoking-grey);
 }
-#position-list #add-btn {
+#employee-type-list #add-btn {
     float: right;
     margin-right: 12px;
     margin-top: 4px;
 }
-#position-list #title {
+#employee-type-list #title {
     display: inline-block;
 }
-#position-list #title span {
+#employee-type-list #title span {
     font-size: 2.4rem;
     padding: 10px;
 }
-#position-list table {
+#employee-type-list table {
     margin: var(--form-margin);
     background-color: white;
     border: solid 1px transparent;
@@ -25,42 +25,45 @@ th, td {
     box-shadow: var(--black-box-shadow);
     font-size: 0.95rem;
 }
-#position-list .table_title {
+#employee-type-list .table_title {
     text-align: left;
 }
-#position-list .table_title th i {
+#employee-type-list .table_title th i {
     width: 20px;
     font-size: 0.7rem;
     float: right;
     line-height: 24px;
     cursor: pointer;
 }
-#position-list .table_title th {
+#employee-type-list .table_title th {
     padding: 6px;
     text-align: center;
 }
-#position-list .table_title th#ordinal {
+#employee-type-list .table_title th#ordinal {
     width: 3%;
 }
-#position-list .table_title th#position_code {
+#employee-type-list .table_title th#employee_type_code {
     width: 20%;
 }
-#position-list .table_title th#dateCreated {
-    width: 18%;
-}
-#position-list .table_title th#position {
+#employee-type-list .table_title th#employee_type {
     width: 24%;
 }
-#position-list .table_title th#delete-position {
+#employee-type-list .table_title th#dateCreated {
+    width: 18%;
+}
+#employee-type-list .table_title th#multipleSalary {
+    width: 18%;
+}
+#employee-type-list .table_title th#delete-employee-type {
     width: 10%;
 }
-#position-list tr.body td {
+#employee-type-list tr.body td {
     text-align: center;
 }
-#position-list tr.body .delete-position {
+#employee-type-list tr.body .delete-employee-type {
     padding: 12px 24px 12px;
 }
-#position-list tr.body .delete-position a {
+#employee-type-list tr.body .delete-employee-type a {
     display: block;
     margin: auto;
     width: 50px;
@@ -71,6 +74,6 @@ th, td {
     cursor: pointer;
     transition: background-color ease 0.3s;
 }
-#position-list tr.body .delete-position a:hover {
+#employee-type-list tr.body .delete-employee-type a:hover {
     background-color: rgb(238, 102, 102);
 }

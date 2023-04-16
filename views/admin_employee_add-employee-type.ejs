@@ -1,17 +1,17 @@
 <link rel="stylesheet" href="/css/employee_add-simple-db.css">
-<div id="add-department">
+<div id="add-employee-type">
     <div id="heading">
         <div id="turn-back-btn">
-            <a href="/admin/category/employee/department-list"><i class="fa-solid fa-arrow-left-long"></i> Thoát</a>
+            <a href="/admin/category/employee/employee-type-list"><i class="fa-solid fa-arrow-left-long"></i> Thoát</a>
         </div>
         <div id="title">
-            <span>Thêm phòng ban</span>
+            <span>Thêm loại nhân viên</span>
         </div>
     </div>
-    <form method="POST" action="/api/admin/add-department" onsubmit="return submitFormCancellation">
-        <div class="form_text-input more-condition" id="department">
-            <label for="department">Phòng ban</label>
-            <input name="department" type="text" placeholder="VD: Kế toán tài chính,..." required>
+    <form method="POST" action="/api/admin/add-employee-type" onsubmit="return submitFormCancellation">
+        <div class="form_text-input more-condition" id="employee_type">
+            <label for="employee_type">Loại nhân viên</label>
+            <input name="employee_type" type="text" placeholder="VD: Bán thời gian,..." required>
             <div class="form_text-input_err-message"></div>
         </div>
         <div class="form_text-input more-condition" id="multipleSalary">
@@ -22,4 +22,4 @@
         <input type="submit" value="Xác nhận">
     </form>
 </div>
-<script src="/js/employee_add-department.js"></script>
+<script src="/js/employee_add-employee-type.js"></script>

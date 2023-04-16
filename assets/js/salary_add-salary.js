@@ -28,6 +28,13 @@
             message: "Số tiền không hợp lệ.",
             isValid: false,
         },
+        advanceSalary: {
+            confirm: function (value) {
+                this.isValid = value.split("").every((e) => !isNaN(Number.parseInt(e)));
+            },
+            message: "Số tiền không hợp lệ.",
+            isValid: false,
+        },
     }
     const strictInputTags = [...$$('.more-condition input')];
 

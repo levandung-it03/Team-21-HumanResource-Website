@@ -65,15 +65,17 @@ var salarySchema = new mongoose.Schema({
     multipleSalary: Number,
     salaryList: [
         {
-            year: Number,
-            month: Number,
+            dateCreated: {
+                type: String,
+                required: true,
+            },
             totalDays: Number,
             dayOff: Number,
             allowance: Number,
-            advanceSalaray: Number,
+            advanceSalary: Number,
             bonusSalary: Number,
             tax: Number,
-            realSalary: Number
+            realSalary: Number,
         }
     ]
 }, { collection: 'salary' });
@@ -108,9 +110,25 @@ var positionSchema = new mongoose.Schema({
     dateCreated: String,
 }, { collection: 'position' });
 
+var employeeTypeSchema = new mongoose.Schema({
+    employee_type_code: {
+        type: String,
+        unique: true,
+        required: true
+    },
+    employee_type: {
+        type: String,
+        unique: true,
+        required: true
+    },
+    multipleSalary: Number,
+    dateCreated: String,
+}, { collection: 'employee_type' });
+
 var UserDb = mongoose.model('userdbs', userSchema);
 var Salary = mongoose.model('salary', salarySchema);
 var Position = mongoose.model('position', positionSchema);
 var Department = mongoose.model('department', departmentSchema);
+var Employee_type = mongoose.model('employee_type', employeeTypeSchema);
 
-module.exports = { UserDb, Salary, Position, Department };
+module.exports = { UserDb, Salary, Position, Department, Employee_type };

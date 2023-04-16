@@ -1,5 +1,5 @@
 (function main() {
-    (function deleteUser() {
+    function deleteUser() {
         $$('td.delete-employee a').forEach((tag) => {
             tag.onclick = async (e) => {
                 if (confirm('Bạn chắc chắn muốn xoá nhân viên này chứ? Dữ liệu đã xoá không thể khôi phục!')) {
@@ -14,7 +14,8 @@
                 }
             }
         })
-    })();
+    }
+    deleteUser();
 
     (function sortingEvent() {
         $$('.table_title i').forEach(sortingIconTag => {
@@ -25,6 +26,8 @@
                 }
                 generalMethods.sortingMethod(tagSelector);
                 alert("Sắp xếp thành công!");
+                
+                deleteUser();
             }
         })
     })();
@@ -33,11 +36,15 @@
         $('div#search i').onclick = (e) => {
             const inputTag = $('div#search input');
             generalMethods.searchingMethod(inputTag);
+            
+            deleteUser();
         }
         $('div#search input').onkeyup = (e) => {
             if (e.which == 13) {
                 const inputTag = e.target;
                 generalMethods.searchingMethod(inputTag);
+                
+                deleteUser();
             }
         }
     })();

@@ -87,9 +87,9 @@
         <div class="form_select-input" id="employee_type">
             <label for="employee_type">Loại nhân viên</label>
             <select name="employee_type">
-                <option value="Thực tập">Thực tập</option>
-                <option value="Bán thời gian">Bán thời gian</option>
-                <option value="Chính thức">Chính thức</option>
+                <% for (var index in employeeTypeList) { %>
+                    <option value="<%= employeeTypeList[index].employee_type %>"><%= employeeTypeList[index].employee_type %></option>
+                <% } %>
             </select>
         </div>
         <div class="form_select-input" id="position">

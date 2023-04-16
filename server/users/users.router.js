@@ -46,6 +46,14 @@ route.get('/admin/category/employee/account-list',
     authMiddlewares.verifyToken,
     renderMethods.admin_accountList);
 
+route.get('/admin/category/employee/employee-type-list',
+    authMiddlewares.verifyToken,
+    renderMethods.admin_employeeTypeList);
+
+route.get('/admin/category/employee/add-employee-type',
+    authMiddlewares.verifyToken,
+    renderMethods.admin_addEmployeeType);
+
 route.get('/admin/category/employee/employee-list/view/:id',
     authMiddlewares.verifyToken,
     renderMethods.admin_employeeView);
@@ -87,6 +95,11 @@ route.post('/api/admin/update-employee/:id',
     authMiddlewares.verifyToken,
     cloudUpload.single('avatar'),
     usersController.updateEmployee);
+    
+
+route.post('/api/admin/add-employee-type',
+    authMiddlewares.verifyToken,
+    usersController.addEmployeeType);
 
 route.post('/api/admin/add-position',
     authMiddlewares.verifyToken,
@@ -111,6 +124,14 @@ route.delete('/api/admin/delete-position/:id',
 route.delete('/api/admin/delete-department/:id',
     authMiddlewares.verifyToken,
     usersController.deleteDepartment);
+
+route.delete('/api/admin/delete-salary/:id',
+    authMiddlewares.verifyToken,
+    usersController.deleteSalary);
+
+route.delete('/api/admin/delete-employee-type/:id',
+    authMiddlewares.verifyToken,
+    usersController.deleteEmployeeType);
 
 /**---------------------------------------------------------------------------------------------- */
 

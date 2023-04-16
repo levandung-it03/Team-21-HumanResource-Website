@@ -30,7 +30,7 @@
                     <i class="fa-solid fa-sort" id="position"></i>
                 </th>
                 <th id="salary_per_day">
-                    <span class="title_name">Lương cơ bản</span>
+                    <span class="title_name">Lương cơ bản (VNĐ/Ngày)</span>
                     <i class="fa-solid fa-sort" id="salary_per_day"></i>
                 </th>
                 <th id="dateCreated">
@@ -48,7 +48,7 @@
                     <td id="ordinal"><%= (i + 1) %></td>
                     <td class="body_enable-searching body_enable-sorting" id="position_code"><%= positionList[i].position_code %></td>
                     <td class="body_enable-searching body_enable-sorting" id="position"><%= positionList[i].position %></td>
-                    <td class="body_enable-searching body_enable-sorting" id="salary_per_day"><%= positionList[i].salary_per_day %>VNĐ/Ngày</td>
+                    <td class="body_enable-searching body_enable-sorting" id="salary_per_day"><%= positionList[i].salary_per_day %></td>
                     <td class="body_enable-searching body_enable-sorting" id="dateCreated"><%= positionList[i].dateCreated %></td>
                     <td class="delete-position">
                         <a position_id=<%= positionList[i]._id.toString() %>><i class="fa-sharp fa-solid fa-trash"></i></a>

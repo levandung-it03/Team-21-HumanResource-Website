@@ -2,9 +2,6 @@ require('dotenv').config();
 const DOMAIN = process.env.DOMAIN;
 const { MongoClient } = require('mongodb');
 const { ObjectId } = require('mongodb');
-const path = require('path');
-const nodemailer = require('nodemailer');
-const jwt = require('jsonwebtoken');
 const cloudinary = require('cloudinary').v2;
 const sharp = require('sharp');
 const bcrypt = require('bcrypt');
@@ -14,10 +11,11 @@ const userDBs = client.db('company').collection('userdbs');
 const salaryDBs = client.db('company').collection('salary');
 const positionDBs = client.db('company').collection('position');
 const departmentDBs = client.db('company').collection('department');
+const employee_typeDBs = client.db('company').collection('employee_type');
 
 const usersMethods = require('./users.methods');
 const authMethods = require('../auth/auth.methods');
-const { UserDb, Salary, Position, Department } = require('./users.model');
+const { UserDb, Salary, Position, Department, Employee_type } = require('./users.model');
 
 exports.addEmployee = async (req, res) => {
     if (!req.body) res.status(400).send({ message: "Content can not be empty!" }).end();
@@ -231,6 +229,37 @@ exports.deleteEmployee = async (req, res) => {
         })
 }
 
+exports.addEmployeeType = async (req, res) => {
+    await client.connect();
+    const employeeTypeObject = req.body;
+    employeeTypeObject.employee_type_code = usersMethods.getRandomEmployeeTypeCode();
+
+    employeeTypeObject.dateCreated = usersMethods.getNowDate();
+
+    const prevData = usersMethods.createErrorString(req.body);
+
+    const employeeTypeSchema = new Employee_type(employeeTypeObject);
+    employeeTypeSchema.save()
+        .then(data => {
+            res.redirect('/admin/category/employee/employee-type-list');
+        })
+        .catch(err => {
+            res.redirect(DOMAIN + '/admin/category/employee/add-employee-type?error=' + encodeURIComponent(`error_${Object.keys(err.keyValue)[0]}`) + prevData);
+        })
+}
+
+exports.deleteEmployeeType = async (req, res) => {
+    const id = req.params.id;
+
+    try {
+        await client.connect();
+        await employee_typeDBs.deleteOne({ _id: new ObjectId(id) });
+        res.end();
+    } catch (err) {
+        res.status(404).send({ mes: err.message });
+    }
+}
+
 exports.addPosition = async (req, res) => {
     await client.connect();
     const positionObject = req.body;
@@ -277,8 +306,7 @@ exports.addDepartment = async (req, res) => {
             res.redirect('/admin/category/employee/department-list');
         })
         .catch(err => {
-            res.status(500).send({ mes: err.message })
-            // res.redirect(DOMAIN + '/admin/category/employee/add-department?error=' + encodeURIComponent(`error_${Object.keys(err.keyValue)[0]}`) + prevData);
+            res.redirect(DOMAIN + '/admin/category/employee/add-department?error=' + encodeURIComponent(`error_${Object.keys(err.keyValue)[0]}`) + prevData);
         })
 }
 
@@ -295,5 +323,61 @@ exports.deleteDepartment = async (req, res) => {
 }
 
 exports.addSalary = async (req, res) => {
-    res.status(200).send(req.body);
+    await client.connect();
+    const [employee_code, name, department, multipleSalary, position, salary_per_day] = req.body.employee.split("-");
+    const dateCreated = usersMethods.getNowDate();
+    const tax = 0;
+    const realSalary = ((req.body.totalDays - req.body.dayOff) * salary_per_day * multipleSalary
+        + Number.parseInt(req.body.allowance)
+        + Number.parseInt(req.body.bonusSalary)
+        - Number.parseInt(req.body.advanceSalary)) * (1 - tax);
+
+    let filter = { employee_code: employee_code };
+
+    let update = {
+        "$set": {
+            name: name,
+            position: position,
+            salary_per_day: salary_per_day,
+            department: department,
+            multipleSalary: multipleSalary,
+        },
+        "$push": {
+            salaryList: {
+                dateCreated: dateCreated,
+                totalDays: req.body.totalDays,
+                dayOff: req.body.dayOff,
+                allowance: req.body.allowance,
+                advanceSalaray: req.body.advanceSalaray,
+                bonusSalary: req.body.bonusSalary,
+                tax: tax,
+                realSalary: realSalary,
+            }
+        }
+    }
+    await Salary.findOneAndUpdate(filter, update, {
+        new: true,
+        upsert: true
+    })
+        .then(data => {
+            res.redirect('/admin/category/salary/salary-list')
+        })
+        .catch(err => {
+            res.status(500).send({ mes: err.message });
+        })
+
+}
+
+exports.deleteSalary = async (req, res) => {
+    const id = req.params.id;
+    try {
+        await client.connect();
+        await salaryDBs.updateOne(
+            { _id: new ObjectId(id) },
+            {"$pop": {salaryList: 1}}
+        );
+        res.end();
+    } catch (err) {
+        res.status(404).send({ mes: err.message });
+    }
 }

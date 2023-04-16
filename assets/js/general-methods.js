@@ -14,9 +14,15 @@ const generalMethods = {
         inputTag.value = result.join(" ");
     },
     rejectWeirdCharOfNumberInputTags: function (e) {
-        if (!((48 <= e.which && e.which <= 57) || e.which == 190))  e.target.value = "";
+        if (!((48 <= e.which && e.which <= 57) || e.which == 190)) e.target.value = "";
     },
     sortingMethod: function (tagSelector) {
+        const represTagValue = $(tagSelector).innerText;
+        let check = isNaN(Number.parseInt(represTagValue)) ? "Str" : "Num";
+        if (check == "Num") this.sortingNumberMethod(tagSelector);
+        else this.sortingStringMethod(tagSelector);
+    },
+    sortingStringMethod: function (tagSelector) {
         const tbodyTag = $('table tbody');
 
         //  Create data objects list as a Middleware.
@@ -34,6 +40,32 @@ const generalMethods = {
 
             if (data_1 > data_2) return 1;
             if (data_1 < data_2) return -1;
+            return 0;
+        });
+
+        let result = dataObjectsSortedList.map(object => object.tag.outerHTML);
+        tbodyTag.innerHTML = result.join("");
+    },
+    sortingNumberMethod: function (tagSelector) {
+        const tbodyTag = $('table tbody');
+        
+        //  Create data objects list as a Middleware.
+        const dataObjectList = [...$$('.body')].map(tag => {
+            let data = tag.querySelector(tagSelector).innerText.split(",");
+            if (data.length < 2)    data = data[0].split("-");
+            if (data.length < 2)    data = data[0];
+            data = Number.parseInt(data.join(""));
+
+            return {
+                tag: tag,
+                data: data,
+            };
+        })
+
+        //  Sort data list.
+        const dataObjectsSortedList = dataObjectList.sort((object_1, object_2) => {
+            if ( object_1.data >  object_2.data) return 1;
+            if ( object_1.data <  object_2.data) return -1;
             return 0;
         });
 

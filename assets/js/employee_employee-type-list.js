@@ -1,22 +1,22 @@
 (function main() {
-    function deletePosition() {
-        $$('td.delete-position a').forEach((tag) => {
+    function deleteEmployeeType() {
+        $$('td.delete-employee-type a').forEach((tag) => {
             tag.onclick = async (e) => {
                 if (confirm('Bạn chắc chắn muốn xoá loại nhân viên này chứ? Dữ liệu đã xoá không thể khôi phục!')) {
-                    const id = tag.getAttribute('position_id');
-                    await fetch(`/api/admin/delete-position/${id}`, {
+                    const id = tag.getAttribute('employee_type_id');
+                    await fetch(`/api/admin/delete-employee-type/${id}`, {
                         method: "DELETE",
                     })
                         .then((response) => {
-                            alert('Xoá loại chức vụ thành công!');
-                            window.location.href = "http://localhost:3000/admin/category/employee/position-list";
+                            alert('Xoá loại nhân viên thành công!');
+                            window.location.href = "http://localhost:3000/admin/category/employee/employee-type-list";
                         })
                 }
             }
         })
     }
-    deletePosition();
-
+    deleteEmployeeType();
+    
     (function sortingEvent() {
         $$('.table_title i').forEach(sortingIconTag => {
             sortingIconTag.onclick = (e) => {
@@ -25,8 +25,8 @@
                 generalMethods.sortingMethod(tagSelector);
 
                 alert("Sắp xếp thành công!");
-                
-                deletePosition();
+
+                deleteEmployeeType(); 
             }
         })
     })();
@@ -35,28 +35,14 @@
         $('div#search i').onclick = (e) => {
             const inputTag = $('div#search input');
             generalMethods.searchingMethod(inputTag);
-            deletePosition();
+            deleteEmployeeType();
         }
         $('div#search input').onkeyup = (e) => {
             if (e.which == 13) {
                 const inputTag = e.target;
                 generalMethods.searchingMethod(inputTag);
-                deletePosition();
+                deleteEmployeeType();
             }
         }
-    })();
-
-    (function defindingCurrency() {
-        $$('td#salary_per_day').forEach(tag => {
-            const salary = tag.innerText;
-            const length = salary.length;
-            let result = "";
-            for (var i = length - 1; i >= 0; i--) {
-                result = salary[i] + result;
-                if ((length - i) % 3 == 0)
-                    if (i)    result = "," + result;
-            }
-            tag.innerText = result;
-        })
     })();
 })();

@@ -4,19 +4,14 @@ table {
 th, td {
     border: solid 1px var(--smoking-grey);
 }
-#position-list #add-btn {
-    float: right;
-    margin-right: 12px;
-    margin-top: 4px;
-}
-#position-list #title {
+#salary-list #title {
     display: inline-block;
 }
-#position-list #title span {
+#salary-list #title span {
     font-size: 2.4rem;
     padding: 10px;
 }
-#position-list table {
+#salary-list table {
     margin: var(--form-margin);
     background-color: white;
     border: solid 1px transparent;
@@ -25,42 +20,39 @@ th, td {
     box-shadow: var(--black-box-shadow);
     font-size: 0.95rem;
 }
-#position-list .table_title {
+#salary-list .table_title {
     text-align: left;
 }
-#position-list .table_title th i {
+#salary-list .table_title th i {
     width: 20px;
     font-size: 0.7rem;
     float: right;
     line-height: 24px;
     cursor: pointer;
 }
-#position-list .table_title th {
+#salary-list .table_title th {
     padding: 6px;
     text-align: center;
 }
-#position-list .table_title th#ordinal {
+#salary-list .table_title th#ordinal {
     width: 3%;
 }
-#position-list .table_title th#position_code {
-    width: 20%;
+#salary-list .table_title th#position {
+    width: 14%;
 }
-#position-list .table_title th#dateCreated {
-    width: 18%;
+#salary-list .table_title th#realSalary {
+    width: 14%;
 }
-#position-list .table_title th#position {
-    width: 24%;
-}
-#position-list .table_title th#delete-position {
+#salary-list .table_title th#dateCreated {
     width: 10%;
 }
-#position-list tr.body td {
+#salary-list tr.body td {
     text-align: center;
 }
-#position-list tr.body .delete-position {
-    padding: 12px 24px 12px;
+#salary-list tr.body .delete-salary {
+    padding: 12px;
 }
-#position-list tr.body .delete-position a {
+#salary-list tr.body .delete-salary a {
     display: block;
     margin: auto;
     width: 50px;
@@ -71,6 +63,6 @@ th, td {
     cursor: pointer;
     transition: background-color ease 0.3s;
 }
-#position-list tr.body .delete-position a:hover {
+#salary-list tr.body .delete-position a:hover {
     background-color: rgb(238, 102, 102);
 }
