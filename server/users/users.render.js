@@ -8,9 +8,24 @@ const { ObjectId } = require('mongodb');
 const client = new MongoClient(process.env.MONGO_URI);
 const userDBs = client.db('company').collection('userdbs');
 const salaryDBs = client.db('company').collection('salary');
+const degreeDBs = client.db('company').collection('degree');
 const positionDBs = client.db('company').collection('position');
 const departmentDBs = client.db('company').collection('department');
 const employee_typeDBs = client.db('company').collection('employee_type');
+
+function clearCookiesAndReturnLogin(res) {
+    res.clearCookie('accessToken')
+        .clearCookie('refreshToken')
+        .clearCookie('id')
+        .clearCookie('admin')
+        .redirect('/login');
+    return;
+}
+
+async function getAllDegree() {
+    const allDegree = degreeDBs.find({});
+    return await allDegree.toArray();
+}
 
 async function getAllSalary() {
     const allSalary = salaryDBs.find({});
@@ -71,7 +86,7 @@ class renderMethods {
                 });
             }
         } catch (err) {
-            res.redirect('/login');
+            clearCookiesAndReturnLogin(res);
         }
     }
     async admin_general(req, res) {
@@ -84,7 +99,7 @@ class renderMethods {
                 layout: './layouts/admin'
             });
         } catch (err) {
-            res.redirect('/login');
+            clearCookiesAndReturnLogin(res);
         }
     }
     async admin_employeeList(req, res) {
@@ -97,7 +112,7 @@ class renderMethods {
                 layout: './layouts/admin'
             });
         } catch (err) {
-            res.redirect('/login');
+            clearCookiesAndReturnLogin(res);
         }
     }
     async admin_employeeView(req, res) {
@@ -110,41 +125,47 @@ class renderMethods {
                 layout: './layouts/admin'
             });
         } catch (err) {
-            res.redirect('/login');
+            clearCookiesAndReturnLogin(res);
         }
     }
     async admin_addEmployee(req, res) {
         try {
             const user = await getCurrentUser(req);
+            const degreeList = await getAllDegree();
             const positionList = await getAllPosition();
             const departmentList = await getAllDepartment();
             const employeeTypeList = await getAllEmployeeType();
             res.render('admin_employee_add-employee', {
                 user: user,
+                degreeList: degreeList,
                 positionList: positionList,
                 departmentList: departmentList,
                 employeeTypeList: employeeTypeList,
                 layout: './layouts/admin'
             });
         } catch (err) {
-            res.redirect('/login');
+            clearCookiesAndReturnLogin(res);
         }
     }
     async admin_updateEmployee(req, res) {
         try {
             const specifiedUser = await getSpecifiedObject(req.params.id, userDBs);
+            const degreeList = await getAllDegree();
             const positionList = await getAllPosition();
             const departmentList = await getAllDepartment();
+            const employeeTypeList = await getAllEmployeeType();
             const user = await getCurrentUser(req);
             res.render('admin_employee_update-employee', {
                 user: user,
+                degreeList: degreeList,
                 specifiedUser: specifiedUser,
                 departmentList: departmentList,
                 positionList: positionList,
+                employeeTypeList: employeeTypeList,
                 layout: './layouts/admin'
             });
         } catch (err) {
-            res.redirect('/login');
+            clearCookiesAndReturnLogin(res);
         }
     }
     async admin_accountList(req, res) {
@@ -157,7 +178,7 @@ class renderMethods {
                 layout: './layouts/admin'
             });
         } catch (err) {
-            res.redirect('/login');
+            clearCookiesAndReturnLogin(res);
         }
     }
     async admin_employeeTypeList(req, res) {
@@ -170,7 +191,7 @@ class renderMethods {
                 layout: './layouts/admin'
             });
         } catch (err) {
-            res.redirect('/login');
+            clearCookiesAndReturnLogin(res);
         }
     }
     async admin_addEmployeeType(req, res) {
@@ -182,7 +203,7 @@ class renderMethods {
                 layout: './layouts/admin'
             });
         } catch (err) {
-            res.redirect('/login');
+            clearCookiesAndReturnLogin(res);
         }
     }
     async admin_updateEmployeeType(req, res) {
@@ -196,7 +217,46 @@ class renderMethods {
                 layout: './layouts/admin'
             });
         } catch (err) {
-            res.redirect('/login');
+            clearCookiesAndReturnLogin(res);
+        }
+    }
+    async admin_degreeList(req, res) {
+        try {
+            const user = await getCurrentUser(req);
+            const degreeList = await getAllDegree();
+            res.render('admin_employee_degree-list', {
+                user: user,
+                degreeList: degreeList,
+                layout: './layouts/admin'
+            });
+        } catch (err) {
+            clearCookiesAndReturnLogin(res);
+        }
+    }
+    async admin_addDegree(req, res) {
+        try {
+            const user = await getCurrentUser(req);
+            res.render('admin_employee_add-degree', {
+                user: user,
+                isUpdating: false,
+                layout: './layouts/admin'
+            });
+        } catch (err) {
+            clearCookiesAndReturnLogin(res);
+        }
+    }
+    async admin_updateDegree(req, res) {
+        try {
+            const user = await getCurrentUser(req);
+            const specifiedDegree = await getSpecifiedObject(req.params.id, degreeDBs);
+            res.render('admin_employee_add-degree', {
+                user: user,
+                isUpdating: true,
+                specifiedDegree: specifiedDegree,
+                layout: './layouts/admin'
+            });
+        } catch (err) {
+            clearCookiesAndReturnLogin(res);
         }
     }
     async admin_positionList(req, res) {
@@ -209,7 +269,7 @@ class renderMethods {
                 layout: './layouts/admin'
             });
         } catch (err) {
-            res.redirect('/login');
+            clearCookiesAndReturnLogin(res);
         }
     }
     async admin_addPosition(req, res) {
@@ -221,7 +281,7 @@ class renderMethods {
                 layout: './layouts/admin'
             });
         } catch (err) {
-            res.redirect('/login');
+            clearCookiesAndReturnLogin(res);
         }
     }
     async admin_updatePosition(req, res) {
@@ -235,7 +295,7 @@ class renderMethods {
                 layout: './layouts/admin'
             });
         } catch (err) {
-            res.redirect('/login');
+            clearCookiesAndReturnLogin(res);
         }
     }
     async admin_departmentList(req, res) {
@@ -248,7 +308,7 @@ class renderMethods {
                 layout: './layouts/admin'
             });
         } catch (err) {
-            res.redirect('/login');
+            clearCookiesAndReturnLogin(res);
         }
     }
     async admin_addDepartment(req, res) {
@@ -260,7 +320,7 @@ class renderMethods {
                 layout: './layouts/admin'
             });
         } catch (err) {
-            res.redirect('/login');
+            clearCookiesAndReturnLogin(res);
         }
     }
     async admin_updateDepartment(req, res) {
@@ -274,7 +334,7 @@ class renderMethods {
                 layout: './layouts/admin'
             });
         } catch (err) {
-            res.redirect('/login');
+            clearCookiesAndReturnLogin(res);
         }
     }
     async admin_salaryList(req, res) {
@@ -287,26 +347,30 @@ class renderMethods {
                 layout: './layouts/admin'
             });
         } catch (err) {
-            res.redirect('/login');
+            clearCookiesAndReturnLogin(res);
         }
     }
     async admin_addSalary(req, res) {
         try {
             const user = await getCurrentUser(req);
             const allUsers = await getAllUser();
+            const degreeList = await getAllDegree();
             const salaryList = await getAllSalary();
             const positionList = await getAllPosition();
+            const employeeTypeList = await getAllEmployeeType();
             const departmentList = await getAllDepartment();
             res.render('admin_salary_add-salary', {
                 user: user,
                 allUsers: allUsers,
+                degreeList: degreeList,
+                employeeTypeList: employeeTypeList,
                 salaryList: salaryList,
                 positionList: positionList,
                 departmentList: departmentList,
                 layout: './layouts/admin'
             });
         } catch (err) {
-            res.redirect('/login');
+            clearCookiesAndReturnLogin(res);
         }
     }
 }

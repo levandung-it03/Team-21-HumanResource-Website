@@ -95,6 +95,21 @@ var departmentSchema = new mongoose.Schema({
     dateCreated: String,
 }, { collection: 'department' });
 
+var degreeSchema = new mongoose.Schema({
+    degree_code: {
+        type: String,
+        unique: true,
+        required: true
+    },
+    degree: {
+        type: String,
+        unique: true,
+        required: true
+    },
+    multipleSalary: Number,
+    dateCreated: String,
+}, { collection: 'degree' });
+
 var positionSchema = new mongoose.Schema({
     position_code: {
         type: String,
@@ -127,8 +142,9 @@ var employeeTypeSchema = new mongoose.Schema({
 
 var UserDb = mongoose.model('userdbs', userSchema);
 var Salary = mongoose.model('salary', salarySchema);
+var Degree = mongoose.model('degree', degreeSchema);
 var Position = mongoose.model('position', positionSchema);
 var Department = mongoose.model('department', departmentSchema);
 var Employee_type = mongoose.model('employee_type', employeeTypeSchema);
 
-module.exports = { UserDb, Salary, Position, Department, Employee_type };
+module.exports = { UserDb, Salary, Position, Degree, Department, Employee_type };

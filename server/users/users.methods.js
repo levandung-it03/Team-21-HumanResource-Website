@@ -69,6 +69,9 @@ class UsersMethods {
     getRandomPositionCode() {
         return `CV${Date.now()}${Math.floor(Math.random() * 99)}`;
     }
+    getRandomDegreeCode() {
+        return `BC${Date.now()}${Math.floor(Math.random() * 99)}`;
+    }
     getNowDate() {
         const dateObj = new Date(Date.now());
 

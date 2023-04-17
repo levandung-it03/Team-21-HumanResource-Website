@@ -1,0 +1,72 @@
+<link rel="stylesheet" href="/css/employee_degree-list.css">
+<div id="degree-list">
+    <div id="heading">
+        <div class="hide" id="turn-back-btn">
+            <a href="/admin/category/employee/degree-list"><i class="fa-solid fa-arrow-left-long"></i> Thoát</a>
+        </div>
+        <div id="title">
+            <span>Danh sách bằng cấp</span>
+        </div>
+        <div id="add-btn">
+            <a href="/admin/category/employee/add-degree">Thêm loại bằng cấp</a>
+        </div>
+        <div id="search">
+            <input class="search" type="text" placeholder="Tìm kiếm">
+            <i class="fa-solid fa-magnifying-glass"></i>
+        </div>
+    </div>
+    <table>
+        <thead>
+            <tr class="table_title">
+                <th id="ordinal">
+                    <span class="title_name">STT</span>                 
+                </th>
+                <th id="degree_code">
+                    <span class="title_name">Mã bằng cấp</span>
+                    <i class="fa-solid fa-sort" id="degree_code"></i>
+                </th>
+                <th id="degree">
+                    <span class="title_name">Tên bằng cấp</span>
+                    <i class="fa-solid fa-sort" id="degree"></i>
+                </th>
+                <th id="multipleSalary">
+                    <span class="title_name">Hệ số lương</span>
+                    <i class="fa-solid fa-sort" id="multipleSalary"></i>
+                </th>
+                <th id="dateCreated">
+                    <span class="title_name">Ngày tạo</span>
+                    <i class="fa-solid fa-sort" id="dateCreated"></i>
+                </th>
+                <th id="update-degree">
+                    <span class="title_name">Sửa</span>
+                </th>
+                <th id="delete-degree">
+                    <span class="title_name">Xoá</span>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <% for (var i = 0; i < degreeList.length; i++) { %>
+                <tr class="body" id=<%= i+1 %>>
+                    <td id="ordinal"><%= (i + 1) %></td>
+                    <td class="body_enable-searching body_enable-sorting"
+                        id="degree_code"><%= degreeList[i].degree_code %></td>
+                    <td class="body_enable-searching body_enable-sorting"
+                        id="degree"><%= degreeList[i].degree %></td>
+                    <td class="body_enable-searching body_enable-sorting"
+                        id="multipleSalary"><%= degreeList[i].multipleSalary %> lần</td>
+                    <td class="body_enable-searching body_enable-sorting"
+                        id="dateCreated"><%= degreeList[i].dateCreated %></td>
+                    <td class="update-degree">
+                        <a href="/admin/category/employee/update-degree/<%= degreeList[i]._id.toString() %>">
+                            <i class="fa-sharp fa-solid fa-pencil"></i></a>
+                    </td>
+                    <td class="delete-degree">
+                        <a degree_id=<%= degreeList[i]._id.toString() %>><i class="fa-sharp fa-solid fa-trash"></i></a>
+                    </td>
+                </tr>
+            <% } %>
+        </tbody>
+    </table>
+</div>
+<script src="/js/employee_degree-list.js"></script>

@@ -11,11 +11,15 @@
                 <% for(var index in allUsers) { %>
                     <option value="<%= allUsers[index].employee_code
                         + "-" + allUsers[index].name
-                        + "-" + allUsers[index].department
-                        + "-" + departmentList.find(d=>d.department==allUsers[index].department).multipleSalary
                         + "-" + allUsers[index].position
                         + "-" + positionList.find(p=>p.position==allUsers[index].position).salary_per_day
-                     %>">
+                        + "-" + allUsers[index].employee_type
+                        + "-" + employeeTypeList.find(et=>et.employee_type==allUsers[index].employee_type).multipleSalary
+                        + "-" + allUsers[index].degree
+                        + "-" + degreeList.find(dg=>dg.degree==allUsers[index].degree).multipleSalary
+                        + "-" + allUsers[index].department
+                        + "-" + departmentList.find(d=>d.department==allUsers[index].department).multipleSalary
+                    %>">
                         <%= `${allUsers[index].employee_code} - ${allUsers[index].name}` %></option>
                 <% } %>
             </select>
@@ -27,6 +31,26 @@
                 <% for(var index in positionList) { %>
                     <option value="<%= `${positionList[index].position}-${positionList[index].salary_per_day}` %>">
                         <%= `${positionList[index].position} - ${positionList[index].salary_per_day}VNĐ/ngày` %></option>
+                <% } %>
+            </select>
+        </div>
+        <div class="form_select-input" id="employee_type">
+            <label for="employee_type">Loại nhân viên</label>
+            <select name="employee_type" disabled>
+                <option selected disabled value="">--Trống--</option>
+                <% for(var index in employeeTypeList) { %>
+                    <option value="<%= `${employeeTypeList[index].employee_type}-${employeeTypeList[index].multipleSalary}` %>">
+                        <%= `${employeeTypeList[index].employee_type} - ${employeeTypeList[index].multipleSalary} lần` %></option>
+                <% } %>
+            </select>
+        </div>
+        <div class="form_select-input" id="degree">
+            <label for="degree">Bằng cấp</label>
+            <select name="degree" disabled>
+                <option selected disabled value="">--Trống--</option>
+                <% for(var index in degreeList) { %>
+                    <option value="<%= `${degreeList[index].degree}-${degreeList[index].multipleSalary}` %>">
+                        <%= `${degreeList[index].degree} - ${degreeList[index].multipleSalary} lần` %></option>
                 <% } %>
             </select>
         </div>

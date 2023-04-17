@@ -101,14 +101,11 @@
             </select>
         </div>
         <div class="form_select-input" id="degree">
-            <label for="degree">Loại bằng cấp</label>
+            <label for="degree">Chức vụ</label>
             <select name="degree">
-                <option value="Phổ Thông">Phổ thông</option>
-                <option value="Cao Đẳng">Cao Đẳng</option>
-                <option value="Cử Nhân">Cử Nhân</option>
-                <option value="Kỹ Sư">Kỹ Sư</option>
-                <option value="Thạc sỹ">Thạc sỹ</option>
-                <option value="Tiến sỹ">Tiến sỹ</option>
+                <% for (var index in degreeList) { %>
+                    <option value="<%= degreeList[index].degree %>"><%= degreeList[index].degree %></option>
+                <% } %>
             </select>
         </div>
         <input type="submit" value="Xác nhận">

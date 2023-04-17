@@ -53,8 +53,9 @@ const generalMethods = {
         const dataObjectList = [...$$('.body')].map(tag => {
             let data = tag.querySelector(tagSelector).innerText.split(",");
             if (data.length < 2)    data = data[0].split("-");
+            
             if (data.length < 2)    data = data[0];
-            data = Number.parseInt(data.join(""));
+            else    data = Number.parseInt(data.join(""));
 
             return {
                 tag: tag,

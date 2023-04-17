@@ -42,7 +42,7 @@ route.get('/admin/category/employee/add-employee',
 route.get('/admin/category/employee/employee-list',
     authMiddlewares.verifyToken,
     renderMethods.admin_employeeList);
-    
+
 route.get('/admin/category/employee/account-list',
     authMiddlewares.verifyToken,
     renderMethods.admin_accountList);
@@ -54,7 +54,7 @@ route.get('/admin/category/employee/employee-type-list',
 route.get('/admin/category/employee/add-employee-type',
     authMiddlewares.verifyToken,
     renderMethods.admin_addEmployeeType);
-    
+
 route.get('/admin/category/employee/update-employee-type/:id',
     authMiddlewares.verifyToken,
     renderMethods.admin_updateEmployeeType);
@@ -66,7 +66,19 @@ route.get('/admin/category/employee/employee-list/view/:id',
 route.get('/admin/category/employee/employee-list/update/:id',
     authMiddlewares.verifyToken,
     renderMethods.admin_updateEmployee);
+
+route.get('/admin/category/employee/degree-list',
+    authMiddlewares.verifyToken,
+    renderMethods.admin_degreeList);
+
+route.get('/admin/category/employee/add-degree',
+    authMiddlewares.verifyToken,
+    renderMethods.admin_addDegree);
     
+route.get('/admin/category/employee/update-degree/:id',
+    authMiddlewares.verifyToken,
+    renderMethods.admin_updateDegree);
+
 route.get('/admin/category/employee/position-list',
     authMiddlewares.verifyToken,
     renderMethods.admin_positionList);
@@ -118,6 +130,14 @@ route.post('/api/admin/update-employee-type/:id',
     authMiddlewares.verifyToken,
     usersController.updateEmployeeType);
 
+route.post('/api/admin/add-degree',
+    authMiddlewares.verifyToken,
+    usersController.addDegree);
+
+route.post('/api/admin/update-degree/:id',
+    authMiddlewares.verifyToken,
+    usersController.updateDegree);
+
 route.post('/api/admin/add-position',
     authMiddlewares.verifyToken,
     usersController.addPosition);
@@ -158,6 +178,10 @@ route.delete('/api/admin/delete-salary/:id',
 route.delete('/api/admin/delete-employee-type/:id',
     authMiddlewares.verifyToken,
     usersController.deleteEmployeeType);
+
+route.delete('/api/admin/delete-degree/:id',
+    authMiddlewares.verifyToken,
+    usersController.deleteDegree);
 /**---------------------------------------------------------------------------------------------- */
 
 module.exports = route;

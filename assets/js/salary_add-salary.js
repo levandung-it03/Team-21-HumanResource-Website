@@ -82,15 +82,20 @@
     })();
 
     (function handleAutoSelectSalaryInfoTags() {
+        const degreeOptionTags = [...$$('select[name=degree] option')];
         const positionOptionTags = [...$$('select[name=position] option')];
         const departmentOptionTags = [...$$('select[name=department] option')];
+        const employeeTypeOptionTags = [...$$('select[name=employee_type] option')];
 
         $('select[name=employee]').onclick = (e) => {
             const selectedEmployee = [...$$('select[name=employee] option')].find(optionTag => optionTag.selected);
             const employeeData = selectedEmployee.value.split("-");
+
+            positionOptionTags.find(optionTag => optionTag.value.split("-")[0] == employeeData[2]).selected = true;
+            employeeTypeOptionTags.find(optionTag => optionTag.value.split("-")[0] == employeeData[4]).selected = true;
+            degreeOptionTags.find(optionTag => optionTag.value.split("-")[0] == employeeData[6]).selected = true;
+            departmentOptionTags.find(optionTag => optionTag.value.split("-")[0] == employeeData[8]).selected = true;
             
-            departmentOptionTags.find(optionTag => optionTag.value.split("-")[0] == employeeData[2]).selected = true;
-            positionOptionTags.find(optionTag => optionTag.value.split("-")[0] == employeeData[4]).selected = true;
         }
     })();
 })();

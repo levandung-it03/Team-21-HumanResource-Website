@@ -91,10 +91,10 @@
         </div>
         <div class="form_select-input" id="employee_type">
             <label for="employee_type">Loại nhân viên</label>
-            <select data="<%= specifiedUser.employee_type %>" name="employee_type">
-                <option value="Thực tập">Thực tập</option>
-                <option value="Bán thời gian">Bán thời gian</option>
-                <option value="Chính thức">Chính thức</option>
+            <select data="<%= specifiedUser.employee_type %>"  name="employee_type">
+                <% for (var index in employeeTypeList) { %>
+                    <option value="<%= employeeTypeList[index].employee_type %>"><%= employeeTypeList[index].employee_type %></option>
+                <% } %>
             </select>
         </div>
         <div class="form_select-input" id="position">
@@ -106,14 +106,11 @@
             </select>
         </div>
         <div class="form_select-input" id="degree">
-            <label for="degree">Loại bằng cấp</label>
+            <label for="degree">Bằng cấp</label>
             <select data="<%= specifiedUser.degree %>" name="degree">
-                <option value="Phổ Thông">Phổ thông</option>
-                <option value="Cao Đẳng">Cao Đẳng</option>
-                <option value="Cử Nhân">Cử Nhân</option>
-                <option value="Kỹ Sư">Kỹ Sư</option>
-                <option value="Thạc sỹ">Thạc sỹ</option>
-                <option value="Tiến sỹ">Tiến sỹ</option>
+                <% for (var index in degreeList) { %>
+                    <option value="<%= degreeList[index].degree %>"><%= degreeList[index].degree %></option>
+                <% } %>
             </select>
         </div>
         <div class="form_select-input" id="status">

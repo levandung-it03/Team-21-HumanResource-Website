@@ -9,13 +9,14 @@ const bcrypt = require('bcrypt');
 const client = new MongoClient(process.env.MONGO_URI);
 const userDBs = client.db('company').collection('userdbs');
 const salaryDBs = client.db('company').collection('salary');
+const degreeDBs = client.db('company').collection('degree');
 const positionDBs = client.db('company').collection('position');
 const departmentDBs = client.db('company').collection('department');
 const employee_typeDBs = client.db('company').collection('employee_type');
 
 const usersMethods = require('./users.methods');
 const authMethods = require('../auth/auth.methods');
-const { UserDb, Salary, Position, Department, Employee_type } = require('./users.model');
+const { UserDb, Salary, Position, Degree, Department, Employee_type } = require('./users.model');
 
 exports.addEmployee = async (req, res) => {
     if (!req.body) res.status(400).send({ message: "Content can not be empty!" }).end();
@@ -275,6 +276,53 @@ exports.deleteEmployeeType = async (req, res) => {
     }
 }
 
+exports.addDegree = async (req, res) => {
+    await client.connect();
+    const degreeObject = req.body;
+    degreeObject.degree_code = usersMethods.getRandomDegreeCode();
+
+    degreeObject.dateCreated = usersMethods.getNowDate();
+
+    const prevData = usersMethods.createErrorString(req.body);
+
+    const degreeSchema = new Degree(degreeObject);
+    degreeSchema.save()
+        .then(data => {
+            res.redirect('/admin/category/employee/degree-list');
+        })
+        .catch(err => {
+            res.redirect(DOMAIN + '/admin/category/employee/add-degree?error=' + encodeURIComponent(`error_${Object.keys(err.keyValue)[0]}`) + prevData);
+        })
+}
+
+exports.updateDegree = async (req, res) => {
+    try {
+        await client.connect();
+        const data = req.body;
+        data.dateCreated = usersMethods.getNowDate();
+
+        await degreeDBs.updateOne(
+            { _id: new ObjectId(req.params.id) },
+            { "$set": data }
+        )
+        res.status(200).redirect('/admin/category/employee/degree-list');
+    } catch (err) {
+        res.status(500).send({ err_mes: err.message });
+    }
+}
+
+exports.deleteDegree = async (req, res) => {
+    const id = req.params.id;
+
+    try {
+        await client.connect();
+        await degreeDBs.deleteOne({ _id: new ObjectId(id) });
+        res.end();
+    } catch (err) {
+        res.status(404).send({ mes: err.message });
+    }
+}
+
 exports.addPosition = async (req, res) => {
     await client.connect();
     const positionObject = req.body;
@@ -369,10 +417,14 @@ exports.deleteDepartment = async (req, res) => {
 
 exports.addSalary = async (req, res) => {
     await client.connect();
-    const [employee_code, name, department, multipleSalary, position, salary_per_day] = req.body.employee.split("-");
+    const [employee_code, name, position, salary_per_day, employee_type, multipleSalaryOfET, degree,
+        multipleSalaryOfDG, department, multipleSalaryOfDepartment] = req.body.employee.split("-");
+
     const dateCreated = usersMethods.getNowDate();
     const tax = 0;
-    const realSalary = ((req.body.totalDays - req.body.dayOff) * salary_per_day * multipleSalary
+    const realSalary = ((req.body.totalDays - req.body.dayOff) * salary_per_day * multipleSalaryOfET
+        * multipleSalaryOfDepartment
+        * multipleSalaryOfDG
         + Number.parseInt(req.body.allowance)
         + Number.parseInt(req.body.bonusSalary)
         - Number.parseInt(req.body.advanceSalary)) * (1 - tax);
@@ -383,9 +435,10 @@ exports.addSalary = async (req, res) => {
         "$set": {
             name: name,
             position: position,
+            employee_type: employee_type,
+            degree: degree,
             salary_per_day: salary_per_day,
             department: department,
-            multipleSalary: multipleSalary,
         },
         "$push": {
             salaryList: {
@@ -419,7 +472,7 @@ exports.deleteSalary = async (req, res) => {
         await client.connect();
         await salaryDBs.updateOne(
             { _id: new ObjectId(id) },
-            {"$pop": {salaryList: 1}}
+            { "$pop": { salaryList: 1 } }
         );
         res.end();
     } catch (err) {
