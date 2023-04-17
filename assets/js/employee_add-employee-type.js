@@ -15,7 +15,7 @@ let submitFormCancellation = false;
                 if (multiples.length > 2) {
                     this.isValid = false;
                 } else {
-                    this.isValid = !multiples.every(value => value.split("").every((e) => isNaN(Number.parseInt(e))));
+                    this.isValid = multiples.every(value => value.split("").every((e) => !isNaN(Number.parseInt(e))));
                 }
             },
             message: "Hệ số không hợp lệ.",
@@ -59,7 +59,10 @@ let submitFormCancellation = false;
                 const errMesTagObject = errorMessages[tag.name];
                 const errTag = $(`div#${tag.name} span#${tag.name}`);
 
+                console.log(errMesTagObject.isValid);
                 errMesTagObject.confirm(tag.value);
+                console.log(errMesTagObject.isValid);
+
                 if (errMesTagObject.isValid) errTag.style.display = "none";
                 else errTag.style.display = "inline";
             }

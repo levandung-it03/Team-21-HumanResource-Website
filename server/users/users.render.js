@@ -37,14 +37,14 @@ async function getAllUser() {
     return await allUser.toArray();
 }
 
-async function getSpecifiedUser(id) {
-    const user = await userDBs.findOne({ _id: new ObjectId(id) });
-    return user;
+async function getSpecifiedObject(id, db) {
+    const object = await db.findOne({ _id: new ObjectId(id) });
+    return object;
 }
 
 async function getCurrentUser(req) {
     const cookiesList = authMethods.handleCookie(req.headers.cookie);
-    const user = await getSpecifiedUser(cookiesList.id);
+    const user = await getSpecifiedObject(cookiesList.id, userDBs);
 
     return user;
 }
@@ -102,7 +102,7 @@ class renderMethods {
     }
     async admin_employeeView(req, res) {
         try {
-            const specifiedUser = await getSpecifiedUser(req.params.id);
+            const specifiedUser = await getSpecifiedObject(req.params.id, userDBs);
             const user = await getCurrentUser(req);
             res.render('admin_employee_view', {
                 user: user,
@@ -132,7 +132,7 @@ class renderMethods {
     }
     async admin_updateEmployee(req, res) {
         try {
-            const specifiedUser = await getSpecifiedUser(req.params.id);
+            const specifiedUser = await getSpecifiedObject(req.params.id, userDBs);
             const positionList = await getAllPosition();
             const departmentList = await getAllDepartment();
             const user = await getCurrentUser(req);
@@ -178,6 +178,21 @@ class renderMethods {
             const user = await getCurrentUser(req);
             res.render('admin_employee_add-employee-type', {
                 user: user,
+                isUpdating: false,
+                layout: './layouts/admin'
+            });
+        } catch (err) {
+            res.redirect('/login');
+        }
+    }
+    async admin_updateEmployeeType(req, res) {
+        try {
+            const user = await getCurrentUser(req);
+            const specifiedEmployee_type = await getSpecifiedObject(req.params.id, employee_typeDBs);
+            res.render('admin_employee_add-employee-type', {
+                user: user,
+                isUpdating: true,
+                specifiedEmployee_type: specifiedEmployee_type,
                 layout: './layouts/admin'
             });
         } catch (err) {
@@ -202,6 +217,21 @@ class renderMethods {
             const user = await getCurrentUser(req);
             res.render('admin_employee_add-position', {
                 user: user,
+                isUpdating: false,
+                layout: './layouts/admin'
+            });
+        } catch (err) {
+            res.redirect('/login');
+        }
+    }
+    async admin_updatePosition(req, res) {
+        try {
+            const user = await getCurrentUser(req);
+            const specifiedPosition = await getSpecifiedObject(req.params.id, positionDBs);
+            res.render('admin_employee_add-position', {
+                user: user,
+                isUpdating: true,
+                specifiedPosition: specifiedPosition,
                 layout: './layouts/admin'
             });
         } catch (err) {
@@ -226,13 +256,28 @@ class renderMethods {
             const user = await getCurrentUser(req);
             res.render('admin_employee_add-department', {
                 user: user,
+                isUpdating: false,
                 layout: './layouts/admin'
             });
         } catch (err) {
             res.redirect('/login');
         }
     }
-    async admin_salaryList (req, res) {
+    async admin_updateDepartment(req, res) {
+        try {
+            const user = await getCurrentUser(req);
+            const specifiedDepartment = await getSpecifiedObject(req.params.id, departmentDBs);
+            res.render('admin_employee_add-department', {
+                user: user,
+                isUpdating: true,
+                specifiedDepartment: specifiedDepartment,
+                layout: './layouts/admin'
+            });
+        } catch (err) {
+            res.redirect('/login');
+        }
+    }
+    async admin_salaryList(req, res) {
         try {
             const salaryInfoList = await getAllSalary();
             const user = await getCurrentUser(req);
@@ -245,7 +290,7 @@ class renderMethods {
             res.redirect('/login');
         }
     }
-    async admin_addSalary (req, res) {
+    async admin_addSalary(req, res) {
         try {
             const user = await getCurrentUser(req);
             const allUsers = await getAllUser();

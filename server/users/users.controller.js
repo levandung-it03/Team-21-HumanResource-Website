@@ -248,6 +248,21 @@ exports.addEmployeeType = async (req, res) => {
         })
 }
 
+exports.updateEmployeeType = async (req, res) => {
+    try {
+        await client.connect();
+        const data = req.body;
+        data.dateCreated = usersMethods.getNowDate();
+        employee_typeDBs.updateOne(
+            { _id: new ObjectId(req.params.id) },
+            { "$set": data }
+        )
+        res.status(200).redirect('/admin/category/employee/employee-type-list');
+    } catch (err) {
+        res.status(500).send({ err_mes: err.message });
+    }
+}
+
 exports.deleteEmployeeType = async (req, res) => {
     const id = req.params.id;
 
@@ -279,6 +294,21 @@ exports.addPosition = async (req, res) => {
         })
 }
 
+exports.updatePosition = async (req, res) => {
+    try {
+        await client.connect();
+        const data = req.body;
+        data.dateCreated = usersMethods.getNowDate();
+        positionDBs.updateOne(
+            { _id: new ObjectId(req.params.id) },
+            { "$set": data }
+        )
+        res.status(200).redirect('/admin/category/employee/position-list');
+    } catch (err) {
+        res.status(500).send({ err_mes: err.message });
+    }
+}
+
 exports.deletePosition = async (req, res) => {
     const id = req.params.id;
 
@@ -308,6 +338,21 @@ exports.addDepartment = async (req, res) => {
         .catch(err => {
             res.redirect(DOMAIN + '/admin/category/employee/add-department?error=' + encodeURIComponent(`error_${Object.keys(err.keyValue)[0]}`) + prevData);
         })
+}
+
+exports.updateDepartment = async (req, res) => {
+    try {
+        await client.connect();
+        const data = req.body;
+        data.dateCreated = usersMethods.getNowDate();
+        departmentDBs.updateOne(
+            { _id: new ObjectId(req.params.id) },
+            { "$set": data }
+        )
+        res.status(200).redirect('/admin/category/employee/department-list');
+    } catch (err) {
+        res.status(500).send({ err_mes: err.message });
+    }
 }
 
 exports.deleteDepartment = async (req, res) => {

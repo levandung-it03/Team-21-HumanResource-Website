@@ -15,7 +15,7 @@ let submitFormCancellation = false;
                 if (multiples.length > 2) {
                     this.isValid = false;
                 } else {
-                    this.isValid = !multiples.every(value => value.split("").every((e) => isNaN(Number.parseInt(e))));
+                    this.isValid = multiples.every(value => value.split("").every((e) => !isNaN(Number.parseInt(e))));
                 }
             },
             message: "Hệ số không hợp lệ.",

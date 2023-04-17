@@ -51,11 +51,31 @@ th, td {
 #position-list .table_title th#position {
     width: 24%;
 }
+#position-list .table_title th#update-position {
+    width: 8%;
+}
 #position-list .table_title th#delete-position {
-    width: 10%;
+    width: 8%;
 }
 #position-list tr.body td {
     text-align: center;
+}
+#position-list tr.body .update-position {
+    padding: 12px 24px 12px;
+}
+#position-list tr.body .update-position a {
+    display: block;
+    margin: auto;
+    width: 50px;
+    line-height: 32px;
+    background-color: var(--green);
+    border: solid 1px transparent;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color ease 0.3s;
+}
+#position-list tr.body .update-position a:hover {
+    background-color: var(--blur-green);
 }
 #position-list tr.body .delete-position {
     padding: 12px 24px 12px;

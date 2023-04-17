@@ -5,18 +5,26 @@
             <a href="/admin/category/employee/employee-type-list"><i class="fa-solid fa-arrow-left-long"></i> Thoát</a>
         </div>
         <div id="title">
-            <span>Thêm loại nhân viên</span>
+            <% if (isUpdating) { %>
+                <span>Cập nhật loại nhân viên</span>
+            <% } else { %>
+                <span>Thêm loại nhân viên</span>
+            <% } %>
         </div>
     </div>
-    <form method="POST" action="/api/admin/add-employee-type" onsubmit="return submitFormCancellation">
+    <form method="POST" onsubmit="return submitFormCancellation"
+    action="/api/admin/<%= isUpdating ? 'update-employee-type/' + specifiedEmployee_type._id.toString() : 'add-employee-type'%>">
         <div class="form_text-input more-condition" id="employee_type">
             <label for="employee_type">Loại nhân viên</label>
-            <input name="employee_type" type="text" placeholder="VD: Bán thời gian,..." required>
+            <input value="<%= isUpdating ? specifiedEmployee_type.employee_type : '' %>"
+            <% if (isUpdating) { %>readonly<% } %>
+            name="employee_type" type="text" placeholder="VD: Bán thời gian,..." required>
             <div class="form_text-input_err-message"></div>
         </div>
         <div class="form_text-input more-condition" id="multipleSalary">
             <label for="multipleSalary">Hệ số lương cơ bản</label>
-            <input name="multipleSalary" type="text" placeholder="VD: 1.3,..." required>
+            <input value="<%= isUpdating ? specifiedEmployee_type.multipleSalary : '' %>"
+            name="multipleSalary" type="text" placeholder="VD: 1.3,..." required> 
             <div class="form_text-input_err-message"></div>
         </div>
         <input type="submit" value="Xác nhận">

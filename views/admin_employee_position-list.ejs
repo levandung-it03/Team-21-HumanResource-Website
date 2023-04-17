@@ -37,7 +37,10 @@
                     <span class="title_name">Ngày tạo</span>
                     <i class="fa-solid fa-sort" id="dateCreated"></i>
                 </th>
-                <th id="delete-department">
+                <th id="update-position">
+                    <span class="title_name">Sửa</span>
+                </th>
+                <th id="delete-position">
                     <span class="title_name">Xoá</span>
                 </th>
             </tr>
@@ -46,10 +49,18 @@
             <% for (var i = 0; i < positionList.length; i++) { %>
                 <tr class="body" id=<%= i+1 %>>
                     <td id="ordinal"><%= (i + 1) %></td>
-                    <td class="body_enable-searching body_enable-sorting" id="position_code"><%= positionList[i].position_code %></td>
-                    <td class="body_enable-searching body_enable-sorting" id="position"><%= positionList[i].position %></td>
-                    <td class="body_enable-searching body_enable-sorting" id="salary_per_day"><%= positionList[i].salary_per_day %></td>
-                    <td class="body_enable-searching body_enable-sorting" id="dateCreated"><%= positionList[i].dateCreated %></td>
+                    <td class="body_enable-searching body_enable-sorting"
+                        id="position_code"><%= positionList[i].position_code %></td>
+                    <td class="body_enable-searching body_enable-sorting"
+                        id="position"><%= positionList[i].position %></td>
+                    <td class="body_enable-searching body_enable-sorting"
+                        id="salary_per_day"><%= positionList[i].salary_per_day %></td>
+                    <td class="body_enable-searching body_enable-sorting"
+                        id="dateCreated"><%= positionList[i].dateCreated %></td>
+                    <td class="update-position">
+                        <a href="/admin/category/employee/update-position/<%= positionList[i]._id.toString() %>">
+                            <i class="fa-sharp fa-solid fa-pencil"></i></a>
+                    </td>
                     <td class="delete-position">
                         <a position_id=<%= positionList[i]._id.toString() %>><i class="fa-sharp fa-solid fa-trash"></i></a>
                     </td>

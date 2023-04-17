@@ -54,11 +54,31 @@ th, td {
 #department-list .table_title th#multipleSalary {
     width: 18%;
 }
+#department-list .table_title th#update-department {
+    width: 8%;
+}
 #department-list .table_title th#delete-department {
-    width: 10%;
+    width: 8%;
 }
 #department-list tr.body td {
     text-align: center;
+}
+#department-list tr.body .update-department {
+    padding: 12px 24px 12px;
+}
+#department-list tr.body .update-department a {
+    display: block;
+    margin: auto;
+    width: 50px;
+    line-height: 32px;
+    background-color: var(--green);
+    border: solid 1px transparent;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color ease 0.3s;
+}
+#department-list tr.body .update-department a:hover {
+    background-color: var(--blur-green);
 }
 #department-list tr.body .delete-department {
     padding: 12px 24px 12px;
