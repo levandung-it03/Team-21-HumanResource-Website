@@ -6,16 +6,15 @@ const authMethods = require('./auth.methods');
 const client = new MongoClient(process.env.MONGO_URI);
 const userDBs = client.db('company').collection('userdbs');
 
-function clearCookiesAndReturnLogin(res) {
+function clearCookies(res) {
     res.clearCookie('accessToken')
         .clearCookie('refreshToken')
         .clearCookie('id')
         .clearCookie('admin')
-        .redirect('/login');
     return;
 }
 
-exports.verifyToken = async (req, res, next) => {
+exports.verifyTokenAndGenerateAccessTokenIfExpiration = async (req, res, next) => {
     try {
         const cookiesList = authMethods.handleCookie(req.headers.cookie);
 
@@ -32,20 +31,38 @@ exports.verifyToken = async (req, res, next) => {
                 await res.status(200).cookie('accessToken', accessToken);
             }
             else {
-                clearCookiesAndReturnLogin(res);
+                clearCookies(res);
+                res.redirect('/login');
             }
         }
-
-        jwt.verify(accessToken, process.env.ACCESS_TOKEN_SECRET, (err, decoded) => {
-            if (decoded.admin == cookiesList.admin) {
-                next();
-            } else {
-                clearCookiesAndReturnLogin(res);
-            }
-        })
+        res.locals.verifyObject = { accessToken: accessToken, adminInCookie: cookiesList.admin }
+        next();
     } catch (err) {
-        clearCookiesAndReturnLogin(res);
+        clearCookies(res);
+        res.redirect('/login');
     }
+}
+
+exports.verifyAdmin = async (req, res, next) => {
+    jwt.verify(res.locals.verifyObject.accessToken, process.env.ACCESS_TOKEN_SECRET, (err, decoded) => {
+        if (decoded.admin == res.locals.verifyObject.adminInCookie == 1) {
+            next();
+        } else {
+            clearCookies(res);
+            res.redirect('/login');
+        }
+    })
+}
+
+exports.verifyEmployee = async (req, res, next) => {
+    jwt.verify(res.locals.verifyObject.accessToken, process.env.ACCESS_TOKEN_SECRET, (err, decoded) => {
+        if (decoded.admin == res.locals.verifyObject.adminInCookie == 0) {
+            next();
+        } else {
+            clearCookies(res);
+            res.redirect('/login');
+        }
+    })
 }
 
 exports.checkingLogedIn = async (req, res, next) => {
@@ -62,10 +79,7 @@ exports.checkingLogedIn = async (req, res, next) => {
         } else {
             jwt.verify(accessToken, process.env.ACCESS_TOKEN_SECRET, (err, decoded) => {
                 if (err) {
-                    res.clearCookie('accessToken')
-                        .clearCookie('refreshToken')
-                        .clearCookie('id')
-                        .clearCookie('admin');
+                    clearCookies(res);
                     next();
                 }
                 else {
@@ -74,10 +88,7 @@ exports.checkingLogedIn = async (req, res, next) => {
             })
         }
     } catch (err) {
-        res.clearCookie('accessToken')
-            .clearCookie('refreshToken')
-            .clearCookie('id')
-            .clearCookie('admin');
+        clearCookies(res);
         next();
     }
 }
