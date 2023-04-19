@@ -25,14 +25,15 @@ html {
     position: relative;
     box-sizing: border-box;
     font-size: 16px;
-    min-height: 100vh;
+    height: auto;
     background-color: var(--blur-white);
     padding-bottom: var(--footer-height);
 }
 #category {
     position: absolute;
     width: var(--category-width);
-    height: 100%;
+    height: auto;
+    min-height: 100%;
     padding: 20px;
     background-color: var(--x2-dark-blue);
     color: var(--white-text);
@@ -40,6 +41,8 @@ html {
 }
 main {
     padding-left: var(--category-width);
+    min-height: calc(100vh - var(--footer-height));
+    height: 100%;
 }
 
 *,
@@ -131,12 +134,11 @@ form input[type=submit]:hover {
 }
 footer {
     position: absolute;
-    background-color: #3787c3;
-    width: calc(100% - var(--category-width));
-    /* Position property made <footer>'s width depend on the <body> tag */
     bottom: 0;
+    /* Position property made <footer>'s width depend on the <body> tag */
+    width: calc(100% - var(--category-width));
+    background-color: #3787c3;
     line-height: var(--footer-height);
-    border-top: solid 1px var(--blue);
     color: var(--white-text);
     font-size: 0.8rem;
     text-align: center;

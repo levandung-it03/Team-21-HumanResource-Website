@@ -1,9 +1,19 @@
 
 (function main() {
+    function automaticallySetiingMainTagHeight(class_list) {
+        if (!class_list.some(className => className == "hide")) {
+            $('main').style.minHeight = `calc(${$('#category').offsetHeight}px - var(--footer-height))`;
+        } else {
+            $('main').style.minHeight = 'calc(100vh - var(--footer-height))';
+        }
+        return;
+    }
     (function toggleHidingCatalog() {
         $$('#category_body .category_items').forEach((tag) => {
             tag.onclick = (e) => {
-                tag.querySelector('ul.list').classList.toggle('hide');
+                const ulTag = tag.querySelector('ul.list');
+                ulTag.classList.toggle('hide')
+                automaticallySetiingMainTagHeight([...ulTag.classList]);
             }
         })
     })();
