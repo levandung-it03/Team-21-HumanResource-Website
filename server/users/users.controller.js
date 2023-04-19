@@ -11,13 +11,14 @@ const userDBs = client.db('company').collection('userdbs');
 const salaryDBs = client.db('company').collection('salary');
 const degreeDBs = client.db('company').collection('degree');
 const positionDBs = client.db('company').collection('position');
+const bussinessDBs = client.db('company').collection('bussiness');
 const techniqueDBs = client.db('company').collection('technique');
 const departmentDBs = client.db('company').collection('department');
 const employee_typeDBs = client.db('company').collection('employee_type');
 
 const usersMethods = require('./users.methods');
 const authMethods = require('../auth/auth.methods');
-const { UserDb, Salary, Position, Degree, Department, Employee_type, Technique } = require('./users.model');
+const { UserDb, Salary, Position, Degree, Department, Employee_type, Technique, Bussiness } = require('./users.model');
 
 function showErrMes(res, err) {
     res.status(500).send({ err_mes: err.message });
@@ -332,6 +333,7 @@ exports.deleteDegree = async (req, res) => {
 exports.addTechnique = async (req, res) => {
     await client.connect();
     const [department, employee_code, name] = req.body.employee.split("-");
+    const prevData = usersMethods.createErrorString(req.body);
 
     const dateCreated = usersMethods.getNowDate();
     const technique_code = usersMethods.getRandomTechniqueCode();
@@ -351,18 +353,40 @@ exports.addTechnique = async (req, res) => {
             res.status(200).redirect('/admin/category/employee/technique-list');
         })
         .catch(err => {
-            showErrMes(res, err);
+            res.redirect(DOMAIN + '/admin/category/employee/add-technique?error=' + encodeURIComponent(`error_${Object.keys(err.keyValue)[0]}`) + prevData);
         })
 }
 
 exports.updateTechnique = async (req, res) => {
-    
+    try {
+        await client.connect();
+        const data = {
+            technique: req.body.technique,
+            description: req.body.description,
+            dateCreated: usersMethods.getNowDate()
+        };
+        techniqueDBs.updateOne(
+            { _id: new ObjectId(req.params.id) },
+            { "$set": data }
+        )
+        res.status(200).redirect('/admin/category/employee/technique-list');
+    } catch (err) {
+        res.status(500).send({ err_mes: err.message });
+    }
+
 }
 
 exports.deleteTechnique = async (req, res) => {
+    const id = req.params.id;
 
+    try {
+        await client.connect();
+        await techniqueDBs.deleteOne({ _id: new ObjectId(id) });
+        res.end();
+    } catch (err) {
+        res.status(404).send({ mes: err.message });
+    }
 }
-/**@___________________________________________________________________________________ */
 
 exports.addPosition = async (req, res) => {
     await client.connect();

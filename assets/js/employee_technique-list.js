@@ -8,7 +8,7 @@
                         method: "DELETE",
                     })
                         .then((response) => {
-                            alert('Xoá phòng ban thành công!');
+                            alert('Xoá chuyên môn thành công!');
                             window.location.href = "http://localhost:3000/admin/category/employee/technique-list";
                         })
                 }

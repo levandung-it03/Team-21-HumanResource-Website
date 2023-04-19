@@ -10,6 +10,7 @@ const userDBs = client.db('company').collection('userdbs');
 const salaryDBs = client.db('company').collection('salary');
 const degreeDBs = client.db('company').collection('degree');
 const positionDBs = client.db('company').collection('position');
+const bussinessDBs = client.db('company').collection('bussiness');
 const techniqueDBs = client.db('company').collection('technique');
 const departmentDBs = client.db('company').collection('department');
 const employee_typeDBs = client.db('company').collection('employee_type');
@@ -56,6 +57,11 @@ async function getAllPosition() {
 async function getAllUser() {
     const allUser = userDBs.find({});
     return await allUser.toArray();
+}
+
+async function getAllBussiness() {
+    const allBussiness = bussinessDBs.find({});
+    return await allBussiness.toArray();
 }
 
 async function getSpecifiedObject(id, db) {
@@ -421,6 +427,23 @@ class renderMethods {
         } catch (err) {
             clearCookiesAndReturnLogin(res);
         }
+    }
+    async admin_bussinessList(req, res) {
+        try {
+            const bussinessList = await getAllBussiness();
+            const user = await getCurrentUser(req);
+            res.render('admin_bussiness_bussiness-list', {
+                user: user,
+                bussinessList: bussinessList,
+                layout: './layouts/admin'
+            });
+        } catch (err) {
+            clearCookiesAndReturnLogin(res);
+        }
+    }
+    async admin_addbussiness(req, res) {
+
+        res.status(200).send("This is add bussiness")
     }
 }
 

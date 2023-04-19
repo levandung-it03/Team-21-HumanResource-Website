@@ -147,6 +147,16 @@ route.get('/admin/category/salary/add-salary',
     authMiddlewares.verifyAdmin,
     renderMethods.admin_addSalary);
 
+route.get('/admin/category/bussiness/bussiness-list',
+    authMiddlewares.verifyTokenAndGenerateAccessTokenIfExpiration,
+    authMiddlewares.verifyAdmin,
+    renderMethods.admin_bussinessList);
+
+route.get('/admin/category/bussiness/add-bussiness',
+    authMiddlewares.verifyTokenAndGenerateAccessTokenIfExpiration,
+    authMiddlewares.verifyAdmin,
+    renderMethods.admin_addbussiness);
+
 /** @POST_METHODS__________________________ */
 route.post('/api/admin/add-employee',
     authMiddlewares.verifyTokenAndGenerateAccessTokenIfExpiration,
