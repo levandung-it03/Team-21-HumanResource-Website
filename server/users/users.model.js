@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 // method defind a schema for submitted data.
-var userSchema = new mongoose.Schema({
+let userSchema = new mongoose.Schema({
     admin: Number,
     employee_code: {
         type: String,
@@ -49,7 +49,7 @@ var userSchema = new mongoose.Schema({
     refreshToken: String,
 }, { collection: 'userdbs' });
 
-var salarySchema = new mongoose.Schema({
+let salarySchema = new mongoose.Schema({
     employee_code: {
         type: String,
         required: true,
@@ -80,7 +80,7 @@ var salarySchema = new mongoose.Schema({
     ]
 }, { collection: 'salary' });
 
-var departmentSchema = new mongoose.Schema({
+let departmentSchema = new mongoose.Schema({
     department_code: {
         type: String,
         unique: true,
@@ -95,7 +95,7 @@ var departmentSchema = new mongoose.Schema({
     dateCreated: String,
 }, { collection: 'department' });
 
-var degreeSchema = new mongoose.Schema({
+let degreeSchema = new mongoose.Schema({
     degree_code: {
         type: String,
         unique: true,
@@ -110,7 +110,31 @@ var degreeSchema = new mongoose.Schema({
     dateCreated: String,
 }, { collection: 'degree' });
 
-var positionSchema = new mongoose.Schema({
+let techniqueSchema = new mongoose.Schema({
+    technique_code: {
+        type: String,
+        unique: true,
+        required: true
+    },
+    technique: String,
+    department: {
+        type: String,
+        required: true
+    },
+    employee_code: {
+        type: String,
+        unique: true,
+        required: true
+    },
+    name: {
+        type: String,
+        required: true
+    },
+    description: String,
+    dateCreated: String
+}, { collection: 'technique' });
+
+let positionSchema = new mongoose.Schema({
     position_code: {
         type: String,
         unique: true,
@@ -125,7 +149,7 @@ var positionSchema = new mongoose.Schema({
     dateCreated: String,
 }, { collection: 'position' });
 
-var employeeTypeSchema = new mongoose.Schema({
+let employeeTypeSchema = new mongoose.Schema({
     employee_type_code: {
         type: String,
         unique: true,
@@ -140,11 +164,12 @@ var employeeTypeSchema = new mongoose.Schema({
     dateCreated: String,
 }, { collection: 'employee_type' });
 
-var UserDb = mongoose.model('userdbs', userSchema);
-var Salary = mongoose.model('salary', salarySchema);
-var Degree = mongoose.model('degree', degreeSchema);
-var Position = mongoose.model('position', positionSchema);
-var Department = mongoose.model('department', departmentSchema);
-var Employee_type = mongoose.model('employee_type', employeeTypeSchema);
+let UserDb = mongoose.model('userdbs', userSchema);
+let Salary = mongoose.model('salary', salarySchema);
+let Degree = mongoose.model('degree', degreeSchema);
+let Position = mongoose.model('position', positionSchema);
+let Technique = mongoose.model('technique', techniqueSchema);
+let Department = mongoose.model('department', departmentSchema);
+let Employee_type = mongoose.model('employee_type', employeeTypeSchema);
 
-module.exports = { UserDb, Salary, Position, Degree, Department, Employee_type };
+module.exports = { UserDb, Salary, Position, Degree, Department, Employee_type, Technique };

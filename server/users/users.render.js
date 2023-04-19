@@ -10,6 +10,7 @@ const userDBs = client.db('company').collection('userdbs');
 const salaryDBs = client.db('company').collection('salary');
 const degreeDBs = client.db('company').collection('degree');
 const positionDBs = client.db('company').collection('position');
+const techniqueDBs = client.db('company').collection('technique');
 const departmentDBs = client.db('company').collection('department');
 const employee_typeDBs = client.db('company').collection('employee_type');
 
@@ -20,6 +21,11 @@ function clearCookiesAndReturnLogin(res) {
         .clearCookie('admin')
         .redirect('/login');
     return;
+}
+
+async function getAllTechnique() {
+    const allTechnique = techniqueDBs.find({});
+    return await allTechnique.toArray();
 }
 
 async function getAllDegree() {
@@ -253,6 +259,49 @@ class renderMethods {
                 user: user,
                 isUpdating: true,
                 specifiedDegree: specifiedDegree,
+                layout: './layouts/admin'
+            });
+        } catch (err) {
+            clearCookiesAndReturnLogin(res);
+        }
+    }
+    async admin_techniqueList(req, res) {
+        try {
+            const user = await getCurrentUser(req);
+            const techniqueList = await getAllTechnique();
+            res.render('admin_employee_technique-list', {
+                user: user,
+                techniqueList: techniqueList,
+                layout: './layouts/admin'
+            });
+        } catch (err) {
+            clearCookiesAndReturnLogin(res);
+        }
+    }
+    async admin_addTechnique(req, res) {
+        try {
+            const user = await getCurrentUser(req);
+            const allUsers = await getAllUser();
+            res.render('admin_employee_add-technique', {
+                user: user,
+                isUpdating: false,
+                allUsers: allUsers,
+                layout: './layouts/admin'
+            });
+        } catch (err) {
+            clearCookiesAndReturnLogin(res);
+        }
+    }
+    async admin_updateTechnique(req, res) {
+        try {
+            const user = await getCurrentUser(req);
+            const allUsers = await getAllUser();
+            const specifiedTechnique = await getSpecifiedObject(req.params.id, techniqueDBs);
+            res.render('admin_employee_add-technique', {
+                user: user,
+                isUpdating: true,
+                allUsers: allUsers,
+                specifiedTechnique: specifiedTechnique,
                 layout: './layouts/admin'
             });
         } catch (err) {

@@ -89,6 +89,9 @@ class UsersMethods {
     getRandomEmployeeTypeCode() {
         return `LNV${Date.now()}${Math.floor(Math.random() * 9)}`;
     }
+    getRandomTechniqueCode() {
+        return `CM${Date.now()}${Math.floor(Math.random() * 99)}`;
+    }
 }
 
 module.exports = new UsersMethods;

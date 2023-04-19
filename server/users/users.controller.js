@@ -11,12 +11,17 @@ const userDBs = client.db('company').collection('userdbs');
 const salaryDBs = client.db('company').collection('salary');
 const degreeDBs = client.db('company').collection('degree');
 const positionDBs = client.db('company').collection('position');
+const techniqueDBs = client.db('company').collection('technique');
 const departmentDBs = client.db('company').collection('department');
 const employee_typeDBs = client.db('company').collection('employee_type');
 
 const usersMethods = require('./users.methods');
 const authMethods = require('../auth/auth.methods');
-const { UserDb, Salary, Position, Degree, Department, Employee_type } = require('./users.model');
+const { UserDb, Salary, Position, Degree, Department, Employee_type, Technique } = require('./users.model');
+
+function showErrMes(res, err) {
+    res.status(500).send({ err_mes: err.message });
+}
 
 exports.addEmployee = async (req, res) => {
     if (!req.body) res.status(400).send({ message: "Content can not be empty!" }).end();
@@ -188,6 +193,7 @@ exports.updateEmployee = async (req, res) => {
         .then(async (result) => {
             const public_id = usersMethods.getPublicIdByImageURL(user.avatar_url);
             try {
+                await techniqueDBs.updateOne({ employee_code: user.employee_code }, { "$set": {department: req.body.department} });
                 sharp(req.file.path)
                     .resize({ height: 350 })
                     .toBuffer(async (err, buffer) => {
@@ -322,6 +328,41 @@ exports.deleteDegree = async (req, res) => {
         res.status(404).send({ mes: err.message });
     }
 }
+
+exports.addTechnique = async (req, res) => {
+    await client.connect();
+    const [department, employee_code, name] = req.body.employee.split("-");
+
+    const dateCreated = usersMethods.getNowDate();
+    const technique_code = usersMethods.getRandomTechniqueCode();
+    
+    const technique = new Technique({
+        technique_code: technique_code,
+        technique: req.body.technique,
+        department: department,
+        employee_code: employee_code,
+        name: name,
+        description: req.body.description,
+        dateCreated: dateCreated
+    })
+
+    await technique.save(technique)
+        .then(data => {
+            res.status(200).redirect('/admin/category/employee/technique-list');
+        })
+        .catch(err => {
+            showErrMes(res, err);
+        })
+}
+
+exports.updateTechnique = async (req, res) => {
+    
+}
+
+exports.deleteTechnique = async (req, res) => {
+
+}
+/**@___________________________________________________________________________________ */
 
 exports.addPosition = async (req, res) => {
     await client.connect();

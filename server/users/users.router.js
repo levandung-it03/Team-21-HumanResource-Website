@@ -91,6 +91,21 @@ route.get('/admin/category/employee/update-degree/:id',
     authMiddlewares.verifyTokenAndGenerateAccessTokenIfExpiration,
     authMiddlewares.verifyAdmin,
     renderMethods.admin_updateDegree);
+    
+route.get('/admin/category/employee/technique-list',
+    authMiddlewares.verifyTokenAndGenerateAccessTokenIfExpiration,
+    authMiddlewares.verifyAdmin,
+    renderMethods.admin_techniqueList);
+
+route.get('/admin/category/employee/add-technique',
+    authMiddlewares.verifyTokenAndGenerateAccessTokenIfExpiration,
+    authMiddlewares.verifyAdmin,
+    renderMethods.admin_addTechnique);
+    
+route.get('/admin/category/employee/update-technique/:id',
+    authMiddlewares.verifyTokenAndGenerateAccessTokenIfExpiration,
+    authMiddlewares.verifyAdmin,
+    renderMethods.admin_updateTechnique);
 
 route.get('/admin/category/employee/position-list',
     authMiddlewares.verifyTokenAndGenerateAccessTokenIfExpiration,
@@ -165,6 +180,16 @@ route.post('/api/admin/update-degree/:id',
     authMiddlewares.verifyAdmin,
     usersController.updateDegree);
 
+route.post('/api/admin/add-technique',
+    authMiddlewares.verifyTokenAndGenerateAccessTokenIfExpiration,
+    authMiddlewares.verifyAdmin,
+    usersController.addTechnique);
+
+route.post('/api/admin/update-technique/:id',
+    authMiddlewares.verifyTokenAndGenerateAccessTokenIfExpiration,
+    authMiddlewares.verifyAdmin,
+    usersController.updateTechnique);
+
 route.post('/api/admin/add-position',
     authMiddlewares.verifyTokenAndGenerateAccessTokenIfExpiration,
     authMiddlewares.verifyAdmin,
@@ -220,6 +245,11 @@ route.delete('/api/admin/delete-degree/:id',
     authMiddlewares.verifyTokenAndGenerateAccessTokenIfExpiration,
     authMiddlewares.verifyAdmin,
     usersController.deleteDegree);
+    
+route.delete('/api/admin/delete-technique/:id',
+    authMiddlewares.verifyTokenAndGenerateAccessTokenIfExpiration,
+    authMiddlewares.verifyAdmin,
+    usersController.deleteTechnique);
 /**@_______________________________________________________________________________________________ */
 
 module.exports = route;

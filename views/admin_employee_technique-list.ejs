@@ -1,0 +1,83 @@
+<link rel="stylesheet" href="/css/employee_technique-list.css">
+<div id="technique-list">
+    <div id="heading">
+        <div class="hide" id="turn-back-btn">
+            <a href="/admin/category/employee/technique-list"><i class="fa-solid fa-arrow-left-long"></i> Thoát</a>
+        </div>
+        <div id="title">
+            <span>Danh sách chuyên môn</span>
+        </div>
+        <div id="add-btn">
+            <a href="/admin/category/employee/add-technique">Thêm chuyên môn</a>
+        </div>
+        <div id="search">
+            <input class="search" type="text" placeholder="Tìm kiếm">
+            <i class="fa-solid fa-magnifying-glass"></i>
+        </div>
+    </div>
+    <table>
+        <thead>
+            <tr class="table_title">
+                <th id="ordinal">
+                    <span class="title_name">STT</span>                 
+                </th>
+                <th id="technique_code">
+                    <span class="title_name">Mã chuyên môn</span>
+                    <i class="fa-solid fa-sort" id="technique_code"></i>
+                </th>
+                <th id="technique">
+                    <span class="title_name">Tên chuyên môn</span>
+                    <i class="fa-solid fa-sort" id="technique"></i>
+                </th>
+                <th id="department">
+                    <span class="title_name">Tên phòng ban</span>
+                    <i class="fa-solid fa-sort" id="department"></i>
+                </th>
+                <th id="name">
+                    <span class="title_name">Tên nhân viên</span>
+                    <i class="fa-solid fa-sort" id="name"></i>
+                </th>
+                <th id="description">
+                    <span class="title_name">Mô tả</span>
+                </th>
+                <th id="dateCreated">
+                    <span class="title_name">Ngày tạo</span>
+                    <i class="fa-solid fa-sort" id="dateCreated"></i>
+                </th>
+                <th id="update-technique">
+                    <span class="title_name">Sửa</span>
+                </th>
+                <th id="delete-technique">
+                    <span class="title_name">Xoá</span>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <% for (var i = 0; i < techniqueList.length; i++) { %>
+                <tr class="body" id=<%= i+1 %>>
+                    <td id="ordinal"><%= (i + 1) %></td>
+                    <td class="body_enable-searching body_enable-sorting"
+                        id="technique_code"><%= techniqueList[i].technique_code %></td>
+                    <td class="body_enable-searching body_enable-sorting"
+                        id="technique"><%= techniqueList[i].technique %></td>
+                    <td class="body_enable-searching body_enable-sorting"
+                        id="technique"><%= techniqueList[i].department %></td>
+                    <td class="body_enable-searching body_enable-sorting"
+                        id="technique"><%= techniqueList[i].name %></td>
+                    <td class="body_enable-searching body_enable-sorting"
+                        id="technique"><%= techniqueList[i].description %></td>
+                    <td class="body_enable-searching body_enable-sorting"
+                        id="dateCreated"><%= techniqueList[i].dateCreated %></td>
+                    <td class="update-technique">
+                        <a href="/admin/category/employee/update-technique/<%= techniqueList[i]._id.toString() %>">
+                            <i class="fa-sharp fa-solid fa-pencil"></i></a>
+                    </td>
+                    <td class="delete-technique">
+                        <a technique_id=<%= techniqueList[i]._id.toString() %>><i class="fa-sharp fa-solid fa-trash"></i></a>
+                    </td>
+                </tr>
+            <% } %>
+        </tbody>
+    </table>
+</div>
+<script src="/js/employee_technique-list.js"></script>
