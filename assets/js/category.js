@@ -1,7 +1,8 @@
 
 (function main() {
     function automaticallySetiingMainTagHeight(class_list) {
-        if (!class_list.some(className => className == "hide")) {
+        const isShowingIndexOfCategory = class_list.some(className => !(className == "hide"));
+        if (isShowingIndexOfCategory) {
             $('main').style.minHeight = `calc(${$('#category').offsetHeight}px - var(--footer-height))`;
         } else {
             $('main').style.minHeight = 'calc(100vh - var(--footer-height))';
