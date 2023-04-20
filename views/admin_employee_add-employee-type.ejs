@@ -16,7 +16,7 @@
     action="/api/admin/<%= isUpdating ? 'update-employee-type/' + specifiedEmployee_type._id.toString() : 'add-employee-type'%>">
         <div class="form_text-input more-condition" id="employee_type">
             <label for="employee_type">Loại nhân viên</label>
-            <input value="<%= isUpdating ? specifiedEmployee_type.employee_type : '' %>"
+            <input class="adjust-upper-and-lower-case" value="<%= isUpdating ? specifiedEmployee_type.employee_type : '' %>"
             <% if (isUpdating) { %>readonly<% } %>
             name="employee_type" type="text" placeholder="VD: Bán thời gian,..." required>
             <div class="form_text-input_err-message"></div>

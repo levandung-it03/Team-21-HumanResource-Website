@@ -55,6 +55,9 @@ let submitFormCancellation = false;
     (function setUpstrictInputTags() {
         strictInputTags.forEach((tag) => {
             tag.onblur = (e) => {
+                if ([...tag.classList].includes("adjust-upper-and-lower-case")) {
+                    generalMethods.adjustUpperAndLowerCase(e.target);
+                }
                 generalMethods.trimInputData(e.target);
                 const errMesTagObject = errorMessages[tag.name];
                 const errTag = $(`div#${tag.name} span#${tag.name}`);

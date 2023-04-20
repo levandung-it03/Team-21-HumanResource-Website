@@ -16,7 +16,7 @@
     action="/api/admin/<%= isUpdating ? 'update-degree/' + specifiedDegree._id.toString() : 'add-degree'%>">
         <div class="form_text-input more-condition" id="degree">
             <label for="degree">Loại bằng cấp</label>
-            <input value="<%= isUpdating ? specifiedDegree.degree : '' %>"
+            <input class="adjust-upper-and-lower-case" value="<%= isUpdating ? specifiedDegree.degree : '' %>"
             <% if (isUpdating) { %>readonly<% } %>
             name="degree" type="text" placeholder="VD: Thạc sỹ,..." required>
             <div class="form_text-input_err-message"></div>

@@ -170,11 +170,7 @@ let bussinessSchema = new mongoose.Schema({
         unique: true,
         required: true
     },
-    bussiness: {
-        type: String,
-        unique: true,
-        required: true
-    },
+    bussiness: String,
     employee_code: {
         type: String,
         unique: true,
@@ -187,7 +183,8 @@ let bussinessSchema = new mongoose.Schema({
     startingDate: String,
     endingDate: String,
     location: String,
-    purpose: String
+    purpose: String,
+    dateCreated: String
 }, { collection: 'bussiness' });
 
 let UserDb = mongoose.model('userdbs', userSchema);

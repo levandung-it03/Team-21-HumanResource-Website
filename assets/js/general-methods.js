@@ -5,10 +5,23 @@ const generalMethods = {
     trimInputData: function (inputTag) {
         const words = inputTag.value.trim().split(" ");
         let result = [];
+        for (let i = 0; i < words.length; i++) {
+            if (words[i] !== "") {
+                if (i == 0) {
+                    words[i] = words[i][0].toUpperCase() + words[i].slice(1);
+                }
+                result.push(words[i]);
+            }
+        }
+        inputTag.value = result.join(" ");
+    },
+    adjustUpperAndLowerCase: function (inputTag) {
+        const words = inputTag.value.trim().split(" ");
+        let result = [];
         for (let word of words) {
             if (word !== "") {
-                word[0] = word[0].toUpperCase();
-                result.push(word);
+                let newWord = word[0].toUpperCase() + word.slice(1).toLowerCase();
+                result.push(newWord);
             }
         }
         inputTag.value = result.join(" ");

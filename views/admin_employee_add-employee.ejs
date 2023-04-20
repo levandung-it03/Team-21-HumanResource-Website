@@ -6,7 +6,7 @@
     <form method="POST" action="/api/admin/add-employee" enctype="multipart/form-data" onsubmit="return submitFormCancellation">
         <div class="form_text-input more-condition" id="name">
             <label for="name">Họ và Tên</label>
-            <input name="name" type="text" placeholder="Nguyễn Thị A" required>
+            <input class="adjust-upper-and-lower-case" name="name" type="text" placeholder="Nguyễn Thị A" required>
             <div class="form_text-input_err-message"></div>
         </div>
         <div class="form_text-input" id="avatar">
@@ -45,22 +45,22 @@
         </div>
         <div class="form_text-input more-condition" id="birthplace">
             <label for="birthplace">Nơi sinh</label>
-            <input name="birthplace" type="text" placeholder="Hà Nội" required>
+            <input class="adjust-upper-and-lower-case" name="birthplace" type="text" placeholder="Hà Nội" required>
             <div class="form_text-input_err-message"></div>
         </div>
         <div class="form_text-input more-condition" id="country">
             <label for="country">Quốc gia</label>
-            <input name="country" type="text" value="Việt Nam" required>
+            <input class="adjust-upper-and-lower-case" name="country" type="text" value="Việt Nam" required>
             <div class="form_text-input_err-message"></div>
         </div>
         <div class="form_text-input more-condition" id="ethnic">
             <label for="ethnic">Dân tộc</label>
-            <input name="ethnic" type="text" placeholder="Kinh" required>
+            <input class="adjust-upper-and-lower-case" name="ethnic" type="text" placeholder="Kinh" required>
             <div class="form_text-input_err-message"></div>
         </div>
         <div class="form_text-input more-condition" id="religion">
             <label for="religion">Tôn giáo</label>
-            <input name="religion" type="text" value="Không" required>
+            <input class="adjust-upper-and-lower-case" name="religion" type="text" value="Không" required>
             <div class="form_text-input_err-message"></div>
         </div>
         <div class="form_text-input more-condition" id="phone">

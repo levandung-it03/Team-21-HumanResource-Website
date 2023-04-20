@@ -46,13 +46,13 @@ th, td {
     width: 14%;
 }
 #bussiness-list .table_title th#bussiness {
-    width: 14%;
+    width: 16%;
 }
 #bussiness-list .table_title th#name {
-    width: 14%;
+    width: 12%;
 }
 #bussiness-list .table_title th#purpose {
-    width: 14%;
+    width: 16%;
 }
 #bussiness-list .table_title th#startingDate {
     width: 8%;
@@ -60,17 +60,20 @@ th, td {
 #bussiness-list .table_title th#endingDate {
     width: 8%;
 }
+#bussiness-list .table_title th#dateCreated {
+    width: 8%;
+}
 #bussiness-list .table_title th#update-bussiness {
-    width: 5%;
+    width: 4%;
 }
 #bussiness-list .table_title th#delete-bussiness {
-    width: 5%;
+    width: 4%;
 }
 #bussiness-list tr.body td {
     text-align: center;
 }
 #bussiness-list tr.body .update-bussiness {
-    padding: 12px 24px 12px;
+    padding: 12px 12px 12px;
 }
 #bussiness-list tr.body .update-bussiness a {
     display: block;
@@ -87,7 +90,7 @@ th, td {
     background-color: var(--blur-green);
 }
 #bussiness-list tr.body .delete-bussiness {
-    padding: 12px 24px 12px;
+    padding: 12px 12px 12px;
 }
 #bussiness-list tr.body .delete-bussiness a {
     display: block;

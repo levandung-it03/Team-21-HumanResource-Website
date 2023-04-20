@@ -1,14 +1,11 @@
-<link rel="stylesheet" href="/css/employee_bussiness-list.css">
+<link rel="stylesheet" href="/css/bussiness_bussiness-list.css">
 <div id="bussiness-list">
     <div id="heading">
         <div class="hide" id="turn-back-btn">
-            <a href="/admin/category/employee/bussiness-list"><i class="fa-solid fa-arrow-left-long"></i> Thoát</a>
+            <a href="/admin/category/bussiness/bussiness-list"><i class="fa-solid fa-arrow-left-long"></i> Thoát</a>
         </div>
         <div id="title">
             <span>Danh sách công tác</span>
-        </div>
-        <div id="add-btn">
-            <a href="/admin/category/employee/add-bussiness">Thêm công tác</a>
         </div>
         <div id="search">
             <input class="search" type="text" placeholder="Tìm kiếm">
@@ -24,10 +21,6 @@
                 <th id="bussiness_code">
                     <span class="title_name">Mã công tác</span>
                     <i class="fa-solid fa-sort" id="bussiness_code"></i>
-                </th>
-                <th id="bussiness">
-                    <span class="title_name">Chuyến công tác</span>
-                    <i class="fa-solid fa-sort" id="bussiness"></i>
                 </th>
                 <th id="name">
                     <span class="title_name">Nhân viên</span>
@@ -48,6 +41,10 @@
                     <span class="title_name">Kết thúc</span>
                     <i class="fa-solid fa-sort" id="endingDate"></i>
                 </th>
+                <th id="dateCreated">
+                    <span class="title_name">Ngày tạo</span>
+                    <i class="fa-solid fa-sort" id="dateCreated"></i>
+                </th>
                 <th id="update-bussiness">
                     <span class="title_name">Sửa</span>
                 </th>
@@ -62,20 +59,20 @@
                     <td id="ordinal"><%= (i + 1) %></td>
                     <td class="body_enable-searching body_enable-sorting"
                         id="bussiness_code"><%= bussinessList[i].bussiness_code %></td>
-                    <td class="body_enable-searching body_enable-sorting"
-                        id="bussiness"><%= bussinessList[i].bussiness %></td>
-                    <td class="body_enable-searching body_enable-sorting"
-                        id="bussiness"><%= bussinessList[i].name %></td>
+                        <td class="body_enable-searching body_enable-sorting"
+                            id="bussiness"><%= bussinessList[i].name %></td>
                     <td class="body_enable-searching body_enable-sorting"
                         id="bussiness"><%= bussinessList[i].location %></td>
                     <td class="body_enable-searching body_enable-sorting"
                         id="bussiness"><%= bussinessList[i].purpose %></td>
                     <td class="body_enable-searching body_enable-sorting"
-                        id="dateCreated"><%= bussinessList[i].startingDate %></td>
+                        id="startingDate"><b><%= bussinessList[i].startingDate %></b></td>
                     <td class="body_enable-searching body_enable-sorting"
-                        id="dateCreated"><%= bussinessList[i].endingDate %></td>
+                        id="endingDate"><b><%= bussinessList[i].endingDate %></b></td>
+                    <td class="body_enable-searching body_enable-sorting"
+                        id="dateCreated"><%= bussinessList[i].dateCreated %></td>
                     <td class="update-bussiness">
-                        <a href="/admin/category/employee/update-bussiness/<%= bussinessList[i]._id.toString() %>">
+                        <a href="/admin/category/bussiness/update-bussiness/<%= bussinessList[i]._id.toString() %>">
                             <i class="fa-sharp fa-solid fa-pencil"></i></a>
                     </td>
                     <td class="delete-bussiness">
@@ -86,4 +83,4 @@
         </tbody>
     </table>
 </div>
-<script src="/js/employee_bussiness-list.js"></script>
+<script src="/js/bussiness_bussiness-list.js"></script>

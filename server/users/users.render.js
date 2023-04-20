@@ -441,9 +441,35 @@ class renderMethods {
             clearCookiesAndReturnLogin(res);
         }
     }
-    async admin_addbussiness(req, res) {
-
-        res.status(200).send("This is add bussiness")
+    async admin_addBussiness(req, res) {
+        try {
+            const user = await getCurrentUser(req);
+            const allUsers = await getAllUser();
+            res.render('admin_bussiness_add-bussiness', {
+                user: user,
+                allUsers: allUsers,
+                isUpdating: false,
+                layout: './layouts/admin'
+            });
+        } catch (err) {
+            clearCookiesAndReturnLogin(res);
+        }
+    }
+    async admin_updateBussiness(req, res) {
+        try {
+            const user = await getCurrentUser(req);
+            const specifiedBussiness = await getSpecifiedObject(req.params.id, bussinessDBs);
+            const allUsers = await getAllUser();
+            res.render('admin_bussiness_add-bussiness', {
+                user: user,
+                allUsers: allUsers,
+                isUpdating: true,
+                specifiedBussiness: specifiedBussiness,
+                layout: './layouts/admin'
+            });
+        } catch (err) {
+            clearCookiesAndReturnLogin(res);
+        }
     }
 }
 

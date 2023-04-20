@@ -3,9 +3,9 @@
     function automaticallySetiingMainTagHeight(indexTags) {
         const isHiddingAllIndexOfCategory = indexTags.every(indexTag => [...indexTag.classList].includes("hide"));
         if (isHiddingAllIndexOfCategory) {
-            $('main').style.minHeight = 'calc(100vh - var(--footer-height))';
+            $('main').style.minHeight = 'calc(100vh - 1px - var(--footer-height))';
         } else {
-            $('main').style.minHeight = `calc(${$('#category').offsetHeight}px - 1px - var(--footer-height))`;
+            $('main').style.minHeight = `calc(${$('#category').offsetHeight}px - var(--footer-height))`;
         }
         return;
     }

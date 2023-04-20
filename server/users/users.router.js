@@ -147,6 +147,8 @@ route.get('/admin/category/salary/add-salary',
     authMiddlewares.verifyAdmin,
     renderMethods.admin_addSalary);
 
+/**@_________________________________________WORKING_______________________________________________________ */
+
 route.get('/admin/category/bussiness/bussiness-list',
     authMiddlewares.verifyTokenAndGenerateAccessTokenIfExpiration,
     authMiddlewares.verifyAdmin,
@@ -155,7 +157,15 @@ route.get('/admin/category/bussiness/bussiness-list',
 route.get('/admin/category/bussiness/add-bussiness',
     authMiddlewares.verifyTokenAndGenerateAccessTokenIfExpiration,
     authMiddlewares.verifyAdmin,
-    renderMethods.admin_addbussiness);
+    renderMethods.admin_addBussiness);
+
+route.get('/admin/category/bussiness/update-bussiness/:id',
+    authMiddlewares.verifyTokenAndGenerateAccessTokenIfExpiration,
+    authMiddlewares.verifyAdmin,
+    renderMethods.admin_updateBussiness);
+    
+
+/**@_______________________________________________________________________________________________________ */
 
 /** @POST_METHODS__________________________ */
 route.post('/api/admin/add-employee',
@@ -225,6 +235,16 @@ route.post('/api/admin/add-salary',
     authMiddlewares.verifyAdmin,
     usersController.addSalary);
 
+route.post('/api/admin/add-bussiness',
+    authMiddlewares.verifyTokenAndGenerateAccessTokenIfExpiration,
+    authMiddlewares.verifyAdmin,
+    usersController.addBussiness);
+
+route.post('/api/admin/update-bussiness/:id',
+    authMiddlewares.verifyTokenAndGenerateAccessTokenIfExpiration,
+    authMiddlewares.verifyAdmin,
+    usersController.updateBussiness);
+
 /** @DELETE_METHODS__________________________ */
 route.delete('/api/admin/delete-employee/:id',
     authMiddlewares.verifyTokenAndGenerateAccessTokenIfExpiration,
@@ -260,6 +280,12 @@ route.delete('/api/admin/delete-technique/:id',
     authMiddlewares.verifyTokenAndGenerateAccessTokenIfExpiration,
     authMiddlewares.verifyAdmin,
     usersController.deleteTechnique);
+
+route.delete('/api/admin/delete-bussiness/:id',
+    authMiddlewares.verifyTokenAndGenerateAccessTokenIfExpiration,
+    authMiddlewares.verifyAdmin,
+    usersController.deleteBussiness);
+    
 /**@_______________________________________________________________________________________________ */
 
 module.exports = route;

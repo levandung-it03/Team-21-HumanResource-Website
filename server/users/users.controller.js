@@ -373,7 +373,6 @@ exports.updateTechnique = async (req, res) => {
     } catch (err) {
         res.status(500).send({ err_mes: err.message });
     }
-
 }
 
 exports.deleteTechnique = async (req, res) => {
@@ -542,5 +541,61 @@ exports.deleteSalary = async (req, res) => {
         res.end();
     } catch (err) {
         res.status(404).send({ mes: err.message });
+    }
+}
+
+exports.addBussiness = async (req, res) => {
+    await client.connect();
+    const [employee_code, name] = req.body.employee.split("-");
+    const prevData = usersMethods.createErrorString(req.body);
+
+    const dateCreated = usersMethods.getNowDate();
+    const bussiness_code = usersMethods.getRandomBussinessCode();
+    
+    const bussiness = new Bussiness({
+        bussiness_code: bussiness_code,
+        bussiness: req.body.bussiness,
+        employee_code: employee_code,
+        name: name,
+        startingDate: req.body.startingDate,
+        endingDate: req.body.endingDate,
+        location: req.body.location,
+        purpose: req.body.purpose,
+        dateCreated: dateCreated
+    })
+
+    await bussiness.save(bussiness)
+        .then(data => {
+            res.status(200).redirect('/admin/category/bussiness/bussiness-list');
+        })
+        .catch(err => {
+            res.redirect(DOMAIN + '/admin/category/bussiness/add-bussiness?error=' + encodeURIComponent(`error_${Object.keys(err.keyValue)[0]}`) + prevData);
+        })
+}
+
+exports.deleteBussiness = async (req, res) => {
+    const id = req.params.id;
+    try {
+        await client.connect();
+        await bussinessDBs.deleteOne({ _id: new ObjectId(id) });
+        res.end();
+    } catch (err) {
+        res.status(404).send({ mes: err.message });
+    }
+}
+
+exports.updateBussiness = async (req, res) => {
+    try {
+        await client.connect();
+        const data = req.body;
+        delete data.employee;
+
+        bussinessDBs.updateOne(
+            { _id: new ObjectId(req.params.id) },
+            { "$set": data }
+        )
+        res.status(200).redirect('/admin/category/bussiness/bussiness-list');
+    } catch (err) {
+        res.status(500).send({ err_mes: err.message });
     }
 }

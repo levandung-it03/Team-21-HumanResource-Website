@@ -2,11 +2,27 @@ let submitFormCancellation = false;
 
 (function main() {
     const errorMessages = {
-        technique: {
+        endingDate: {
             confirm: function (value) {
-                this.isValid = value.split("").every((e) => isNaN(Number.parseInt(e)));
+                const startingDate = $('input[name=startingDate]').value, endingDate = value;
+                let startingDateArr = startingDate.split("-").map(e => Number.parseInt(e)),
+                    endingDateArr = endingDate.split("-").map(e => Number.parseInt(e));
+
+                if (startingDateArr[0] == endingDateArr[0]) {
+                    if (startingDateArr[1] == endingDateArr[1]) {
+                        this.isValid = endingDateArr[2] >= startingDateArr[2] ? true : false;
+                    } else if (startingDateArr[1] < endingDateArr[1]) {
+                        this.isValid = true;
+                    } else {
+                        this.isValid = false;
+                    }
+                } else if (startingDateArr[0] < endingDateArr[0]) {
+                    this.isValid = true;
+                } else {
+                    this.isValid = false;
+                }
             },
-            message: "Tên chuyên môn không hợp lệ.",
+            message: "Ngày kết thúc không hợp lệ.",
             isValid: false,
         },
     }
@@ -42,24 +58,24 @@ let submitFormCancellation = false;
     })();
 
     (function setUpstrictInputTags() {
-        strictInputTags.forEach((tag) => {
+        $$('input[type=date]').forEach((tag) => {
             tag.onblur = (e) => {
-                if ([...tag.classList].includes("adjust-upper-and-lower-case")) {
-                    generalMethods.adjustUpperAndLowerCase(e.target);
-                }
-                generalMethods.trimInputData(e.target);
+                const errMesTagObject = errorMessages[strictInputTags[0].name];
+                const errTag = $(`div#${strictInputTags[0].name} span#${strictInputTags[0].name}`);
 
-                const errMesTagObject = errorMessages[tag.name];
-                const errTag = $(`div#${tag.name} span#${tag.name}`);
-
-                errMesTagObject.confirm(tag.value);
+                errMesTagObject.confirm(strictInputTags[0].value);
                 if (errMesTagObject.isValid) errTag.style.display = "none";
                 else errTag.style.display = "inline";
             }
         })
-        $('textarea').onblur = (e) => {
-            generalMethods.trimInputData(e.target);
-        }
+        $$('div.need-to-trim .need-to-trim').forEach(tag => {
+            tag.onblur = (e) => {
+                generalMethods.trimInputData(e.target);
+                if ([...tag.classList].includes("adjust-upper-and-lower-case")) {
+                    generalMethods.adjustUpperAndLowerCase(e.target);
+                }
+            }
+        })
     })();
 
     (function recoverEmployeeSelectData() {

@@ -40,7 +40,7 @@
                 <option selected disabled value="">--Trống--</option>
                 <% for(var index in employeeTypeList) { %>
                     <option value="<%= `${employeeTypeList[index].employee_type}-${employeeTypeList[index].multipleSalary}` %>">
-                        <%= `${employeeTypeList[index].employee_type} - ${employeeTypeList[index].multipleSalary} lần` %></option>
+                        <%= `${employeeTypeList[index].employee_type} - x${employeeTypeList[index].multipleSalary} lần` %></option>
                 <% } %>
             </select>
         </div>
@@ -50,7 +50,7 @@
                 <option selected disabled value="">--Trống--</option>
                 <% for(var index in degreeList) { %>
                     <option value="<%= `${degreeList[index].degree}-${degreeList[index].multipleSalary}` %>">
-                        <%= `${degreeList[index].degree} - ${degreeList[index].multipleSalary} lần` %></option>
+                        <%= `${degreeList[index].degree} - x${degreeList[index].multipleSalary} lần` %></option>
                 <% } %>
             </select>
         </div>

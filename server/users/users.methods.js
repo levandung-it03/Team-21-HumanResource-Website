@@ -92,6 +92,9 @@ class UsersMethods {
     getRandomTechniqueCode() {
         return `CM${Date.now()}${Math.floor(Math.random() * 99)}`;
     }
+    getRandomBussinessCode() {
+        return `CT${Date.now()}${Math.floor(Math.random() * 99)}`;
+    }
 }
 
 module.exports = new UsersMethods;

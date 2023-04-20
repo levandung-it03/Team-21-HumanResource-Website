@@ -9,9 +9,10 @@
         },
         dayOff: {
             confirm: function (value) {
-                this.isValid = value.split("").every((e) => !isNaN(Number.parseInt(e))) && Number.parseInt(value) <= 31;
+                this.isValid = value.split("").every((e) => !isNaN(Number.parseInt(e))) && Number.parseInt(value) <= 31
+                && Number.parseInt($('input[name=totalDays]').value) + Number.parseInt(value) <= 31;
             },
-            message: "Số ngày không hợp lệ.",
+            message: "Số ngày nghỉ không hợp lệ.",
             isValid: false,
         },
         allowance: {
