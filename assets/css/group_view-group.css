@@ -4,6 +4,9 @@ table {
 th, td {
     border: solid 1px var(--smoking-grey);
 }
+#heading #turn-back-btn {
+    float: left;
+}
 #add-btn {
     float: right;
 }
@@ -49,16 +52,24 @@ th, td {
     margin-right: 12px;
     margin-top: 4px;
 }
-#employee-list #employee-list_heading::after {
+#employee-list #heading {
+    position: relative; 
+    margin-bottom: 16px;
+}
+#employee-list #heading::after {
     display: block;
     content: "";
+    position: absolute;
+    top: 62px;
+    width: 98%;
+    margin-left: 12px;
     border-top: solid 1px rgb(94, 94, 255);
     padding-bottom: 8px;
 }
-#employee-list #employee-list_heading #title {
+#employee-list #heading #title {
     display: inline-block;
 }
-#employee-list #employee-list_heading #title span {
+#employee-list #heading #title span {
     font-size: 2.4rem;
     padding: 10px;
     padding-left: 30px;

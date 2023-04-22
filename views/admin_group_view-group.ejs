@@ -42,7 +42,10 @@
         </div>
     </div>
     <div id="employee-list">
-        <div id="employee-list_heading">
+        <div id="heading" class="employee-list_heading">
+            <div class="hide" id="turn-back-btn">
+                <a href="/admin/category/group/view-group/<%= specifiedGroup._id %>"><i class="fa-solid fa-arrow-left-long"></i> Thoát</a>
+            </div>
             <div id="title">
                 <span>Danh sách nhân viên</span>
             </div>
@@ -125,19 +128,23 @@
                         </td>
                         <td id="roles">
                             <% if(specifiedGroup.employee_list[i].roles=="Trưởng nhóm" ) { %>
-                                <span class="body_enable-searching body_enable-sorting status-block light-green-block" id="roles">
-                            <% } else { %>
-                                <span class="body_enable-searching body_enable-sorting status-block blur-green-block" id="roles">
-                            <% } %>
-                                <%= specifiedGroup.employee_list[i].roles %>
-                            </span>
+                                <span class="body_enable-searching body_enable-sorting status-block light-green-block"
+                                    id="roles">
+                                    <% } else { %>
+                                        <span
+                                            class="body_enable-searching body_enable-sorting status-block blur-green-block"
+                                            id="roles">
+                                            <% } %>
+                                                <%= specifiedGroup.employee_list[i].roles %>
+                                        </span>
                         </td>
-                        <% if (specifiedGroup.employee_list[i].roles != "Trưởng nhóm") { %>
-                            <td class="delete-employee-inside-group">
+                        <td class="delete-employee-inside-group">
+                            <% if (specifiedGroup.employee_list[i].roles !="Trưởng nhóm" ) { %>
                                 <a employee_id=<%=specifiedGroup.employee_list[i]._id.toString() %>><i
-                                        class="fa-sharp fa-solid fa-trash"></i></a>
-                            </td>
-                        <% } %>
+                                    class="fa-sharp fa-solid fa-trash"></i> </a>
+                            <% } %>
+                        </td>
+                        
                     </tr>
                     <% } %>
             </tbody>
