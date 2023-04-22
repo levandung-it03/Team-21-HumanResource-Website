@@ -187,6 +187,37 @@ let bussinessSchema = new mongoose.Schema({
     dateCreated: String
 }, { collection: 'bussiness' });
 
+let groupSchema = new mongoose.Schema({
+    group_code: {
+        type: String,
+        required: true,
+        unique: true
+    },
+    group: {
+        type: String,
+        required: true,
+        unique: true
+    },
+    employee_list: [
+        {
+            employee_code: String,
+            roles: String,
+            avatar_url: String,
+            name: {
+                type: String,
+                required: true
+            },
+            department: String,
+            position: String,
+            technique: String,
+            dateCreated: String
+        }
+    ],
+    description: String,
+    dateCreated: String,
+}, { collection: 'group' });
+
+let Group = mongoose.model('group', groupSchema);
 let UserDb = mongoose.model('userdbs', userSchema);
 let Salary = mongoose.model('salary', salarySchema);
 let Degree = mongoose.model('degree', degreeSchema);
@@ -196,4 +227,4 @@ let Bussiness = mongoose.model('bussiness', bussinessSchema);
 let Department = mongoose.model('department', departmentSchema);
 let Employee_type = mongoose.model('employee_type', employeeTypeSchema);
 
-module.exports = { UserDb, Salary, Position, Degree, Department, Employee_type, Technique, Bussiness };
+module.exports = { UserDb, Salary, Position, Degree, Department, Employee_type, Technique, Bussiness, Group };

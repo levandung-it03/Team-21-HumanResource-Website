@@ -1,0 +1,116 @@
+table {
+    border-collapse: collapse;
+}
+th, td {
+    border: solid 1px var(--smoking-grey);
+}
+#group-list #add-btn {
+    float: right;
+    margin-right: 12px;
+    margin-top: 4px;
+}
+#group-list #title {
+    display: inline-block;
+}
+#group-list #title span {
+    font-size: 2.4rem;
+    padding: 10px;
+}
+#group-list table {
+    margin: var(--form-margin);
+    background-color: white;
+    border: solid 1px transparent;
+    border-radius: var(--form-border-radius);
+    padding: 12px;
+    box-shadow: var(--black-box-shadow);
+    font-size: 0.95rem;
+}
+#group-list .table_title {
+    text-align: left;
+}
+#group-list .table_title th i {
+    width: 20px;
+    font-size: 0.7rem;
+    float: right;
+    line-height: 24px;
+    cursor: pointer;
+}
+#group-list .table_title th {
+    padding: 6px;
+    text-align: center;
+}
+#group-list .table_title th#ordinal {
+    width: 3%;
+}
+#group-list .table_title th#group_code {
+    width: 20%;
+}
+#group-list .table_title th#employeeQuantity {
+    width: 14%;
+}
+#group-list .table_title th#dateCreated {
+    width: 14%;
+}
+#group-list .table_title th#group {
+    width: 24%;
+}
+#group-list .table_title th#view-group {
+    width: 8%;
+}
+#group-list .table_title th#delete-group {
+    width: 8%;
+}
+#group-list tr.body td {
+    text-align: center;
+}
+#group-list tr.body .view-group {
+    padding: 12px 24px 12px;
+}
+#group-list tr.body .view-group a {
+    display: block;
+    margin: auto;
+    width: 50px;
+    line-height: 32px;
+    background-color: var(--blue);
+    border: solid 1px transparent;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color ease 0.3s;
+}
+#group-list tr.body .view-group a:hover {
+    background-color: var(--blur-blue);
+}
+#group-list tr.body .update-group {
+    padding: 12px 24px 12px;
+}
+#group-list tr.body .update-group a {
+    display: block;
+    margin: auto;
+    width: 50px;
+    line-height: 32px;
+    background-color: var(--green);
+    border: solid 1px transparent;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color ease 0.3s;
+}
+#group-list tr.body .update-group a:hover {
+    background-color: var(--blur-green);
+}
+#group-list tr.body .delete-group {
+    padding: 12px 24px 12px;
+}
+#group-list tr.body .delete-group a {
+    display: block;
+    margin: auto;
+    width: 50px;
+    line-height: 32px;
+    background-color: var(--red);
+    border: solid 1px transparent;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color ease 0.3s;
+}
+#group-list tr.body .delete-group a:hover {
+    background-color: rgb(238, 102, 102);
+}

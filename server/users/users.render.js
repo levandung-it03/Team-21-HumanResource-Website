@@ -6,6 +6,7 @@ const DOMAIN = process.env.DOMAIN;
 const { MongoClient } = require('mongodb');
 const { ObjectId } = require('mongodb');
 const client = new MongoClient(process.env.MONGO_URI);
+const groupDBs = client.db('company').collection('group');
 const userDBs = client.db('company').collection('userdbs');
 const salaryDBs = client.db('company').collection('salary');
 const degreeDBs = client.db('company').collection('degree');
@@ -74,6 +75,11 @@ async function getCurrentUser(req) {
     const user = await getSpecifiedObject(cookiesList.id, userDBs);
 
     return user;
+}
+
+async function getAllGroup() {
+    const allGroup = groupDBs.find({});
+    return await allGroup.toArray();
 }
 
 class renderMethods {
@@ -465,6 +471,83 @@ class renderMethods {
                 allUsers: allUsers,
                 isUpdating: true,
                 specifiedBussiness: specifiedBussiness,
+                layout: './layouts/admin'
+            });
+        } catch (err) {
+            clearCookiesAndReturnLogin(res);
+        }
+    }
+    async admin_groupList(req, res) {
+        try {
+            const groupList = await getAllGroup();
+            const user = await getCurrentUser(req);
+            res.render('admin_group_group-list', {
+                user: user,
+                groupList: groupList,
+                layout: './layouts/admin'
+            });
+        } catch (err) {
+            clearCookiesAndReturnLogin(res);
+        }
+    }
+    async admin_addGroup(req, res) {
+        try {
+            const allUsers = await getAllUser();
+            const allTechnique = await getAllTechnique();
+            const user = await getCurrentUser(req);
+            res.render('admin_group_add-group', {
+                user: user,
+                allUsers: allUsers,
+                isUpdating: false,
+                allTechnique: allTechnique,
+                layout: './layouts/admin'
+            });
+        } catch (err) {
+            clearCookiesAndReturnLogin(res);
+        }
+    }
+    async admin_updateGroup(req, res) {
+        try {
+            const allUsers = await getAllUser();
+            const specifiedGroup = await getSpecifiedObject(req.params.id, groupDBs);
+            const allTechnique = await getAllTechnique();
+            const user = await getCurrentUser(req);
+            res.render('admin_group_add-group', {
+                user: user,
+                allUsers: allUsers,
+                specifiedGroup: specifiedGroup,
+                isUpdating: true,
+                allTechnique: allTechnique,
+                layout: './layouts/admin'
+            });
+        } catch (err) {
+            clearCookiesAndReturnLogin(res);
+        }
+    }
+    async admin_viewGroup(req, res) {
+        try {
+            const specifiedGroup = await getSpecifiedObject(req.params.id, groupDBs);
+            const user = await getCurrentUser(req);
+            res.render('admin_group_view-group', {
+                user: user,
+                specifiedGroup: specifiedGroup,
+                layout: './layouts/admin'
+            });
+        } catch (err) {
+            clearCookiesAndReturnLogin(res);
+        }
+    }
+    async admin_addEmployeeIntoGroup(req, res) {
+        try {
+            const allTechnique = await getAllTechnique();
+            const allUsers = await getAllUser();
+            const specifiedGroup = await getSpecifiedObject(req.params.id, groupDBs);
+            const user = await getCurrentUser(req);
+            res.render('admin_group_add-employee-into-group', {
+                user: user,
+                allUsers: allUsers,
+                specifiedGroup: specifiedGroup,
+                allTechnique: allTechnique,
                 layout: './layouts/admin'
             });
         } catch (err) {

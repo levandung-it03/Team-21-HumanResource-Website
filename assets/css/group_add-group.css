@@ -1,0 +1,34 @@
+form {
+    width: 97%;
+    padding: 40px;
+}
+form div.form_text-input {
+    width: 100%;
+    height: 72px;
+    margin-bottom: 20px
+}
+form div.form_select-input {
+    width: 100%;
+    height: 72px;
+    margin: auto;
+    margin-bottom: 20px
+}
+form div.form_text-input input {
+    width: 100%;
+}
+form div.form_select-input select {
+    width: 100%;
+    padding: 12px;
+}
+form .form_textarea-input {
+    width: 100%;
+    height: 100px;
+    margin: auto;
+}
+form .form_textarea-input label {
+    display: block;
+}
+form .form_textarea-input textarea {
+    width: 100%;
+    height: 70%;
+}

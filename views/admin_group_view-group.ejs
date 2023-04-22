@@ -1,0 +1,147 @@
+<link rel="stylesheet" href="/css/group_view-group.css">
+<div id="group-view">
+    <div id="turn-back-btn">
+        <a href="/admin/category/group/group-list"><i class="fa-solid fa-arrow-left-long"></i> Thoát</a>
+    </div>
+    <div id="group-information">
+        <div id="group-information_heading">
+            <div id="title">
+                <span>Thông tin nhóm</span>
+            </div>
+            <div id="add-btn">
+                <a href="/admin/category/group/update-group/<%= specifiedGroup._id %>">Cập nhật thông tin nhóm</a>
+            </div>
+        </div>
+        <div id="group-information_container">
+            <ul>
+                <li class="group-information_container_items" id="group_code">
+                    <span class="title">Mã nhóm: </span>
+                    <span class="content">
+                        <%= specifiedGroup.group_code %>
+                    </span>
+                </li>
+                <li class="group-information_container_items" id="group">
+                    <span class="title">Tên nhóm: </span>
+                    <span class="content">
+                        <%= specifiedGroup.group %>
+                    </span>
+                </li>
+                <li class="group-information_container_items" id="dateCreated">
+                    <span class="title">Ngày tạo: </span>
+                    <span class="content">
+                        <%= specifiedGroup.dateCreated %>
+                    </span>
+                </li>
+                <li class="group-information_container_items" id="description">
+                    <span class="title">Mô tả nhóm: </span>
+                    <span class="content">
+                        <%= specifiedGroup.description %>
+                    </span>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div id="employee-list">
+        <div id="employee-list_heading">
+            <div id="title">
+                <span>Danh sách nhân viên</span>
+            </div>
+            <div id="add-btn">
+                <a href="/admin/category/group/add-employee-into-group/<%= specifiedGroup._id %>">Thêm nhân viên</a>
+            </div>
+            <div id="search">
+                <input class="search" type="text" placeholder="Tìm kiếm">
+                <i class="fa-solid fa-magnifying-glass"></i>
+            </div>
+        </div>
+        <table>
+            <thead>
+                <tr class="table_title">
+                    <th id="ordinal">
+                        <span class="title_name">STT</span>
+                    </th>
+                    <th id="employee_code">
+                        <span class="title_name">Mã nhân viên</span>
+                        <i class="fa-solid fa-sort" id="employee_code"></i>
+                    </th>
+                    <th id="avatar">
+                        <span class="title_name">Ảnh</span>
+                    </th>
+                    <th id="name">
+                        <span class="title_name">Tên nhân viên</span>
+                        <i class="fa-solid fa-sort" id="name"></i>
+                    </th>
+                    <th id="department">
+                        <span class="title_name">Phòng ban</span>
+                        <i class="fa-solid fa-sort" id="department"></i>
+                    </th>
+                    <th id="position">
+                        <span class="title_name">Chức vụ</span>
+                        <i class="fa-solid fa-sort" id="position"></i>
+                    </th>
+                    <th id="technique">
+                        <span class="title_name">Chuyên môn</span>
+                        <i class="fa-solid fa-sort" id="technique"></i>
+                    </th>
+                    <th id="dateCreated">
+                        <span class="title_name">Ngày thêm</span>
+                        <i class="fa-solid fa-sort" id="dateCreated"></i>
+                    </th>
+                    <th id="roles">
+                        <span class="title_name">Vai trò</span>
+                        <i class="fa-solid fa-sort" id="roles"></i>
+                    </th>
+                    <th id="delete-employee">
+                        <span class="title_name">Xoá</span>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <% for (var i=0; i < specifiedGroup.employee_list.length; i++) { %>
+                    <tr class="body" id=<%=i+1 %>>
+                        <td id="ordinal">
+                            <%= (i + 1) %>
+                        </td>
+                        <td class="body_enable-searching body_enable-sorting" id="employee_code">
+                            <%= specifiedGroup.employee_list[i].employee_code %>
+                        </td>
+                        <td id="avatar">
+                            <img src=<%=specifiedGroup.employee_list[i].avatar_url %> alt="">
+                        </td>
+                        <td class="body_enable-searching body_enable-sorting" id="name">
+                            <%= specifiedGroup.employee_list[i].name %>
+                        </td>
+                        <td class="body_enable-searching body_enable-sorting" id="department">
+                            <%= specifiedGroup.employee_list[i].department %>
+                        </td>
+                        <td class="body_enable-searching body_enable-sorting" id="position">
+                            <%= specifiedGroup.employee_list[i].position %>
+                        </td>
+                        <td class="body_enable-searching body_enable-sorting" id="technique">
+                            <%= specifiedGroup.employee_list[i].technique %>
+                        </td>
+                        <td class="body_enable-searching body_enable-sorting" id="dateCreated">
+                            <%= specifiedGroup.employee_list[i].dateCreated %>
+                        </td>
+                        <td id="roles">
+                            <% if(specifiedGroup.employee_list[i].roles=="Trưởng nhóm" ) { %>
+                                <span class="body_enable-searching body_enable-sorting status-block light-green-block" id="roles">
+                            <% } else { %>
+                                <span class="body_enable-searching body_enable-sorting status-block blur-green-block" id="roles">
+                            <% } %>
+                                <%= specifiedGroup.employee_list[i].roles %>
+                            </span>
+                        </td>
+                        <% if (specifiedGroup.employee_list[i].roles != "Trưởng nhóm") { %>
+                            <td class="delete-employee-inside-group">
+                                <a employee_id=<%=specifiedGroup.employee_list[i]._id.toString() %>><i
+                                        class="fa-sharp fa-solid fa-trash"></i></a>
+                            </td>
+                        <% } %>
+                    </tr>
+                    <% } %>
+            </tbody>
+        </table>
+    </div>
+</div>
+<script src="/js/group_view-group.js"></script>

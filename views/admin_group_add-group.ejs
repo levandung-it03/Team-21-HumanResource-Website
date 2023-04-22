@@ -1,0 +1,57 @@
+<link rel="stylesheet" href="/css/employee_add-simple-db.css">
+<link rel="stylesheet" href="/css/group_add-group.css">
+<div id="add-group">
+    <div id="heading">
+        <% if (isUpdating) { %>
+            <div id="turn-back-btn">
+                <a href="/admin/category/group/view-group/<%= specifiedGroup._id.toString() %>">
+                    <i class="fa-solid fa-arrow-left-long"></i> Thoát</a>
+            </div>
+        <% } %>
+        <div id="title">
+            <% if (isUpdating) { %>
+                <span>Cập nhật nhóm</span>
+            <% } else { %>
+                <span>Thêm nhóm</span>
+            <% } %>
+        </div>
+    </div>
+    <form method="POST" onsubmit="return submitFormCancellation"
+    action="/api/admin/<%= isUpdating ? 'update-group/' + specifiedGroup._id.toString() : 'add-group' %>">
+        <div class="form_text-input more-condition" id="group">
+            <label for="group">Tên nhóm</label>
+            <input class="adjust-upper-and-lower-case" value="<%= isUpdating ? specifiedGroup.group : '' %>"
+            name="group" type="text" placeholder="VD: Phát triển phần mềm nhân sự ,..." required>
+            <div class="form_text-input_err-message"></div>
+        </div>
+        <div class="form_select-input" id="employee">
+            <% if (isUpdating) { %>
+                <label for="employee">Chọn trưởng nhóm mới (nhân viên này có thể đã có trong nhóm hoặc chưa)</label>
+            <% } else { %>
+                <label for="employee">Chọn trưởng nhóm</label>
+            <% } %>
+            <select name="employee" required data="<%= isUpdating ? specifiedGroup.group_code : '' %>">
+                <% if (!isUpdating) { %>
+                    <option selected disabled value="">--Chọn nhân viên--</option>
+                <% } %>
+                <% for(var index in allUsers) { %>
+                <% const technique = allTechnique.find(tech => tech.group_code == allUsers[index].group_code).technique; %>
+                <option value="<%= allUsers[index].department
+                    + "-" + allUsers[index].employee_code
+                    + "-" + allUsers[index].name
+                    + "-" + allUsers[index].position
+                    + "-" + technique
+                    + "-" + allUsers[index].avatar_url
+                %>">
+                    <%= `PB ${allUsers[index].department} - ${allUsers[index].employee_code} - ${allUsers[index].name} - ${technique}` %></option>
+                <% } %>
+            </select>
+        </div>
+        <div class="form_textarea-input" id="description">
+            <label for="description">Mô tả nhóm</label>
+            <textarea name="description" id="description" cols="66" rows="10"><%= isUpdating ? specifiedGroup.description.trim() : '' %></textarea>
+        </div>
+        <input type="submit" value="Xác nhận">
+    </form>
+</div>
+<script src="/js/group_add-group.js"></script>

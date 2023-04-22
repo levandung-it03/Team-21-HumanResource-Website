@@ -1,7 +1,5 @@
 const express = require('express');
 const route = express.Router();
-const jwt = require('jsonwebtoken');
-const path = require('path');
 require('dotenv').config();
 
 const cloudUpload = require('../../uploads/cloudinary.config');
@@ -147,8 +145,6 @@ route.get('/admin/category/salary/add-salary',
     authMiddlewares.verifyAdmin,
     renderMethods.admin_addSalary);
 
-/**@_________________________________________WORKING_______________________________________________________ */
-
 route.get('/admin/category/bussiness/bussiness-list',
     authMiddlewares.verifyTokenAndGenerateAccessTokenIfExpiration,
     authMiddlewares.verifyAdmin,
@@ -163,9 +159,31 @@ route.get('/admin/category/bussiness/update-bussiness/:id',
     authMiddlewares.verifyTokenAndGenerateAccessTokenIfExpiration,
     authMiddlewares.verifyAdmin,
     renderMethods.admin_updateBussiness);
-    
 
-/**@_______________________________________________________________________________________________________ */
+route.get('/admin/category/group/group-list',
+    authMiddlewares.verifyTokenAndGenerateAccessTokenIfExpiration,
+    authMiddlewares.verifyAdmin,
+    renderMethods.admin_groupList);
+
+route.get('/admin/category/group/add-group',
+    authMiddlewares.verifyTokenAndGenerateAccessTokenIfExpiration,
+    authMiddlewares.verifyAdmin,
+    renderMethods.admin_addGroup);
+    
+route.get('/admin/category/group/view-group/:id',
+    authMiddlewares.verifyTokenAndGenerateAccessTokenIfExpiration,
+    authMiddlewares.verifyAdmin,
+    renderMethods.admin_viewGroup);
+    
+route.get('/admin/category/group/add-employee-into-group/:id',
+    authMiddlewares.verifyTokenAndGenerateAccessTokenIfExpiration,
+    authMiddlewares.verifyAdmin,
+    renderMethods.admin_addEmployeeIntoGroup);
+
+route.get('/admin/category/group/update-group/:id',
+    authMiddlewares.verifyTokenAndGenerateAccessTokenIfExpiration,
+    authMiddlewares.verifyAdmin,
+    renderMethods.admin_updateGroup);
 
 /** @POST_METHODS__________________________ */
 route.post('/api/admin/add-employee',
@@ -245,6 +263,21 @@ route.post('/api/admin/update-bussiness/:id',
     authMiddlewares.verifyAdmin,
     usersController.updateBussiness);
 
+route.post('/api/admin/add-group',
+    authMiddlewares.verifyTokenAndGenerateAccessTokenIfExpiration,
+    authMiddlewares.verifyAdmin,
+    usersController.addGroup);
+
+route.post('/api/admin/add-employee-into-group/:id',
+    authMiddlewares.verifyTokenAndGenerateAccessTokenIfExpiration,
+    authMiddlewares.verifyAdmin,
+    usersController.addEmployeeIntoGroup);
+
+route.post('/api/admin/update-group/:id',
+    authMiddlewares.verifyTokenAndGenerateAccessTokenIfExpiration,
+    authMiddlewares.verifyAdmin,
+    usersController.updateGroup);
+
 /** @DELETE_METHODS__________________________ */
 route.delete('/api/admin/delete-employee/:id',
     authMiddlewares.verifyTokenAndGenerateAccessTokenIfExpiration,
@@ -285,6 +318,16 @@ route.delete('/api/admin/delete-bussiness/:id',
     authMiddlewares.verifyTokenAndGenerateAccessTokenIfExpiration,
     authMiddlewares.verifyAdmin,
     usersController.deleteBussiness);
+
+route.delete('/api/admin/delete-group/:id',
+    authMiddlewares.verifyTokenAndGenerateAccessTokenIfExpiration,
+    authMiddlewares.verifyAdmin,
+    usersController.deleteGroup);
+
+route.delete('/api/admin/delete-employee-inside-group/:group_id/:id',
+    authMiddlewares.verifyTokenAndGenerateAccessTokenIfExpiration,
+    authMiddlewares.verifyAdmin,
+    usersController.deleteEmployeeIntoGroup);
     
 /**@_______________________________________________________________________________________________ */
 

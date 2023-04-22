@@ -8,6 +8,7 @@ const bcrypt = require('bcrypt');
 
 const client = new MongoClient(process.env.MONGO_URI);
 const userDBs = client.db('company').collection('userdbs');
+const groupDBs = client.db('company').collection('group');
 const salaryDBs = client.db('company').collection('salary');
 const degreeDBs = client.db('company').collection('degree');
 const positionDBs = client.db('company').collection('position');
@@ -18,7 +19,7 @@ const employee_typeDBs = client.db('company').collection('employee_type');
 
 const usersMethods = require('./users.methods');
 const authMethods = require('../auth/auth.methods');
-const { UserDb, Salary, Position, Degree, Department, Employee_type, Technique, Bussiness } = require('./users.model');
+const { UserDb, Salary, Position, Degree, Department, Employee_type, Technique, Bussiness, Group } = require('./users.model');
 
 function showErrMes(res, err) {
     res.status(500).send({ err_mes: err.message });
@@ -43,7 +44,7 @@ exports.addEmployee = async (req, res) => {
             email: req.body.email,
             password: hasedPassword,
         },
-        dateCreated: Date.now(),
+        dateCreated: usersMethods.getNowDate(),
         identifier: req.body.identifier,
         identifier_date: req.body.identifier_date,
         identifier_place: req.body.identifier_place,
@@ -194,7 +195,7 @@ exports.updateEmployee = async (req, res) => {
         .then(async (result) => {
             const public_id = usersMethods.getPublicIdByImageURL(user.avatar_url);
             try {
-                await techniqueDBs.updateOne({ employee_code: user.employee_code }, { "$set": {department: req.body.department} });
+                await techniqueDBs.updateOne({ employee_code: user.employee_code }, { "$set": { department: req.body.department } });
                 sharp(req.file.path)
                     .resize({ height: 350 })
                     .toBuffer(async (err, buffer) => {
@@ -337,7 +338,7 @@ exports.addTechnique = async (req, res) => {
 
     const dateCreated = usersMethods.getNowDate();
     const technique_code = usersMethods.getRandomTechniqueCode();
-    
+
     const technique = new Technique({
         technique_code: technique_code,
         technique: req.body.technique,
@@ -551,7 +552,7 @@ exports.addBussiness = async (req, res) => {
 
     const dateCreated = usersMethods.getNowDate();
     const bussiness_code = usersMethods.getRandomBussinessCode();
-    
+
     const bussiness = new Bussiness({
         bussiness_code: bussiness_code,
         bussiness: req.body.bussiness,
@@ -597,5 +598,165 @@ exports.updateBussiness = async (req, res) => {
         res.status(200).redirect('/admin/category/bussiness/bussiness-list');
     } catch (err) {
         res.status(500).send({ err_mes: err.message });
+    }
+}
+
+exports.addGroup = async (req, res) => {
+    await client.connect();
+    const [department, employee_code, name, position, technique, avatar_url] = req.body.employee.split("-");
+    const prevData = usersMethods.createErrorString(req.body);
+
+    const dateCreated = usersMethods.getNowDate();
+    const group_code = usersMethods.getRandomGroupCode();
+
+    const group = new Group({
+        group_code: group_code,
+        group: req.body.group,
+        employee_list: [
+            {
+                department: department,
+                roles: "Trưởng nhóm",
+                employee_code: employee_code,
+                name: name,
+                position: position,
+                technique: technique,
+                avatar_url: avatar_url,
+                dateCreated: dateCreated
+            }
+        ],
+        description: req.body.description,
+        dateCreated: dateCreated
+    })
+
+    await group.save(group)
+        .then(data => {
+            res.status(200).redirect('/admin/category/group/group-list');
+        })
+        .catch(err => {
+            res.redirect(DOMAIN + '/admin/category/group/add-group?error=' + encodeURIComponent(`error_${Object.keys(err.keyValue)[0]}`) + prevData);
+        })
+}
+
+exports.updateGroup = async (req, res) => {
+    await client.connect();
+    const [department, employee_code, name, position, technique, avatar_url] = req.body.employee.split("-");
+    const dateCreated = usersMethods.getNowDate();
+
+    const specifiedGroup = await groupDBs.findOne({ _id: new ObjectId(req.params.id) });
+    const employee_list = specifiedGroup.employee_list;
+    const newEmployee_list = [];
+    let oldLeaderIndex = null, notFoundEmloyeeInGroup = true;
+
+    for (let index in employee_list) {
+        if (employee_list[index].employee_code == employee_code) {
+            notFoundEmloyeeInGroup = false;
+            if (employee_list[index].roles == "Trưởng nhóm")    newEmployee_list.push(employee_list[index]);
+            else {
+                employee_list[index].roles = "Trưởng nhóm";
+                newEmployee_list.push(employee_list[index]);
+            }
+        } else {
+            if (employee_list[index].roles == "Trưởng nhóm")    oldLeaderIndex = index;
+            newEmployee_list.push(employee_list[index]);
+            if (oldLeaderIndex != null)   newEmployee_list[oldLeaderIndex].roles = "Thành viên";
+        }
+    }
+
+    if (notFoundEmloyeeInGroup) {
+        newEmployee_list.map(object => {
+            if (object.roles == "Trưởng nhóm")  object.roles = "Thành viên";
+            return object;
+        })
+        newEmployee_list.unshift({
+            employee_code: employee_code,
+            roles: "Trưởng nhóm",
+            avatar_url: avatar_url,
+            name: name,
+            department: department,
+            position: position,
+            technique: technique,
+            dateCreated: dateCreated,
+        })
+    }
+    const update = {
+        "$set": {
+            group: req.body.group,
+            description: req.body.description,
+            dateCreated: dateCreated,
+            employee_list: newEmployee_list
+        }
+    };
+
+    await Group.findOneAndUpdate({ _id: new ObjectId(req.params.id) }, update)
+        .then(data => {
+            res.status(200).redirect('/admin/category/group/view-group/' + req.params.id);
+        })
+        .catch(err => {
+            res.status(404).send({ mes: err.message });
+        })
+}
+
+exports.deleteGroup = async (req, res) => {
+    const id = req.params.id;
+    try {
+        await client.connect();
+        await groupDBs.deleteOne({ _id: new ObjectId(id) });
+        res.end();
+    } catch (err) {
+        res.status(404).send({ mes: err.message });
+    }
+}
+
+exports.addEmployeeIntoGroup = async (req, res) => {
+    await client.connect();
+    const [employee_code, technique] = req.body.employee.split("-");
+    const user = await userDBs.findOne({ employee_code: employee_code });;
+    const existedUser = await groupDBs.findOne({ employee_list: { "$elemMatch": { employee_code: employee_code } } });
+
+    if (existedUser) {
+        res.redirect(DOMAIN + '/admin/category/group/add-employee-into-group/' + req.params.id + '?error=employee_code');
+    } else {
+        const update = {
+            "$push": {
+                employee_list: {
+                    employee_code: employee_code,
+                    roles: "Thành viên",
+                    avatar_url: user.avatar_url,
+                    name: user.name,
+                    department: user.department,
+                    position: user.position,
+                    technique: technique,
+                    dateCreated: usersMethods.getNowDate()
+                }
+            }
+        };
+        await Group.findOneAndUpdate({ _id: new ObjectId(req.params.id) }, update)
+            .then(data => {
+                res.status(200).redirect('/admin/category/group/view-group/' + req.params.id);
+            })
+    }
+}
+
+exports.deleteEmployeeIntoGroup = async (req, res) => {
+    const id = req.params.id;
+    const group_id = req.params.group_id;
+
+    try {
+        await client.connect();
+        const group = await groupDBs.findOne({ _id: new ObjectId(group_id) });
+        const employee_list = group.employee_list;
+        const newEmployee_list = employee_list.filter(object => {
+            if (object._id.toString() != id) {
+                return object;
+            }
+        });
+
+        await groupDBs.updateOne(
+            { _id: new ObjectId(group_id) },
+            { "$set": { employee_list: newEmployee_list } }
+        );
+        res.end();
+    } catch (err) {
+        res.status(404).send({ mes: err.message });
     }
 }
