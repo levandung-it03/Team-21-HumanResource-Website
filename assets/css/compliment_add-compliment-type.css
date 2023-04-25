@@ -1,0 +1,15 @@
+form {
+    width: 60%;
+}
+form .form_textarea-input {
+    width: 70%;
+    height: 100px;
+    margin: auto;
+}
+form .form_textarea-input label {
+    display: block;
+}
+form .form_textarea-input textarea {
+    width: 100%;
+    height: 70%;
+}

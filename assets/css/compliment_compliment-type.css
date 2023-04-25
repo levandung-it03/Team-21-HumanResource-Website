@@ -1,0 +1,100 @@
+table {
+    border-collapse: collapse;
+}
+th, td {
+    border: solid 1px var(--smoking-grey);
+}
+#compliment-type #add-btn {
+    float: right;
+    margin-right: 12px;
+    margin-top: 4px;
+}
+#compliment-type #title {
+    display: inline-block;
+}
+#compliment-type #title span {
+    font-size: 2.4rem;
+    padding: 10px;
+}
+#compliment-type table {
+    margin: var(--form-margin);
+    background-color: white;
+    border: solid 1px transparent;
+    border-radius: var(--form-border-radius);
+    padding: 12px;
+    box-shadow: var(--black-box-shadow);
+    font-size: 0.95rem;
+}
+#compliment-type .table_title {
+    text-align: left;
+}
+#compliment-type .table_title th i {
+    width: 20px;
+    font-size: 0.7rem;
+    float: right;
+    line-height: 24px;
+    cursor: pointer;
+}
+#compliment-type .table_title th {
+    padding: 6px;
+    text-align: center;
+}
+#compliment-type .table_title th#ordinal {
+    width: 3%;
+}
+#compliment-type .table_title th#compliment_type_code {
+    width: 20%;
+}
+#compliment-type .table_title th#compliment_type {
+    width: 24%;
+}
+#compliment-type .table_title th#dateCreated {
+    width: 14%;
+}
+#compliment-type .table_title th#update-compliment_type {
+    width: 8%;
+}
+#compliment-type .table_title th#delete-compliment_type {
+    width: 8%;
+}
+#compliment-type tr.body td {
+    text-align: center;
+}
+#compliment-type tr.body td#compliment_type,
+#compliment-type tr.body td#description {
+    padding: 10px;
+}
+#compliment-type tr.body .update-compliment_type {
+    padding: 12px 24px 12px;
+}
+#compliment-type tr.body .update-compliment_type a {
+    display: block;
+    margin: auto;
+    width: 50px;
+    line-height: 32px;
+    background-color: var(--green);
+    border: solid 1px transparent;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color ease 0.3s;
+}
+#compliment-type tr.body .update-compliment_type a:hover {
+    background-color: var(--blur-green);
+}
+#compliment-type tr.body .delete-compliment_type {
+    padding: 12px 24px 12px;
+}
+#compliment-type tr.body .delete-compliment_type a {
+    display: block;
+    margin: auto;
+    width: 50px;
+    line-height: 32px;
+    background-color: var(--red);
+    border: solid 1px transparent;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color ease 0.3s;
+}
+#compliment-type tr.body .delete-compliment_type a:hover {
+    background-color: rgb(238, 102, 102);
+}

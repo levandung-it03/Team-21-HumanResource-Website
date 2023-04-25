@@ -11,6 +11,8 @@ const userDBs = client.db('company').collection('userdbs');
 const groupDBs = client.db('company').collection('group');
 const salaryDBs = client.db('company').collection('salary');
 const degreeDBs = client.db('company').collection('degree');
+const compliment_typeDBs = client.db('company').collection('compliment_type');
+const compliment_listDBs = client.db('company').collection('compliment_list');
 const positionDBs = client.db('company').collection('position');
 const bussinessDBs = client.db('company').collection('bussiness');
 const techniqueDBs = client.db('company').collection('technique');
@@ -19,7 +21,8 @@ const employee_typeDBs = client.db('company').collection('employee_type');
 
 const usersMethods = require('./users.methods');
 const authMethods = require('../auth/auth.methods');
-const { UserDb, Salary, Position, Degree, Department, Employee_type, Technique, Bussiness, Group } = require('./users.model');
+const { UserDb, Salary, Position, Degree, Department, Employee_type, Technique, Bussiness, Group, Compliment_type,
+Compliment_list } = require('./users.model');
 
 function showErrMes(res, err) {
     res.status(500).send({ err_mes: err.message });
@@ -758,5 +761,55 @@ exports.deleteEmployeeIntoGroup = async (req, res) => {
         res.end();
     } catch (err) {
         res.status(404).send({ mes: err.message });
+    }
+}
+
+exports.addComplimentType = async (req, res) => {
+    await client.connect();
+    const prevData = usersMethods.createErrorString(req.body);
+
+    const dateCreated = usersMethods.getNowDate();
+    const compliment_type_code = usersMethods.getRandomComplimentTypeCode();
+
+    const compliment_type = new Compliment_type({
+        compliment_type_code: compliment_type_code,
+        compliment_type: req.body.compliment_type,
+        description: req.body.description,
+        dateCreated: dateCreated
+    })
+
+    await compliment_type.save(compliment_type)
+        .then(data => {
+            res.status(200).redirect('/admin/category/compliment/compliment-type');
+        })
+        .catch(err => {
+            res.redirect(DOMAIN + '/admin/category/compliment/add-compliment-type?error=' + encodeURIComponent(`error_${Object.keys(err.keyValue)[0]}`) + prevData);
+        })
+}
+
+exports.deleteComplimentType = async (req, res) => {
+    const id = req.params.id;
+    try {
+        await client.connect();
+        await compliment_typeDBs.deleteOne({ _id: new ObjectId(id) });
+        res.end();
+    } catch (err) {
+        res.status(404).send({ mes: err.message });
+    }
+}
+
+exports.updateComplimentType = async (req, res) => {
+    try {
+        await client.connect();
+        const data = req.body;
+        data.dateCreated = usersMethods.getNowDate();
+
+        compliment_typeDBs.updateOne(
+            { _id: new ObjectId(req.params.id) },
+            { "$set": data }
+        )
+        res.status(200).redirect('/admin/category/compliment/compliment-type');
+    } catch (err) {
+        res.status(500).send({ err_mes: err.message });
     }
 }

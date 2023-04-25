@@ -1,0 +1,120 @@
+table {
+    border-collapse: collapse;
+}
+th, td {
+    border: solid 1px var(--smoking-grey);
+}
+#compliment-list #add-btn {
+    float: right;
+    margin-right: 12px;
+    margin-top: 4px;
+}
+#compliment-list #title {
+    display: inline-block;
+}
+#compliment-list #title span {
+    font-size: 2.4rem;
+    padding: 10px;
+}
+#compliment-list table {
+    margin: var(--form-margin);
+    background-color: white;
+    border: solid 1px transparent;
+    border-radius: var(--form-border-radius);
+    padding: 12px;
+    box-shadow: var(--black-box-shadow);
+    font-size: 0.95rem;
+}
+#compliment-list .table_title {
+    text-align: left;
+}
+#compliment-list .table_title th i {
+    width: 20px;
+    font-size: 0.7rem;
+    float: right;
+    line-height: 24px;
+    cursor: pointer;
+}
+#compliment-list .table_title th {
+    padding: 6px;
+    text-align: center;
+}
+#compliment-list .table_title th#ordinal {
+    width: 3%;
+}
+#compliment-list .table_title th#compliment_code {
+    width: 20%;
+}
+#compliment-list .table_title th#compliment {
+    width: 24%;
+}
+#compliment-list .table_title th#dateCreated {
+    width: 14%;
+}
+#compliment-list .table_title th#view-compliment {
+    width: 8%;
+}
+#compliment-list .table_title th#update-compliment {
+    width: 8%;
+}
+#compliment-list .table_title th#delete-compliment {
+    width: 8%;
+}
+#compliment-list tr.body td {
+    text-align: center;
+}
+#compliment-list tr.body td#compliment,
+#compliment-list tr.body td#description {
+    padding: 10px;
+}
+#compliment-list tr.body .view-compliment {
+    padding: 12px 24px 12px;
+}
+#compliment-list tr.body .view-compliment a {
+    display: block;
+    margin: auto;
+    width: 50px;
+    line-height: 32px;
+    background-color: var(--blue);
+    border: solid 1px transparent;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color ease 0.3s;
+}
+#compliment-list tr.body .view-compliment a:hover {
+    background-color: var(--blur-blue);
+}
+#compliment-list tr.body .update-compliment {
+    padding: 12px 24px 12px;
+}
+#compliment-list tr.body .update-compliment a {
+    display: block;
+    margin: auto;
+    width: 50px;
+    line-height: 32px;
+    background-color: var(--green);
+    border: solid 1px transparent;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color ease 0.3s;
+}
+#compliment-list tr.body .update-compliment a:hover {
+    background-color: var(--blur-green);
+}
+#compliment-list tr.body .delete-compliment {
+    padding: 12px 24px 12px;
+}
+#compliment-list tr.body .delete-compliment a {
+    display: block;
+    margin: auto;
+    width: 50px;
+    line-height: 32px;
+    background-color: var(--red);
+    border: solid 1px transparent;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color ease 0.3s;
+}
+#compliment-list tr.body .delete-compliment a:hover {
+    background-color: rgb(238, 102, 102);
+}

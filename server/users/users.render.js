@@ -12,6 +12,8 @@ const salaryDBs = client.db('company').collection('salary');
 const degreeDBs = client.db('company').collection('degree');
 const positionDBs = client.db('company').collection('position');
 const bussinessDBs = client.db('company').collection('bussiness');
+const compliment_typeDBs = client.db('company').collection('compliment_type');
+const compliment_listDBs = client.db('company').collection('compliment_list');
 const techniqueDBs = client.db('company').collection('technique');
 const departmentDBs = client.db('company').collection('department');
 const employee_typeDBs = client.db('company').collection('employee_type');
@@ -80,6 +82,16 @@ async function getCurrentUser(req) {
 async function getAllGroup() {
     const allGroup = groupDBs.find({});
     return await allGroup.toArray();
+}
+
+async function getAllCompliment_type() {
+    const allCompliment_type = compliment_typeDBs.find({});
+    return await allCompliment_type.toArray();
+}
+
+async function getCompliment_list() {
+    const compliment_list = compliment_listDBs.find({});
+    return await compliment_list.toArray();
 }
 
 class renderMethods {
@@ -548,6 +560,74 @@ class renderMethods {
                 allUsers: allUsers,
                 specifiedGroup: specifiedGroup,
                 allTechnique: allTechnique,
+                layout: './layouts/admin'
+            });
+        } catch (err) {
+            clearCookiesAndReturnLogin(res);
+        }
+    }
+    async admin_complimentType(req, res) {
+        try {
+            const allCompliment_type = await getAllCompliment_type();
+            const user = await getCurrentUser(req);
+            res.render('admin_compliment_compliment-type', {
+                user: user,
+                allCompliment_type: allCompliment_type,
+                layout: './layouts/admin'
+            });
+        } catch (err) {
+            clearCookiesAndReturnLogin(res);
+        }
+    }
+    async admin_addComplimentType(req, res) {
+        try {
+            const user = await getCurrentUser(req);
+            res.render('admin_compliment_add-compliment-type', {
+                user: user,
+                isUpdating: false,
+                layout: './layouts/admin'
+            });
+        } catch (err) {
+            clearCookiesAndReturnLogin(res);
+        }
+    }
+    async admin_updateComplimentType(req, res) {
+        try {
+            const user = await getCurrentUser(req);
+            const specifiedComplimentType = await getSpecifiedObject(req.params.id, compliment_typeDBs);
+            res.render('admin_compliment_add-compliment-type', {
+                user: user,
+                isUpdating: true,
+                specifiedComplimentType: specifiedComplimentType,
+                layout: './layouts/admin'
+            });
+        } catch (err) {
+            clearCookiesAndReturnLogin(res);
+        }
+    }
+    async admin_complimentList(req, res) {
+        try {
+            const compliment_list = await getCompliment_list(req.params.id, compliment_listDBs);
+            const user = await getCurrentUser(req);
+            res.render('admin_compliment_compliment-list', {
+                user: user,
+                compliment_list: compliment_list,
+                layout: './layouts/admin'
+            });
+        } catch (err) {
+            clearCookiesAndReturnLogin(res);
+        }
+    }
+    async admin_addCompliment(req, res) {
+        try {
+            const allUsers = await getAllUser();
+            const allCompliment_type = await getAllCompliment_type();
+            const user = await getCurrentUser(req);
+            res.render('admin_compliment_add-compliment', {
+                user: user,
+                isUpdating: false,
+                allCompliment_type: allCompliment_type,
+                allUsers: allUsers,
                 layout: './layouts/admin'
             });
         } catch (err) {

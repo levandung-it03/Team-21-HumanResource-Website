@@ -184,7 +184,32 @@ route.get('/admin/category/group/update-group/:id',
     authMiddlewares.verifyTokenAndGenerateAccessTokenIfExpiration,
     authMiddlewares.verifyAdmin,
     renderMethods.admin_updateGroup);
+/** @________________________________________WORKING______________________________________________ */
+route.get('/admin/category/compliment/compliment-type',
+    authMiddlewares.verifyTokenAndGenerateAccessTokenIfExpiration,
+    authMiddlewares.verifyAdmin,
+    renderMethods.admin_complimentType);
+    
+route.get('/admin/category/compliment/add-compliment-type',
+    authMiddlewares.verifyTokenAndGenerateAccessTokenIfExpiration,
+    authMiddlewares.verifyAdmin,
+    renderMethods.admin_addComplimentType);
 
+route.get('/admin/category/compliment/update-compliment-type/:id',
+    authMiddlewares.verifyTokenAndGenerateAccessTokenIfExpiration,
+    authMiddlewares.verifyAdmin,
+    renderMethods.admin_updateComplimentType);
+
+route.get('/admin/category/compliment/compliment-list',
+    authMiddlewares.verifyTokenAndGenerateAccessTokenIfExpiration,
+    authMiddlewares.verifyAdmin,
+    renderMethods.admin_complimentList);
+    
+route.get('/admin/category/compliment/add-compliment',
+    authMiddlewares.verifyTokenAndGenerateAccessTokenIfExpiration,
+    authMiddlewares.verifyAdmin,
+    renderMethods.admin_addCompliment);
+/** @_____________________________________________________________________________________________ */
 /** @POST_METHODS__________________________ */
 route.post('/api/admin/add-employee',
     authMiddlewares.verifyTokenAndGenerateAccessTokenIfExpiration,
@@ -278,7 +303,17 @@ route.post('/api/admin/update-group/:id',
     authMiddlewares.verifyAdmin,
     usersController.updateGroup);
 
-/** @DELETE_METHODS__________________________ */
+route.post('/api/admin/add-compliment-type',
+    authMiddlewares.verifyTokenAndGenerateAccessTokenIfExpiration,
+    authMiddlewares.verifyAdmin,
+    usersController.addComplimentType);
+
+route.post('/api/admin/update-compliment-type/:id',
+    authMiddlewares.verifyTokenAndGenerateAccessTokenIfExpiration,
+    authMiddlewares.verifyAdmin,
+    usersController.updateComplimentType);
+
+    /** @DELETE_METHODS__________________________ */
 route.delete('/api/admin/delete-employee/:id',
     authMiddlewares.verifyTokenAndGenerateAccessTokenIfExpiration,
     authMiddlewares.verifyAdmin,
@@ -328,6 +363,11 @@ route.delete('/api/admin/delete-employee-inside-group/:group_id/:id',
     authMiddlewares.verifyTokenAndGenerateAccessTokenIfExpiration,
     authMiddlewares.verifyAdmin,
     usersController.deleteEmployeeIntoGroup);
+    
+route.delete('/api/admin/delete-compliment_type/:id',
+    authMiddlewares.verifyTokenAndGenerateAccessTokenIfExpiration,
+    authMiddlewares.verifyAdmin,
+    usersController.deleteComplimentType);
     
 /**@_______________________________________________________________________________________________ */
 

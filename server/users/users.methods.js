@@ -98,6 +98,9 @@ class UsersMethods {
     getRandomGroupCode() {
         return `DN${Date.now()}${Math.floor(Math.random() * 99)}`;
     }
+    getRandomComplimentTypeCode() {
+        return `KT${Date.now()}${Math.floor(Math.random() * 99)}`;
+    }
 }
 
 module.exports = new UsersMethods;

@@ -217,14 +217,61 @@ let groupSchema = new mongoose.Schema({
     dateCreated: String,
 }, { collection: 'group' });
 
+let compliment_typeSchema = new mongoose.Schema({
+    compliment_type_code: {
+        type: String,
+        unique: true,
+        required: true
+    },
+    compliment_type: {
+        type: String,
+        unique: true,
+        required: true
+    },
+    description: {
+        type: String,
+        required: true,
+    },
+    dateCreated: String
+}, { collection: 'compliment_type' });
+
+let compliments_listSchema = new mongoose.Schema({
+    compliment_code: {
+        type: String,
+        unique: true,
+        required: true
+    },
+    compliment: {
+        type: String,
+        unique: true,
+        required: true
+    },
+    numbers: String,
+    compliment_type: String,
+    employee_code: {
+        type: String,
+        unique: true,
+        required: true
+    },
+    name: {
+        type: String,
+        required: true
+    },
+    description: String,
+    dateCreated: String
+}, { collection: 'compliment_list' });
+
 let Group = mongoose.model('group', groupSchema);
 let UserDb = mongoose.model('userdbs', userSchema);
 let Salary = mongoose.model('salary', salarySchema);
 let Degree = mongoose.model('degree', degreeSchema);
 let Position = mongoose.model('position', positionSchema);
+let Compliment_type = mongoose.model('compliment_type', compliment_typeSchema);
+let Compliment_list = mongoose.model('compliment_list', compliments_listSchema);
 let Technique = mongoose.model('technique', techniqueSchema);
 let Bussiness = mongoose.model('bussiness', bussinessSchema);
 let Department = mongoose.model('department', departmentSchema);
 let Employee_type = mongoose.model('employee_type', employeeTypeSchema);
 
-module.exports = { UserDb, Salary, Position, Degree, Department, Employee_type, Technique, Bussiness, Group };
+module.exports = { UserDb, Salary, Position, Degree, Department, Employee_type, Technique, Bussiness, Group,
+Compliment_type, Compliment_list };

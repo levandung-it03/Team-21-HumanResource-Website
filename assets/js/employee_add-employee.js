@@ -111,13 +111,16 @@ let submitFormCancellation = false;
         })
     })();
 
-    (function setUpstrictInputTags() {
+    (function setUpStrictInputTags() {
         strictInputTags.forEach((tag) => {
             tag.onblur = (e) => {
                 if ([...tag.classList].includes("adjust-upper-and-lower-case")) {
                     generalMethods.adjustUpperAndLowerCase(e.target);
                 }
                 generalMethods.trimInputData(e.target);
+                if (tag.getAttribute('name') == "email" && tag.value) {
+                    e.target.value = e.target.value[0].toLowerCase() + e.target.value.slice(1);
+                }
                 const errMesTagObject = errorMessages[tag.name];
                 const errTag = $(`div#${tag.name} span#${tag.name}`);
 

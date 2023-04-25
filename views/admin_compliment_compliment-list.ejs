@@ -1,0 +1,79 @@
+<link rel="stylesheet" href="/css/compliment_compliment-list.css">
+<div id="compliment-list">
+    <div id="heading">
+        <div class="hide" id="turn-back-btn">
+            <a href="/admin/category/compliment/compliment-list"><i class="fa-solid fa-arrow-left-long"></i> Thoát</a>
+        </div>
+        <div id="title">
+            <span>Danh sách khen thưởng</span>
+        </div>
+        <div id="add-btn">
+            <a href="/admin/category/compliment/add-compliment">Thêm khen thưởng</a>
+        </div>
+        <div id="search">
+            <input class="search" type="text" placeholder="Tìm kiếm">
+            <i class="fa-solid fa-magnifying-glass"></i>
+        </div>
+    </div>
+    <table>
+        <thead>
+            <tr class="table_title">
+                <th id="ordinal">
+                    <span class="title_name">STT</span>
+                </th>
+                <th id="compliment_code">
+                    <span class="title_name">Mã khen thưởng</span>
+                    <i class="fa-solid fa-sort" id="compliment_code"></i>
+                </th>
+                <th id="name">
+                    <span class="title_name">Tên nhân viên</span>
+                    <i class="fa-solid fa-sort" id="name"></i>
+                </th>
+                <th id="compliment">
+                    <span class="title_name">Tên khen thưởng</span>
+                    <i class="fa-solid fa-sort" id="compliment"></i>
+                </th>
+                <th id="dateCreated">
+                    <span class="title_name">Ngày tạo</span>
+                    <i class="fa-solid fa-sort" id="dateCreated"></i>
+                </th>
+                <th id="view-compliment">
+                    <span class="title_name">Xem</span>
+                </th>
+                <th id="update-compliment">
+                    <span class="title_name">Sửa</span>
+                </th>
+                <th id="delete-compliment">
+                    <span class="title_name">Xoá</span>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <% for (var i = 0; i < compliment_list.length; i++) { %>
+                <tr class="body" id=<%= i+1 %>>
+                    <td id="ordinal"><%= (i + 1) %></td>
+                    <td class="body_enable-searching body_enable-sorting"
+                        id="compliment_code"><%= compliment_list[i].compliment_code %></td>
+                    <td class="body_enable-searching body_enable-sorting"
+                        id="name"><%= compliment_list[i].name %></td>
+                    <td class="body_enable-searching body_enable-sorting"
+                        id="compliment"><%= compliment_list[i].compliment %></td>
+                    <td class="body_enable-searching body_enable-sorting"
+                        id="dateCreated"><%= compliment_list[i].dateCreated %></td>
+                    <td class="view-compliment">
+                        <a href="/admin/category/compliment/view-compliment/<%= compliment_list[i]._id.toString() %>">
+                            <i class="fa-sharp fa-solid fa-eyes"></i></a>
+                    </td>
+                    <td class="update-compliment">
+                        <a href="/admin/category/compliment/update-compliment/<%= compliment_list[i]._id.toString() %>">
+                            <i class="fa-sharp fa-solid fa-pencil"></i></a>
+                    </td>
+                    <td class="delete-compliment">
+                        <a compliment_id=<%= compliment_list[i]._id.toString() %>><i class="fa-sharp fa-solid fa-trash"></i></a>
+                    </td>
+                </tr>
+            <% } %>
+        </tbody>
+    </table>
+</div>
+<script src="/js/compliment_compliment-list.js"></script>
