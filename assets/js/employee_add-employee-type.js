@@ -4,7 +4,7 @@ let submitFormCancellation = false;
     const errorMessages = {
         employee_type: {
             confirm: function (value) {
-                this.isValid = value.split("").every((e) => isNaN(Number.parseInt(e)));
+                this.isValid = /^[a-zA-ZÀ-ỹ\s]+$/u.test(value);
             },
             message: "Tên của loại nhân viên không hợp lệ.",
             isValid: false,

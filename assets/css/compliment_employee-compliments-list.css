@@ -4,19 +4,19 @@ table {
 th, td {
     border: solid 1px var(--smoking-grey);
 }
-#compliment-list #add-btn {
+#employee-compliments-list #add-btn {
     float: right;
     margin-right: 12px;
     margin-top: 4px;
 }
-#compliment-list #title {
+#employee-compliments-list #title {
     display: inline-block;
 }
-#compliment-list #title span {
+#employee-compliments-list #title span {
     font-size: 2.4rem;
     padding: 10px;
 }
-#compliment-list table {
+#employee-compliments-list table {
     margin: var(--form-margin);
     background-color: white;
     border: solid 1px transparent;
@@ -25,52 +25,52 @@ th, td {
     box-shadow: var(--black-box-shadow);
     font-size: 0.95rem;
 }
-#compliment-list .table_title {
+#employee-compliments-list .table_title {
     text-align: left;
 }
-#compliment-list .table_title th i {
+#employee-compliments-list .table_title th i {
     width: 20px;
     font-size: 0.7rem;
     float: right;
     line-height: 24px;
     cursor: pointer;
 }
-#compliment-list .table_title th {
+#employee-compliments-list .table_title th {
     padding: 6px;
     text-align: center;
 }
-#compliment-list .table_title th#ordinal {
+#employee-compliments-list .table_title th#ordinal {
     width: 3%;
 }
-#compliment-list .table_title th#compliment_code {
+#employee-compliments-list .table_title th#compliment_code {
     width: 20%;
 }
-#compliment-list .table_title th#compliment {
+#employee-compliments-list .table_title th#compliment {
     width: 24%;
 }
-#compliment-list .table_title th#dateCreated {
+#employee-compliments-list .table_title th#dateCreated {
     width: 14%;
 }
-#compliment-list .table_title th#view-compliment {
+#employee-compliments-list .table_title th#view-employee-compliment {
     width: 8%;
 }
-#compliment-list .table_title th#update-compliment {
+#employee-compliments-list .table_title th#update-employee-compliment {
     width: 8%;
 }
-#compliment-list .table_title th#delete-compliment {
+#employee-compliments-list .table_title th#delete-employee-compliment {
     width: 8%;
 }
-#compliment-list tr.body td {
+#employee-compliments-list tr.body td {
     text-align: center;
 }
-#compliment-list tr.body td#compliment,
-#compliment-list tr.body td#description {
+#employee-compliments-list tr.body td#compliment,
+#employee-compliments-list tr.body td#description {
     padding: 10px;
 }
-#compliment-list tr.body .view-compliment {
+#employee-compliments-list tr.body .view-employee-compliment {
     padding: 12px 24px 12px;
 }
-#compliment-list tr.body .view-compliment a {
+#employee-compliments-list tr.body .view-employee-compliment a {
     display: block;
     margin: auto;
     width: 50px;
@@ -81,13 +81,13 @@ th, td {
     cursor: pointer;
     transition: background-color ease 0.3s;
 }
-#compliment-list tr.body .view-compliment a:hover {
+#employee-compliments-list tr.body .view-employee-compliment a:hover {
     background-color: var(--blur-blue);
 }
-#compliment-list tr.body .update-compliment {
+#employee-compliments-list tr.body .update-employee-compliment {
     padding: 12px 24px 12px;
 }
-#compliment-list tr.body .update-compliment a {
+#employee-compliments-list tr.body .update-employee-compliment a {
     display: block;
     margin: auto;
     width: 50px;
@@ -98,13 +98,13 @@ th, td {
     cursor: pointer;
     transition: background-color ease 0.3s;
 }
-#compliment-list tr.body .update-compliment a:hover {
+#employee-compliments-list tr.body .update-employee-compliment a:hover {
     background-color: var(--blur-green);
 }
-#compliment-list tr.body .delete-compliment {
+#employee-compliments-list tr.body .delete-employee-compliment {
     padding: 12px 24px 12px;
 }
-#compliment-list tr.body .delete-compliment a {
+#employee-compliments-list tr.body .delete-employee-compliment a {
     display: block;
     margin: auto;
     width: 50px;
@@ -115,6 +115,6 @@ th, td {
     cursor: pointer;
     transition: background-color ease 0.3s;
 }
-#compliment-list tr.body .delete-compliment a:hover {
+#employee-compliments-list tr.body .delete-employee-compliment a:hover {
     background-color: rgb(238, 102, 102);
 }

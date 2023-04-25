@@ -4,7 +4,7 @@ let submitFormCancellation = false;
     const errorMessages = {
         technique: {
             confirm: function (value) {
-                this.isValid = value.split("").every((e) => isNaN(Number.parseInt(e)));
+                this.isValid = /^[a-zA-ZÀ-ỹ\s]+$/u.test(value);
             },
             message: "Tên chuyên môn không hợp lệ.",
             isValid: false,

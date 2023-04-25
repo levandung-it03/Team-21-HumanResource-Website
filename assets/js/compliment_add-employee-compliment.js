@@ -2,23 +2,21 @@ let submitFormCancellation = false;
 
 (function main() {
     const errorMessages = {
-        degree: {
+        compliment: {
             confirm: function (value) {
                 this.isValid = /^[a-zA-ZÀ-ỹ\s]+$/u.test(value);
             },
-            message: "Tên bằng cấp không hợp lệ.",
+            message: "Khen thưởng không hợp lệ.",
             isValid: false,
         },
-        multipleSalary: {
+        numbers: {
             confirm: function (value) {
-                const multiples = value.split(".");
-                if (multiples.length > 2) {
-                    this.isValid = false;
-                } else {
-                    this.isValid = multiples.every(value => value.split("").every((e) => !isNaN(Number.parseInt(e))));
-                }
+                const firstNumbersSplitArr = value.split("/");
+                const textValue = firstNumbersSplitArr.pop();
+                this.isValid =
+                    firstNumbersSplitArr.every(n => /[0-9]/.test(n)) && /^[A-ZÀ-ỹ\s-]+$/u.test(textValue);
             },
-            message: "Hệ số không hợp lệ.",
+            message: "Số quyết định không hợp lệ.",
             isValid: false,
         },
     }
@@ -46,10 +44,11 @@ let submitFormCancellation = false;
         [...$$('.form_text-input .form_text-input_err-message')].forEach((e) => {
             const parentId = e.parentNode.id;
             e.innerHTML = `
-            <span class='err-message-block' id='${parentId}'>
-                ${errorMessages[parentId].message}
-            </span>`;
-        });
+    <span class='err-message-block' id='${parentId}'>
+        ${errorMessages[parentId].message}
+    </span>
+`;
+        })
     })();
 
     (function setUpstrictInputTags() {
@@ -59,6 +58,9 @@ let submitFormCancellation = false;
                     generalMethods.adjustUpperAndLowerCase(e.target);
                 }
                 generalMethods.trimInputData(e.target);
+                if (tag.classList.contains("adjust-upper-case"))
+                    tag.value = tag.value.toUpperCase();
+
                 const errMesTagObject = errorMessages[tag.name];
                 const errTag = $(`div#${tag.name} span#${tag.name}`);
 
@@ -67,23 +69,27 @@ let submitFormCancellation = false;
                 else errTag.style.display = "inline";
             }
         })
+        $('textarea').onblur = (e) => {
+            generalMethods.trimInputData(e.target);
+        }
     })();
 
     const urlParams = new URLSearchParams(window.location.search);
     const myParam = urlParams.get('error');
     if (myParam) {
-        alert('Loại bằng cấp này đã tồn tại!');
+        alert('Đã tồn tại loại hình khen thưởng này!');
         (async function handleRedirect() {
             const dataMessages = myParam.split('?');
             const data = dataMessages.map((e) => {
                 return e.split('=');
             })
 
-            window.history.replaceState({}, "", "http://localhost:3000/admin/category/employee/add-degree");
+            window.history.replaceState({}, "", "http://localhost:3000/admin/category/compliment/add-compliment-type");
             strictInputTags.forEach((tag, index) => {
                 tag.value = data.find((e) => e[0] == tag.name)[1];
                 errorMessages[tag.name].confirm(tag.value);
             })
+            $('.form_textarea-input textarea').innerText = data[3][1];
         })();
     }
 })();

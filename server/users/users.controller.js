@@ -22,7 +22,7 @@ const employee_typeDBs = client.db('company').collection('employee_type');
 const usersMethods = require('./users.methods');
 const authMethods = require('../auth/auth.methods');
 const { UserDb, Salary, Position, Degree, Department, Employee_type, Technique, Bussiness, Group, Compliment_type,
-Compliment_list } = require('./users.model');
+Employee_compliments, Group_compliments } = require('./users.model');
 
 function showErrMes(res, err) {
     res.status(500).send({ err_mes: err.message });
@@ -812,4 +812,8 @@ exports.updateComplimentType = async (req, res) => {
     } catch (err) {
         res.status(500).send({ err_mes: err.message });
     }
+}
+
+exports.addEmployeeCompliment = async (req, res) => {
+    res.send(req.body);
 }

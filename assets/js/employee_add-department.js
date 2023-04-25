@@ -4,7 +4,7 @@ let submitFormCancellation = false;
     const errorMessages = {
         department: {
             confirm: function (value) {
-                this.isValid = value.split("").every((e) => isNaN(Number.parseInt(e)));
+                this.isValid = /^[a-zA-ZÀ-ỹ\s]+$/u.test(value);
             },
             message: "Tên phòng ban không hợp lệ.",
             isValid: false,

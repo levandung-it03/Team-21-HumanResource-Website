@@ -235,7 +235,7 @@ let compliment_typeSchema = new mongoose.Schema({
     dateCreated: String
 }, { collection: 'compliment_type' });
 
-let compliments_listSchema = new mongoose.Schema({
+let employee_complimentsSchema = new mongoose.Schema({
     compliment_code: {
         type: String,
         unique: true,
@@ -243,7 +243,6 @@ let compliments_listSchema = new mongoose.Schema({
     },
     compliment: {
         type: String,
-        unique: true,
         required: true
     },
     numbers: String,
@@ -259,7 +258,33 @@ let compliments_listSchema = new mongoose.Schema({
     },
     description: String,
     dateCreated: String
-}, { collection: 'compliment_list' });
+}, { collection: 'employee_compliments' });
+
+let group_complimentsSchema = new mongoose.Schema({
+    compliment_code: {
+        type: String,
+        unique: true,
+        required: true
+    },
+    compliment: {
+        type: String,
+        unique: true,
+        required: true
+    },
+    numbers: String,
+    compliment_type: String,
+    group_code: {
+        type: String,
+        unique: true,
+        required: true
+    },
+    group: {
+        type: String,
+        required: true
+    },
+    description: String,
+    dateCreated: String
+}, { collection: 'group_compliments' });
 
 let Group = mongoose.model('group', groupSchema);
 let UserDb = mongoose.model('userdbs', userSchema);
@@ -267,11 +292,12 @@ let Salary = mongoose.model('salary', salarySchema);
 let Degree = mongoose.model('degree', degreeSchema);
 let Position = mongoose.model('position', positionSchema);
 let Compliment_type = mongoose.model('compliment_type', compliment_typeSchema);
-let Compliment_list = mongoose.model('compliment_list', compliments_listSchema);
+let Employee_compliments = mongoose.model('employee_compliments', employee_complimentsSchema);
+let Group_compliments = mongoose.model('group_compliments', group_complimentsSchema);
 let Technique = mongoose.model('technique', techniqueSchema);
 let Bussiness = mongoose.model('bussiness', bussinessSchema);
 let Department = mongoose.model('department', departmentSchema);
 let Employee_type = mongoose.model('employee_type', employeeTypeSchema);
 
 module.exports = { UserDb, Salary, Position, Degree, Department, Employee_type, Technique, Bussiness, Group,
-Compliment_type, Compliment_list };
+Compliment_type, Employee_compliments, Group_compliments };

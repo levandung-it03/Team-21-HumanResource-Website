@@ -1,14 +1,14 @@
-<link rel="stylesheet" href="/css/compliment_compliment-list.css">
-<div id="compliment-list">
+<link rel="stylesheet" href="/css/compliment_employee-compliments-list.css">
+<div id="employee-compliments-list">
     <div id="heading">
         <div class="hide" id="turn-back-btn">
-            <a href="/admin/category/compliment/compliment-list"><i class="fa-solid fa-arrow-left-long"></i> Thoát</a>
+            <a href="/admin/category/compliment/employee-compliments-list"><i class="fa-solid fa-arrow-left-long"></i> Thoát</a>
         </div>
         <div id="title">
-            <span>Danh sách khen thưởng</span>
+            <span>Danh sách khen thưởng nhân viên</span>
         </div>
         <div id="add-btn">
-            <a href="/admin/category/compliment/add-compliment">Thêm khen thưởng</a>
+            <a href="/admin/category/compliment/add-employee-compliment">Thêm khen thưởng</a>
         </div>
         <div id="search">
             <input class="search" type="text" placeholder="Tìm kiếm">
@@ -37,43 +37,43 @@
                     <span class="title_name">Ngày tạo</span>
                     <i class="fa-solid fa-sort" id="dateCreated"></i>
                 </th>
-                <th id="view-compliment">
+                <th id="view-employee-compliment">
                     <span class="title_name">Xem</span>
                 </th>
-                <th id="update-compliment">
+                <th id="update-employee-compliment">
                     <span class="title_name">Sửa</span>
                 </th>
-                <th id="delete-compliment">
+                <th id="delete-employee-compliment">
                     <span class="title_name">Xoá</span>
                 </th>
             </tr>
         </thead>
         <tbody>
-            <% for (var i = 0; i < compliment_list.length; i++) { %>
+            <% for (var i = 0; i < employeeComplimentsList.length; i++) { %>
                 <tr class="body" id=<%= i+1 %>>
                     <td id="ordinal"><%= (i + 1) %></td>
                     <td class="body_enable-searching body_enable-sorting"
-                        id="compliment_code"><%= compliment_list[i].compliment_code %></td>
+                        id="compliment_code"><%= employeeComplimentsList[i].compliment_code %></td>
                     <td class="body_enable-searching body_enable-sorting"
-                        id="name"><%= compliment_list[i].name %></td>
+                        id="name"><%= employeeComplimentsList[i].name %></td>
                     <td class="body_enable-searching body_enable-sorting"
-                        id="compliment"><%= compliment_list[i].compliment %></td>
+                        id="compliment"><%= employeeComplimentsList[i].compliment %></td>
                     <td class="body_enable-searching body_enable-sorting"
-                        id="dateCreated"><%= compliment_list[i].dateCreated %></td>
-                    <td class="view-compliment">
-                        <a href="/admin/category/compliment/view-compliment/<%= compliment_list[i]._id.toString() %>">
+                        id="dateCreated"><%= employeeComplimentsList[i].dateCreated %></td>
+                    <td class="view-employee-compliment">
+                        <a href="/admin/category/compliment/view-employee-compliment/<%= employeeComplimentsList[i]._id.toString() %>">
                             <i class="fa-sharp fa-solid fa-eyes"></i></a>
                     </td>
-                    <td class="update-compliment">
-                        <a href="/admin/category/compliment/update-compliment/<%= compliment_list[i]._id.toString() %>">
+                    <td class="update-employee-compliment">
+                        <a href="/admin/category/compliment/update-employee-compliment/<%= employeeComplimentsList[i]._id.toString() %>">
                             <i class="fa-sharp fa-solid fa-pencil"></i></a>
                     </td>
-                    <td class="delete-compliment">
-                        <a compliment_id=<%= compliment_list[i]._id.toString() %>><i class="fa-sharp fa-solid fa-trash"></i></a>
+                    <td class="delete-employee-compliment">
+                        <a compliment_id=<%= employeeComplimentsList[i]._id.toString() %>><i class="fa-sharp fa-solid fa-trash"></i></a>
                     </td>
                 </tr>
             <% } %>
         </tbody>
     </table>
 </div>
-<script src="/js/compliment_compliment-list.js"></script>
+<script src="/js/compliment_employee-compliments-list.js"></script>

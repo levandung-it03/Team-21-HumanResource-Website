@@ -13,7 +13,7 @@ const degreeDBs = client.db('company').collection('degree');
 const positionDBs = client.db('company').collection('position');
 const bussinessDBs = client.db('company').collection('bussiness');
 const compliment_typeDBs = client.db('company').collection('compliment_type');
-const compliment_listDBs = client.db('company').collection('compliment_list');
+const employee_complimentsDBs = client.db('company').collection('employee_compliments');
 const techniqueDBs = client.db('company').collection('technique');
 const departmentDBs = client.db('company').collection('department');
 const employee_typeDBs = client.db('company').collection('employee_type');
@@ -89,9 +89,9 @@ async function getAllCompliment_type() {
     return await allCompliment_type.toArray();
 }
 
-async function getCompliment_list() {
-    const compliment_list = compliment_listDBs.find({});
-    return await compliment_list.toArray();
+async function getEmployeeComplimentsList() {
+    const employeeComplimentsList = employee_complimentsDBs.find({});
+    return await employeeComplimentsList.toArray();
 }
 
 class renderMethods {
@@ -605,25 +605,25 @@ class renderMethods {
             clearCookiesAndReturnLogin(res);
         }
     }
-    async admin_complimentList(req, res) {
+    async admin_employeeComplimentsList(req, res) {
         try {
-            const compliment_list = await getCompliment_list(req.params.id, compliment_listDBs);
+            const employeeComplimentsList = await getEmployeeComplimentsList(req.params.id, employee_complimentsDBs);
             const user = await getCurrentUser(req);
-            res.render('admin_compliment_compliment-list', {
+            res.render('admin_compliment_employee-compliments-list', {
                 user: user,
-                compliment_list: compliment_list,
+                employeeComplimentsList: employeeComplimentsList,
                 layout: './layouts/admin'
             });
         } catch (err) {
             clearCookiesAndReturnLogin(res);
         }
     }
-    async admin_addCompliment(req, res) {
+    async admin_addEmployeeCompliment(req, res) {
         try {
             const allUsers = await getAllUser();
             const allCompliment_type = await getAllCompliment_type();
             const user = await getCurrentUser(req);
-            res.render('admin_compliment_add-compliment', {
+            res.render('admin_compliment_add-employee-compliment', {
                 user: user,
                 isUpdating: false,
                 allCompliment_type: allCompliment_type,

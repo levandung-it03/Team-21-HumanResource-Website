@@ -4,7 +4,7 @@ let submitFormCancellation = false;
     const errorMessages = {
         name: {
             confirm: function (value) {
-                this.isValid = value.split("").every((e) => isNaN(Number.parseInt(e)));
+                this.isValid = /^[a-zA-ZÀ-ỹ\s]+$/u.test(value);
             },
             message: "Tên không hợp lệ.",
             isValid: false,
@@ -40,28 +40,28 @@ let submitFormCancellation = false;
         },
         birthplace: {
             confirm: function (value) {
-                this.isValid = value.split("").every((e) => isNaN(Number.parseInt(e)));
+                this.isValid = /^[a-zA-ZÀ-ỹ\s]+$/u.test(value);
             },
             message: "Nơi sinh không hợp lệ.",
             isValid: false,
         },
         country: {
             confirm: function (value) {
-                this.isValid = value.split("").every((e) => isNaN(Number.parseInt(e)));
+                this.isValid = /^[a-zA-ZÀ-ỹ\s]+$/u.test(value);
             },
             message: "Quốc gia không hợp lệ.",
             isValid: false,
         },
         ethnic: {
             confirm: function (value) {
-                this.isValid = value.split("").every((e) => isNaN(Number.parseInt(e)));
+                this.isValid = /^[a-zA-ZÀ-ỹ\s]+$/u.test(value);
             },
             message: "Dân tộc không hợp lệ.",
             isValid: false,
         },
         religion: {
             confirm: function (value) {
-                this.isValid = value.split("").every((e) => isNaN(Number.parseInt(e)));
+                this.isValid = /^[a-zA-ZÀ-ỹ\s]+$/u.test(value);
             },
             message: "Tôn giáo không hợp lệ.",
             isValid: false,

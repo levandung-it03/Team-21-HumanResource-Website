@@ -14,7 +14,7 @@ function clearCookies(res) {
     return;
 }
 
-exports.verifyTokenAndGenerateAccessTokenIfExpiration = async (req, res, next) => {
+exports.verifyTokenAndGenerateAccessTokenIfExpiring = async (req, res, next) => {
     try {
         const cookiesList = authMethods.handleCookie(req.headers.cookie);
 

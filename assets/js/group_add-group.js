@@ -4,7 +4,7 @@ let submitFormCancellation = false;
     const errorMessages = {
         group: {
             confirm: function (value) {
-                this.isValid = value.split("").every((e) => isNaN(Number.parseInt(e)));
+                this.isValid = /^[a-zA-ZÀ-ỹ\s]+$/u.test(value);
             },
             message: "Tên nhóm không hợp lệ.",
             isValid: false,
