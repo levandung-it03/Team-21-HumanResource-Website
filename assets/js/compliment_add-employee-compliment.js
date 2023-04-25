@@ -84,10 +84,15 @@ let submitFormCancellation = false;
                 return e.split('=');
             })
 
-            window.history.replaceState({}, "", "http://localhost:3000/admin/category/compliment/add-compliment-type");
+            window.history.replaceState({}, "", "http://localhost:3000/admin/category/compliment/add-employee-compliment");
             strictInputTags.forEach((tag, index) => {
                 tag.value = data.find((e) => e[0] == tag.name)[1];
                 errorMessages[tag.name].confirm(tag.value);
+            })
+            $$('.form_select-input select option').forEach(optionTag => {
+                if (optionTag.value.includes(data[2][1].split("-")[1])) {
+                    optionTag.selected = true;
+                }
             })
             $('.form_textarea-input textarea').innerText = data[3][1];
         })();
