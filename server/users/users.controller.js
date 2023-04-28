@@ -12,7 +12,7 @@ const groupDBs = client.db('company').collection('group');
 const salaryDBs = client.db('company').collection('salary');
 const degreeDBs = client.db('company').collection('degree');
 const compliment_typeDBs = client.db('company').collection('compliment_type');
-const compliment_listDBs = client.db('company').collection('compliment_list');
+const employee_complimentsDBs = client.db('company').collection('employee_compliments');
 const positionDBs = client.db('company').collection('position');
 const bussinessDBs = client.db('company').collection('bussiness');
 const techniqueDBs = client.db('company').collection('technique');
@@ -531,7 +531,6 @@ exports.addSalary = async (req, res) => {
         .catch(err => {
             res.status(500).send({ mes: err.message });
         })
-
 }
 
 exports.deleteSalary = async (req, res) => {
@@ -815,5 +814,49 @@ exports.updateComplimentType = async (req, res) => {
 }
 
 exports.addEmployeeCompliment = async (req, res) => {
-    res.send(req.body);
+    await client.connect();
+    const [department, employee_code, name] = req.body.employee.split("-");
+    const dateCreated = usersMethods.getNowDate();
+    const [compliment_type_code, compliment_type] = req.body.compliment_type.split("-");
+    const compliment_code = usersMethods.getRandomComplimentCode();
+    const prevData = usersMethods.createErrorString(req.body);
+    let filter = { employee_code: employee_code };
+
+    let update = {
+        "$set": {
+            name: name,
+            employee_code: employee_code,
+            department: department,
+        },
+        "$push": {
+            compliments_list: {
+                compliment_code: compliment_code,
+                compliment: req.body.compliment,
+                numbers: req.body.numbers,
+                compliment_type: compliment_type,
+                description: req.body.description,
+                dateCreated: dateCreated,
+            }
+        }
+    }
+    
+    const existCompliment =
+    await employee_complimentsDBs.findOne({
+        employee_code: employee_code,
+        compliments_list: {"$elemMatch": {compliment_type: compliment_type, dateCreated: dateCreated,}}
+    });
+    if (existCompliment) {
+        res.redirect(DOMAIN + '/admin/category/compliment/add-employee-compliment?error=compliment_code' + prevData);
+    } else {
+        await Employee_compliments.findOneAndUpdate(filter, update, {
+            new: true,
+            upsert: true
+        })
+            .then(data => {
+                res.redirect('/admin/category/compliment/employee-compliments-list');
+            })
+            .catch(err => {
+                res.status(500).send({ mes: err.message });
+            })
+    }
 }

@@ -21,20 +21,20 @@
                 <th id="ordinal">
                     <span class="title_name">STT</span>
                 </th>
-                <th id="compliment_code">
-                    <span class="title_name">Mã khen thưởng</span>
-                    <i class="fa-solid fa-sort" id="compliment_code"></i>
+                <th id="employee_code">
+                    <span class="title_name">Mã nhân viên</span>
+                    <i class="fa-solid fa-sort" id="employee_code"></i>
                 </th>
                 <th id="name">
                     <span class="title_name">Tên nhân viên</span>
                     <i class="fa-solid fa-sort" id="name"></i>
                 </th>
                 <th id="compliment">
-                    <span class="title_name">Tên khen thưởng</span>
+                    <span class="title_name">Tên khen thưởng (gần đây nhất)</span>
                     <i class="fa-solid fa-sort" id="compliment"></i>
                 </th>
                 <th id="dateCreated">
-                    <span class="title_name">Ngày tạo</span>
+                    <span class="title_name">Ngày quyết định</span>
                     <i class="fa-solid fa-sort" id="dateCreated"></i>
                 </th>
                 <th id="view-employee-compliment">
@@ -50,19 +50,20 @@
         </thead>
         <tbody>
             <% for (var i = 0; i < employeeComplimentsList.length; i++) { %>
+                <% const lastCompliment = employeeComplimentsList[i].compliments_list.pop(); %>
                 <tr class="body" id=<%= i+1 %>>
                     <td id="ordinal"><%= (i + 1) %></td>
                     <td class="body_enable-searching body_enable-sorting"
-                        id="compliment_code"><%= employeeComplimentsList[i].compliment_code %></td>
+                        id="employee_code"><%= employeeComplimentsList[i].employee_code %></td>
                     <td class="body_enable-searching body_enable-sorting"
                         id="name"><%= employeeComplimentsList[i].name %></td>
                     <td class="body_enable-searching body_enable-sorting"
-                        id="compliment"><%= employeeComplimentsList[i].compliment %></td>
+                        id="compliment"><%= lastCompliment.compliment %></td>
                     <td class="body_enable-searching body_enable-sorting"
-                        id="dateCreated"><%= employeeComplimentsList[i].dateCreated %></td>
+                        id="dateCreated"><%= lastCompliment.dateCreated %></td>
                     <td class="view-employee-compliment">
                         <a href="/admin/category/compliment/view-employee-compliment/<%= employeeComplimentsList[i]._id.toString() %>">
-                            <i class="fa-sharp fa-solid fa-eyes"></i></a>
+                            <i class="fa-sharp fa-solid fa-eye"></i></a>
                     </td>
                     <td class="update-employee-compliment">
                         <a href="/admin/category/compliment/update-employee-compliment/<%= employeeComplimentsList[i]._id.toString() %>">

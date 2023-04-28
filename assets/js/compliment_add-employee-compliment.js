@@ -4,7 +4,7 @@ let submitFormCancellation = false;
     const errorMessages = {
         compliment: {
             confirm: function (value) {
-                this.isValid = /^[a-zA-ZÀ-ỹ\s]+$/u.test(value);
+                this.isValid = /^[0-9a-zA-ZÀ-ỹ\s]+$/u.test(value);
             },
             message: "Khen thưởng không hợp lệ.",
             isValid: false,
@@ -43,11 +43,8 @@ let submitFormCancellation = false;
     (function createErrorMessages() {
         [...$$('.form_text-input .form_text-input_err-message')].forEach((e) => {
             const parentId = e.parentNode.id;
-            e.innerHTML = `
-    <span class='err-message-block' id='${parentId}'>
-        ${errorMessages[parentId].message}
-    </span>
-`;
+            e.innerHTML = `<span class='err-message-block' id='${parentId}'>${errorMessages[parentId].message}
+            </span>`;
         })
     })();
 
@@ -77,24 +74,27 @@ let submitFormCancellation = false;
     const urlParams = new URLSearchParams(window.location.search);
     const myParam = urlParams.get('error');
     if (myParam) {
-        alert('Đã tồn tại loại hình khen thưởng này!');
+        alert('Nhân viên này không được khen thưởng một loại hình quá nhiều trong cùng một thời gian quyết định!');
         (async function handleRedirect() {
             const dataMessages = myParam.split('?');
             const data = dataMessages.map((e) => {
                 return e.split('=');
             })
+            console.log(data);
 
             window.history.replaceState({}, "", "http://localhost:3000/admin/category/compliment/add-employee-compliment");
             strictInputTags.forEach((tag, index) => {
                 tag.value = data.find((e) => e[0] == tag.name)[1];
                 errorMessages[tag.name].confirm(tag.value);
             })
-            $$('.form_select-input select option').forEach(optionTag => {
-                if (optionTag.value.includes(data[2][1].split("-")[1])) {
-                    optionTag.selected = true;
-                }
+            $$('.form_select-input select').forEach(selectTag => {
+                const selectedData = data.find(data => data[0] == selectTag.name)[1];
+                selectTag.querySelectorAll('option').forEach(optionTag => {
+                    if(optionTag.value.includes(selectedData))
+                        optionTag.selected = true;
+                })
             })
-            $('.form_textarea-input textarea').innerText = data[3][1];
+            $('.form_textarea-input textarea').innerText = data.find(data => data[0] == 'description')[1];
         })();
     }
 })();

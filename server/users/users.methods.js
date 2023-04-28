@@ -101,6 +101,9 @@ class UsersMethods {
     getRandomComplimentTypeCode() {
         return `KT${Date.now()}${Math.floor(Math.random() * 99)}`;
     }
+    getRandomComplimentCode(dateCreated, compliment_type_code) {
+        return `KN${Date.now()}${Math.floor(Math.random() * 99)}`;
+    }
 }
 
 module.exports = new UsersMethods;

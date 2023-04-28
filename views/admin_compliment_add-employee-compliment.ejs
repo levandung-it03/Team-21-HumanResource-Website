@@ -3,7 +3,8 @@
 <div id="add-employee-compliment">
     <div id="heading">
         <div id="turn-back-btn">
-            <a href="/admin/category/compliment/employee-compliments-list"><i class="fa-solid fa-arrow-left-long"></i> Thoát</a>
+            <a href="/admin/category/compliment/employee-compliments-list">
+                <i class="fa-solid fa-arrow-left-long"></i> Thoát</a>
         </div>
         <div id="title">
             <% if (isUpdating) { %>
@@ -61,8 +62,8 @@
                     <option selected disabled value="">--Chọn loại khen thưởng--</option>
                 <% } %>
                 <% for(var index in allCompliment_type) { %>
-                <option value="<%= allCompliment_type[index].compliment_type
-                + "-" + allCompliment_type[index].compliment_type_code %>">
+                <option value="<%= allCompliment_type[index].compliment_type_code
+                + "-" + allCompliment_type[index].compliment_type %>">
                     <%= `${allCompliment_type[index].compliment_type_code} - ${allCompliment_type[index].compliment_type}` %></option>
                 <% } %>
             </select>
