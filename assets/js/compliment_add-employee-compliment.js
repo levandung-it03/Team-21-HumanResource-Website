@@ -71,6 +71,22 @@ let submitFormCancellation = false;
         }
     })();
 
+    (function recoverEmployeeSelectData() {
+        const selectTags = $$('.form_select-input select');
+        selectTags.forEach(selectTag => {
+            let value = selectTag.getAttribute('data').trim();
+            if (value) {
+                const respectiveHiddenInputTag = $(`.form_select-input input[name=${selectTag.name}]`);
+                selectTag.querySelectorAll('option').forEach((optionTag) => {
+                    if (optionTag.innerHTML.split("-").map(t=>t.trim()).includes(value)) {
+                        optionTag.selected = true;
+                        respectiveHiddenInputTag.value = optionTag.value;
+                    }
+                })
+            } else return;
+        })
+    })();
+
     const urlParams = new URLSearchParams(window.location.search);
     const myParam = urlParams.get('error');
     if (myParam) {
@@ -80,7 +96,6 @@ let submitFormCancellation = false;
             const data = dataMessages.map((e) => {
                 return e.split('=');
             })
-            console.log(data);
 
             window.history.replaceState({}, "", "http://localhost:3000/admin/category/compliment/add-employee-compliment");
             strictInputTags.forEach((tag, index) => {

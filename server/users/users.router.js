@@ -209,6 +209,21 @@ route.get('/admin/category/compliment/add-employee-compliment',
     authMiddlewares.verifyTokenAndGenerateAccessTokenIfExpiring,
     authMiddlewares.verifyAdmin,
     renderMethods.admin_addEmployeeCompliment);
+
+route.get('/admin/category/compliment/view-employee-compliments/:id',
+    authMiddlewares.verifyTokenAndGenerateAccessTokenIfExpiring,
+    authMiddlewares.verifyAdmin,
+    renderMethods.admin_viewEmployeeCompliments);
+
+route.get('/admin/category/compliment/add-employee-compliment/:employeeId',
+    authMiddlewares.verifyTokenAndGenerateAccessTokenIfExpiring,
+    authMiddlewares.verifyAdmin,
+    renderMethods.admin_addEmployeeCompliment);
+
+route.get('/admin/category/compliment/update-employee-compliment/:employeeId/:id',
+    authMiddlewares.verifyTokenAndGenerateAccessTokenIfExpiring,
+    authMiddlewares.verifyAdmin,
+    renderMethods.admin_updateEmployeeCompliment);
 /** @_____________________________________________________________________________________________ */
 /** @POST_METHODS__________________________ */
 route.post('/api/admin/add-employee',
@@ -317,6 +332,11 @@ route.post('/api/admin/add-employee-compliment',
     authMiddlewares.verifyTokenAndGenerateAccessTokenIfExpiring,
     authMiddlewares.verifyAdmin,
     usersController.addEmployeeCompliment);
+    
+route.post('/api/admin/update-compliment/:complimentCode',
+    authMiddlewares.verifyTokenAndGenerateAccessTokenIfExpiring,
+    authMiddlewares.verifyAdmin,
+    usersController.updateEmployeeCompliment);
 
     /** @DELETE_METHODS__________________________ */
 route.delete('/api/admin/delete-employee/:id',
@@ -373,6 +393,11 @@ route.delete('/api/admin/delete-compliment_type/:id',
     authMiddlewares.verifyTokenAndGenerateAccessTokenIfExpiring,
     authMiddlewares.verifyAdmin,
     usersController.deleteComplimentType);
+    
+route.delete('/api/admin/delete-compliment-of-employee/:employeeId/:id',
+    authMiddlewares.verifyTokenAndGenerateAccessTokenIfExpiring,
+    authMiddlewares.verifyAdmin,
+    usersController.deleteComplimentOfEmployee);
     
 /**@_______________________________________________________________________________________________ */
 

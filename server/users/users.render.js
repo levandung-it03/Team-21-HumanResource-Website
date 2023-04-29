@@ -147,11 +147,11 @@ class renderMethods {
     }
     async admin_employeeView(req, res) {
         try {
-            const specifiedUser = await getSpecifiedObject(req.params.id, userDBs);
+            const specifiedEmployee = await getSpecifiedObject(req.params.id, userDBs);
             const user = await getCurrentUser(req);
             res.render('admin_employee_view', {
                 user: user,
-                specifiedUser: specifiedUser,
+                specifiedEmployee: specifiedEmployee,
                 layout: './layouts/admin'
             });
         } catch (err) {
@@ -623,9 +623,62 @@ class renderMethods {
             const allUsers = await getAllUser();
             const allCompliment_type = await getAllCompliment_type();
             const user = await getCurrentUser(req);
+            const employeeId = req.params.employeeId;
+            if (employeeId != undefined) {
+                const specifiedEmployee = await getSpecifiedObject(employeeId, employee_complimentsDBs);
+                res.render('admin_compliment_add-employee-compliment', {
+                    user: user,
+                    isUpdating: false,
+                    specifiedEmployee: specifiedEmployee,
+                    allCompliment_type: allCompliment_type,
+                    allUsers: allUsers,
+                    layout: './layouts/admin'
+                });
+            } else {
+                res.render('admin_compliment_add-employee-compliment', {
+                    user: user,
+                    isUpdating: false,
+                    specifiedEmployee: undefined,
+                    allCompliment_type: allCompliment_type,
+                    allUsers: allUsers,
+                    layout: './layouts/admin'
+                });
+            }
+        } catch (err) {
+            clearCookiesAndReturnLogin(res);
+        }
+    }
+    async admin_viewEmployeeCompliments(req, res) {
+        try {
+            const specifiedEmployeeInComplimentDBs =
+                await getSpecifiedObject(req.params.id, employee_complimentsDBs);
+            const specifiedEmployee =
+                await userDBs.findOne({ employee_code: specifiedEmployeeInComplimentDBs.employee_code });
+            const user = await getCurrentUser(req);
+            res.render('admin_compliment_employee-compliments-view', {
+                user: user,
+                specifiedEmployee: specifiedEmployee,
+                specifiedEmployeeInComplimentDBs: specifiedEmployeeInComplimentDBs,
+                layout: './layouts/admin'
+            });
+        } catch (err) {
+            clearCookiesAndReturnLogin(res);
+        }
+    }
+    async admin_updateEmployeeCompliment(req, res) {
+        try {
+            const allUsers = await getAllUser();
+            const allCompliment_type = await getAllCompliment_type();
+            const user = await getCurrentUser(req);
+            const specifiedEmployee = await getSpecifiedObject(req.params.employeeId, employee_complimentsDBs);
+            const specifiedCompliment =
+                specifiedEmployee.compliments_list.find(compliment => compliment._id.toString() == req.params.id);
+                
             res.render('admin_compliment_add-employee-compliment', {
                 user: user,
-                isUpdating: false,
+                isUpdating: true,
+                specifiedEmployee: specifiedEmployee,
+                specifiedCompliment: specifiedCompliment,
                 allCompliment_type: allCompliment_type,
                 allUsers: allUsers,
                 layout: './layouts/admin'

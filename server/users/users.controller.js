@@ -860,3 +860,56 @@ exports.addEmployeeCompliment = async (req, res) => {
             })
     }
 }
+
+exports.deleteComplimentOfEmployee = async (req, res) => {
+    const complimentId = req.params.id;
+    const employeeId = req.params.employeeId;
+
+    try {
+        await client.connect();
+        const employee = await employee_complimentsDBs.findOne({ _id: new ObjectId(employeeId) });
+        const compliments_list = employee.compliments_list;
+        const newCompliments_list = compliments_list.filter(object => {
+            if (object._id.toString() != complimentId) {
+                return object;
+            }
+        });
+
+        await employee_complimentsDBs.updateOne(
+            { _id: new ObjectId(employeeId) },
+            { "$set": { compliments_list: newCompliments_list } }
+        );
+        res.end();
+    } catch (err) {
+        res.status(404).send({ mes: err.message });
+    }
+}
+
+exports.updateEmployeeCompliment = async (req, res) => {
+    await client.connect();
+    const updatedComplimentCode = req.params.complimentCode;
+    const dateCreated = usersMethods.getNowDate();
+    const [compliment_type_code, compliment_type] = req.body.compliment_type.split("-");
+    let filter = { "compliments_list.compliment_code": updatedComplimentCode };
+
+    let update = {
+        "$set": {
+            "compliments_list.$[]": {
+                compliment_code: updatedComplimentCode,
+                compliment: req.body.compliment,
+                numbers: req.body.numbers,
+                compliment_type: compliment_type,
+                description: req.body.description,
+                dateCreated: dateCreated,
+            }
+        }
+    }
+    
+    await Employee_compliments.findOneAndUpdate(filter, update)
+        .then(data => {
+            res.redirect('/admin/category/compliment/view-employee-compliments/' + data._id.toString());
+        })
+        .catch(err => {
+            res.status(500).send({ mes: err.message });
+        })
+}
