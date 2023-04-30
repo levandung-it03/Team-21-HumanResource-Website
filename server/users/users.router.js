@@ -393,6 +393,11 @@ route.delete('/api/admin/delete-compliment_type/:id',
     authMiddlewares.verifyTokenAndGenerateAccessTokenIfExpiring,
     authMiddlewares.verifyAdmin,
     usersController.deleteComplimentType);
+
+route.delete('/api/admin/delete-employee-compliment/:id',
+    authMiddlewares.verifyTokenAndGenerateAccessTokenIfExpiring,
+    authMiddlewares.verifyAdmin,
+    usersController.deleteEmployeeCompliment);
     
 route.delete('/api/admin/delete-compliment-of-employee/:employeeId/:id',
     authMiddlewares.verifyTokenAndGenerateAccessTokenIfExpiring,

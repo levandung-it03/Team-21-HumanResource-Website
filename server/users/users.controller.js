@@ -861,24 +861,11 @@ exports.addEmployeeCompliment = async (req, res) => {
     }
 }
 
-exports.deleteComplimentOfEmployee = async (req, res) => {
-    const complimentId = req.params.id;
-    const employeeId = req.params.employeeId;
-
+exports.deleteEmployeeCompliment = async (req, res) => {
+    const id = req.params.id;
     try {
         await client.connect();
-        const employee = await employee_complimentsDBs.findOne({ _id: new ObjectId(employeeId) });
-        const compliments_list = employee.compliments_list;
-        const newCompliments_list = compliments_list.filter(object => {
-            if (object._id.toString() != complimentId) {
-                return object;
-            }
-        });
-
-        await employee_complimentsDBs.updateOne(
-            { _id: new ObjectId(employeeId) },
-            { "$set": { compliments_list: newCompliments_list } }
-        );
+        await employee_complimentsDBs.deleteOne({ _id: new ObjectId(id) });
         res.end();
     } catch (err) {
         res.status(404).send({ mes: err.message });
@@ -912,4 +899,28 @@ exports.updateEmployeeCompliment = async (req, res) => {
         .catch(err => {
             res.status(500).send({ mes: err.message });
         })
+}
+
+exports.deleteComplimentOfEmployee = async (req, res) => {
+    const complimentId = req.params.id;
+    const employeeId = req.params.employeeId;
+
+    try {
+        await client.connect();
+        const employee = await employee_complimentsDBs.findOne({ _id: new ObjectId(employeeId) });
+        const compliments_list = employee.compliments_list;
+        const newCompliments_list = compliments_list.filter(object => {
+            if (object._id.toString() != complimentId) {
+                return object;
+            }
+        });
+
+        await employee_complimentsDBs.updateOne(
+            { _id: new ObjectId(employeeId) },
+            { "$set": { compliments_list: newCompliments_list } }
+        );
+        res.end();
+    } catch (err) {
+        res.status(404).send({ mes: err.message });
+    }
 }

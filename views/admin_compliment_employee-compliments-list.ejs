@@ -69,12 +69,8 @@
                         <a href="/admin/category/compliment/view-employee-compliments/<%= employeeComplimentsList[i]._id.toString() %>">
                             <i class="fa-sharp fa-solid fa-eye"></i></a>
                     </td>
-                    <!-- <td class="update-employee-compliment">
-                        <a href="/admin/category/compliment/update-employee-compliment/<%= employeeComplimentsList[i]._id.toString() %>">
-                            <i class="fa-sharp fa-solid fa-pencil"></i></a>
-                    </td> -->
                     <td class="delete-employee-compliment">
-                        <a compliment_id=<%= employeeComplimentsList[i]._id.toString() %>><i class="fa-sharp fa-solid fa-trash"></i></a>
+                        <a employee_compliment_id=<%= employeeComplimentsList[i]._id.toString() %>><i class="fa-sharp fa-solid fa-trash"></i></a>
                     </td>
                 </tr>
             <% } %>

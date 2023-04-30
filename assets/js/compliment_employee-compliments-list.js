@@ -9,7 +9,7 @@
                     })
                         .then((response) => {
                             alert('Xoá phòng ban thành công!');
-                            window.location.href = "http://localhost:3000/admin/category/employee/employee-compliments-list";
+                            window.location.href = "http://localhost:3000/admin/category/compliment/employee-compliments-list";
                         })
                 }
             }
