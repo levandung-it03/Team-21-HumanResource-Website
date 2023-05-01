@@ -266,18 +266,6 @@ let employee_complimentsSchema = new mongoose.Schema({
 }, { collection: 'employee_compliments' });
 
 let group_complimentsSchema = new mongoose.Schema({
-    compliment_code: {
-        type: String,
-        unique: true,
-        required: true
-    },
-    compliment: {
-        type: String,
-        unique: true,
-        required: true
-    },
-    numbers: String,
-    compliment_type: String,
     group_code: {
         type: String,
         unique: true,
@@ -287,8 +275,23 @@ let group_complimentsSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    description: String,
-    dateCreated: String
+    compliments_list: [
+        {
+            compliment_code: {
+                type: String,
+                unique: true,
+                required: true
+            },
+            compliment: {
+                type: String,
+                required: true
+            },
+            numbers: String,
+            compliment_type: String,
+            description: String,
+            dateCreated: String
+        }
+    ],
 }, { collection: 'group_compliments' });
 
 let Group = mongoose.model('group', groupSchema);

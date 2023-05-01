@@ -1,0 +1,183 @@
+#view-group-compliments {
+    position: relative;
+}
+#view-group-compliments > #title {
+    position: absolute;
+    top: 0;
+    left: 116px;
+}
+#view-group-compliments > #title span {
+    font-size: 2.4rem;
+    display: block;
+}
+#heading #turn-back-btn {
+    float: left;
+}
+#add-btn {
+    float: right;
+}
+#group-information {
+    background-color: white;
+    padding: 12px;
+    margin: 12px;
+    box-shadow: var(--black-box-shadow);
+    border-radius: 8px;
+}
+#group-information #group-information_heading #title {
+    display: inline-block;
+}
+#group-information #group-information_heading::after {
+    display: block;
+    content: "";
+    border-top: solid 1px rgb(94, 94, 255);
+    padding-bottom: 8px;
+}
+#group-information #group-information_heading #title span {
+    font-size: 2.4rem;
+    padding: 10px;
+    padding-left: 20px;
+}
+#group-information li.container_items {
+    display: block;
+    padding: 8px 24px;
+}
+#group-information li.container_items span.title {
+    font-weight: 600;
+}
+/*========================================TABLE================================================*/
+#group-compliments-list {
+    background-color: white;
+    padding: 12px 0;
+    margin: 12px;
+    margin-top: 32px;
+    box-shadow: var(--black-box-shadow);
+    border-radius: 8px;
+}
+#group-compliments-list #add-btn {
+    float: right;
+    margin-right: 12px;
+    margin-top: 4px;
+}
+#group-compliments-list #heading {
+    position: relative; 
+    margin-bottom: 16px;
+}
+#group-compliments-list #heading::after {
+    display: block;
+    content: "";
+    position: absolute;
+    top: 62px;
+    width: 98%;
+    margin-left: 12px;
+    border-top: solid 1px rgb(94, 94, 255);
+    padding-bottom: 8px;
+}
+#group-compliments-list #heading #title {
+    display: inline-block;
+}
+table {
+    border-collapse: collapse;
+}
+th, td {
+    border: solid 1px var(--smoking-grey);
+}
+#group-compliments-list #add-btn {
+    float: right;
+    margin-right: 12px;
+    margin-top: 4px;
+}
+#group-compliments-list #title {
+    display: inline-block;
+}
+#group-compliments-list #title span {
+    font-size: 2.4rem;
+    padding: 10px;
+}
+#group-compliments-list table {
+    margin: 0 12px;
+    background-color: white;
+    border: solid 1px transparent;
+    border-radius: var(--form-border-radius);
+    padding: 0 12px;
+    font-size: 0.95rem;
+}
+#group-compliments-list .table_title {
+    text-align: left;
+}
+#group-compliments-list .table_title th i {
+    width: 20px;
+    font-size: 0.7rem;
+    float: right;
+    line-height: 24px;
+    cursor: pointer;
+}
+#group-compliments-list .table_title th {
+    padding: 6px;
+    text-align: center;
+}
+#group-compliments-list .table_title th#ordinal {
+    width: 3%;
+}
+#group-compliments-list .table_title th#compliment_code {
+    width: 14%;
+}
+#group-compliments-list .table_title th#compliment {
+    width: 14%;
+}
+#group-compliments-list .table_title th#description {
+    width: 18%;
+}
+#group-compliments-list .table_title th#numbers {
+    width: 11%;
+}
+#group-compliments-list .table_title th#dateCreated {
+    width: 13%;
+}
+#group-compliments-list .table_title th#update-group-compliment {
+    width: 6%;
+}
+#group-compliments-list .table_title th#delete-group-compliment {
+    width: 6%;
+}
+#group-compliments-list tr.body td {
+    text-align: center;
+}
+#group-compliments-list tr.body td#compliment,
+#group-compliments-list tr.body td#compliment_type,
+#group-compliments-list tr.body td#description {
+    padding: 8px;
+}
+#group-compliments-list tr.body .update-group-compliment {
+    padding: 12px;
+}
+#group-compliments-list tr.body .update-group-compliment a {
+    display: block;
+    margin: auto;
+    width: 50px;
+    line-height: 32px;
+    background-color: var(--green);
+    border: solid 1px transparent;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color ease 0.3s;
+}
+#group-compliments-list tr.body .update-group-compliment a:hover {
+    background-color: var(--blur-green);
+}
+#group-compliments-list tr.body .delete-group-compliment {
+    padding: 12px;
+}
+#group-compliments-list tr.body .delete-group-compliment a {
+    display: block;
+    margin: auto;
+    width: 50px;
+    line-height: 32px;
+    background-color: var(--red);
+    border: solid 1px transparent;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color ease 0.3s;
+}
+#group-compliments-list tr.body .delete-group-compliment a:hover {
+    background-color: rgb(238, 102, 102);
+}

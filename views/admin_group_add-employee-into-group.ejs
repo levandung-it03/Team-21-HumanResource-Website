@@ -13,11 +13,11 @@
         <label id="title" for="employee">Chọn nhân viên</label>
         <select name="employee" required>
             <option selected disabled value="">--Chọn nhân viên--</option>
-            <% for(var index in allUsers) { %>
-            <% const technique=allTechnique.find(tech=> tech.group_code == allUsers[index].group_code).technique; %>
-                <option value="<%= allUsers[index].employee_code%>-<%= technique%>">
-                    <%= `PB ${allUsers[index].department} - ${allUsers[index].employee_code} -
-                        ${allUsers[index].name} - ${technique}` %>
+            <% for(var index in allEmployees) { %>
+            <% const technique=allTechnique.find(tech=> tech.group_code == allEmployees[index].group_code).technique; %>
+                <option value="<%= allEmployees[index].employee_code%>-<%= technique%>">
+                    <%= `PB ${allEmployees[index].department} - ${allEmployees[index].employee_code} -
+                        ${allEmployees[index].name} - ${technique}` %>
                 </option>
             <% } %>
         </select>

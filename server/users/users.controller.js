@@ -13,6 +13,7 @@ const salaryDBs = client.db('company').collection('salary');
 const degreeDBs = client.db('company').collection('degree');
 const compliment_typeDBs = client.db('company').collection('compliment_type');
 const employee_complimentsDBs = client.db('company').collection('employee_compliments');
+const group_complimentsDBs = client.db('company').collection('group_compliments');
 const positionDBs = client.db('company').collection('position');
 const bussinessDBs = client.db('company').collection('bussiness');
 const techniqueDBs = client.db('company').collection('technique');
@@ -198,7 +199,19 @@ exports.updateEmployee = async (req, res) => {
         .then(async (result) => {
             const public_id = usersMethods.getPublicIdByImageURL(user.avatar_url);
             try {
-                await techniqueDBs.updateOne({ employee_code: user.employee_code }, { "$set": { department: req.body.department } });
+                const newTechnique = await techniqueDBs.updateOne(
+                    { employee_code: user.employee_code },
+                    { "$set": { department: req.body.department, name: req.body.name } }
+                );
+                const updateGroupObj = {
+                    "$set": {
+                        "employee_list.$.employee_code": user.employee_code,
+                        "employee_list.$.department": user.department,
+                        "employee_list.$.name": user.name,
+                        "employee_list.$.position": user.position,
+                    }
+                }
+                await groupDBs.updateOne({ "employee_list.employee_code": user.employee_code }, updateGroupObj);
                 sharp(req.file.path)
                     .resize({ height: 350 })
                     .toBuffer(async (err, buffer) => {
@@ -206,6 +219,8 @@ exports.updateEmployee = async (req, res) => {
                             const stream = cloudinary.uploader.upload_stream({ resource_type: 'image' }, async (err, result) => {
                                 if (!err) {
                                     await userDBs.updateOne({ _id: new ObjectId(id) }, { "$set": { avatar_url: result.url } });
+                                    await groupDBs.updateOne({ "employee_list.employee_code": user.employee_code },
+                                    {"$set": {"employee_list.$.avatar_url": {avatar_url: result.url} }});
                                     cloudinary.uploader.destroy(public_id);
                                     res.redirect('/admin/category/employee/employee-list');
                                 }
@@ -881,7 +896,7 @@ exports.updateEmployeeCompliment = async (req, res) => {
 
     let update = {
         "$set": {
-            "compliments_list.$[]": {
+            "compliments_list.$": {
                 compliment_code: updatedComplimentCode,
                 compliment: req.body.compliment,
                 numbers: req.body.numbers,
@@ -923,4 +938,57 @@ exports.deleteComplimentOfEmployee = async (req, res) => {
     } catch (err) {
         res.status(404).send({ mes: err.message });
     }
+}
+
+exports.addGroupCompliment = async (req, res) => {
+    await client.connect();
+    const [group_code, group] = req.body.group.split("-");
+    const [compliment_type_code, compliment_type] = req.body.compliment_type.split("-");
+    const compliment_code = usersMethods.getRandomComplimentCode();
+    console.log(compliment_code);
+    const dateCreated = usersMethods.getNowDate();
+
+    const prevData = usersMethods.createErrorString(req.body);
+    let filter = { group_code: group_code };
+
+    let update = {
+        "$set": {
+            group_code: group_code,
+            group: group
+        },
+        "$push": {
+            compliments_list: {
+                compliment_code: compliment_code,
+                compliment: req.body.compliment,
+                numbers: req.body.numbers,
+                compliment_type: compliment_type,
+                description: req.body.description,
+                dateCreated: dateCreated,
+            }
+        }
+    }
+    
+    const existCompliment =
+    await group_complimentsDBs.findOne({
+        group_code: group_code,
+        compliments_list: {"$elemMatch": {compliment_type: compliment_type, dateCreated: dateCreated,}}
+    });
+    if (existCompliment) {
+        res.redirect(DOMAIN + '/admin/category/compliment/add-group-compliment?error=compliment_code' + prevData);
+    } else {
+        await Group_compliments.findOneAndUpdate(filter, update, {
+            new: true,
+            upsert: true
+        })
+            .then(data => {
+                res.redirect('/admin/category/compliment/group-compliments-list');
+            })
+            .catch(err => {
+                res.status(500).send({ mes: err.message });
+            })
+    }
+}
+
+exports.updateGroupCompliment = async (req, res) => {
+
 }

@@ -24,11 +24,11 @@
                 <% if (!isUpdating) { %>
                     <option selected disabled value="">--Chọn nhân viên--</option>
                 <% } %>
-                <% for(var index in allUsers) { %>
-                <option value="<%= allUsers[index].employee_code
-                    + "-" + allUsers[index].name
+                <% for(var index in allEmployees) { %>
+                <option value="<%= allEmployees[index].employee_code
+                    + "-" + allEmployees[index].name
                 %>">
-                    <%= `${allUsers[index].employee_code} - ${allUsers[index].name}` %></option>
+                    <%= `${allEmployees[index].employee_code} - ${allEmployees[index].name}` %></option>
                 <% } %>
             </select>
         </div>

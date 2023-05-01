@@ -28,12 +28,12 @@
                 <% if (!isUpdating) { %>
                     <option selected disabled value="">--Chọn nhân viên--</option>
                 <% } %>
-                <% for(var index in allUsers) { %>
-                <option value="<%= allUsers[index].department
-                    + "-" + allUsers[index].employee_code
-                    + "-" + allUsers[index].name
+                <% for(var index in allEmployees) { %>
+                <option value="<%= allEmployees[index].department
+                    + "-" + allEmployees[index].employee_code
+                    + "-" + allEmployees[index].name
                 %>">
-                    <%= `PB ${allUsers[index].department} - ${allUsers[index].employee_code} - ${allUsers[index].name}` %></option>
+                    <%= `PB ${allEmployees[index].department} - ${allEmployees[index].employee_code} - ${allEmployees[index].name}` %></option>
                 <% } %>
             </select>
         </div>

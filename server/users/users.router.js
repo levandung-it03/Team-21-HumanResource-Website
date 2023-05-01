@@ -184,8 +184,8 @@ route.get('/admin/category/group/update-group/:id',
     authMiddlewares.verifyTokenAndGenerateAccessTokenIfExpiring,
     authMiddlewares.verifyAdmin,
     renderMethods.admin_updateGroup);
-/** @________________________________________WORKING______________________________________________ */
-route.get('/admin/category/compliment/compliment-type',
+
+    route.get('/admin/category/compliment/compliment-type',
     authMiddlewares.verifyTokenAndGenerateAccessTokenIfExpiring,
     authMiddlewares.verifyAdmin,
     renderMethods.admin_complimentType);
@@ -224,6 +224,28 @@ route.get('/admin/category/compliment/update-employee-compliment/:employeeId/:id
     authMiddlewares.verifyTokenAndGenerateAccessTokenIfExpiring,
     authMiddlewares.verifyAdmin,
     renderMethods.admin_updateEmployeeCompliment);
+/** @________________________________________WORKING______________________________________________ */
+
+route.get('/admin/category/compliment/group-compliments-list',
+    authMiddlewares.verifyTokenAndGenerateAccessTokenIfExpiring,
+    authMiddlewares.verifyAdmin,
+    renderMethods.admin_groupComplimentsList);
+    
+route.get('/admin/category/compliment/add-group-compliment',
+    authMiddlewares.verifyTokenAndGenerateAccessTokenIfExpiring,
+    authMiddlewares.verifyAdmin,
+    renderMethods.admin_addGroupCompliment);
+
+route.get('/admin/category/compliment/view-group-compliments/:id',
+    authMiddlewares.verifyTokenAndGenerateAccessTokenIfExpiring,
+    authMiddlewares.verifyAdmin,
+    renderMethods.admin_viewGroupCompliments);
+    
+route.get('/admin/category/compliment/view-group-compliments/view-group/:idInComplimentDBs/:id',
+    authMiddlewares.verifyTokenAndGenerateAccessTokenIfExpiring,
+    authMiddlewares.verifyAdmin,
+    renderMethods.admin_viewSpecifiedGroupOfComplimentsList);
+
 /** @_____________________________________________________________________________________________ */
 /** @POST_METHODS__________________________ */
 route.post('/api/admin/add-employee',
@@ -333,10 +355,20 @@ route.post('/api/admin/add-employee-compliment',
     authMiddlewares.verifyAdmin,
     usersController.addEmployeeCompliment);
     
-route.post('/api/admin/update-compliment/:complimentCode',
+route.post('/api/admin/update-employee-compliment/:complimentCode',
     authMiddlewares.verifyTokenAndGenerateAccessTokenIfExpiring,
     authMiddlewares.verifyAdmin,
     usersController.updateEmployeeCompliment);
+
+route.post('/api/admin/add-group-compliment',
+    authMiddlewares.verifyTokenAndGenerateAccessTokenIfExpiring,
+    authMiddlewares.verifyAdmin,
+    usersController.addGroupCompliment);
+    
+route.post('/api/admin/update-group-compliment/:complimentCode',
+    authMiddlewares.verifyTokenAndGenerateAccessTokenIfExpiring,
+    authMiddlewares.verifyAdmin,
+    usersController.updateGroupCompliment);
 
     /** @DELETE_METHODS__________________________ */
 route.delete('/api/admin/delete-employee/:id',

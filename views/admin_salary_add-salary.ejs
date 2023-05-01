@@ -8,19 +8,19 @@
             <label for="employee">Chọn nhân viên</label>
             <select name="employee" required>
                 <option selected disabled value="">--Chọn nhân viên--</option>
-                <% for(var index in allUsers) { %>
-                    <option value="<%= allUsers[index].employee_code
-                        + "-" + allUsers[index].name
-                        + "-" + allUsers[index].position
-                        + "-" + positionList.find(p=>p.position==allUsers[index].position).salary_per_day
-                        + "-" + allUsers[index].employee_type
-                        + "-" + employeeTypeList.find(et=>et.employee_type==allUsers[index].employee_type).multipleSalary
-                        + "-" + allUsers[index].degree
-                        + "-" + degreeList.find(dg=>dg.degree==allUsers[index].degree).multipleSalary
-                        + "-" + allUsers[index].department
-                        + "-" + departmentList.find(d=>d.department==allUsers[index].department).multipleSalary
+                <% for(var index in allEmployees) { %>
+                    <option value="<%= allEmployees[index].employee_code
+                        + "-" + allEmployees[index].name
+                        + "-" + allEmployees[index].position
+                        + "-" + positionList.find(p=>p.position==allEmployees[index].position).salary_per_day
+                        + "-" + allEmployees[index].employee_type
+                        + "-" + employeeTypeList.find(et=>et.employee_type==allEmployees[index].employee_type).multipleSalary
+                        + "-" + allEmployees[index].degree
+                        + "-" + degreeList.find(dg=>dg.degree==allEmployees[index].degree).multipleSalary
+                        + "-" + allEmployees[index].department
+                        + "-" + departmentList.find(d=>d.department==allEmployees[index].department).multipleSalary
                     %>">
-                        <%= `${allUsers[index].employee_code} - ${allUsers[index].name}` %></option>
+                        <%= `${allEmployees[index].employee_code} - ${allEmployees[index].name}` %></option>
                 <% } %>
             </select>
         </div>

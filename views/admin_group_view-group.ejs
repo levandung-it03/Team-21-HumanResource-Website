@@ -1,7 +1,12 @@
 <link rel="stylesheet" href="/css/group_view-group.css">
 <div id="group-view">
     <div id="turn-back-btn">
-        <a href="/admin/category/group/group-list"><i class="fa-solid fa-arrow-left-long"></i> Thoát</a>
+        <% if (idInComplimentDBs) { %>
+            <a href="/admin/category/compliment/view-group-compliments/<%= idInComplimentDBs %>">
+        <% } else { %>
+            <a href="/admin/category/group/group-list">
+        <% } %>
+                <i class="fa-solid fa-arrow-left-long"></i> Thoát</a>
     </div>
     <div id="group-information">
         <div id="group-information_heading">

@@ -13,6 +13,7 @@ const degreeDBs = client.db('company').collection('degree');
 const positionDBs = client.db('company').collection('position');
 const bussinessDBs = client.db('company').collection('bussiness');
 const compliment_typeDBs = client.db('company').collection('compliment_type');
+const group_complimentsDBs = client.db('company').collection('group_compliments');
 const employee_complimentsDBs = client.db('company').collection('employee_compliments');
 const techniqueDBs = client.db('company').collection('technique');
 const departmentDBs = client.db('company').collection('department');
@@ -57,9 +58,9 @@ async function getAllPosition() {
     return await allUser.toArray();
 }
 
-async function getAllUser() {
-    const allUser = userDBs.find({});
-    return await allUser.toArray();
+async function getAllEmployees() {
+    const allEmployees = userDBs.find({});
+    return await allEmployees.toArray();
 }
 
 async function getAllBussiness() {
@@ -94,6 +95,11 @@ async function getEmployeeComplimentsList() {
     return await employeeComplimentsList.toArray();
 }
 
+async function getGroupComplimentsList () {
+    const groupComplimentsList = group_complimentsDBs.find({});
+    return await groupComplimentsList.toArray();
+}
+
 class renderMethods {
     login(req, res) {
         res.render('login', { layout: './login' });
@@ -121,11 +127,11 @@ class renderMethods {
     }
     async admin_general(req, res) {
         try {
-            const allUsers = await getAllUser();
+            const allEmployees = await getAllEmployees();
             const user = await getCurrentUser(req);
             res.render('admin_general', {
                 user: user,
-                employeeList: allUsers,
+                employeeList: allEmployees,
                 layout: './layouts/admin'
             });
         } catch (err) {
@@ -134,11 +140,11 @@ class renderMethods {
     }
     async admin_employeeList(req, res) {
         try {
-            const allUsers = await getAllUser();
+            const allEmployees = await getAllEmployees();
             const user = await getCurrentUser(req);
             res.render('admin_employee_employee-list', {
                 user: user,
-                employeeList: allUsers,
+                employeeList: allEmployees,
                 layout: './layouts/admin'
             });
         } catch (err) {
@@ -200,11 +206,11 @@ class renderMethods {
     }
     async admin_accountList(req, res) {
         try {
-            const allUsers = await getAllUser();
+            const allEmployees = await getAllEmployees();
             const user = await getCurrentUser(req);
             res.render('admin_employee_account-list', {
                 user: user,
-                employeeList: allUsers,
+                employeeList: allEmployees,
                 layout: './layouts/admin'
             });
         } catch (err) {
@@ -305,11 +311,11 @@ class renderMethods {
     async admin_addTechnique(req, res) {
         try {
             const user = await getCurrentUser(req);
-            const allUsers = await getAllUser();
+            const allEmployees = await getAllEmployees();
             res.render('admin_employee_add-technique', {
                 user: user,
                 isUpdating: false,
-                allUsers: allUsers,
+                allEmployees: allEmployees,
                 layout: './layouts/admin'
             });
         } catch (err) {
@@ -319,12 +325,12 @@ class renderMethods {
     async admin_updateTechnique(req, res) {
         try {
             const user = await getCurrentUser(req);
-            const allUsers = await getAllUser();
+            const allEmployees = await getAllEmployees();
             const specifiedTechnique = await getSpecifiedObject(req.params.id, techniqueDBs);
             res.render('admin_employee_add-technique', {
                 user: user,
                 isUpdating: true,
-                allUsers: allUsers,
+                allEmployees: allEmployees,
                 specifiedTechnique: specifiedTechnique,
                 layout: './layouts/admin'
             });
@@ -426,7 +432,7 @@ class renderMethods {
     async admin_addSalary(req, res) {
         try {
             const user = await getCurrentUser(req);
-            const allUsers = await getAllUser();
+            const allEmployees = await getAllEmployees();
             const degreeList = await getAllDegree();
             const salaryList = await getAllSalary();
             const positionList = await getAllPosition();
@@ -434,7 +440,7 @@ class renderMethods {
             const departmentList = await getAllDepartment();
             res.render('admin_salary_add-salary', {
                 user: user,
-                allUsers: allUsers,
+                allEmployees: allEmployees,
                 degreeList: degreeList,
                 employeeTypeList: employeeTypeList,
                 salaryList: salaryList,
@@ -462,10 +468,10 @@ class renderMethods {
     async admin_addBussiness(req, res) {
         try {
             const user = await getCurrentUser(req);
-            const allUsers = await getAllUser();
+            const allEmployees = await getAllEmployees();
             res.render('admin_bussiness_add-bussiness', {
                 user: user,
-                allUsers: allUsers,
+                allEmployees: allEmployees,
                 isUpdating: false,
                 layout: './layouts/admin'
             });
@@ -477,10 +483,10 @@ class renderMethods {
         try {
             const user = await getCurrentUser(req);
             const specifiedBussiness = await getSpecifiedObject(req.params.id, bussinessDBs);
-            const allUsers = await getAllUser();
+            const allEmployees = await getAllEmployees();
             res.render('admin_bussiness_add-bussiness', {
                 user: user,
-                allUsers: allUsers,
+                allEmployees: allEmployees,
                 isUpdating: true,
                 specifiedBussiness: specifiedBussiness,
                 layout: './layouts/admin'
@@ -504,12 +510,12 @@ class renderMethods {
     }
     async admin_addGroup(req, res) {
         try {
-            const allUsers = await getAllUser();
+            const allEmployees = await getAllEmployees();
             const allTechnique = await getAllTechnique();
             const user = await getCurrentUser(req);
             res.render('admin_group_add-group', {
                 user: user,
-                allUsers: allUsers,
+                allEmployees: allEmployees,
                 isUpdating: false,
                 allTechnique: allTechnique,
                 layout: './layouts/admin'
@@ -520,13 +526,13 @@ class renderMethods {
     }
     async admin_updateGroup(req, res) {
         try {
-            const allUsers = await getAllUser();
+            const allEmployees = await getAllEmployees();
             const specifiedGroup = await getSpecifiedObject(req.params.id, groupDBs);
             const allTechnique = await getAllTechnique();
             const user = await getCurrentUser(req);
             res.render('admin_group_add-group', {
                 user: user,
-                allUsers: allUsers,
+                allEmployees: allEmployees,
                 specifiedGroup: specifiedGroup,
                 isUpdating: true,
                 allTechnique: allTechnique,
@@ -542,6 +548,8 @@ class renderMethods {
             const user = await getCurrentUser(req);
             res.render('admin_group_view-group', {
                 user: user,
+                isFromComplimentsList: false,
+                idInComplimentDBs: null,
                 specifiedGroup: specifiedGroup,
                 layout: './layouts/admin'
             });
@@ -552,12 +560,12 @@ class renderMethods {
     async admin_addEmployeeIntoGroup(req, res) {
         try {
             const allTechnique = await getAllTechnique();
-            const allUsers = await getAllUser();
+            const allEmployees = await getAllEmployees();
             const specifiedGroup = await getSpecifiedObject(req.params.id, groupDBs);
             const user = await getCurrentUser(req);
             res.render('admin_group_add-employee-into-group', {
                 user: user,
-                allUsers: allUsers,
+                allEmployees: allEmployees,
                 specifiedGroup: specifiedGroup,
                 allTechnique: allTechnique,
                 layout: './layouts/admin'
@@ -620,7 +628,7 @@ class renderMethods {
     }
     async admin_addEmployeeCompliment(req, res) {
         try {
-            const allUsers = await getAllUser();
+            const allEmployees = await getAllEmployees();
             const allCompliment_type = await getAllCompliment_type();
             const user = await getCurrentUser(req);
             const employeeId = req.params.employeeId;
@@ -631,7 +639,7 @@ class renderMethods {
                     isUpdating: false,
                     specifiedEmployee: specifiedEmployee,
                     allCompliment_type: allCompliment_type,
-                    allUsers: allUsers,
+                    allEmployees: allEmployees,
                     layout: './layouts/admin'
                 });
             } else {
@@ -640,7 +648,7 @@ class renderMethods {
                     isUpdating: false,
                     specifiedEmployee: undefined,
                     allCompliment_type: allCompliment_type,
-                    allUsers: allUsers,
+                    allEmployees: allEmployees,
                     layout: './layouts/admin'
                 });
             }
@@ -667,7 +675,7 @@ class renderMethods {
     }
     async admin_updateEmployeeCompliment(req, res) {
         try {
-            const allUsers = await getAllUser();
+            const allEmployees = await getAllEmployees();
             const allCompliment_type = await getAllCompliment_type();
             const user = await getCurrentUser(req);
             const specifiedEmployee = await getSpecifiedObject(req.params.employeeId, employee_complimentsDBs);
@@ -680,7 +688,83 @@ class renderMethods {
                 specifiedEmployee: specifiedEmployee,
                 specifiedCompliment: specifiedCompliment,
                 allCompliment_type: allCompliment_type,
-                allUsers: allUsers,
+                allEmployees: allEmployees,
+                layout: './layouts/admin'
+            });
+        } catch (err) {
+            clearCookiesAndReturnLogin(res);
+        }
+    }
+    async admin_groupComplimentsList(req, res) {
+        try {
+            const groupComplimentsList = await getGroupComplimentsList(req.params.id, group_complimentsDBs);
+            const user = await getCurrentUser(req);
+            res.render('admin_compliment_group-compliments-list', {
+                user: user,
+                groupComplimentsList: groupComplimentsList,
+                layout: './layouts/admin'
+            });
+        } catch (err) {
+            clearCookiesAndReturnLogin(res);
+        }
+    }
+    async admin_addGroupCompliment(req, res) {
+        try {
+            const allGroups = await getAllGroup();
+            const allCompliment_type = await getAllCompliment_type();
+            const user = await getCurrentUser(req);
+            const groupId = req.params.groupId;
+            if (groupId != undefined) {
+                const specifiedGroup = await getSpecifiedObject(groupId, group_complimentsDBs);
+                res.render('admin_compliment_add-group-compliment', {
+                    user: user,
+                    isUpdating: false,
+                    specifiedGroup: specifiedGroup,
+                    allCompliment_type: allCompliment_type,
+                    allGroups: allGroups,
+                    layout: './layouts/admin'
+                });
+            } else {
+                res.render('admin_compliment_add-group-compliment', {
+                    user: user,
+                    isUpdating: false,
+                    specifiedGroup: undefined,
+                    allCompliment_type: allCompliment_type,
+                    allGroups: allGroups,
+                    layout: './layouts/admin'
+                });
+            }
+        } catch (err) {
+            clearCookiesAndReturnLogin(res);
+        }
+    }
+    async admin_viewGroupCompliments(req, res) {
+        try {
+            const specifiedGroupInComplimentDBs =
+                await getSpecifiedObject(req.params.id, group_complimentsDBs);
+            const specifiedGroup =
+                await groupDBs.findOne({ group_code: specifiedGroupInComplimentDBs.group_code });
+            const user = await getCurrentUser(req);
+            res.render('admin_compliment_group-compliments-view', {
+                user: user,
+                specifiedGroup: specifiedGroup,
+                specifiedGroupInComplimentDBs: specifiedGroupInComplimentDBs,
+                layout: './layouts/admin'
+            });
+        } catch (err) {
+            clearCookiesAndReturnLogin(res);
+        }
+    }
+    async admin_viewSpecifiedGroupOfComplimentsList(req, res) {
+        try {
+            const specifiedGroup = await getSpecifiedObject(req.params.id, groupDBs);
+            const idInComplimentDBs = req.params.idInComplimentDBs;
+            const user = await getCurrentUser(req);
+            res.render('admin_group_view-group', {
+                user: user,
+                isFromComplimentsList: true,
+                idInComplimentDBs: idInComplimentDBs,
+                specifiedGroup: specifiedGroup,
                 layout: './layouts/admin'
             });
         } catch (err) {
