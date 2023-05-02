@@ -89,7 +89,7 @@ route.get('/admin/category/employee/update-degree/:id',
     authMiddlewares.verifyTokenAndGenerateAccessTokenIfExpiring,
     authMiddlewares.verifyAdmin,
     renderMethods.admin_updateDegree);
-    
+
 route.get('/admin/category/employee/technique-list',
     authMiddlewares.verifyTokenAndGenerateAccessTokenIfExpiring,
     authMiddlewares.verifyAdmin,
@@ -99,7 +99,7 @@ route.get('/admin/category/employee/add-technique',
     authMiddlewares.verifyTokenAndGenerateAccessTokenIfExpiring,
     authMiddlewares.verifyAdmin,
     renderMethods.admin_addTechnique);
-    
+
 route.get('/admin/category/employee/update-technique/:id',
     authMiddlewares.verifyTokenAndGenerateAccessTokenIfExpiring,
     authMiddlewares.verifyAdmin,
@@ -169,12 +169,12 @@ route.get('/admin/category/group/add-group',
     authMiddlewares.verifyTokenAndGenerateAccessTokenIfExpiring,
     authMiddlewares.verifyAdmin,
     renderMethods.admin_addGroup);
-    
+
 route.get('/admin/category/group/view-group/:id',
     authMiddlewares.verifyTokenAndGenerateAccessTokenIfExpiring,
     authMiddlewares.verifyAdmin,
     renderMethods.admin_viewGroup);
-    
+
 route.get('/admin/category/group/add-employee-into-group/:id',
     authMiddlewares.verifyTokenAndGenerateAccessTokenIfExpiring,
     authMiddlewares.verifyAdmin,
@@ -185,11 +185,11 @@ route.get('/admin/category/group/update-group/:id',
     authMiddlewares.verifyAdmin,
     renderMethods.admin_updateGroup);
 
-    route.get('/admin/category/compliment/compliment-type',
+route.get('/admin/category/compliment/compliment-type',
     authMiddlewares.verifyTokenAndGenerateAccessTokenIfExpiring,
     authMiddlewares.verifyAdmin,
     renderMethods.admin_complimentType);
-    
+
 route.get('/admin/category/compliment/add-compliment-type',
     authMiddlewares.verifyTokenAndGenerateAccessTokenIfExpiring,
     authMiddlewares.verifyAdmin,
@@ -204,7 +204,7 @@ route.get('/admin/category/compliment/employee-compliments-list',
     authMiddlewares.verifyTokenAndGenerateAccessTokenIfExpiring,
     authMiddlewares.verifyAdmin,
     renderMethods.admin_employeeComplimentsList);
-    
+
 route.get('/admin/category/compliment/add-employee-compliment',
     authMiddlewares.verifyTokenAndGenerateAccessTokenIfExpiring,
     authMiddlewares.verifyAdmin,
@@ -224,13 +224,12 @@ route.get('/admin/category/compliment/update-employee-compliment/:employeeId/:id
     authMiddlewares.verifyTokenAndGenerateAccessTokenIfExpiring,
     authMiddlewares.verifyAdmin,
     renderMethods.admin_updateEmployeeCompliment);
-/** @________________________________________WORKING______________________________________________ */
 
 route.get('/admin/category/compliment/group-compliments-list',
     authMiddlewares.verifyTokenAndGenerateAccessTokenIfExpiring,
     authMiddlewares.verifyAdmin,
     renderMethods.admin_groupComplimentsList);
-    
+
 route.get('/admin/category/compliment/add-group-compliment',
     authMiddlewares.verifyTokenAndGenerateAccessTokenIfExpiring,
     authMiddlewares.verifyAdmin,
@@ -256,6 +255,77 @@ route.get('/admin/category/compliment/update-group-compliment/:groupId/:id',
     authMiddlewares.verifyAdmin,
     renderMethods.admin_updateGroupCompliment);
 
+route.get('/admin/category/discipline/discipline-type',
+    authMiddlewares.verifyTokenAndGenerateAccessTokenIfExpiring,
+    authMiddlewares.verifyAdmin,
+    renderMethods.admin_disciplineType);
+
+route.get('/admin/category/discipline/add-discipline-type',
+    authMiddlewares.verifyTokenAndGenerateAccessTokenIfExpiring,
+    authMiddlewares.verifyAdmin,
+    renderMethods.admin_addDisciplineType);
+
+route.get('/admin/category/discipline/update-discipline-type/:id',
+    authMiddlewares.verifyTokenAndGenerateAccessTokenIfExpiring,
+    authMiddlewares.verifyAdmin,
+    renderMethods.admin_updateDisciplineType);
+
+route.get('/admin/category/discipline/employee-discipline-list',
+    authMiddlewares.verifyTokenAndGenerateAccessTokenIfExpiring,
+    authMiddlewares.verifyAdmin,
+    renderMethods.admin_employeeDisciplineList);
+
+route.get('/admin/category/discipline/add-employee-discipline',
+    authMiddlewares.verifyTokenAndGenerateAccessTokenIfExpiring,
+    authMiddlewares.verifyAdmin,
+    renderMethods.admin_addEmployeeDiscipline);
+
+route.get('/admin/category/discipline/view-employee-discipline/:id',
+    authMiddlewares.verifyTokenAndGenerateAccessTokenIfExpiring,
+    authMiddlewares.verifyAdmin,
+    renderMethods.admin_viewEmployeeDiscipline);
+
+route.get('/admin/category/discipline/add-employee-discipline/:employeeId',
+    authMiddlewares.verifyTokenAndGenerateAccessTokenIfExpiring,
+    authMiddlewares.verifyAdmin,
+    renderMethods.admin_addEmployeeDiscipline);
+
+route.get('/admin/category/discipline/update-employee-discipline/:employeeId/:id',
+    authMiddlewares.verifyTokenAndGenerateAccessTokenIfExpiring,
+    authMiddlewares.verifyAdmin,
+    renderMethods.admin_updateEmployeeDiscipline);
+
+route.get('/admin/category/discipline/group-discipline-list',
+    authMiddlewares.verifyTokenAndGenerateAccessTokenIfExpiring,
+    authMiddlewares.verifyAdmin,
+    renderMethods.admin_groupDisciplineList);
+
+route.get('/admin/category/discipline/add-group-discipline',
+    authMiddlewares.verifyTokenAndGenerateAccessTokenIfExpiring,
+    authMiddlewares.verifyAdmin,
+    renderMethods.admin_addGroupDiscipline);
+
+route.get('/admin/category/discipline/view-group-discipline/:id',
+    authMiddlewares.verifyTokenAndGenerateAccessTokenIfExpiring,
+    authMiddlewares.verifyAdmin,
+    renderMethods.admin_viewGroupDiscipline);
+
+route.get('/admin/category/discipline/view-group-discipline/view-group/:idInDisciplineDBs/:id',
+    authMiddlewares.verifyTokenAndGenerateAccessTokenIfExpiring,
+    authMiddlewares.verifyAdmin,
+    renderMethods.admin_viewSpecifiedGroupOfDisciplineList);
+
+route.get('/admin/category/discipline/add-group-discipline/:groupId',
+    authMiddlewares.verifyTokenAndGenerateAccessTokenIfExpiring,
+    authMiddlewares.verifyAdmin,
+    renderMethods.admin_addGroupDiscipline);
+
+route.get('/admin/category/discipline/update-group-discipline/:groupId/:id',
+    authMiddlewares.verifyTokenAndGenerateAccessTokenIfExpiring,
+    authMiddlewares.verifyAdmin,
+    renderMethods.admin_updateGroupDiscipline);
+    
+/** @________________________________________WORKING______________________________________________ */
 /** @_____________________________________________________________________________________________ */
 /** @POST_METHODS__________________________ */
 route.post('/api/admin/add-employee',
@@ -358,7 +428,7 @@ route.post('/api/admin/add-compliment-type',
 route.post('/api/admin/update-compliment-type/:id',
     authMiddlewares.verifyTokenAndGenerateAccessTokenIfExpiring,
     authMiddlewares.verifyAdmin,
-    usersController.updateComplimentType);    
+    usersController.updateComplimentType);
 
 route.post('/api/admin/add-employee-compliment/:id',
     authMiddlewares.verifyTokenAndGenerateAccessTokenIfExpiring,
@@ -369,7 +439,7 @@ route.post('/api/admin/add-employee-compliment',
     authMiddlewares.verifyTokenAndGenerateAccessTokenIfExpiring,
     authMiddlewares.verifyAdmin,
     usersController.addEmployeeCompliment);
-    
+
 route.post('/api/admin/update-employee-compliment/:complimentCode',
     authMiddlewares.verifyTokenAndGenerateAccessTokenIfExpiring,
     authMiddlewares.verifyAdmin,
@@ -384,13 +454,53 @@ route.post('/api/admin/add-group-compliment',
     authMiddlewares.verifyTokenAndGenerateAccessTokenIfExpiring,
     authMiddlewares.verifyAdmin,
     usersController.addGroupCompliment);
-    
+
 route.post('/api/admin/update-group-compliment/:complimentCode',
     authMiddlewares.verifyTokenAndGenerateAccessTokenIfExpiring,
     authMiddlewares.verifyAdmin,
     usersController.updateGroupCompliment);
 
-    /** @DELETE_METHODS__________________________ */
+route.post('/api/admin/add-discipline-type',
+    authMiddlewares.verifyTokenAndGenerateAccessTokenIfExpiring,
+    authMiddlewares.verifyAdmin,
+    usersController.addDisciplineType);
+
+route.post('/api/admin/update-discipline-type/:id',
+    authMiddlewares.verifyTokenAndGenerateAccessTokenIfExpiring,
+    authMiddlewares.verifyAdmin,
+    usersController.updateDisciplineType);
+
+route.post('/api/admin/add-employee-discipline/:id',
+    authMiddlewares.verifyTokenAndGenerateAccessTokenIfExpiring,
+    authMiddlewares.verifyAdmin,
+    usersController.addEmployeeDiscipline);
+
+route.post('/api/admin/add-employee-discipline',
+    authMiddlewares.verifyTokenAndGenerateAccessTokenIfExpiring,
+    authMiddlewares.verifyAdmin,
+    usersController.addEmployeeDiscipline);
+
+route.post('/api/admin/update-employee-discipline/:disciplineCode',
+    authMiddlewares.verifyTokenAndGenerateAccessTokenIfExpiring,
+    authMiddlewares.verifyAdmin,
+    usersController.updateEmployeeDiscipline);
+
+route.post('/api/admin/add-group-discipline/:id',
+    authMiddlewares.verifyTokenAndGenerateAccessTokenIfExpiring,
+    authMiddlewares.verifyAdmin,
+    usersController.addGroupDiscipline);
+
+route.post('/api/admin/add-group-discipline',
+    authMiddlewares.verifyTokenAndGenerateAccessTokenIfExpiring,
+    authMiddlewares.verifyAdmin,
+    usersController.addGroupDiscipline);
+
+route.post('/api/admin/update-group-discipline/:disciplineCode',
+    authMiddlewares.verifyTokenAndGenerateAccessTokenIfExpiring,
+    authMiddlewares.verifyAdmin,
+    usersController.updateGroupDiscipline);
+
+/** @DELETE_METHODS__________________________ */
 route.delete('/api/admin/delete-employee/:id',
     authMiddlewares.verifyTokenAndGenerateAccessTokenIfExpiring,
     authMiddlewares.verifyAdmin,
@@ -420,7 +530,7 @@ route.delete('/api/admin/delete-degree/:id',
     authMiddlewares.verifyTokenAndGenerateAccessTokenIfExpiring,
     authMiddlewares.verifyAdmin,
     usersController.deleteDegree);
-    
+
 route.delete('/api/admin/delete-technique/:id',
     authMiddlewares.verifyTokenAndGenerateAccessTokenIfExpiring,
     authMiddlewares.verifyAdmin,
@@ -440,7 +550,7 @@ route.delete('/api/admin/delete-employee-inside-group/:group_id/:id',
     authMiddlewares.verifyTokenAndGenerateAccessTokenIfExpiring,
     authMiddlewares.verifyAdmin,
     usersController.deleteEmployeeIntoGroup);
-    
+
 route.delete('/api/admin/delete-compliment_type/:id',
     authMiddlewares.verifyTokenAndGenerateAccessTokenIfExpiring,
     authMiddlewares.verifyAdmin,
@@ -450,7 +560,7 @@ route.delete('/api/admin/delete-employee-compliment/:id',
     authMiddlewares.verifyTokenAndGenerateAccessTokenIfExpiring,
     authMiddlewares.verifyAdmin,
     usersController.deleteEmployeeCompliment);
-    
+
 route.delete('/api/admin/delete-compliment-of-employee/:employeeId/:id',
     authMiddlewares.verifyTokenAndGenerateAccessTokenIfExpiring,
     authMiddlewares.verifyAdmin,
@@ -460,12 +570,37 @@ route.delete('/api/admin/delete-group-compliment/:id',
     authMiddlewares.verifyTokenAndGenerateAccessTokenIfExpiring,
     authMiddlewares.verifyAdmin,
     usersController.deleteGroupCompliment);
-    
+
 route.delete('/api/admin/delete-compliment-of-group/:groupId/:id',
     authMiddlewares.verifyTokenAndGenerateAccessTokenIfExpiring,
     authMiddlewares.verifyAdmin,
     usersController.deleteComplimentOfGroup);
-    
+
+route.delete('/api/admin/delete-discipline_type/:id',
+    authMiddlewares.verifyTokenAndGenerateAccessTokenIfExpiring,
+    authMiddlewares.verifyAdmin,
+    usersController.deleteDisciplineType);
+
+route.delete('/api/admin/delete-employee-discipline/:id',
+    authMiddlewares.verifyTokenAndGenerateAccessTokenIfExpiring,
+    authMiddlewares.verifyAdmin,
+    usersController.deleteEmployeeDiscipline);
+
+route.delete('/api/admin/delete-discipline-of-employee/:employeeId/:id',
+    authMiddlewares.verifyTokenAndGenerateAccessTokenIfExpiring,
+    authMiddlewares.verifyAdmin,
+    usersController.deleteDisciplineOfEmployee);
+
+route.delete('/api/admin/delete-group-discipline/:id',
+    authMiddlewares.verifyTokenAndGenerateAccessTokenIfExpiring,
+    authMiddlewares.verifyAdmin,
+    usersController.deleteGroupDiscipline);
+
+route.delete('/api/admin/delete-discipline-of-group/:groupId/:id',
+    authMiddlewares.verifyTokenAndGenerateAccessTokenIfExpiring,
+    authMiddlewares.verifyAdmin,
+    usersController.deleteDisciplineOfGroup);
+
 /**@_______________________________________________________________________________________________ */
 
 module.exports = route;

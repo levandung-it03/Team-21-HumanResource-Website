@@ -1,0 +1,140 @@
+<link rel="stylesheet" href="/css/discipline_view-group-discipline.css">
+<div id="view-group-discipline">
+    <div id="turn-back-btn">
+        <a href="/admin/category/discipline/group-discipline-list">
+            <i class="fa-solid fa-arrow-left-long"></i> Thoát</a>
+    </div>
+    <div id="title">
+        <span>Thông tin kỷ luật chi tiết</span>
+    </div>
+    <div id="group-information">
+        <div id="group-information_heading">
+            <div id="title">
+                <span>Thông tin cơ bản đội nhóm</span>
+            </div>
+            <div id="add-btn">
+                <a href="/admin/category/discipline/view-group-discipline/view-group/<%= specifiedGroupInDisciplineDBs._id+"/"+specifiedGroup._id %>">Chi tiết thông tin nhóm</a>
+            </div>
+        </div>
+        <div id="group-information_container">
+            <ul>
+                    <li class="container_items" id="group_code">
+                        <span class="title">Mã nhóm: </span>
+                        <span class="content">
+                            <%= specifiedGroup.group_code %>
+                        </span>
+                    </li>
+                    <li class="container_items" id="group">
+                        <span class="title">Tên nhóm: </span>
+                        <span class="content">
+                            <%= specifiedGroup.group %>
+                        </span>
+                    </li>
+                    <li class="container_items" id="dateCreated">
+                        <span class="title">Ngày tạo: </span>
+                        <span class="content">
+                            <%= specifiedGroup.dateCreated %>
+                        </span>
+                    </li>
+                    <li class="container_items" id="description">
+                        <span class="title">Mô tả nhóm: </span>
+                        <span class="content">
+                            <%= specifiedGroup.description %>
+                        </span>
+                    </li>
+                </ul>
+        </div>
+    </div>
+    <div id="group-discipline-list">
+        <div id="heading" class="group-discipline-list_heading">
+            <div class="hide" id="turn-back-btn">
+                <a href="/admin/category/discipline/view-group-discipline/<%= specifiedGroupInDisciplineDBs._id %>">
+                    <i class="fa-solid fa-arrow-left-long"></i> Thoát</a>
+            </div>
+            <div id="title">
+                <span>Danh sách kỷ luật</span>
+            </div>
+            <div id="add-btn">
+                <a href="/admin/category/discipline/add-group-discipline/<%= specifiedGroupInDisciplineDBs._id %>">Thêm kỷ luật</a>
+            </div>
+            <div id="search">
+                <input class="search" type="text" placeholder="Tìm kiếm">
+                <i class="fa-solid fa-magnifying-glass"></i>
+            </div>
+        </div>
+        <table>
+            <thead>
+                <tr class="table_title">
+                    <th id="ordinal">
+                        <span class="title_name">STT</span>
+                    </th>
+                    <th id="discipline_code">
+                        <span class="title_name">Mã kỷ luật</span>
+                        <i class="fa-solid fa-sort" id="discipline_code"></i>
+                    </th>
+                    <th id="discipline">
+                        <span class="title_name">Tên kỷ luật</span>
+                    </th>
+                    <th id="numbers">
+                        <span class="title_name">Số quyết định</span>
+                    </th>
+                    <th id="discipline_type">
+                        <span class="title_name">Loại kỷ luật</span>
+                    </th>
+                    <th id="description">
+                        <span class="title_name">Mô tả</span>
+                    </th>
+                    <th id="dateCreated">
+                        <span class="title_name">Ngày quyết định</span>
+                        <i class="fa-solid fa-sort" id="dateCreated"></i>
+                    </th>
+                    <th id="update-group-discipline">
+                        <span class="title_name">Sửa</span>
+                    </th>
+                    <th id="delete-group-discipline">
+                        <span class="title_name">Xoá</span>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <% for (var i=0; i < specifiedGroupInDisciplineDBs.discipline_list.length; i++) { %>
+                    <tr class="body" id=<%=i+1 %>>
+                        <td id="ordinal">
+                            <%= (i + 1) %>
+                        </td>
+                        <td class="body_enable-searching body_enable-sorting" id="discipline_code">
+                            <%= specifiedGroupInDisciplineDBs.discipline_list[i].discipline_code %>
+                        </td>
+                        <td class="body_enable-searching body_enable-sorting" id="discipline">
+                            <%= specifiedGroupInDisciplineDBs.discipline_list[i].discipline %>
+                        </td>
+                        <td class="body_enable-searching body_enable-sorting" id="numbers">
+                            <%= specifiedGroupInDisciplineDBs.discipline_list[i].numbers %>
+                        </td>
+                        <td class="body_enable-searching body_enable-sorting" id="discipline_type">
+                            <%= specifiedGroupInDisciplineDBs.discipline_list[i].discipline_type %>
+                        </td>
+                        <td class="body_enable-searching body_enable-sorting" id="description">
+                            <%= specifiedGroupInDisciplineDBs.discipline_list[i].description %>
+                        </td>
+                        <td class="body_enable-searching body_enable-sorting" id="dateCreated">
+                            <%= specifiedGroupInDisciplineDBs.discipline_list[i].dateCreated %>
+                        </td>
+                        <td class="update-group-discipline">
+                            <a href="
+                            <%= "/admin/category/discipline/update-group-discipline/"
+                                + specifiedGroupInDisciplineDBs._id.toString() + "/"
+                                + specifiedGroupInDisciplineDBs.discipline_list[i]._id.toString() %>"><i
+                                class="fa-sharp fa-solid fa-pencil"></i> </a>
+                        </td>
+                        <td class="delete-group-discipline">
+                            <a discipline_id=<%=specifiedGroupInDisciplineDBs.discipline_list[i]._id.toString() %>><i
+                                class="fa-sharp fa-solid fa-trash"></i> </a>
+                        </td>
+                    </tr>
+                <% } %>
+            </tbody>
+        </table>
+    </div>
+</div>
+<script src="/js/discipline_view-group-discipline.js"></script>

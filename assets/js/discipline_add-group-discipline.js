@@ -2,11 +2,21 @@ let submitFormCancellation = false;
 
 (function main() {
     const errorMessages = {
-        group: {
+        discipline: {
             confirm: function (value) {
                 this.isValid = /^[0-9a-zA-ZÀ-ỹ\s]+$/u.test(value);
             },
-            message: "Tên nhóm không hợp lệ.",
+            message: "Kỷ thuật không hợp lệ.",
+            isValid: false,
+        },
+        numbers: {
+            confirm: function (value) {
+                const firstNumbersSplitArr = value.split("/");
+                const textValue = firstNumbersSplitArr.pop();
+                this.isValid =
+                    firstNumbersSplitArr.every(n => /[0-9]/.test(n)) && /^[A-ZÀ-ỹ\s-]+$/u.test(textValue);
+            },
+            message: "Số quyết định không hợp lệ.",
             isValid: false,
         },
     }
@@ -33,11 +43,8 @@ let submitFormCancellation = false;
     (function createErrorMessages() {
         [...$$('.form_text-input .form_text-input_err-message')].forEach((e) => {
             const parentId = e.parentNode.id;
-            e.innerHTML = `
-    <span class='err-message-block' id='${parentId}'>
-        ${errorMessages[parentId].message}
-    </span>
-`;
+            e.innerHTML = `<span class='err-message-block' id='${parentId}'>${errorMessages[parentId].message}
+            </span>`;
         })
     })();
 
@@ -48,6 +55,8 @@ let submitFormCancellation = false;
                     generalMethods.adjustUpperAndLowerCase(e.target);
                 }
                 generalMethods.trimInputData(e.target);
+                if (tag.classList.contains("adjust-upper-case"))
+                    tag.value = tag.value.toUpperCase();
 
                 const errMesTagObject = errorMessages[tag.name];
                 const errTag = $(`div#${tag.name} span#${tag.name}`);
@@ -63,44 +72,44 @@ let submitFormCancellation = false;
     })();
 
     (function recoverEmployeeSelectData() {
-        const selectTag = $('.form_select-input#employee select');
-        let value = selectTag.getAttribute('data').trim();
-        selectTag.querySelectorAll('option').forEach((optionTag) => {
-            if (optionTag.innerHTML.split("-")[1].trim() == value) {
-                optionTag.selected = true;
-            }
+        const selectTags = $$('.form_select-input select');
+        selectTags.forEach(selectTag => {
+            let value = selectTag.getAttribute('data').trim();
+            if (value) {
+                const respectiveHiddenInputTag = $(`.form_select-input input[name=${selectTag.name}]`);
+                selectTag.querySelectorAll('option').forEach((optionTag) => {
+                    if (optionTag.innerHTML.split("-").map(t=>t.trim()).includes(value)) {
+                        optionTag.selected = true;
+                        respectiveHiddenInputTag.value = optionTag.value;
+                    }
+                })
+            } else return;
         })
     })();
 
     const urlParams = new URLSearchParams(window.location.search);
     const myParam = urlParams.get('error');
     if (myParam) {
+        alert('Đội nhóm này không được kỷ thuật một loại hình quá nhiều trong cùng một thời gian quyết định!');
         (async function handleRedirect() {
             const dataMessages = myParam.split('?');
             const data = dataMessages.map((e) => {
                 return e.split('=');
             })
-            if (data[0][0] == "error_group") {
-                console.log(data[0][0]);
-                alert('Tên nhóm đã tồn tại!');
 
-            } else if (data[0][0].includes("employee_code")) {
-                console.log(data[0][0]);
-                alert('Nhân viên đã tồn tại trong nhóm khác!');
-
-            }
-
-            window.history.replaceState({}, "", "http://localhost:3000/admin/category/group/add-group");
+            window.history.replaceState({}, "", "http://localhost:3000/admin/category/discipline/add-group-discipline");
             strictInputTags.forEach((tag, index) => {
                 tag.value = data.find((e) => e[0] == tag.name)[1];
                 errorMessages[tag.name].confirm(tag.value);
             })
-            $$('.form_select-input select option').forEach(optionTag => {
-                if (optionTag.value.includes(data[2][1].split("-")[1])) {
-                    optionTag.selected = true;
-                }
+            $$('.form_select-input select').forEach(selectTag => {
+                const selectedData = data.find(data => data[0] == selectTag.name)[1];
+                selectTag.querySelectorAll('option').forEach(optionTag => {
+                    if(optionTag.value.includes(selectedData))
+                        optionTag.selected = true;
+                })
             })
-            $('.form_textarea-input textarea').innerText = data[3][1];
+            $('.form_textarea-input textarea').innerText = data.find(data => data[0] == 'description')[1];
         })();
     }
 })();

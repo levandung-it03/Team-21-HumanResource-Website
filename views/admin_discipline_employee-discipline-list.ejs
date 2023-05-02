@@ -1,0 +1,80 @@
+<link rel="stylesheet" href="/css/discipline_employee-discipline-list.css">
+<div id="employee-discipline-list">
+    <div id="heading">
+        <div class="hide" id="turn-back-btn">
+            <a href="/admin/category/discipline/employee-discipline-list"><i class="fa-solid fa-arrow-left-long"></i> Thoát</a>
+        </div>
+        <div id="title">
+            <span>Danh sách kỷ luật nhân viên</span>
+        </div>
+        <div id="add-btn">
+            <a href="/admin/category/discipline/add-employee-discipline">Thêm kỷ luật</a>
+        </div>
+        <div id="search">
+            <input class="search" type="text" placeholder="Tìm kiếm">
+            <i class="fa-solid fa-magnifying-glass"></i>
+        </div>
+    </div>
+    <table>
+        <thead>
+            <tr class="table_title">
+                <th id="ordinal">
+                    <span class="title_name">STT</span>
+                </th>
+                <th id="employee_code">
+                    <span class="title_name">Mã nhân viên</span>
+                    <i class="fa-solid fa-sort" id="employee_code"></i>
+                </th>
+                <th id="name">
+                    <span class="title_name">Tên nhân viên</span>
+                    <i class="fa-solid fa-sort" id="name"></i>
+                </th>
+                <th id="discipline">
+                    <span class="title_name">Tên kỷ luật (gần đây nhất)</span>
+                    <i class="fa-solid fa-sort" id="discipline"></i>
+                </th>
+                <th id="dateCreated">
+                    <span class="title_name">Ngày quyết định</span>
+                    <i class="fa-solid fa-sort" id="dateCreated"></i>
+                </th>
+                <th id="view-employee-discipline">
+                    <span class="title_name">Xem</span>
+                </th>
+                <th id="delete-employee-discipline">
+                    <span class="title_name">Xoá</span>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <% for (var i = 0; i < employeeDisciplineList.length; i++) { %>
+                <% const lastDiscipline =
+                    employeeDisciplineList[i].discipline_list.sort(function(obj_1, obj_2) {
+                        const date_1 = Date.parse(obj_1.dateCreated);
+                        const date_2 = Date.parse(obj_2.dateCreated);
+                        if (date_1 > date_2)    return 1;
+                        if (date_1 < date_2)    return -1;
+                        return 0;
+                    }).pop(); %>
+                <tr class="body" id=<%= i+1 %>>
+                    <td id="ordinal"><%= (i + 1) %></td>
+                    <td class="body_enable-searching body_enable-sorting"
+                        id="employee_code"><%= employeeDisciplineList[i].employee_code %></td>
+                    <td class="body_enable-searching body_enable-sorting"
+                        id="name"><%= employeeDisciplineList[i].name %></td>
+                    <td class="body_enable-searching body_enable-sorting"
+                        id="discipline"><%= lastDiscipline.discipline %></td>
+                    <td class="body_enable-searching body_enable-sorting"
+                        id="dateCreated"><%= lastDiscipline.dateCreated %></td>
+                    <td class="view-employee-discipline">
+                        <a href="/admin/category/discipline/view-employee-discipline/<%= employeeDisciplineList[i]._id.toString() %>">
+                            <i class="fa-sharp fa-solid fa-eye"></i></a>
+                    </td>
+                    <td class="delete-employee-discipline">
+                        <a employee_discipline_id=<%= employeeDisciplineList[i]._id.toString() %>><i class="fa-sharp fa-solid fa-trash"></i></a>
+                    </td>
+                </tr>
+            <% } %>
+        </tbody>
+    </table>
+</div>
+<script src="/js/discipline_employee-discipline-list.js"></script>

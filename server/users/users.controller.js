@@ -14,6 +14,9 @@ const degreeDBs = client.db('company').collection('degree');
 const compliment_typeDBs = client.db('company').collection('compliment_type');
 const employee_complimentsDBs = client.db('company').collection('employee_compliments');
 const group_complimentsDBs = client.db('company').collection('group_compliments');
+const discipline_typeDBs = client.db('company').collection('discipline_type');
+const employee_disciplineDBs = client.db('company').collection('employee_discipline');
+const group_disciplineDBs = client.db('company').collection('group_discipline');
 const positionDBs = client.db('company').collection('position');
 const bussinessDBs = client.db('company').collection('bussiness');
 const techniqueDBs = client.db('company').collection('technique');
@@ -22,8 +25,9 @@ const employee_typeDBs = client.db('company').collection('employee_type');
 
 const usersMethods = require('./users.methods');
 const authMethods = require('../auth/auth.methods');
-const { UserDb, Salary, Position, Degree, Department, Employee_type, Technique, Bussiness, Group, Compliment_type,
-Employee_compliments, Group_compliments } = require('./users.model');
+const { UserDb, Salary, Position, Degree, Department, Employee_type, Technique, Bussiness, Group,
+Compliment_type, Employee_compliments, Group_compliments, Discipline_type, Employee_discipline,
+Group_discipline } = require('./users.model');
 
 function showErrMes(res, err) {
     res.status(500).send({ err_mes: err.message });
@@ -831,7 +835,7 @@ exports.updateComplimentType = async (req, res) => {
 exports.addEmployeeCompliment = async (req, res) => {
     await client.connect();
     const [department, employee_code, name] = req.body.employee.split("-");
-    const dateCreated = usersMethods.getNowDate();
+    const dateCreated = req.body.dateCreated;
     const [compliment_type_code, compliment_type] = req.body.compliment_type.split("-");
     const compliment_code = usersMethods.getRandomComplimentCode();
     const prevData = usersMethods.createErrorString(req.body);
@@ -947,7 +951,7 @@ exports.addGroupCompliment = async (req, res) => {
     const [compliment_type_code, compliment_type] = req.body.compliment_type.split("-");
     const compliment_code = usersMethods.getRandomComplimentCode();
     console.log(compliment_code);
-    const dateCreated = usersMethods.getNowDate();
+    const dateCreated = req.body.dateCreated;
 
     const prevData = usersMethods.createErrorString(req.body);
     let filter = { group_code: group_code };
@@ -1050,6 +1054,265 @@ exports.deleteGroupCompliment = async (req, res) => {
     try {
         await client.connect();
         await group_complimentsDBs.deleteOne({ _id: new ObjectId(id) });
+        res.end();
+    } catch (err) {
+        res.status(404).send({ mes: err.message });
+    }
+}
+
+exports.addDisciplineType = async (req, res) => {
+    await client.connect();
+    const prevData = usersMethods.createErrorString(req.body);
+
+    const dateCreated = usersMethods.getNowDate();
+    const discipline_type_code = usersMethods.getRandomDisciplineTypeCode();
+
+    const discipline_type = new Discipline_type({
+        discipline_type_code: discipline_type_code,
+        discipline_type: req.body.discipline_type,
+        description: req.body.description,
+        dateCreated: dateCreated
+    })
+
+    await discipline_type.save(discipline_type)
+        .then(data => {
+            res.status(200).redirect('/admin/category/discipline/discipline-type');
+        })
+        .catch(err => {
+            res.redirect(DOMAIN + '/admin/category/discipline/add-discipline-type?error=' + encodeURIComponent(`error_${Object.keys(err.keyValue)[0]}`) + prevData);
+        })
+}
+
+exports.deleteDisciplineType = async (req, res) => {
+    const id = req.params.id;
+    try {
+        await client.connect();
+        await discipline_typeDBs.deleteOne({ _id: new ObjectId(id) });
+        res.end();
+    } catch (err) {
+        res.status(404).send({ mes: err.message });
+    }
+}
+
+exports.updateDisciplineType = async (req, res) => {
+    try {
+        await client.connect();
+        const data = req.body;
+        data.dateCreated = usersMethods.getNowDate();
+
+        discipline_typeDBs.updateOne(
+            { _id: new ObjectId(req.params.id) },
+            { "$set": data }
+        )
+        res.status(200).redirect('/admin/category/discipline/discipline-type');
+    } catch (err) {
+        res.status(500).send({ err_mes: err.message });
+    }
+}
+
+exports.addEmployeeDiscipline = async (req, res) => {
+    await client.connect();
+    const [department, employee_code, name] = req.body.employee.split("-");
+    const dateCreated = usersMethods.getNowDate();
+    const [discipline_type_code, discipline_type] = req.body.discipline_type.split("-");
+    const discipline_code = usersMethods.getRandomDisciplineCode();
+    const prevData = usersMethods.createErrorString(req.body);
+    let filter = { employee_code: employee_code };
+
+    let update = {
+        "$set": {
+            name: name,
+            employee_code: employee_code,
+            department: department,
+        },
+        "$push": {
+            discipline_list: {
+                discipline_code: discipline_code,
+                discipline: req.body.discipline,
+                numbers: req.body.numbers,
+                discipline_type: discipline_type,
+                description: req.body.description,
+                dateCreated: dateCreated,
+            }
+        }
+    }
+    await Employee_discipline.findOneAndUpdate(filter, update, {
+        new: true,
+        upsert: true
+    })
+        .then(data => {
+            if (req.params.id) {
+                res.redirect('/admin/category/discipline/view-employee-discipline/' + req.params.id);
+            } else {
+                res.redirect('/admin/category/discipline/employee-discipline-list');
+            }
+        })
+        .catch(err => {
+            res.status(500).send({ mes: err.message });
+        })
+}
+
+exports.deleteEmployeeDiscipline = async (req, res) => {
+    const id = req.params.id;
+    try {
+        await client.connect();
+        await employee_disciplineDBs.deleteOne({ _id: new ObjectId(id) });
+        res.end();
+    } catch (err) {
+        res.status(404).send({ mes: err.message });
+    }
+}
+
+exports.updateEmployeeDiscipline = async (req, res) => {
+    await client.connect();
+    const updatedDisciplineCode = req.params.disciplineCode;
+    const dateCreated = usersMethods.getNowDate();
+    const [discipline_type_code, discipline_type] = req.body.discipline_type.split("-");
+    let filter = { "discipline_list.discipline_code": updatedDisciplineCode };
+
+    let update = {
+        "$set": {
+            "discipline_list.$.discipline_code": updatedDisciplineCode,
+            "discipline_list.$.discipline": req.body.discipline,
+            "discipline_list.$.numbers": req.body.numbers,
+            "discipline_list.$.discipline_type": discipline_type,
+            "discipline_list.$.description": req.body.description,
+            "discipline_list.$.dateCreated": dateCreated,
+        }
+    }
+    
+    await Employee_discipline.findOneAndUpdate(filter, update)
+        .then(data => {
+            res.redirect('/admin/category/discipline/view-employee-discipline/' + data._id.toString());
+        })
+        .catch(err => {
+            res.status(500).send({ mes: err.message });
+        })
+}
+
+exports.deleteDisciplineOfEmployee = async (req, res) => {
+    const disciplineId = req.params.id;
+    const employeeId = req.params.employeeId;
+    try {
+        await client.connect();
+        const employee = await employee_disciplineDBs.findOne({ _id: new ObjectId(employeeId) });
+        const discipline_list = employee.discipline_list;
+        const newDiscipline_list = discipline_list.filter(object => {
+            if (object._id.toString() != disciplineId) {
+                return object;
+            }
+        });
+
+        await employee_disciplineDBs.updateOne(
+            { _id: new ObjectId(employeeId) },
+            { "$set": { discipline_list: newDiscipline_list } }
+        );
+        res.end();
+    } catch (err) {
+        res.status(404).send({ mes: err.message });
+    }
+}
+
+exports.addGroupDiscipline = async (req, res) => {
+    await client.connect();
+    const [group_code, group] = req.body.group.split("-");
+    const [discipline_type_code, discipline_type] = req.body.discipline_type.split("-");
+    const discipline_code = usersMethods.getRandomDisciplineCode();
+    console.log(discipline_code);
+    const dateCreated = usersMethods.getNowDate();
+
+    const prevData = usersMethods.createErrorString(req.body);
+    let filter = { group_code: group_code };
+
+    let update = {
+        "$set": {
+            group_code: group_code,
+            group: group
+        },
+        "$push": {
+            discipline_list: {
+                discipline_code: discipline_code,
+                discipline: req.body.discipline,
+                numbers: req.body.numbers,
+                discipline_type: discipline_type,
+                description: req.body.description,
+                dateCreated: dateCreated,
+            }
+        }
+    }
+    
+    await Group_discipline.findOneAndUpdate(filter, update, {
+        new: true,
+        upsert: true
+    })
+        .then(data => {
+            if (req.params.id) {
+                res.redirect('/admin/category/discipline/view-group-discipline/' + req.params.id);
+            } else {
+                res.redirect('/admin/category/discipline/group-discipline-list');
+            }
+        })
+        .catch(err => {
+            res.status(500).send({ mes: err.message });
+        })
+}
+
+exports.updateGroupDiscipline = async (req, res) => {
+    await client.connect();
+    const updatedDisciplineCode = req.params.disciplineCode;
+    const dateCreated = usersMethods.getNowDate();
+    const [discipline_type_code, discipline_type] = req.body.discipline_type.split("-");
+    let filter = { "discipline_list.discipline_code": updatedDisciplineCode };
+
+    let update = {
+        "$set": {
+            "discipline_list.$.discipline_code": updatedDisciplineCode,
+            "discipline_list.$.discipline": req.body.discipline,
+            "discipline_list.$.numbers": req.body.numbers,
+            "discipline_list.$.discipline_type": discipline_type,
+            "discipline_list.$.description": req.body.description,
+            "discipline_list.$.dateCreated": dateCreated,
+        }
+    }
+    
+    await Group_discipline.findOneAndUpdate(filter, update)
+        .then(data => {
+            res.redirect('/admin/category/discipline/view-group-discipline/' + data._id.toString());
+        })
+        .catch(err => {
+            res.status(500).send({ mes: err.message });
+        })
+}
+
+exports.deleteDisciplineOfGroup = async (req, res) => {
+    const disciplineId = req.params.id;
+    const groupId = req.params.groupId;
+
+    try {
+        await client.connect();
+        const group = await group_disciplineDBs.findOne({ _id: new ObjectId(groupId) });
+        const discipline_list = group.discipline_list;
+        const newDiscipline_list = discipline_list.filter(object => {
+            if (object._id.toString() != disciplineId) {
+                return object;
+            }
+        });
+        
+        await group_disciplineDBs.updateOne(
+            { _id: new ObjectId(groupId) },
+            { "$set": { discipline_list: newDiscipline_list } }
+        );
+        res.end();
+    } catch (err) {
+        res.status(404).send({ mes: err.message });
+    }
+}
+
+exports.deleteGroupDiscipline = async (req, res) => {
+    const id = req.params.id;
+    try {
+        await client.connect();
+        await group_disciplineDBs.deleteOne({ _id: new ObjectId(id) });
         res.end();
     } catch (err) {
         res.status(404).send({ mes: err.message });

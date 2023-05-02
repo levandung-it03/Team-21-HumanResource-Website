@@ -2,11 +2,11 @@ let submitFormCancellation = false;
 
 (function main() {
     const errorMessages = {
-        group: {
+        discipline_type: {
             confirm: function (value) {
-                this.isValid = /^[0-9a-zA-ZÀ-ỹ\s]+$/u.test(value);
+                this.isValid = /^[a-zA-ZÀ-ỹ\s]+$/u.test(value);
             },
-            message: "Tên nhóm không hợp lệ.",
+            message: "Loại hình kỷ luật không hợp lệ.",
             isValid: false,
         },
     }
@@ -62,43 +62,20 @@ let submitFormCancellation = false;
         }
     })();
 
-    (function recoverEmployeeSelectData() {
-        const selectTag = $('.form_select-input#employee select');
-        let value = selectTag.getAttribute('data').trim();
-        selectTag.querySelectorAll('option').forEach((optionTag) => {
-            if (optionTag.innerHTML.split("-")[1].trim() == value) {
-                optionTag.selected = true;
-            }
-        })
-    })();
-
     const urlParams = new URLSearchParams(window.location.search);
     const myParam = urlParams.get('error');
     if (myParam) {
+        alert('Đã tồn tại loại hình kỷ luật này!');
         (async function handleRedirect() {
             const dataMessages = myParam.split('?');
             const data = dataMessages.map((e) => {
                 return e.split('=');
             })
-            if (data[0][0] == "error_group") {
-                console.log(data[0][0]);
-                alert('Tên nhóm đã tồn tại!');
 
-            } else if (data[0][0].includes("employee_code")) {
-                console.log(data[0][0]);
-                alert('Nhân viên đã tồn tại trong nhóm khác!');
-
-            }
-
-            window.history.replaceState({}, "", "http://localhost:3000/admin/category/group/add-group");
+            window.history.replaceState({}, "", "http://localhost:3000/admin/category/discipline/add-discipline-type");
             strictInputTags.forEach((tag, index) => {
                 tag.value = data.find((e) => e[0] == tag.name)[1];
                 errorMessages[tag.name].confirm(tag.value);
-            })
-            $$('.form_select-input select option').forEach(optionTag => {
-                if (optionTag.value.includes(data[2][1].split("-")[1])) {
-                    optionTag.selected = true;
-                }
             })
             $('.form_textarea-input textarea').innerText = data[3][1];
         })();

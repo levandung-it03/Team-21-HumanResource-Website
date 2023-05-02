@@ -1,21 +1,21 @@
 (function main() {
-    function deleteCompliment_type() {
-        $$('td.delete-compliment_type a').forEach((tag) => {
+    function deleteGroupDiscipline() {
+        $$('td.delete-group-discipline a').forEach((tag) => {
             tag.onclick = async (e) => {
-                if (confirm('Bạn chắc chắn muốn xoá khen thưởng này chứ? Dữ liệu đã xoá không thể khôi phục!')) {
-                    const id = tag.getAttribute('compliment_type_id');
-                    await fetch(`/api/admin/delete-compliment_type/${id}`, {
+                if (confirm('Bạn chắc chắn muốn xoá toàn bộ kỷ luật của nhóm này chứ? Dữ liệu đã xoá không thể khôi phục!')) {
+                    const id = tag.getAttribute('group_discipline_id');
+                    await fetch(`/api/admin/delete-group-discipline/${id}`, {
                         method: "DELETE",
                     })
                         .then((response) => {
-                            alert('Xoá khen thưởng thành công!');
-                            window.location.href = "http://localhost:3000/admin/category/compliment/compliment-type";
+                            alert('Xoá kỷ luật thành công!');
+                            window.location.href = "http://localhost:3000/admin/category/discipline/group-discipline-list";
                         })
                 }
             }
         })
     }
-    deleteCompliment_type();
+    deleteGroupDiscipline();
     
     (function sortingEvent() {
         $$('.table_title i').forEach(sortingIconTag => {
@@ -26,7 +26,7 @@
 
                 alert("Sắp xếp thành công!");
 
-                deleteCompliment_type(); 
+                deleteGroupDiscipline(); 
             }
         })
     })();
@@ -35,13 +35,13 @@
         $('div#search i').onclick = (e) => {
             const inputTag = $('div#search input');
             generalMethods.searchingMethod(inputTag);
-            deleteCompliment_type();
+            deleteGroupDiscipline();
         }
         $('div#search input').onkeyup = (e) => {
             if (e.which == 13) {
                 const inputTag = e.target;
                 generalMethods.searchingMethod(inputTag);
-                deleteCompliment_type();
+                deleteGroupDiscipline();
             }
         }
     })();

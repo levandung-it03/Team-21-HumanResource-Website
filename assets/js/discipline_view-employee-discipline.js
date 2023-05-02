@@ -1,22 +1,27 @@
+let submitFormCancellation = false;
+
 (function main() {
-    function deleteCompliment_type() {
-        $$('td.delete-compliment_type a').forEach((tag) => {
+    function deleteDisciplineOfEmployee() {
+        $$('td.delete-employee-discipline a').forEach((tag) => {
             tag.onclick = async (e) => {
-                if (confirm('Bạn chắc chắn muốn xoá khen thưởng này chứ? Dữ liệu đã xoá không thể khôi phục!')) {
-                    const id = tag.getAttribute('compliment_type_id');
-                    await fetch(`/api/admin/delete-compliment_type/${id}`, {
+                const currentUrl = window.location.href;
+                const employeeDisciplineId = currentUrl.split("/")[currentUrl.split("/").length - 1];
+                if (confirm('Bạn chắc chắn muốn xoá kỷ luật này của nhân viên chứ? Dữ liệu đã xoá không thể khôi phục!')) {
+                    const id = tag.getAttribute('discipline_id');
+                    await fetch(`/api/admin/delete-discipline-of-employee/${employeeDisciplineId}/${id}`, {
                         method: "DELETE",
                     })
                         .then((response) => {
-                            alert('Xoá khen thưởng thành công!');
-                            window.location.href = "http://localhost:3000/admin/category/compliment/compliment-type";
+                            alert('Xoá kỷ luật thành công!');
+                            window.location.href = currentUrl;
                         })
                 }
             }
         })
     }
-    deleteCompliment_type();
-    
+
+    deleteDisciplineOfEmployee();
+
     (function sortingEvent() {
         $$('.table_title i').forEach(sortingIconTag => {
             sortingIconTag.onclick = (e) => {
@@ -26,7 +31,7 @@
 
                 alert("Sắp xếp thành công!");
 
-                deleteCompliment_type(); 
+                deleteDisciplineOfEmployee();
             }
         })
     })();
@@ -35,14 +40,14 @@
         $('div#search i').onclick = (e) => {
             const inputTag = $('div#search input');
             generalMethods.searchingMethod(inputTag);
-            deleteCompliment_type();
+            deleteDisciplineOfEmployee();
         }
         $('div#search input').onkeyup = (e) => {
             if (e.which == 13) {
                 const inputTag = e.target;
                 generalMethods.searchingMethod(inputTag);
-                deleteCompliment_type();
+                deleteDisciplineOfEmployee();
             }
         }
     })();
-})();
+}) ();

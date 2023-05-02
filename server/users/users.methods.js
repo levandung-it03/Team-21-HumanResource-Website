@@ -104,6 +104,12 @@ class UsersMethods {
     getRandomComplimentCode(dateCreated, compliment_type_code) {
         return `KN${Date.now()}${Math.floor(Math.random() * 99)}`;
     }
+    getRandomDisciplineTypeCode() {
+        return `KL${Date.now()}${Math.floor(Math.random() * 99)}`;
+    }
+    getRandomDisciplineCode(dateCreated, discipline_type_code) {
+        return `LN${Date.now()}${Math.floor(Math.random() * 99)}`;
+    }
 }
 
 module.exports = new UsersMethods;

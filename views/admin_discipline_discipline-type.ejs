@@ -1,0 +1,71 @@
+<link rel="stylesheet" href="/css/discipline_discipline-type.css">
+<div id="discipline-type">
+    <div id="heading">
+        <div class="hide" id="turn-back-btn">
+            <a href="/admin/category/discipline/discipline-type"><i class="fa-solid fa-arrow-left-long"></i> Thoát</a>
+        </div>
+        <div id="title">
+            <span>Danh sách loại hình kỷ luật</span>
+        </div>
+        <div id="add-btn">
+            <a href="/admin/category/discipline/add-discipline-type">Thêm loại hình kỷ luật</a>
+        </div>
+        <div id="search">
+            <input class="search" type="text" placeholder="Tìm kiếm">
+            <i class="fa-solid fa-magnifying-glass"></i>
+        </div>
+    </div>
+    <table>
+        <thead>
+            <tr class="table_title">
+                <th id="ordinal">
+                    <span class="title_name">STT</span>      
+                </th>
+                <th id="discipline_type_code">
+                    <span class="title_name">Mã loại hình kỷ luật</span>
+                    <i class="fa-solid fa-sort" id="discipline_type_code"></i>
+                </th>
+                <th id="discipline_type">
+                    <span class="title_name">Tên loại hình kỷ luật</span>
+                    <i class="fa-solid fa-sort" id="discipline_type"></i>
+                </th>
+                <th id="description">
+                    <span class="title_name">Mô tả</span>
+                </th>
+                <th id="dateCreated">
+                    <span class="title_name">Ngày tạo</span>
+                    <i class="fa-solid fa-sort" id="dateCreated"></i>
+                </th>
+                <th id="update-discipline_type">
+                    <span class="title_name">Sửa</span>
+                </th>
+                <th id="delete-discipline_type">
+                    <span class="title_name">Xoá</span>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <% for (var i = 0; i < allDiscipline_type.length; i++) { %>
+                <tr class="body" id=<%= i+1 %>>
+                    <td id="ordinal"><%= (i + 1) %></td>
+                    <td class="body_enable-searching body_enable-sorting"
+                        id="discipline_type_code"><%= allDiscipline_type[i].discipline_type_code %></td>
+                    <td class="body_enable-searching body_enable-sorting"
+                        id="discipline_type"><%= allDiscipline_type[i].discipline_type %></td>
+                    <td class="body_enable-searching body_enable-sorting"
+                        id="description"><%= allDiscipline_type[i].description %></td>
+                    <td class="body_enable-searching body_enable-sorting"
+                        id="dateCreated"><%= allDiscipline_type[i].dateCreated %></td>
+                    <td class="update-discipline_type">
+                        <a href="/admin/category/discipline/update-discipline-type/<%= allDiscipline_type[i]._id.toString() %>">
+                            <i class="fa-sharp fa-solid fa-pencil"></i></a>
+                    </td>
+                    <td class="delete-discipline_type">
+                        <a discipline_type_id=<%= allDiscipline_type[i]._id.toString() %>><i class="fa-sharp fa-solid fa-trash"></i></a>
+                    </td>
+                </tr>
+            <% } %>
+        </tbody>
+    </table>
+</div>
+<script src="/js/discipline_discipline-type.js"></script>

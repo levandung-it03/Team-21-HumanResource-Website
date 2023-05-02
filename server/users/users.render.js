@@ -15,6 +15,9 @@ const bussinessDBs = client.db('company').collection('bussiness');
 const compliment_typeDBs = client.db('company').collection('compliment_type');
 const group_complimentsDBs = client.db('company').collection('group_compliments');
 const employee_complimentsDBs = client.db('company').collection('employee_compliments');
+const discipline_typeDBs = client.db('company').collection('discipline_type');
+const employee_disciplineDBs = client.db('company').collection('employee_discipline');
+const group_disciplineDBs = client.db('company').collection('group_discipline');
 const techniqueDBs = client.db('company').collection('technique');
 const departmentDBs = client.db('company').collection('department');
 const employee_typeDBs = client.db('company').collection('employee_type');
@@ -98,6 +101,21 @@ async function getEmployeeComplimentsList() {
 async function getGroupComplimentsList () {
     const groupComplimentsList = group_complimentsDBs.find({});
     return await groupComplimentsList.toArray();
+}
+
+async function getAllDiscipline_type() {
+    const allDiscipline_type = discipline_typeDBs.find({});
+    return await allDiscipline_type.toArray();
+}
+
+async function getEmployeeDisciplineList() {
+    const employeeDisciplineList = employee_disciplineDBs.find({});
+    return await employeeDisciplineList.toArray();
+}
+
+async function getGroupDisciplineList () {
+    const groupDisciplineList = group_disciplineDBs.find({});
+    return await groupDisciplineList.toArray();
 }
 
 class renderMethods {
@@ -548,8 +566,8 @@ class renderMethods {
             const user = await getCurrentUser(req);
             res.render('admin_group_view-group', {
                 user: user,
-                isFromComplimentsList: false,
                 idInComplimentDBs: null,
+                idInDisciplineDBs: null,
                 specifiedGroup: specifiedGroup,
                 layout: './layouts/admin'
             });
@@ -763,7 +781,7 @@ class renderMethods {
             const user = await getCurrentUser(req);
             res.render('admin_group_view-group', {
                 user: user,
-                isFromComplimentsList: true,
+                idInDisciplineDBs: null,
                 idInComplimentDBs: idInComplimentDBs,
                 specifiedGroup: specifiedGroup,
                 layout: './layouts/admin'
@@ -818,6 +836,257 @@ class renderMethods {
                 specifiedGroup: specifiedGroup,
                 specifiedCompliment: specifiedCompliment,
                 allCompliment_type: allCompliment_type,
+                allGroups: allGroups,
+                layout: './layouts/admin'
+            });
+        } catch (err) {
+            clearCookiesAndReturnLogin(res);
+        }
+    }
+    async admin_disciplineType(req, res) {
+        try {
+            const allDiscipline_type = await getAllDiscipline_type();
+            const user = await getCurrentUser(req);
+            res.render('admin_discipline_discipline-type', {
+                user: user,
+                allDiscipline_type: allDiscipline_type,
+                layout: './layouts/admin'
+            });
+        } catch (err) {
+            clearCookiesAndReturnLogin(res);
+        }
+    }
+    async admin_addDisciplineType(req, res) {
+        try {
+            const user = await getCurrentUser(req);
+            res.render('admin_discipline_add-discipline-type', {
+                user: user,
+                isUpdating: false,
+                layout: './layouts/admin'
+            });
+        } catch (err) {
+            clearCookiesAndReturnLogin(res);
+        }
+    }
+    async admin_updateDisciplineType(req, res) {
+        try {
+            const user = await getCurrentUser(req);
+            const specifiedDisciplineType = await getSpecifiedObject(req.params.id, discipline_typeDBs);
+            res.render('admin_discipline_add-discipline-type', {
+                user: user,
+                isUpdating: true,
+                specifiedDisciplineType: specifiedDisciplineType,
+                layout: './layouts/admin'
+            });
+        } catch (err) {
+            clearCookiesAndReturnLogin(res);
+        }
+    }
+    async admin_employeeDisciplineList(req, res) {
+        try {
+            const employeeDisciplineList = await getEmployeeDisciplineList(req.params.id, employee_disciplineDBs);
+            const user = await getCurrentUser(req);
+            res.render('admin_discipline_employee-discipline-list', {
+                user: user,
+                employeeDisciplineList: employeeDisciplineList,
+                layout: './layouts/admin'
+            });
+        } catch (err) {
+            clearCookiesAndReturnLogin(res);
+        }
+    }
+    async admin_addEmployeeDiscipline(req, res) {
+        try {
+            const allEmployees = await getAllEmployees();
+            const allDiscipline_type = await getAllDiscipline_type();
+            const user = await getCurrentUser(req);
+            const employeeId = req.params.employeeId;
+            if (employeeId != undefined) {
+                const specifiedEmployee = await getSpecifiedObject(employeeId, employee_disciplineDBs);
+                res.render('admin_discipline_add-employee-discipline', {
+                    user: user,
+                    isUpdating: false,
+                    employeeId: employeeId,
+                    specifiedEmployee: specifiedEmployee,
+                    allDiscipline_type: allDiscipline_type,
+                    allEmployees: allEmployees,
+                    layout: './layouts/admin'
+                });
+            } else {
+                res.render('admin_discipline_add-employee-discipline', {
+                    user: user,
+                    isUpdating: false,
+                    specifiedEmployee: undefined,
+                    allDiscipline_type: allDiscipline_type,
+                    allEmployees: allEmployees,
+                    layout: './layouts/admin'
+                });
+            }
+        } catch (err) {
+            clearCookiesAndReturnLogin(res);
+        }
+    }
+    async admin_viewEmployeeDiscipline(req, res) {
+        try {
+            const specifiedEmployeeInDisciplineDBs =
+                await getSpecifiedObject(req.params.id, employee_disciplineDBs);
+            const specifiedEmployee =
+                await userDBs.findOne({ employee_code: specifiedEmployeeInDisciplineDBs.employee_code });
+            const user = await getCurrentUser(req);
+            res.render('admin_discipline_employee-discipline-view', {
+                user: user,
+                specifiedEmployee: specifiedEmployee,
+                specifiedEmployeeInDisciplineDBs: specifiedEmployeeInDisciplineDBs,
+                layout: './layouts/admin'
+            });
+        } catch (err) {
+            clearCookiesAndReturnLogin(res);
+        }
+    }
+    async admin_updateEmployeeDiscipline(req, res) {
+        try {
+            const allEmployees = await getAllEmployees();
+            const allDiscipline_type = await getAllDiscipline_type();
+            const user = await getCurrentUser(req);
+            const specifiedEmployee = await getSpecifiedObject(req.params.employeeId, employee_disciplineDBs);
+            const specifiedDiscipline =
+                specifiedEmployee.discipline_list.find(discipline => discipline._id.toString() == req.params.id);
+                
+            res.render('admin_discipline_add-employee-discipline', {
+                user: user,
+                isUpdating: true,
+                specifiedEmployee: specifiedEmployee,
+                specifiedDiscipline: specifiedDiscipline,
+                allDiscipline_type: allDiscipline_type,
+                allEmployees: allEmployees,
+                layout: './layouts/admin'
+            });
+        } catch (err) {
+            clearCookiesAndReturnLogin(res);
+        }
+    }
+    async admin_groupDisciplineList(req, res) {
+        try {
+            const groupDisciplineList = await getGroupDisciplineList(req.params.id, group_disciplineDBs);
+            const user = await getCurrentUser(req);
+            res.render('admin_discipline_group-discipline-list', {
+                user: user,
+                groupDisciplineList: groupDisciplineList,
+                layout: './layouts/admin'
+            });
+        } catch (err) {
+            clearCookiesAndReturnLogin(res);
+        }
+    }
+    async admin_addGroupDiscipline(req, res) {
+        try {
+            const allGroups = await getAllGroup();
+            const allDiscipline_type = await getAllDiscipline_type();
+            const user = await getCurrentUser(req);
+            const groupId = req.params.groupId;
+            if (groupId != undefined) {
+                const specifiedGroup = await getSpecifiedObject(groupId, group_disciplineDBs);
+                res.render('admin_discipline_add-group-discipline', {
+                    user: user,
+                    isUpdating: false,
+                    specifiedGroup: specifiedGroup,
+                    allDiscipline_type: allDiscipline_type,
+                    allGroups: allGroups,
+                    layout: './layouts/admin'
+                });
+            } else {
+                res.render('admin_discipline_add-group-discipline', {
+                    user: user,
+                    isUpdating: false,
+                    specifiedGroup: undefined,
+                    allDiscipline_type: allDiscipline_type,
+                    allGroups: allGroups,
+                    layout: './layouts/admin'
+                });
+            }
+        } catch (err) {
+            clearCookiesAndReturnLogin(res);
+        }
+    }
+    async admin_viewGroupDiscipline(req, res) {
+        try {
+            const specifiedGroupInDisciplineDBs =
+                await getSpecifiedObject(req.params.id, group_disciplineDBs);
+            const specifiedGroup =
+                await groupDBs.findOne({ group_code: specifiedGroupInDisciplineDBs.group_code });
+            const user = await getCurrentUser(req);
+            res.render('admin_discipline_group-discipline-view', {
+                user: user,
+                specifiedGroup: specifiedGroup,
+                specifiedGroupInDisciplineDBs: specifiedGroupInDisciplineDBs,
+                layout: './layouts/admin'
+            });
+        } catch (err) {
+            clearCookiesAndReturnLogin(res);
+        }
+    }
+    async admin_viewSpecifiedGroupOfDisciplineList(req, res) {
+        try {
+            const specifiedGroup = await getSpecifiedObject(req.params.id, groupDBs);
+            const idInDisciplineDBs = req.params.idInDisciplineDBs;
+            const user = await getCurrentUser(req);
+            res.render('admin_group_view-group', {
+                user: user,
+                idInComplimentDBs: null,
+                idInDisciplineDBs: idInDisciplineDBs,
+                specifiedGroup: specifiedGroup,
+                layout: './layouts/admin'
+            });
+        } catch (err) {
+            clearCookiesAndReturnLogin(res);
+        }
+    }
+    async admin_addGroupDiscipline(req, res) {
+        try {
+            const allGroups = await getAllGroup();
+            const allDiscipline_type = await getAllDiscipline_type();
+            const user = await getCurrentUser(req);
+            const groupId = req.params.groupId;
+            if (groupId != undefined) {
+                const specifiedGroup = await getSpecifiedObject(groupId, group_disciplineDBs);
+                res.render('admin_discipline_add-group-discipline', {
+                    user: user,
+                    groupId: groupId,
+                    isUpdating: false,
+                    specifiedGroup: specifiedGroup,
+                    allDiscipline_type: allDiscipline_type,
+                    allGroups: allGroups,
+                    layout: './layouts/admin'
+                });
+            } else {
+                res.render('admin_discipline_add-group-discipline', {
+                    user: user,
+                    isUpdating: false,
+                    specifiedGroup: undefined,
+                    allDiscipline_type: allDiscipline_type,
+                    allGroups: allGroups,
+                    layout: './layouts/admin'
+                });
+            }
+        } catch (err) {
+            clearCookiesAndReturnLogin(res);
+        }
+    }
+    async admin_updateGroupDiscipline(req, res) {
+        try {
+            const allGroups = await getAllGroup();
+            const allDiscipline_type = await getAllDiscipline_type();
+            const user = await getCurrentUser(req);
+            const specifiedGroup = await getSpecifiedObject(req.params.groupId, group_disciplineDBs);
+            const specifiedDiscipline =
+                specifiedGroup.discipline_list.find(discipline => discipline._id.toString() == req.params.id);
+                
+            res.render('admin_discipline_add-group-discipline', {
+                user: user,
+                isUpdating: true,
+                specifiedGroup: specifiedGroup,
+                specifiedDiscipline: specifiedDiscipline,
+                allDiscipline_type: allDiscipline_type,
                 allGroups: allGroups,
                 layout: './layouts/admin'
             });

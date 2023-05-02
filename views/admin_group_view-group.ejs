@@ -3,6 +3,8 @@
     <div id="turn-back-btn">
         <% if (idInComplimentDBs) { %>
             <a href="/admin/category/compliment/view-group-compliments/<%= idInComplimentDBs %>">
+        <% } else if (idInDisciplineDBs) { %>
+            <a href="/admin/category/discipline/view-group-discipline/<%= idInDisciplineDBs %>">
         <% } else { %>
             <a href="/admin/category/group/group-list">
         <% } %>

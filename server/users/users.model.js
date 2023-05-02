@@ -294,18 +294,99 @@ let group_complimentsSchema = new mongoose.Schema({
     ],
 }, { collection: 'group_compliments' });
 
+let discipline_typeSchema = new mongoose.Schema({
+    discipline_type_code: {
+        type: String,
+        unique: true,
+        required: true
+    },
+    discipline_type: {
+        type: String,
+        unique: true,
+        required: true
+    },
+    description: {
+        type: String,
+        required: true,
+    },
+    dateCreated: String
+}, { collection: 'discipline_type' });
+
+let employee_disciplineSchema = new mongoose.Schema({
+    employee_code: {
+        type: String,
+        unique: true,
+        required: true
+    },
+    name: {
+        type: String,
+        required: true
+    },
+    department: String,
+    discipline_list: [
+        {
+            discipline_code: {
+                type: String,
+                unique: true,
+                required: true
+            },
+            discipline: {
+                type: String,
+                required: true
+            },
+            numbers: String,
+            discipline_type: String,
+            description: String,
+            dateCreated: String
+        }
+    ],
+}, { collection: 'employee_discipline' });
+
+let group_disciplineSchema = new mongoose.Schema({
+    group_code: {
+        type: String,
+        unique: true,
+        required: true
+    },
+    group: {
+        type: String,
+        required: true
+    },
+    discipline_list: [
+        {
+            discipline_code: {
+                type: String,
+                unique: true,
+                required: true
+            },
+            discipline: {
+                type: String,
+                required: true
+            },
+            numbers: String,
+            discipline_type: String,
+            description: String,
+            dateCreated: String
+        }
+    ],
+}, { collection: 'group_discipline' });
+
 let Group = mongoose.model('group', groupSchema);
 let UserDb = mongoose.model('userdbs', userSchema);
 let Salary = mongoose.model('salary', salarySchema);
 let Degree = mongoose.model('degree', degreeSchema);
 let Position = mongoose.model('position', positionSchema);
-let Compliment_type = mongoose.model('compliment_type', compliment_typeSchema);
-let Employee_compliments = mongoose.model('employee_compliments', employee_complimentsSchema);
-let Group_compliments = mongoose.model('group_compliments', group_complimentsSchema);
 let Technique = mongoose.model('technique', techniqueSchema);
 let Bussiness = mongoose.model('bussiness', bussinessSchema);
 let Department = mongoose.model('department', departmentSchema);
 let Employee_type = mongoose.model('employee_type', employeeTypeSchema);
+let Compliment_type = mongoose.model('compliment_type', compliment_typeSchema);
+let Employee_compliments = mongoose.model('employee_compliments', employee_complimentsSchema);
+let Group_compliments = mongoose.model('group_compliments', group_complimentsSchema);
+let Discipline_type = mongoose.model('discipline_type', discipline_typeSchema);
+let Employee_discipline = mongoose.model('employee_discipline', employee_disciplineSchema);
+let Group_discipline = mongoose.model('group_discipline', group_disciplineSchema);
 
 module.exports = { UserDb, Salary, Position, Degree, Department, Employee_type, Technique, Bussiness, Group,
-Compliment_type, Employee_compliments, Group_compliments };
+Compliment_type, Employee_compliments, Group_compliments, Discipline_type, Employee_discipline,
+Group_discipline };
