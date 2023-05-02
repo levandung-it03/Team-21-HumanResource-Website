@@ -3,10 +3,12 @@
     <div id="form-title">
         <span>Tính lương nhân viên</span>
     </div>
-    <form method="POST" action="/api/admin/add-salary" onsubmit="return submitFormCancellation">
+    <form method="POST" action="<%= employeeId != undefined ? "/api/admin/add-salary/" + specifiedEmployee._id
+    : "/api/admin/add-salary" %>" onsubmit="return submitFormCancellation">
         <div class="form_select-input" id="employee">
             <label for="employee">Chọn nhân viên</label>
-            <select name="employee" required>
+            <select data="<%= employeeId != undefined ? specifiedEmployee.employee_code
+            : "" %>" name="employee" required>
                 <option selected disabled value="">--Chọn nhân viên--</option>
                 <% for(var index in allEmployees) { %>
                     <option value="<%= allEmployees[index].employee_code
@@ -65,7 +67,7 @@
             </select>
         </div>
         <div class="form_text-input more-condition" id="totalDays">
-            <label for="totalDays">Số ngày làm việc</label>
+            <label for="totalDays">Số ngày đã làm việc</label>
             <input placeholder="VD: 30" type="number" name="totalDays" value="" maxlength="2" required>
             <div class="form_text-input_err-message"></div>
         </div>

@@ -42,6 +42,9 @@
                     <span class="title_name">Ngày chấm</span>
                     <i class="fa-solid fa-sort" id="dateCreated"></i>
                 </th>
+                <th id="view-salary">
+                    <span class="title_name">Xem</span>
+                </th>
                 <th id="delete-salary">
                     <span class="title_name">Xoá</span>
                 </th>
@@ -65,6 +68,10 @@
                     <td class="body_enable-searching body_enable-sorting" id="position"><%= salaryInfoList[i].position %></td>
                     <td class="body_enable-searching body_enable-sorting" id="realSalary"><%= lastSalary.realSalary %></td>
                     <td class="body_enable-searching body_enable-sorting" id="dateCreated"><%= lastSalary.dateCreated %></td>
+                    <td class="view-salary">
+                        <a href="/admin/category/salary/view-salary/<%= salaryInfoList[i]._id.toString() %>">
+                            <i class="fa-sharp fa-solid fa-eye"></i></a>
+                    </td>
                     <td class="delete-salary">
                         <a id_salary=<%= salaryInfoList[i]._id.toString() %>><i class="fa-sharp fa-solid fa-trash"></i></a>
                     </td>

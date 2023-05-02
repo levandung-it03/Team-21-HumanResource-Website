@@ -139,6 +139,16 @@ route.get('/admin/category/salary/salary-list',
     authMiddlewares.verifyTokenAndGenerateAccessTokenIfExpiring,
     authMiddlewares.verifyAdmin,
     renderMethods.admin_salaryList);
+    
+route.get('/admin/category/salary/view-salary/:id',
+    authMiddlewares.verifyTokenAndGenerateAccessTokenIfExpiring,
+    authMiddlewares.verifyAdmin,
+    renderMethods.admin_viewSalary);
+
+route.get('/admin/category/salary/add-salary/:id',
+    authMiddlewares.verifyTokenAndGenerateAccessTokenIfExpiring,
+    authMiddlewares.verifyAdmin,
+    renderMethods.admin_addSalary);
 
 route.get('/admin/category/salary/add-salary',
     authMiddlewares.verifyTokenAndGenerateAccessTokenIfExpiring,
@@ -390,6 +400,11 @@ route.post('/api/admin/update-department/:id',
     authMiddlewares.verifyAdmin,
     usersController.updateDepartment);
 
+route.post('/api/admin/add-salary/:id',
+    authMiddlewares.verifyTokenAndGenerateAccessTokenIfExpiring,
+    authMiddlewares.verifyAdmin,
+    usersController.addSalary);
+
 route.post('/api/admin/add-salary',
     authMiddlewares.verifyTokenAndGenerateAccessTokenIfExpiring,
     authMiddlewares.verifyAdmin,
@@ -516,7 +531,7 @@ route.delete('/api/admin/delete-department/:id',
     authMiddlewares.verifyAdmin,
     usersController.deleteDepartment);
 
-route.delete('/api/admin/delete-salary/:id',
+route.delete('/api/admin/delete-salary/:employeeId/:id',
     authMiddlewares.verifyTokenAndGenerateAccessTokenIfExpiring,
     authMiddlewares.verifyAdmin,
     usersController.deleteSalary);

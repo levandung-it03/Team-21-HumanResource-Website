@@ -533,7 +533,7 @@ exports.addSalary = async (req, res) => {
                 totalDays: req.body.totalDays,
                 dayOff: req.body.dayOff,
                 allowance: req.body.allowance,
-                advanceSalaray: req.body.advanceSalaray,
+                advanceSalary: req.body.advanceSalary,
                 bonusSalary: req.body.bonusSalary,
                 tax: tax,
                 realSalary: realSalary,
@@ -545,7 +545,11 @@ exports.addSalary = async (req, res) => {
         upsert: true
     })
         .then(data => {
-            res.redirect('/admin/category/salary/salary-list')
+            if (req.params.id) {
+                res.redirect('/admin/category/salary/view-salary/' + req.params.id);
+            } else {
+                res.redirect('/admin/category/salary/salary-list');
+            }
         })
         .catch(err => {
             res.status(500).send({ mes: err.message });
@@ -553,12 +557,20 @@ exports.addSalary = async (req, res) => {
 }
 
 exports.deleteSalary = async (req, res) => {
-    const id = req.params.id;
+    const salaryId = req.params.id;
+    const employeeId = req.params.employeeId;
     try {
         await client.connect();
+        const employee = await salaryDBs.findOne({ _id: new ObjectId(employeeId) });
+        const salaryList = employee.salaryList;
+        const newSalaryList = salaryList.filter(object => {
+            if (object._id.toString() != salaryId) {
+                return object;
+            }
+        }) || [];
         await salaryDBs.updateOne(
-            { _id: new ObjectId(id) },
-            { "$pop": { salaryList: 1 } }
+            { _id: new ObjectId(employeeId) },
+            { "$set": { salaryList: newSalaryList } }
         );
         res.end();
     } catch (err) {
@@ -770,7 +782,7 @@ exports.deleteEmployeeIntoGroup = async (req, res) => {
             if (object._id.toString() != id) {
                 return object;
             }
-        });
+        }) || [];
 
         await groupDBs.updateOne(
             { _id: new ObjectId(group_id) },
@@ -933,7 +945,7 @@ exports.deleteComplimentOfEmployee = async (req, res) => {
             if (object._id.toString() != complimentId) {
                 return object;
             }
-        });
+        }) || [];
 
         await employee_complimentsDBs.updateOne(
             { _id: new ObjectId(employeeId) },
@@ -1037,7 +1049,7 @@ exports.deleteComplimentOfGroup = async (req, res) => {
             if (object._id.toString() != complimentId) {
                 return object;
             }
-        });
+        }) || [];
         
         await group_complimentsDBs.updateOne(
             { _id: new ObjectId(groupId) },
@@ -1201,7 +1213,7 @@ exports.deleteDisciplineOfEmployee = async (req, res) => {
             if (object._id.toString() != disciplineId) {
                 return object;
             }
-        });
+        }) || [];
 
         await employee_disciplineDBs.updateOne(
             { _id: new ObjectId(employeeId) },
@@ -1296,7 +1308,7 @@ exports.deleteDisciplineOfGroup = async (req, res) => {
             if (object._id.toString() != disciplineId) {
                 return object;
             }
-        });
+        }) || [];
         
         await group_disciplineDBs.updateOne(
             { _id: new ObjectId(groupId) },

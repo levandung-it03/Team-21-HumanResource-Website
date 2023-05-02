@@ -447,6 +447,23 @@ class renderMethods {
             clearCookiesAndReturnLogin(res);
         }
     }
+    async admin_viewSalary(req, res) {
+        try {
+            const specifiedEmployeeInSalaryDBs =
+                await getSpecifiedObject(req.params.id, salaryDBs);
+            const specifiedEmployee =
+                await userDBs.findOne({ employee_code: specifiedEmployeeInSalaryDBs.employee_code });
+            const user = await getCurrentUser(req);
+            res.render('admin_salary_view-salary', {
+                user: user,
+                specifiedEmployee: specifiedEmployee,
+                specifiedEmployeeInSalaryDBs: specifiedEmployeeInSalaryDBs,
+                layout: './layouts/admin'
+            });
+        } catch (err) {
+            clearCookiesAndReturnLogin(res);
+        }
+    }
     async admin_addSalary(req, res) {
         try {
             const user = await getCurrentUser(req);
@@ -456,16 +473,34 @@ class renderMethods {
             const positionList = await getAllPosition();
             const employeeTypeList = await getAllEmployeeType();
             const departmentList = await getAllDepartment();
-            res.render('admin_salary_add-salary', {
-                user: user,
-                allEmployees: allEmployees,
-                degreeList: degreeList,
-                employeeTypeList: employeeTypeList,
-                salaryList: salaryList,
-                positionList: positionList,
-                departmentList: departmentList,
-                layout: './layouts/admin'
-            });
+            const employeeId = req.params.id;
+            if (employeeId != undefined) {
+                const specifiedEmployee = salaryList.find(e => e._id == employeeId);
+                res.render('admin_salary_add-salary', {
+                    user: user,
+                    allEmployees: allEmployees,
+                    employeeId: employeeId,
+                    specifiedEmployee: specifiedEmployee,
+                    degreeList: degreeList,
+                    employeeTypeList: employeeTypeList,
+                    salaryList: salaryList,
+                    positionList: positionList,
+                    departmentList: departmentList,
+                    layout: './layouts/admin'
+                });
+            } else {
+                res.render('admin_salary_add-salary', {
+                    user: user,
+                    allEmployees: allEmployees,
+                    employeeId: undefined,
+                    degreeList: degreeList,
+                    employeeTypeList: employeeTypeList,
+                    salaryList: salaryList,
+                    positionList: positionList,
+                    departmentList: departmentList,
+                    layout: './layouts/admin'
+                });
+            }
         } catch (err) {
             clearCookiesAndReturnLogin(res);
         }

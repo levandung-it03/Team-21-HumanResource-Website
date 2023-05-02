@@ -61,10 +61,8 @@
         [...$$('.form_text-input .form_text-input_err-message')].forEach((e) => {
             const parentId = e.parentNode.id;
             e.innerHTML = `
-        <span class='err-message-block' id='${parentId}'>
-            ${errorMessages[parentId].message}
-        </span>
-    `;
+                <span class='err-message-block' id='${parentId}'>
+                    ${errorMessages[parentId].message}</span>`;
         })
     })();
 
@@ -78,6 +76,17 @@
                 errMesTagObject.confirm(tag.value);
                 if (errMesTagObject.isValid) errTag.style.display = "none";
                 else errTag.style.display = "inline";
+
+                if (tag.name == "totalDays") {
+                    const dayOffTag = $('input[name=dayOff]');
+
+                    const errMesDayOffTagObject = errorMessages[dayOffTag.name];
+                    const errDayOffTag = $(`div#${dayOffTag.name} span#${dayOffTag.name}`);
+
+                    errMesDayOffTagObject.confirm(dayOffTag.value);
+                    if (errMesDayOffTagObject.isValid) errDayOffTag.style.display = "none";
+                    else errDayOffTag.style.display = "inline";
+                }
             }
         })
     })();
@@ -90,6 +99,25 @@
 
         $('select[name=employee]').onclick = (e) => {
             const selectedEmployee = [...$$('select[name=employee] option')].find(optionTag => optionTag.selected);
+            const employeeData = selectedEmployee.value.split("-");
+
+            positionOptionTags.find(optionTag => optionTag.value.split("-")[0] == employeeData[2]).selected = true;
+            employeeTypeOptionTags.find(optionTag => optionTag.value.split("-")[0] == employeeData[4]).selected = true;
+            degreeOptionTags.find(optionTag => optionTag.value.split("-")[0] == employeeData[6]).selected = true;
+            departmentOptionTags.find(optionTag => optionTag.value.split("-")[0] == employeeData[8]).selected = true;
+        }
+    })();
+
+    (function handleAutoSelectSalaryInfoTagsFromSpecifiedEmployee() {
+        const data = $('select[name=employee]').getAttribute('data').trim();
+        if (data) {
+            const degreeOptionTags = [...$$('select[name=degree] option')];
+            const positionOptionTags = [...$$('select[name=position] option')];
+            const departmentOptionTags = [...$$('select[name=department] option')];
+            const employeeTypeOptionTags = [...$$('select[name=employee_type] option')];
+            const selectedEmployee =
+            [...$$('select[name=employee] option')].find(optionTag => optionTag.value.split("-").includes(data));
+            selectedEmployee.selected = true;
             const employeeData = selectedEmployee.value.split("-");
 
             positionOptionTags.find(optionTag => optionTag.value.split("-")[0] == employeeData[2]).selected = true;

@@ -1,0 +1,147 @@
+<link rel="stylesheet" href="/css/salary_view-salary.css">
+<div id="view-salary">
+    <div id="turn-back-btn">
+        <a href="/admin/category/salary/salary-list">
+            <i class="fa-solid fa-arrow-left-long"></i> Thoát</a>
+    </div>
+    <div id="title">
+        <span>Thông tin lương chi tiết</span>
+    </div>
+    <div id="employee-information">
+        <div id="employee-information_heading">
+            <div id="title">
+                <span>Mã nhân viên: <%= specifiedEmployee.employee_code %></span>
+            </div>
+        </div>
+        <div id="employee-information_container">
+            <div id="container_info">
+                <div id="avatar">
+                    <img src=<%=specifiedEmployee.avatar_url %> alt="">
+                </div>
+                <ul class="info" id="grid-left">
+                    <li class="info-item">Tên nhân viên: <b><%= specifiedEmployee.name %></b></li>
+                    <li class="info-item">CMND, CCCD: <b><%= specifiedEmployee.identifier %></b></li>
+                    <li class="info-item">Ngày cấp: <%= specifiedEmployee.identifier_date %></li>
+                    <li class="info-item">Nơi cấp: <%= specifiedEmployee.identifier_place %></li>
+                    <li class="info-item">Giới tính: <b><%= specifiedEmployee.gender %></b></li>
+                    <li class="info-item">Ngày sinh: <b><%= specifiedEmployee.birthday %></b></li>
+                    <li class="info-item">Nơi sinh: <b><%= specifiedEmployee.birthplace %></b></li>
+                    <li class="info-item">Quốc gia: <%= specifiedEmployee.country %></li>
+                    <li class="info-item">Dân tộc: <%= specifiedEmployee.ethnic %></li>
+                    <li class="info-item">Số điện thoại: <b><%= specifiedEmployee.phone %></b></li>
+                    <li class="info-item">Tôn giáo: <%= specifiedEmployee.religion %></li>
+                </ul>
+                <ul class="info" id="grid-right">
+                    <li class="info-item">Hộ khẩu: <%= specifiedEmployee.household %></li>
+                    <li class="info-item">Tạm trú: <%= specifiedEmployee.temporary_address %></li>
+                    <li class="info-item">Phòng ban: <b><%= specifiedEmployee.department %></b></li>
+                    <li class="info-item">Loại nhân viên: <span
+                        <% if(specifiedEmployee.employee_type == "Thực tập") { %>
+                            class="status-block light-green-block"
+                        <% } else if (specifiedEmployee.employee_type == "Bán thời gian") { %>
+                            class="status-block blur-green-block"
+                        <% } else { %>
+                            class="status-block green-block"
+                        <% } %>
+                        ><%= specifiedEmployee.employee_type %></span></li>
+                    <li class="info-item">Chức vụ: <b><%= specifiedEmployee.position %></b></li>
+                    <li class="info-item">Loại bằng cấp: <%= specifiedEmployee.degree %></li>
+                    <li class="info-item">Ngày tạo: <%= specifiedEmployee.dateCreated %></li>
+                    <li class="info-item ">Trạng thái: <span
+                    <% if(specifiedEmployee.status == "Đang làm việc") { %>
+                        class="status-block green-block"
+                    <% } else { %>
+                        class="status-block red-block"
+                    <% } %>
+                    ><%= specifiedEmployee.status %></span></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div id="employee-salary-list">
+        <div id="heading" class="employee-salary-list_heading">
+            <div class="hide" id="turn-back-btn">
+                <a href="/admin/category/salary/view-salary/<%= specifiedEmployeeInSalaryDBs._id %>">
+                    <i class="fa-solid fa-arrow-left-long"></i> Thoát</a>
+            </div>
+            <div id="title">
+                <span>Danh sách lương</span>
+            </div>
+            <div id="add-btn">
+                <a href="/admin/category/salary/add-salary/<%= specifiedEmployeeInSalaryDBs._id %>">Tính lương</a>
+            </div>
+            <div id="search">
+                <input class="search" type="text" placeholder="Tìm kiếm">
+                <i class="fa-solid fa-magnifying-glass"></i>
+            </div>
+        </div>
+        <table>
+            <thead>
+                <tr class="table_title">
+                    <th id="ordinal">
+                        <span class="title_name">STT</span>
+                    </th>
+                    <th id="dateCreated">
+                        <span class="title_name">Ngày chấm lương</span>
+                        <i class="fa-solid fa-sort" id="dateCreated"></i>
+                    </th>
+                    <th id="totalDays">
+                        <span class="title_name">Ngày làm việc thực (ngày)</span>
+                        <i class="fa-solid fa-sort" id="totalDays"></i>
+                    </th>
+                    <th id="allowance">
+                        <span class="title_name">Trợ cấp (VNĐ)</span>
+                        <i class="fa-solid fa-sort" id="allowance"></i>
+                    </th>
+                    <th id="bonusSalary">
+                        <span class="title_name">Lương thưởng (VNĐ)</span>
+                        <i class="fa-solid fa-sort" id="bonusSalary"></i>
+                    </th>
+                    <th id="advanceSalary">
+                        <span class="title_name">Lương ứng trước (VNĐ)</span>
+                        <i class="fa-solid fa-sort" id="advanceSalary"></i>
+                    </th>
+                    <th id="realSalary">
+                        <span class="title_name">Thực lãnh (VNĐ)</span>
+                        <i class="fa-solid fa-sort" id="realSalary"></i>
+                    </th>
+                    <th id="delete-employee-salary">
+                        <span class="title_name">Xoá</span>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <% for (var i=0; i < specifiedEmployeeInSalaryDBs.salaryList.length; i++) { %>
+                    <tr class="body" id=<%=i+1 %>>
+                        <td id="ordinal">
+                            <%= (i + 1) %>
+                        </td>
+                        <td class="body_enable-searching body_enable-sorting" id="dateCreated">
+                            <%= specifiedEmployeeInSalaryDBs.salaryList[i].dateCreated %>
+                        </td>
+                        <td class="body_enable-searching body_enable-sorting" id="totalDays">
+                            <%= specifiedEmployeeInSalaryDBs.salaryList[i].totalDays %>
+                        </td>
+                        <td class="body_enable-searching vn_currency body_enable-sorting" id="allowance">
+                            <%= specifiedEmployeeInSalaryDBs.salaryList[i].allowance %>
+                        </td>
+                        <td class="body_enable-searching vn_currency body_enable-sorting" id="bonusSalary">
+                            <%= specifiedEmployeeInSalaryDBs.salaryList[i].bonusSalary %>
+                        </td>
+                        <td class="body_enable-searching vn_currency body_enable-sorting" id="advanceSalary">
+                            <%= specifiedEmployeeInSalaryDBs.salaryList[i].advanceSalary %>
+                        </td>
+                        <td class="body_enable-searching vn_currency body_enable-sorting" id="realSalary">
+                            <%= specifiedEmployeeInSalaryDBs.salaryList[i].realSalary %>
+                        </td>
+                        <td class="delete-salary">
+                            <a salary_id=<%=specifiedEmployeeInSalaryDBs.salaryList[i]._id.toString() %>><i
+                                class="fa-sharp fa-solid fa-trash"></i> </a>
+                        </td>
+                    </tr>
+                <% } %>
+            </tbody>
+        </table>
+    </div>
+</div>
+<script src="/js/salary_view-salary.js"></script>
