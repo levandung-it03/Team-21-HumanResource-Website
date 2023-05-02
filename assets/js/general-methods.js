@@ -88,13 +88,13 @@ const generalMethods = {
     },
     searchingMethod: function (inputTag) {
         let result = null;
-        const inputValue = inputTag.value.trim();
+        const inputValue = inputTag.value.trim().split(" ").filter(c=>c!="").join(" ").toUpperCase();
         const allDataTags = [...$$('table tbody tr.body')];
         if (inputValue == "") result = allDataTags;
         else {
             result = allDataTags.filter(dataTag => {
                 const enableSearchingField = [...dataTag.querySelectorAll('.body_enable-searching')];
-                return enableSearchingField.some(field => field.innerText == inputValue);
+                return enableSearchingField.some(field => field.innerText.trim().toUpperCase() == inputValue);
             })
         }
         if (!result.length) {
