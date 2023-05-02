@@ -87,10 +87,14 @@ let submitFormCancellation = false;
             } else if (data[0][0].includes("employee_code")) {
                 console.log(data[0][0]);
                 alert('Nhân viên đã tồn tại trong nhóm khác!');
-
             }
-
-            window.history.replaceState({}, "", "http://localhost:3000/admin/category/group/add-group");
+            const currentUrl = window.location.href.split("/");
+            if (currentUrl[currentUrl.length - 2] == 'update-group') {
+                window.history.replaceState({}, "", "http://localhost:3000/admin/category/group/update-group/"
+                + currentUrl.pop());
+            } else {
+                window.history.replaceState({}, "", "http://localhost:3000/admin/category/group/add-group");
+            }
             strictInputTags.forEach((tag, index) => {
                 tag.value = data.find((e) => e[0] == tag.name)[1];
                 errorMessages[tag.name].confirm(tag.value);

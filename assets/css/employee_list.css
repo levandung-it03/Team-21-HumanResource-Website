@@ -41,6 +41,22 @@ th, td {
     width: 12%;
     text-align: center;
 }
+#employee_list .table_title #name {
+    width: 12%;
+    text-align: center;
+}
+#employee_list .table_title #gender {
+    width: 7%;
+    text-align: center;
+}
+#employee_list .table_title #birthday {
+    width: 8%;
+    text-align: center;
+}
+#employee_list .table_title #birthplace {
+    width: 8%;
+    text-align: center;
+}
 #employee_list .table_title #identifier {
     width: 10%;
 }
@@ -51,6 +67,7 @@ th, td {
 #employee_list .table_title #update-employee,
 #employee_list .table_title #delete-employee {
     text-align: center;
+    width: 4%;
 }
 #employee_list .body {
     max-height: 300px;
@@ -84,16 +101,7 @@ th, td {
     padding: 4px 0;
     border: solid 1px transparent;
     border-radius: 4px;
-}
-#employee_list .body .interact-employee-btn a:hover::after {
-    display: block;
-    content: "";
-    position: absolute;
-    top: -2px;
-    left: -2px;
-    background-color: rgba(255, 255, 255, 0.5);
-    height: 40px;
-    width: 41px;
+    transition: background-color ease 0.3s;
 }
 #employee_list .body .view-employee a {
     background-color: var(--blue);
@@ -101,8 +109,19 @@ th, td {
 }
 #employee_list .body .update-employee a {
     background-color: var(--green);
+    width: 40px;
 }
 #employee_list .body .delete-employee a {
     background-color: var(--red);
     cursor: pointer;
+    width: 40px;
+}
+#employee_list .body .view-employee a:hover {
+    background-color: rgb(116, 116, 255);
+}
+#employee_list .body .update-employee a:hover {
+    background-color: var(--blur-green);
+}
+#employee_list .body .delete-employee a:hover {
+    background-color: rgb(238, 102, 102);
 }

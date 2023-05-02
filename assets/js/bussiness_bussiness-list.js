@@ -2,13 +2,13 @@
     function deleteBussiness() {
         $$('td.delete-bussiness a').forEach((tag) => {
             tag.onclick = async (e) => {
-                if (confirm('Bạn chắc chắn muốn xoá chuyên môn này chứ? Dữ liệu đã xoá không thể khôi phục!')) {
+                if (confirm('Bạn chắc chắn muốn xoá công tác này chứ? Dữ liệu đã xoá không thể khôi phục!')) {
                     const id = tag.getAttribute('bussiness_id');
                     await fetch(`/api/admin/delete-bussiness/${id}`, {
                         method: "DELETE",deleteBussiness
                     })
                         .then((response) => {
-                            alert('Xoá chuyên môn thành công!');
+                            alert('Xoá công tác thành công!');
                             window.location.href = "http://localhost:3000/admin/category/bussiness/bussiness-list";
                         })
                 }

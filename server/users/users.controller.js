@@ -203,7 +203,7 @@ exports.updateEmployee = async (req, res) => {
         .then(async (result) => {
             const public_id = usersMethods.getPublicIdByImageURL(user.avatar_url);
             try {
-                const newTechnique = await techniqueDBs.updateOne(
+                await techniqueDBs.updateOne(
                     { employee_code: user.employee_code },
                     { "$set": { department: req.body.department, name: req.body.name } }
                 );
@@ -215,6 +215,7 @@ exports.updateEmployee = async (req, res) => {
                         "employee_list.$.position": user.position,
                     }
                 }
+                console.log(user);
                 await groupDBs.updateOne({ "employee_list.employee_code": user.employee_code }, updateGroupObj);
                 sharp(req.file.path)
                     .resize({ height: 350 })
@@ -677,7 +678,7 @@ exports.updateGroup = async (req, res) => {
 
     const specifiedGroup = await groupDBs.findOne({ _id: new ObjectId(req.params.id) });
     const employee_list = specifiedGroup.employee_list;
-    const newEmployee_list = [];
+    const newEmployee_list = [], prevData = req.body;
     let oldLeaderIndex = null, notFoundEmloyeeInGroup = true;
 
     for (let index in employee_list) {
@@ -725,7 +726,8 @@ exports.updateGroup = async (req, res) => {
             res.status(200).redirect('/admin/category/group/view-group/' + req.params.id);
         })
         .catch(err => {
-            res.status(404).send({ mes: err.message });
+            res.redirect(DOMAIN + '/admin/category/group/update-group/' + req.params.id
+            + '?error=' + encodeURIComponent(`error_${Object.keys(err.keyValue)[0]}`) + prevData);
         })
 }
 

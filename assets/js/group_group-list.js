@@ -8,7 +8,7 @@
                         method: "DELETE",
                     })
                         .then((response) => {
-                            alert('Xoá chuyên môn thành công!');
+                            alert('Xoá nhóm thành công!');
                             window.location.href = "http://localhost:3000/admin/category/group/group-list";
                         })
                 }

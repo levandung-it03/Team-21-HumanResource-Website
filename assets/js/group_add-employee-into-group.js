@@ -11,7 +11,7 @@ let submitFormCancellation = false;
     const url = window.location.href;
     if (myParam) {
         (async function handleRedirect() {
-            alert('Nhân viên đã tồn tại!');
+            alert('Nhân viên đã tồn tại hoặc đang ở nhóm khác!');
 
             window.history.replaceState({}, "", url.split("?")[0]);
         })();

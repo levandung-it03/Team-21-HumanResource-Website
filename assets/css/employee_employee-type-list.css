@@ -78,7 +78,7 @@ th, td {
     transition: background-color ease 0.3s;
 }
 #employee-type-list tr.body .update-employee-type a:hover {
-    background-color: rgb(238, 102, 102);
+    background-color: var(--blur-green);
 }
 #employee-type-list tr.body .delete-employee-type {
     padding: 12px 24px 12px;

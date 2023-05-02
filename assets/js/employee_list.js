@@ -3,7 +3,7 @@
         $$('td.delete-employee a').forEach((tag) => {
             tag.onclick = async (e) => {
                 if (confirm('Bạn chắc chắn muốn xoá nhân viên này chứ? Dữ liệu đã xoá không thể khôi phục!')) {
-                    const id = tag.getAttribute('id_user');
+                    const id = tag.getAttribute('user_id');
                     await fetch(`/api/admin/delete-employee/${id}`, {
                         method: "DELETE",
                     })

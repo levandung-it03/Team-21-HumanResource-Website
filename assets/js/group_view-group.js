@@ -12,7 +12,7 @@ let submitFormCancellation = false;
                         method: "DELETE",
                     })
                         .then((response) => {
-                            alert('Xoá chuyên môn thành công!');
+                            alert('Xoá nhân viên thành công!');
                             window.location.href = currentUrl;
                         })
                 }
