@@ -868,7 +868,11 @@ exports.addEmployeeCompliment = async (req, res) => {
             upsert: true
         })
             .then(data => {
-                res.redirect('/admin/category/compliment/employee-compliments-list');
+                if (req.params.id) {
+                    res.redirect('/admin/category/compliment/view-employee-compliments/' + req.params.id);
+                } else {
+                    res.redirect('/admin/category/compliment/employee-compliments-list');
+                }
             })
             .catch(err => {
                 res.status(500).send({ mes: err.message });
@@ -896,14 +900,12 @@ exports.updateEmployeeCompliment = async (req, res) => {
 
     let update = {
         "$set": {
-            "compliments_list.$": {
-                compliment_code: updatedComplimentCode,
-                compliment: req.body.compliment,
-                numbers: req.body.numbers,
-                compliment_type: compliment_type,
-                description: req.body.description,
-                dateCreated: dateCreated,
-            }
+            "compliments_list.$.compliment_code": updatedComplimentCode,
+            "compliments_list.$.compliment": req.body.compliment,
+            "compliments_list.$.numbers": req.body.numbers,
+            "compliments_list.$.compliment_type": compliment_type,
+            "compliments_list.$.description": req.body.description,
+            "compliments_list.$.dateCreated": dateCreated,
         }
     }
     
@@ -919,7 +921,6 @@ exports.updateEmployeeCompliment = async (req, res) => {
 exports.deleteComplimentOfEmployee = async (req, res) => {
     const complimentId = req.params.id;
     const employeeId = req.params.employeeId;
-
     try {
         await client.connect();
         const employee = await employee_complimentsDBs.findOne({ _id: new ObjectId(employeeId) });
@@ -981,7 +982,11 @@ exports.addGroupCompliment = async (req, res) => {
             upsert: true
         })
             .then(data => {
-                res.redirect('/admin/category/compliment/group-compliments-list');
+                if (req.params.id) {
+                    res.redirect('/admin/category/compliment/view-group-compliments/' + req.params.id);
+                } else {
+                    res.redirect('/admin/category/compliment/group-compliments-list');
+                }
             })
             .catch(err => {
                 res.status(500).send({ mes: err.message });
@@ -990,5 +995,63 @@ exports.addGroupCompliment = async (req, res) => {
 }
 
 exports.updateGroupCompliment = async (req, res) => {
+    await client.connect();
+    const updatedComplimentCode = req.params.complimentCode;
+    const dateCreated = usersMethods.getNowDate();
+    const [compliment_type_code, compliment_type] = req.body.compliment_type.split("-");
+    let filter = { "compliments_list.compliment_code": updatedComplimentCode };
 
+    let update = {
+        "$set": {
+            "compliments_list.$.compliment_code": updatedComplimentCode,
+            "compliments_list.$.compliment": req.body.compliment,
+            "compliments_list.$.numbers": req.body.numbers,
+            "compliments_list.$.compliment_type": compliment_type,
+            "compliments_list.$.description": req.body.description,
+            "compliments_list.$.dateCreated": dateCreated,
+        }
+    }
+    
+    await Group_compliments.findOneAndUpdate(filter, update)
+        .then(data => {
+            res.redirect('/admin/category/compliment/view-group-compliments/' + data._id.toString());
+        })
+        .catch(err => {
+            res.status(500).send({ mes: err.message });
+        })
+}
+
+exports.deleteComplimentOfGroup = async (req, res) => {
+    const complimentId = req.params.id;
+    const groupId = req.params.groupId;
+
+    try {
+        await client.connect();
+        const group = await group_complimentsDBs.findOne({ _id: new ObjectId(groupId) });
+        const compliments_list = group.compliments_list;
+        const newCompliments_list = compliments_list.filter(object => {
+            if (object._id.toString() != complimentId) {
+                return object;
+            }
+        });
+        
+        await group_complimentsDBs.updateOne(
+            { _id: new ObjectId(groupId) },
+            { "$set": { compliments_list: newCompliments_list } }
+        );
+        res.end();
+    } catch (err) {
+        res.status(404).send({ mes: err.message });
+    }
+}
+
+exports.deleteGroupCompliment = async (req, res) => {
+    const id = req.params.id;
+    try {
+        await client.connect();
+        await group_complimentsDBs.deleteOne({ _id: new ObjectId(id) });
+        res.end();
+    } catch (err) {
+        res.status(404).send({ mes: err.message });
+    }
 }

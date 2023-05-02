@@ -637,6 +637,7 @@ class renderMethods {
                 res.render('admin_compliment_add-employee-compliment', {
                     user: user,
                     isUpdating: false,
+                    employeeId: employeeId,
                     specifiedEmployee: specifiedEmployee,
                     allCompliment_type: allCompliment_type,
                     allEmployees: allEmployees,
@@ -765,6 +766,59 @@ class renderMethods {
                 isFromComplimentsList: true,
                 idInComplimentDBs: idInComplimentDBs,
                 specifiedGroup: specifiedGroup,
+                layout: './layouts/admin'
+            });
+        } catch (err) {
+            clearCookiesAndReturnLogin(res);
+        }
+    }
+    async admin_addGroupCompliment(req, res) {
+        try {
+            const allGroups = await getAllGroup();
+            const allCompliment_type = await getAllCompliment_type();
+            const user = await getCurrentUser(req);
+            const groupId = req.params.groupId;
+            if (groupId != undefined) {
+                const specifiedGroup = await getSpecifiedObject(groupId, group_complimentsDBs);
+                res.render('admin_compliment_add-group-compliment', {
+                    user: user,
+                    groupId: groupId,
+                    isUpdating: false,
+                    specifiedGroup: specifiedGroup,
+                    allCompliment_type: allCompliment_type,
+                    allGroups: allGroups,
+                    layout: './layouts/admin'
+                });
+            } else {
+                res.render('admin_compliment_add-group-compliment', {
+                    user: user,
+                    isUpdating: false,
+                    specifiedGroup: undefined,
+                    allCompliment_type: allCompliment_type,
+                    allGroups: allGroups,
+                    layout: './layouts/admin'
+                });
+            }
+        } catch (err) {
+            clearCookiesAndReturnLogin(res);
+        }
+    }
+    async admin_updateGroupCompliment(req, res) {
+        try {
+            const allGroups = await getAllGroup();
+            const allCompliment_type = await getAllCompliment_type();
+            const user = await getCurrentUser(req);
+            const specifiedGroup = await getSpecifiedObject(req.params.groupId, group_complimentsDBs);
+            const specifiedCompliment =
+                specifiedGroup.compliments_list.find(compliment => compliment._id.toString() == req.params.id);
+                
+            res.render('admin_compliment_add-group-compliment', {
+                user: user,
+                isUpdating: true,
+                specifiedGroup: specifiedGroup,
+                specifiedCompliment: specifiedCompliment,
+                allCompliment_type: allCompliment_type,
+                allGroups: allGroups,
                 layout: './layouts/admin'
             });
         } catch (err) {

@@ -2,13 +2,13 @@
     function deleteEmployeeCompliment() {
         $$('td.delete-employee-compliment a').forEach((tag) => {
             tag.onclick = async (e) => {
-                if (confirm('Bạn chắc chắn muốn xoá loại bằng cấp này chứ? Dữ liệu đã xoá không thể khôi phục!')) {
+                if (confirm('Bạn chắc chắn muốn xoá tất cả khen thưởng của nhân viên này chứ? Dữ liệu đã xoá không thể khôi phục!')) {
                     const id = tag.getAttribute('employee_compliment_id');
                     await fetch(`/api/admin/delete-employee-compliment/${id}`, {
                         method: "DELETE",
                     })
                         .then((response) => {
-                            alert('Xoá phòng ban thành công!');
+                            alert('Xoá phòng khen thưởng thành công!');
                             window.location.href = "http://localhost:3000/admin/category/compliment/employee-compliments-list";
                         })
                 }
