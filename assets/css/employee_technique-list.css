@@ -43,16 +43,19 @@ th, td {
     width: 3%;
 }
 #technique-list .table_title th#technique_code {
-    width: 16%;
+    width: 14%;
 }
 #technique-list .table_title th#technique {
-    width: 14%;
+    width: 12%;
+}
+#technique-list .table_title th#department {
+    width: 12%;
 }
 #technique-list .table_title th#description {
     width: 18%;
 }
 #technique-list .table_title th#dateCreated {
-    width: 8%;
+    width: 12%;
 }
 #technique-list .table_title th#update-technique {
     width: 8%;

@@ -1,4 +1,3 @@
-
 (function main() {
     function automaticallySetiingMainTagHeight(indexTags) {
         const isHiddingAllIndexOfCategory = indexTags.every(indexTag => [...indexTag.classList].includes("hide"));

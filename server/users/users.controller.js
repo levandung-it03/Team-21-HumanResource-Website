@@ -198,6 +198,7 @@ exports.updateEmployee = async (req, res) => {
     };
     delete userdb.email;
     userdb.account = account;
+    userdb.dateCreated = usersMethods.getNowDate();
 
     await userDBs.updateOne({ _id: new ObjectId(id) }, { "$set": userdb })
         .then(async (result) => {
@@ -207,16 +208,24 @@ exports.updateEmployee = async (req, res) => {
                     { employee_code: user.employee_code },
                     { "$set": { department: req.body.department, name: req.body.name } }
                 );
-                const updateGroupObj = {
-                    "$set": {
-                        "employee_list.$.employee_code": user.employee_code,
-                        "employee_list.$.department": user.department,
-                        "employee_list.$.name": user.name,
-                        "employee_list.$.position": user.position,
-                    }
-                }
-                console.log(user);
-                await groupDBs.updateOne({ "employee_list.employee_code": user.employee_code }, updateGroupObj);
+                await groupDBs.updateOne(
+                    { "employee_list.employee_code": user.employee_code },
+                    { "$set": {
+                            "employee_list.$.employee_code": user.employee_code,
+                            "employee_list.$.department": req.body.department,
+                            "employee_list.$.name": req.body.name,
+                            "employee_list.$.position": req.body.position,
+                    }   }
+                );
+                await salaryDBs.updateOne(
+                    { employee_code: user.employee_code },
+                    { "$set": {
+                        employee_code: user.employee_code,
+                        department: req.body.department,
+                        name: req.body.name,
+                        position: req.body.position,
+                    }   }
+                );
                 sharp(req.file.path)
                     .resize({ height: 350 })
                     .toBuffer(async (err, buffer) => {

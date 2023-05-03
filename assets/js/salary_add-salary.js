@@ -1,3 +1,4 @@
+const mainData = [...$$("tr.body")];
 (function main() {
     const errorMessages = {
         totalDays: {

@@ -1,3 +1,4 @@
+const mainData = [...$$("tr.body")];
 (function main() {
     function deleteGroup() {
         $$('td.delete-group a').forEach((tag) => {
@@ -32,6 +33,11 @@
     })();
 
     (function searchingEvent() {
+        $('div#turn-back-btn').onclick = (e) => {
+            $('tbody').innerHTML = mainData.reduce((accuTagsStr, tag) => (accuTagsStr + tag.outerHTML), "");
+            $('div#turn-back-btn').style.display = "none";
+            $('div#search').style.display = "block";
+        }
         $('div#search i').onclick = (e) => {
             const inputTag = $('div#search input');
             generalMethods.searchingMethod(inputTag);

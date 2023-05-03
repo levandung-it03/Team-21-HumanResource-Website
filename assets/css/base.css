@@ -169,6 +169,7 @@ header {
     transition: background-color ease 0.3s;
 }
 #turn-back-btn a:hover {
+    cursor: pointer;
     background-color: rgb(120, 120, 255);
 }
 #add-btn {

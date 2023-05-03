@@ -1,5 +1,6 @@
 let submitFormCancellation = false;
 
+const mainData = [...$$("tr.body")];
 (function main() {
     $('input[type=submit').onclick = (e) => {
         if (confirm("Bạn chắn chắn muốn thêm nhân viên này?")) submitFormCancellation = true;

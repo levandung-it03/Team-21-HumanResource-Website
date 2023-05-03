@@ -46,7 +46,7 @@
                         ><%= specifiedEmployee.employee_type %></span></li>
                     <li class="info-item">Chức vụ: <b><%= specifiedEmployee.position %></b></li>
                     <li class="info-item">Loại bằng cấp: <%= specifiedEmployee.degree %></li>
-                    <li class="info-item">Ngày tạo: <%= specifiedEmployee.dateCreated %></li>
+                    <li class="info-item">Ngày chỉnh sửa cuối cùng: <%= specifiedEmployee.dateCreated %></li>
                     <li class="info-item ">Trạng thái: <span
                     <% if(specifiedEmployee.status == "Đang làm việc") { %>
                         class="status-block green-block"
@@ -61,8 +61,7 @@
     <div id="employee-discipline-list">
         <div id="heading" class="employee-discipline-list_heading">
             <div class="hide" id="turn-back-btn">
-                <a href="/admin/category/discipline/view-employee-discipline/<%= specifiedEmployeeInDisciplineDBs._id %>">
-                    <i class="fa-solid fa-arrow-left-long"></i> Thoát</a>
+                <a><i class="fa-solid fa-arrow-left-long"></i> Thoát</a>
             </div>
             <div id="title">
                 <span>Danh sách kỷ luật</span>
