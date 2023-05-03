@@ -40,7 +40,7 @@ th, td {
     text-align: center;
 }
 #position-list .table_title th#ordinal {
-    width: 3%;
+    width: 5%;
 }
 #position-list .table_title th#position_code {
     width: 20%;

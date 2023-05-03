@@ -40,7 +40,7 @@ th, td {
     text-align: center;
 }
 #employee-type-list .table_title th#ordinal {
-    width: 3%;
+    width: 5%;
 }
 #employee-type-list .table_title th#employee_type_code {
     width: 20%;

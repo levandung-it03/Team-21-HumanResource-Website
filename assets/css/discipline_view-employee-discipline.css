@@ -126,7 +126,7 @@ th, td {
     text-align: center;
 }
 #employee-discipline-list .table_title th#ordinal {
-    width: 3%;
+    width: 5%;
 }
 #employee-discipline-list .table_title th#discipline_code {
     width: 14%;

@@ -97,7 +97,7 @@ th, td {
     text-align: center;
 }
 #employee-list .table_title th#ordinal {
-    width: 3%;
+    width: 5%;
 }
 #employee-list .table_title th#employee_code {
     width: 14%;

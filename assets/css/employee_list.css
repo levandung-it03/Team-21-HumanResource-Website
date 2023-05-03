@@ -20,17 +20,11 @@ th, td {
 #employee_list .table_title {
     text-align: left;
 }
-#employee_list .table_title th i {
-    font-size: 0.7rem;
-    float: right;
-    line-height: 24px;
-    cursor: pointer;
-}
 #employee_list .table_title th {
     padding: 6px;
 }
 #employee_list .table_title #ordinal {
-    width: 3%;
+    width: 5%;
     text-align: center;
 }
 #employee_list .table_title #employee_code {

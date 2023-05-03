@@ -16,38 +16,39 @@
         <thead>
             <tr class="table_title">
                 <th id="ordinal">
-                    <span class="title_name">STT</span>                 
+                    <span class="title_name">STT</span>
+                        <i class="fa-solid fa-arrow-down-short-wide" id="ordinal"></i>                 
                 </th>
                 <th id="avatar">
                     <span class="title_name">Ảnh</span>
                 </th>
                 <th id="first-name">
                     <span class="title_name">Họ</span>
-                    <i class="fa-solid fa-sort" id="first-name"></i>
+                    <i class="fa-solid fa-arrow-down-short-wide" id="first-name"></i>
                 </th>
                 <th id="last-name">
                     <span class="title_name">Tên</span>
-                    <i class="fa-solid fa-sort" id="last-name"></i>
+                    <i class="fa-solid fa-arrow-down-short-wide" id="last-name"></i>
                 </th>
                 <th id="email">
                     <span class="title_name">Tài khoản</span>
-                    <i class="fa-solid fa-sort" id="email"></i>
+                    <i class="fa-solid fa-arrow-down-short-wide" id="email"></i>
                 </th>
                 <th id="phone">
                     <span class="title_name">Điện thoại</span>
-                    <i class="fa-solid fa-sort" id="phone"></i>
+                    <i class="fa-solid fa-arrow-down-short-wide" id="phone"></i>
                 </th>
                 <th id="employee_type">
                     <span class="title_name">Loại NV</span>
-                    <i class="fa-solid fa-sort light-block" id="employee_type"></i>
+                    <i class="fa-solid fa-arrow-down-short-wide light-block" id="employee_type"></i>
                 </th>
                 <th id="right">
                     <span class="title_name">Quyền hạn</span>
-                    <i class="fa-solid fa-sort light-block" id="right"></i>
+                    <i class="fa-solid fa-arrow-down-short-wide light-block" id="right"></i>
                 </th>
                 <th id="status">
                     <span class="title_name">Tình trạng</span>
-                    <i class="fa-solid fa-sort light-block" id="status"></i>
+                    <i class="fa-solid fa-arrow-down-short-wide light-block" id="status"></i>
                 </th>
             </tr>
         </thead>
@@ -74,13 +75,10 @@
                         <%= employeeList[i].phone %>
                     </td>
                     <td id="employee_type">
-                        <% if(employeeList[i].employee_type == "Chính thức") { %>
-                            <span class="body_enable-searching body_enable-sorting status-block green-block" id="employee_type">
-                        <% } else if (employeeList[i].employee_type == "Bán thời gian") { %>
-                            <span class="body_enable-searching body_enable-sorting status-block blur-green-block" id="employee_type">
-                        <% } else { %>
-                            <span class="body_enable-searching body_enable-sorting status-block light-green-block" id="employee_type">
-                        <% } %>
+                        <% const blockType = employeeList[i].employee_type == "Chính Thức" ? "green-block"
+                        : (employeeList[i].employee_type == "Bán Thời Gian" ? "blur-green-block"
+                        : "light-green-block") %>
+                        <span class="body_enable-searching body_enable-sorting status-block <%=blockType%>" id="employee_type">
                             <%= employeeList[i].employee_type %>
                         </span>
                     </td>

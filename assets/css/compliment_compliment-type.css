@@ -40,7 +40,7 @@ th, td {
     text-align: center;
 }
 #compliment-type .table_title th#ordinal {
-    width: 3%;
+    width: 5%;
 }
 #compliment-type .table_title th#compliment_type_code {
     width: 20%;

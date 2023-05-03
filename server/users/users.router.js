@@ -13,10 +13,7 @@ const authMiddlewares = require('../auth/auth.middlewares');
 /**
  * @EQUAL_RIGHT_ACTIONS
  */
-route.get('/home',
-    authMiddlewares.verifyTokenAndGenerateAccessTokenIfExpiring,
-    authMiddlewares.verifyAdmin,
-    renderMethods.home);
+
 route.get('/login',
     authMiddlewares.checkingLogedIn,
     renderMethods.login);
@@ -30,7 +27,7 @@ route.post('/api/users/password', usersController.password);
  * @ADMIN_RIGHT_ACTIONS____________________________________________________________________________
  */
 /** @GET_METHODS__________________________ */
-route.get('/admin/category/general',
+route.get('/admin/general',
     authMiddlewares.verifyTokenAndGenerateAccessTokenIfExpiring,
     authMiddlewares.verifyAdmin,
     renderMethods.admin_general);

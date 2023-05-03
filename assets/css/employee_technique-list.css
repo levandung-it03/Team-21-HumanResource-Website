@@ -40,7 +40,7 @@ th, td {
     text-align: center;
 }
 #technique-list .table_title th#ordinal {
-    width: 3%;
+    width: 5%;
 }
 #technique-list .table_title th#technique_code {
     width: 14%;

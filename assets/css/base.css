@@ -14,6 +14,7 @@
     --light-green: rgb(17, 255, 0);
     --blur-green: rgb(0, 255, 208);
     --red: rgb(234, 16, 16);
+    --blur-black: rgba(0, 0, 0, 0.15);
 
     --footer-height: 40px;
     --category-width: 17%;
@@ -209,4 +210,20 @@ div#search i {
 }
 #heading div.hide {
     display: none;
+}
+
+.table_title th i {
+    display: block;
+    font-size: 0.8rem;
+    margin-right: -3px;
+    float: right;
+    line-height: 24px;
+    width: 18px!important;
+    cursor: pointer;
+    background-color: var(--blur-black);
+    border-radius: 8px;
+}
+.table_title th i:hover {
+    color: white;
+    background-color: rgba(0, 0, 0, 0.7);
 }

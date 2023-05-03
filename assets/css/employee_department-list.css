@@ -40,15 +40,15 @@ th, td {
     text-align: center;
 }
 #department-list .table_title th#ordinal {
-    width: 3%;
+    width: 5%;
 }
-#department-list .table_title th#position_code {
+#department-list .table_title th#department_code {
     width: 20%;
 }
 #department-list .table_title th#dateCreated {
     width: 18%;
 }
-#department-list .table_title th#position {
+#department-list .table_title th#department {
     width: 24%;
 }
 #department-list .table_title th#multipleSalary {

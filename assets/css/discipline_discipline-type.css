@@ -40,7 +40,7 @@ th, td {
     text-align: center;
 }
 #discipline-type .table_title th#ordinal {
-    width: 3%;
+    width: 5%;
 }
 #discipline-type .table_title th#discipline_type_code {
     width: 20%;

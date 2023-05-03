@@ -31,7 +31,7 @@ th, td {
 }
 
 #account_list .table_title #ordinal {
-    width: 3%;
+    width: 5%;
     text-align: center;
 }
 #account_list .table_title #avatar {

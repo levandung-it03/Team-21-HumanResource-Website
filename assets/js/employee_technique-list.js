@@ -22,7 +22,7 @@ const mainData = [...$$("tr.body")];
         $$('.table_title i').forEach(sortingIconTag => {
             sortingIconTag.onclick = (e) => {
                 let tagSelector = "td#" + sortingIconTag.id;
-
+                                          
                 generalMethods.sortingMethod(tagSelector);
 
                 alert("Sắp xếp thành công!");

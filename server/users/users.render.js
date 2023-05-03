@@ -125,33 +125,33 @@ class renderMethods {
     password(req, res) {
         res.render('password', { layout: './password' });
     }
-    async home(req, res) {
+    async admin_general(req, res) {
         try {
             const user = await getCurrentUser(req);
-            if (user.admin == 0) {
+            if (user.admin == 1) {
+                const allEmployees = await getAllEmployees();
+                const allDepartments = await getAllDepartment();
+                const allPositions = await getAllPosition();
+                const allGroups = await getAllGroup();
+                const allBussiness = await getAllBussiness();
+                const user = await getCurrentUser(req);
+                res.render('admin_general', {
+                    user: user,
+                    allEmployees: allEmployees,
+                    allDepartments: allDepartments,
+                    allPositions: allPositions,
+                    allGroups: allGroups,
+                    allBussiness: allBussiness,
+                    layout: './layouts/admin'
+                });
+            } else if (user.admin == 0) {
                 res.render('home', {
                     user: user,
                     layout: './layouts/employee'
                 });
-            } else if (user.admin == 1) {
-                res.render('home', {
-                    user: user,
-                    layout: './layouts/admin'
-                });
+            } else {
+                clearCookiesAndReturnLogin(res);
             }
-        } catch (err) {
-            clearCookiesAndReturnLogin(res);
-        }
-    }
-    async admin_general(req, res) {
-        try {
-            const allEmployees = await getAllEmployees();
-            const user = await getCurrentUser(req);
-            res.render('admin_general', {
-                user: user,
-                employeeList: allEmployees,
-                layout: './layouts/admin'
-            });
         } catch (err) {
             clearCookiesAndReturnLogin(res);
         }

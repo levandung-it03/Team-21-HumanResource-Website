@@ -137,7 +137,11 @@ exports.login = async (req, res) => {
                     .cookie('accessToken', accessToken, { httpOnly: true })
                     .cookie('refreshToken', refreshToken, { httpOnly: true })
                     .cookie('admin', user.admin)
-                    .redirect('/home');
+                if (user.admin == 1) {
+                    res.redirect('/admin/general');
+                } else if (user.admin == 0) {
+                    res.redirect('/employee/general');
+                }
             } else {
                 res.redirect(DOMAIN + '/login?error=' + encodeURIComponent('error_password') + prevData);
             }
