@@ -531,7 +531,13 @@ route.delete('/api/admin/delete-department/:id',
 route.delete('/api/admin/delete-salary/:employeeId/:id',
     authMiddlewares.verifyTokenAndGenerateAccessTokenIfExpiring,
     authMiddlewares.verifyAdmin,
+    usersController.deleteSalaryOfEmployee);
+
+route.delete('/api/admin/delete-salary/:id',
+        authMiddlewares.verifyTokenAndGenerateAccessTokenIfExpiring,
+        authMiddlewares.verifyAdmin,
     usersController.deleteSalary);
+
 
 route.delete('/api/admin/delete-employee-type/:id',
     authMiddlewares.verifyTokenAndGenerateAccessTokenIfExpiring,
@@ -563,7 +569,7 @@ route.delete('/api/admin/delete-employee-inside-group/:group_id/:id',
     authMiddlewares.verifyAdmin,
     usersController.deleteEmployeeIntoGroup);
 
-route.delete('/api/admin/delete-compliment_type/:id',
+route.delete('/api/admin/delete-compliment-type/:id',
     authMiddlewares.verifyTokenAndGenerateAccessTokenIfExpiring,
     authMiddlewares.verifyAdmin,
     usersController.deleteComplimentType);
@@ -588,7 +594,7 @@ route.delete('/api/admin/delete-compliment-of-group/:groupId/:id',
     authMiddlewares.verifyAdmin,
     usersController.deleteComplimentOfGroup);
 
-route.delete('/api/admin/delete-discipline_type/:id',
+route.delete('/api/admin/delete-discipline-type/:id',
     authMiddlewares.verifyTokenAndGenerateAccessTokenIfExpiring,
     authMiddlewares.verifyAdmin,
     usersController.deleteDisciplineType);

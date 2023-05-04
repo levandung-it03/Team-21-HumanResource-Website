@@ -5,7 +5,7 @@ const mainData = [...$$("tr.body")];
             tag.onclick = async (e) => {
                 if (confirm('Bạn chắc chắn muốn xoá khen thưởng này chứ? Dữ liệu đã xoá không thể khôi phục!')) {
                     const id = tag.getAttribute('compliment_type_id');
-                    await fetch(`/api/admin/delete-compliment_type/${id}`, {
+                    await fetch(`/api/admin/delete-compliment-type/${id}`, {
                         method: "DELETE",
                     })
                         .then((response) => {

@@ -5,7 +5,7 @@ const mainData = [...$$("tr.body")];
             tag.onclick = async (e) => {
                 if (confirm('Bạn chắc chắn muốn xoá kỷ luật này chứ? Dữ liệu đã xoá không thể khôi phục!')) {
                     const id = tag.getAttribute('discipline_type_id');
-                    await fetch(`/api/admin/delete-discipline_type/${id}`, {
+                    await fetch(`/api/admin/delete-discipline-type/${id}`, {
                         method: "DELETE",
                     })
                         .then((response) => {

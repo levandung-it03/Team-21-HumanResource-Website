@@ -11,12 +11,16 @@ th, td {
     font-size: 2.4rem;
     padding: 10px;
 }
+#salary-list {
+    width: 100%;
+}
 #salary-list table {
     margin: var(--form-margin);
     background-color: white;
     border: solid 1px transparent;
     border-radius: var(--form-border-radius);
     padding: 12px;
+    width: 98%;
     box-shadow: var(--black-box-shadow);
     font-size: 0.95rem;
 }

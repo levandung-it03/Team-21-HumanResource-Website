@@ -570,7 +570,7 @@ exports.addSalary = async (req, res) => {
         })
 }
 
-exports.deleteSalary = async (req, res) => {
+exports.deleteSalaryOfEmployee = async (req, res) => {
     const salaryId = req.params.id;
     const employeeId = req.params.employeeId;
     try {
@@ -586,6 +586,17 @@ exports.deleteSalary = async (req, res) => {
             { _id: new ObjectId(employeeId) },
             { "$set": { salaryList: newSalaryList } }
         );
+        res.end();
+    } catch (err) {
+        res.status(404).send({ mes: err.message });
+    }
+}
+
+exports.deleteSalary = async (req, res) => {
+    const id = req.params.id;
+    try {
+        await client.connect();
+        await salaryDBs.deleteOne({ _id: new ObjectId(id) });
         res.end();
     } catch (err) {
         res.status(404).send({ mes: err.message });
