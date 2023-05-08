@@ -47,6 +47,10 @@ let userSchema = new mongoose.Schema({
     degree: String,
     status: String,
     refreshToken: String,
+    bank_account_number: Number,
+    bank_number: Number,
+    bank_name: String,
+    expiredDate: String,
 }, { collection: 'userdbs' });
 
 let salarySchema = new mongoose.Schema({

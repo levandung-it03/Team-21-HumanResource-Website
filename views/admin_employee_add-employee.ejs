@@ -68,6 +68,30 @@
             <input name="phone" type="text" placeholder="0963341278" required>
             <div class="form_text-input_err-message"></div>
         </div>
+        <!-- ========================================================================= -->
+        <div class="form_select-input more-condition large-block" id="bank_name">
+            <label for="bank_name">Tên ngân hàng</label>
+            <select name="bank_name">
+                <option selected disabled value="">--Chọn ngân hàng--</option>
+
+            </select>
+        </div>
+        <div class="form_text-input more-condition" id="bank_number">
+            <label for="bank_number">Số thẻ</label>
+            <input name="bank_number" type="text" placeholder="0963341278" required>
+            <div class="form_text-input_err-message"></div>
+        </div>
+        <div class="form_text-input more-condition" id="bank_account_number">
+            <label for="bank_account_number">Số tài khoản</label>
+            <input name="bank_account_number" type="text" placeholder="0963341278" required>
+            <div class="form_text-input_err-message"></div>
+        </div>
+        <div class="form_text-input more-condition" id="expiredDate">
+            <label for="expiredDate">Ngày hết hạn</label>
+            <input name="expiredDate" type="text" placeholder="09/27" required>
+            <div class="form_text-input_err-message"></div>
+        </div>
+        <!-- ========================================================================= -->
         <div class="form_text-input large-block" id="household">
             <label for="household">Hộ khẩu</label>
             <input name="household" type="text" placeholder="97 Man Thiện, phường Hiệp Phú, thành phố Thủ Đức, thành phố Hồ Chí Minh" required>
@@ -79,6 +103,7 @@
         <div class="form_select-input" id="department">
             <label for="department">Phòng ban</label>
             <select name="department">
+                <option selected disabled value="">--Chọn phòng ban--</option>
                 <% for (var index in departmentList) { %>
                     <option value="<%= departmentList[index].department %>"><%= departmentList[index].department %></option>
                 <% } %>
@@ -87,6 +112,7 @@
         <div class="form_select-input" id="employee_type">
             <label for="employee_type">Loại nhân viên</label>
             <select name="employee_type">
+                <option selected disabled value="">--Chọn loại nhân viên--</option>
                 <% for (var index in employeeTypeList) { %>
                     <option value="<%= employeeTypeList[index].employee_type %>"><%= employeeTypeList[index].employee_type %></option>
                 <% } %>
@@ -95,6 +121,7 @@
         <div class="form_select-input" id="position">
             <label for="position">Chức vụ</label>
             <select name="position">
+                <option selected disabled value="">--Chọn chức vụ--</option>
                 <% for (var index in positionList) { %>
                     <option value="<%= positionList[index].position %>"><%= positionList[index].position %></option>
                 <% } %>
@@ -103,6 +130,7 @@
         <div class="form_select-input" id="degree">
             <label for="degree">Bằng cấp</label>
             <select name="degree">
+                <option selected disabled value="">--Chọn bằng cấp--</option>
                 <% for (var index in degreeList) { %>
                     <option value="<%= degreeList[index].degree %>"><%= degreeList[index].degree %></option>
                 <% } %>
