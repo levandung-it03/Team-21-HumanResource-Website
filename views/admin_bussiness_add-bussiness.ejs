@@ -1,0 +1,59 @@
+<link rel="stylesheet" href="/css/add-simple-db.css">
+<link rel="stylesheet" href="/css/bussiness_add-bussiness.css">
+<div id="add-bussiness">
+    <div id="heading">
+        <% if (isUpdating) { %>
+            <div id="turn-back-btn">
+                <a href="/admin/category/bussiness/bussiness-list"><i class="fa-solid fa-arrow-left-long"></i> Thoát</a>
+            </div>
+        <% } %>
+        <div id="title">
+            <% if (isUpdating) { %>
+                <span>Cập nhật công tác</span>
+            <% } else { %>
+                <span>Thêm công tác</span>
+            <% } %>
+        </div>
+    </div>
+    <form method="POST" onsubmit="return submitFormCancellation"
+    action="/api/admin/<%= isUpdating ? 'update-bussiness/' + specifiedBussiness._id.toString() : 'add-bussiness'%>">
+        <div class="form_select-input" id="employee">
+            <label for="employee">Chọn nhân viên</label>
+            <select <% if(isUpdating) { %>disabled<% } %> name="employee" required
+            data="<%= isUpdating ? specifiedBussiness.employee_code : '' %>">
+                <% if (!isUpdating) { %>
+                    <option selected disabled value="">--Chọn nhân viên--</option>
+                <% } %>
+                <% for(var index in allEmployees) { %>
+                <option value="<%= allEmployees[index].employee_code
+                    + "-" + allEmployees[index].name
+                %>">
+                    <%= `${allEmployees[index].employee_code} - ${allEmployees[index].name}` %></option>
+                <% } %>
+            </select>
+        </div>
+        <div class="form_text-input need-to-trim" id="location">
+            <label for="location">Địa điểm công tác</label>
+            <input class="need-to-trim" value="<%= isUpdating ? specifiedBussiness.location : '' %>"
+            name="location" type="text" placeholder="VD: Công ty TNHH MTV An Khánh - 55 ấp Long Khánh, Long Thành, Đồng Nai ,..." required>
+        </div>
+        <div class="form_text-input" id="startingDate">
+            <label for="startingDate">Ngày bắt đầu</label>
+            <input value="<%= isUpdating ? specifiedBussiness.startingDate : '' %>"
+            name="startingDate" type="date" required>
+        </div>
+        <div class="form_text-input more-condition" id="endingDate">
+            <label for="endingDate">Ngày kết thúc</label>
+            <input value="<%= isUpdating ? specifiedBussiness.endingDate : '' %>"
+            name="endingDate" type="date" required>
+            <div class="form_text-input_err-message"></div>
+        </div>
+        <div class="form_textarea-input need-to-trim" id="purpose">
+            <label for="purpose">Mục đích công tác</label>
+            <textarea class="need-to-trim" name="purpose" id="purpose" cols="66" rows="10"><%= isUpdating
+            ? specifiedBussiness.purpose.trim() : '' %></textarea>
+        </div>
+        <input type="submit" value="Xác nhận">
+    </form>
+</div>
+<script src="/js/bussiness_add-bussiness.js"></script>

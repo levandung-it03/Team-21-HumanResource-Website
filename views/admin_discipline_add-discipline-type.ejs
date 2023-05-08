@@ -1,0 +1,34 @@
+<link rel="stylesheet" href="/css/add-simple-db.css">
+<link rel="stylesheet" href="/css/discipline_add-discipline-type.css">
+<div id="add-discipline-type">
+    <div id="heading">
+        <div id="turn-back-btn">
+            <a href="/admin/category/discipline/discipline-type"><i class="fa-solid fa-arrow-left-long"></i> Thoát</a>
+        </div>
+        <div id="title">
+            <% if (isUpdating) { %>
+                <span>Cập nhật loại hình kỷ luật</span>
+            <% } else { %>
+                <span>Thêm loại hình kỷ luật</span>
+            <% } %>
+        </div>
+    </div>
+    <form method="POST" onsubmit="return submitFormCancellation"
+    action="/api/admin/<%= isUpdating ? 'update-discipline-type/' + specifiedDisciplineType._id.toString()
+    : 'add-discipline-type'%>">
+        <div class="form_text-input more-condition" id="discipline_type">
+            <label for="discipline_type">Loại hình kỷ luật</label>
+            <input class="adjust-upper-and-lower-case" value="<%= isUpdating
+            ? specifiedDisciplineType.discipline_type : '' %>"
+            name="discipline_type" type="text" placeholder="Nhập loại hình kỷ luật" required>
+            <div class="form_text-input_err-message"></div>
+        </div>
+        <div class="form_textarea-input" id="description">
+            <label for="description">Mô tả loại hình kỷ luật</label>
+            <textarea name="description" id="description" cols="66" rows="10"><%= isUpdating
+            ? specifiedDisciplineType.description.trim() : '' %></textarea>
+        </div>
+        <input type="submit" value="Xác nhận">
+    </form>
+</div>
+<script src="/js/discipline_add-discipline-type.js"></script>

@@ -1,0 +1,100 @@
+table {
+    border-collapse: collapse;
+}
+th, td {
+    border: solid 1px var(--smoking-grey);
+}
+#discipline-type #add-btn {
+    float: right;
+    margin-right: 12px;
+    margin-top: 4px;
+}
+#discipline-type #title {
+    display: inline-block;
+}
+#discipline-type #title span {
+    font-size: 2.4rem;
+    padding: 10px;
+}
+#discipline-type table {
+    margin: var(--form-margin);
+    background-color: white;
+    border: solid 1px transparent;
+    border-radius: var(--form-border-radius);
+    padding: 12px;
+    box-shadow: var(--black-box-shadow);
+    font-size: 0.95rem;
+}
+#discipline-type .table_title {
+    text-align: left;
+}
+#discipline-type .table_title th i {
+    width: 20px;
+    font-size: 0.7rem;
+    float: right;
+    line-height: 24px;
+    cursor: pointer;
+}
+#discipline-type .table_title th {
+    padding: 6px;
+    text-align: center;
+}
+#discipline-type .table_title th#ordinal {
+    width: 5%;
+}
+#discipline-type .table_title th#discipline_type_code {
+    width: 20%;
+}
+#discipline-type .table_title th#discipline_type {
+    width: 24%;
+}
+#discipline-type .table_title th#dateCreated {
+    width: 14%;
+}
+#discipline-type .table_title th#update-discipline_type {
+    width: 8%;
+}
+#discipline-type .table_title th#delete-discipline_type {
+    width: 8%;
+}
+#discipline-type tr.body td {
+    text-align: center;
+}
+#discipline-type tr.body td#discipline_type,
+#discipline-type tr.body td#description {
+    padding: 10px;
+}
+#discipline-type tr.body .update-discipline_type {
+    padding: 12px 24px 12px;
+}
+#discipline-type tr.body .update-discipline_type a {
+    display: block;
+    margin: auto;
+    width: 50px;
+    line-height: 32px;
+    background-color: var(--green);
+    border: solid 1px transparent;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color ease 0.3s;
+}
+#discipline-type tr.body .update-discipline_type a:hover {
+    background-color: var(--blur-green);
+}
+#discipline-type tr.body .delete-discipline_type {
+    padding: 12px 24px 12px;
+}
+#discipline-type tr.body .delete-discipline_type a {
+    display: block;
+    margin: auto;
+    width: 50px;
+    line-height: 32px;
+    background-color: var(--red);
+    border: solid 1px transparent;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color ease 0.3s;
+}
+#discipline-type tr.body .delete-discipline_type a:hover {
+    background-color: rgb(238, 102, 102);
+}

@@ -1,0 +1,146 @@
+table {
+    border-collapse: collapse;
+}
+th, td {
+    border: solid 1px var(--smoking-grey);
+}
+#heading #turn-back-btn {
+    float: left;
+}
+#add-btn {
+    float: right;
+}
+#group-information {
+    background-color: white;
+    padding: 12px;
+    margin: 12px;
+    box-shadow: var(--black-box-shadow);
+    border-radius: 8px;
+}
+#group-information #group-information_heading #title {
+    display: inline-block;
+}
+#group-information #group-information_heading::after {
+    display: block;
+    content: "";
+    border-top: solid 1px rgb(94, 94, 255);
+    padding-bottom: 8px;
+}
+#group-information #group-information_heading #title span {
+    font-size: 2.4rem;
+    padding: 10px;
+    padding-left: 20px;
+}
+#group-information li.group-information_container_items {
+    display: block;
+    padding: 8px 24px;
+}
+#group-information li.group-information_container_items span.title {
+    font-weight: 600;
+}
+/* -----------------Employee-list------------------ */
+#employee-list {
+    background-color: white;
+    padding: 12px 0;
+    margin: 12px;
+    margin-top: 32px;
+    box-shadow: var(--black-box-shadow);
+    border-radius: 8px;
+}
+#employee-list #add-btn {
+    float: right;
+    margin-right: 12px;
+    margin-top: 4px;
+}
+#employee-list #heading {
+    position: relative; 
+    margin-bottom: 16px;
+}
+#employee-list #heading::after {
+    display: block;
+    content: "";
+    position: absolute;
+    top: 62px;
+    width: 98%;
+    margin-left: 12px;
+    border-top: solid 1px rgb(94, 94, 255);
+    padding-bottom: 8px;
+}
+#employee-list #heading #title {
+    display: inline-block;
+}
+#employee-list #heading #title span {
+    font-size: 2.4rem;
+    padding: 10px;
+    padding-left: 30px;
+}
+#employee-list table {
+    margin: 0 12px;
+    background-color: white;
+    border: solid 1px transparent;
+    border-radius: var(--form-border-radius);
+    padding: 0 12px;
+    font-size: 0.95rem;
+}
+#employee-list .table_title {
+    text-align: left;
+}
+#employee-list .table_title th i {
+    width: 20px;
+    font-size: 0.7rem;
+    float: right;
+    line-height: 24px;
+    cursor: pointer;
+}
+#employee-list .table_title th {
+    padding: 6px;
+    text-align: center;
+}
+#employee-list .table_title th#ordinal {
+    width: 5%;
+}
+#employee-list .table_title th#employee_code {
+    width: 14%;
+}
+#employee-list .table_title th#avatar {
+    width: 8%;
+    padding: 6px;
+}
+#employee-list .table_title th#name {
+    width: 14%;
+}
+#employee-list .table_title th#position {
+    width: 10%;
+}
+#employee-list .table_title th#technique {
+    width: 12%;
+}
+#employee-list .table_title th#dateCreated {
+    width: 10%;
+}
+#employee-list .table_title th#roles {
+    width: 8%;
+}
+#employee-list .table_title th#td.delete-employee-inside-group {
+    width: 6%;
+}
+#employee-list table tr.body td {
+    text-align: center;
+}
+#employee-list table tr.body td.delete-employee-inside-group {
+    padding: 12px 6px 12px;
+}
+#employee-list table tr.body td.delete-employee-inside-group a {
+    display: block;
+    margin: auto;
+    width: 50px;
+    line-height: 32px;
+    background-color: var(--red);
+    border: solid 1px transparent;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color ease 0.3s;
+}
+#employee-list table tr.body td.delete-employee-inside-group a:hover {
+    background-color: rgb(238, 102, 102);
+}

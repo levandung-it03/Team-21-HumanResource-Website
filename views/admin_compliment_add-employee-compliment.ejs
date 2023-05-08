@@ -1,0 +1,85 @@
+<link rel="stylesheet" href="/css/add-simple-db.css">
+<link rel="stylesheet" href="/css/compliment_add-employee-compliment.css">
+<div id="add-employee-compliment">
+    <div id="heading">
+        <div id="turn-back-btn">
+            <% if (specifiedEmployee) { %>
+                <a href="/admin/category/compliment/view-employee-compliments/<%= specifiedEmployee._id.toString() %>">
+            <% } else { %>
+                <a href="/admin/category/compliment/employee-compliments-list">
+            <% } %>
+                <i class="fa-solid fa-arrow-left-long"></i> Thoát</a>
+        </div>
+        <div id="title">
+            <% if (isUpdating) { %>
+                <span>Cập nhật khen thưởng nhân viên</span>
+            <% } else { %>
+                <span>Thêm khen thưởng nhân viên</span>
+            <% } %>
+        </div>
+    </div>
+    <form method="POST" onsubmit="return submitFormCancellation"
+    action="/api/admin/<%= isUpdating ? 'update-employee-compliment/' + specifiedCompliment.compliment_code
+    : (specifiedEmployee ? 'add-employee-compliment' + "/" + employeeId : 'add-employee-compliment' )%>">
+        <div class="form_text-input more-condition" id="compliment">
+            <label for="compliment">Tên khen thưởng</label>
+            <input class="adjust-upper-and-lower-case" value="<%= isUpdating ? specifiedCompliment.compliment : '' %>"
+            name="compliment" type="text" placeholder="VD: Khen thưởng hoàn thành dự án Mạng xã hội chung cư,..." required>
+            <div class="form_text-input_err-message"></div>
+        </div>
+        <div class="form_text-input more-condition" id="numbers">
+            <label for="numbers">Quyết định số</label>
+            <input class="adjust-upper-case"
+            value="<%= isUpdating ? specifiedCompliment.numbers : '' %>" name="numbers" type="text"
+            placeholder="Nhập số quyết định" required>
+            <div class="form_text-input_err-message"></div>
+        </div>
+        <div class="form_text-input" id="dateCreated">
+            <label for="dateCreated">Ngày quyết định</label>
+            <% const now = new Date(Date.now()),
+            date = now.getDate().toString().length == 1 ? "0" + now.getDate() : now.getDate(),
+            month = (now.getMonth() + 1).toString().length == 1 ? "0" + (now.getMonth() + 1) : (now.getMonth() + 1)%>
+            
+            <input <% if(isUpdating) { %> readonly <% } %> name="dateCreated" type="date" required
+            class="adjust-upper-case" value="<%= isUpdating ? specifiedCompliment.dateCreated : `${now.getFullYear()}-${month}-${date}` %>">
+        </div>
+        <div class="form_select-input" id="employee">
+            <label for="employee">Chọn nhân viên</label>
+            <select <% if(isUpdating || specifiedEmployee) { %> disabled <% } %> name="employee" required
+            data="<%= (isUpdating || specifiedEmployee) ? specifiedEmployee.employee_code : '' %>">
+                <% if (!(isUpdating || specifiedEmployee)) { %>
+                    <option selected disabled value="">--Chọn nhân viên--</option>
+                <% } %>
+                <% for(var index in allEmployees) { %>
+                <option value="<%= allEmployees[index].department
+                    + "-" + allEmployees[index].employee_code
+                    + "-" + allEmployees[index].name
+                %>">
+                    <%= `PB ${allEmployees[index].department} - ${allEmployees[index].employee_code} - ${allEmployees[index].name}` %></option>
+                <% } %>
+            </select>
+            <% if (isUpdating || (specifiedEmployee != undefined)) { %><input type="hidden" name="employee"><% } %>
+        </div>
+        <div class="form_select-input" id="compliment_type">
+            <label for="compliment_type">Chọn loại khen thưởng</label>
+            <select name="compliment_type" required <% if(isUpdating) { %> disabled <% } %>
+            data="<%= (isUpdating) ? specifiedCompliment.compliment_type : '' %>">
+                <% if (!isUpdating) { %>
+                    <option selected disabled value="">--Chọn loại khen thưởng--</option>
+                <% } %>
+                <% for(var index in allCompliment_type) { %>
+                <option value="<%= allCompliment_type[index].compliment_type_code
+                + "-" + allCompliment_type[index].compliment_type %>">
+                    <%= `${allCompliment_type[index].compliment_type_code} - ${allCompliment_type[index].compliment_type}` %></option>
+                <% } %>
+            </select>
+            <% if (isUpdating) { %><input type="hidden" name="compliment_type"><% } %>
+        </div>
+        <div class="form_textarea-input" id="description">
+            <label for="description">Mô tả khen thưởng</label>
+            <textarea name="description" id="description" cols="66" rows="10"><%= isUpdating ? specifiedCompliment.description.trim() : '' %></textarea>
+        </div>
+        <input type="submit" value="Xác nhận">
+    </form>
+</div>
+<script src="/js/compliment_add-employee-compliment.js"></script>

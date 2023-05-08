@@ -1,0 +1,153 @@
+<link rel="stylesheet" href="/css/discipline_view-employee-discipline.css">
+<div id="view-employee-discipline">
+    <div id="turn-back-btn">
+        <a href="/admin/category/discipline/employee-discipline-list">
+            <i class="fa-solid fa-arrow-left-long"></i> Thoát</a>
+    </div>
+    <div id="title">
+        <span>Thông tin kỷ luật chi tiết</span>
+    </div>
+    <div id="employee-information">
+        <div id="employee-information_heading">
+            <div id="title">
+                <span>Mã nhân viên: <%= specifiedEmployee.employee_code %></span>
+            </div>
+        </div>
+        <div id="employee-information_container">
+            <div id="container_info">
+                <div id="avatar">
+                    <img src=<%=specifiedEmployee.avatar_url %> alt="">
+                </div>
+                <ul class="info" id="grid-left">
+                    <li class="info-item">Tên nhân viên: <b><%= specifiedEmployee.name %></b></li>
+                    <li class="info-item">CMND, CCCD: <b><%= specifiedEmployee.identifier %></b></li>
+                    <li class="info-item">Ngày cấp: <%= specifiedEmployee.identifier_date %></li>
+                    <li class="info-item">Nơi cấp: <%= specifiedEmployee.identifier_place %></li>
+                    <li class="info-item">Giới tính: <b><%= specifiedEmployee.gender %></b></li>
+                    <li class="info-item">Ngày sinh: <b><%= specifiedEmployee.birthday %></b></li>
+                    <li class="info-item">Nơi sinh: <b><%= specifiedEmployee.birthplace %></b></li>
+                    <li class="info-item">Quốc gia: <%= specifiedEmployee.country %></li>
+                    <li class="info-item">Dân tộc: <%= specifiedEmployee.ethnic %></li>
+                    <li class="info-item">Số điện thoại: <b><%= specifiedEmployee.phone %></b></li>
+                    <li class="info-item">Tôn giáo: <%= specifiedEmployee.religion %></li>
+                </ul>
+                <ul class="info" id="grid-right">
+                    <li class="info-item">Hộ khẩu: <%= specifiedEmployee.household %></li>
+                    <li class="info-item">Tạm trú: <%= specifiedEmployee.temporary_address %></li>
+                    <li class="info-item">Phòng ban: <b><%= specifiedEmployee.department %></b></li>
+                    <li class="info-item">Loại nhân viên: <span
+                        <% if(specifiedEmployee.employee_type == "Thực tập") { %>
+                            class="status-block light-green-block"
+                        <% } else if (specifiedEmployee.employee_type == "Bán thời gian") { %>
+                            class="status-block blur-green-block"
+                        <% } else { %>
+                            class="status-block green-block"
+                        <% } %>
+                        ><%= specifiedEmployee.employee_type %></span></li>
+                    <li class="info-item">Chức vụ: <b><%= specifiedEmployee.position %></b></li>
+                    <li class="info-item">Loại bằng cấp: <%= specifiedEmployee.degree %></li>
+                    <li class="info-item">Ngày chỉnh sửa cuối cùng: <%= specifiedEmployee.dateCreated %></li>
+                    <li class="info-item ">Trạng thái: <span
+                    <% if(specifiedEmployee.status == "Đang làm việc") { %>
+                        class="status-block green-block"
+                    <% } else { %>
+                        class="status-block red-block"
+                    <% } %>
+                    ><%= specifiedEmployee.status %></span></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div id="employee-discipline-list">
+        <div id="heading" class="employee-discipline-list_heading">
+            <div class="hide" id="turn-back-btn">
+                <a><i class="fa-solid fa-arrow-left-long"></i> Thoát</a>
+            </div>
+            <div id="title">
+                <span>Danh sách kỷ luật</span>
+            </div>
+            <div id="add-btn">
+                <a href="/admin/category/discipline/add-employee-discipline/<%= specifiedEmployeeInDisciplineDBs._id %>">Thêm kỷ luật</a>
+            </div>
+            <div id="search">
+                <input class="search" type="text" placeholder="Tìm kiếm">
+                <i class="fa-solid fa-magnifying-glass"></i>
+            </div>
+        </div>
+        <table>
+            <thead>
+                <tr class="table_title">
+                    <th id="ordinal">
+                        <span class="title_name">STT</span>
+                        <i class="fa-solid fa-arrow-down-short-wide" id="ordinal"></i>
+                    </th>
+                    <th id="discipline_code">
+                        <span class="title_name">Mã kỷ luật</span>
+                        <i class="fa-solid fa-arrow-down-short-wide" id="discipline_code"></i>
+                    </th>
+                    <th id="discipline">
+                        <span class="title_name">Tên kỷ luật</span>
+                    </th>
+                    <th id="numbers">
+                        <span class="title_name">Số quyết định</span>
+                    </th>
+                    <th id="discipline_type">
+                        <span class="title_name">Loại kỷ luật</span>
+                    </th>
+                    <th id="description">
+                        <span class="title_name">Mô tả</span>
+                    </th>
+                    <th id="dateCreated">
+                        <span class="title_name">Ngày quyết định</span>
+                        <i class="fa-solid fa-arrow-down-short-wide" id="dateCreated"></i>
+                    </th>
+                    <th id="update-employee-discipline">
+                        <span class="title_name">Sửa</span>
+                    </th>
+                    <th id="delete-employee-discipline">
+                        <span class="title_name">Xoá</span>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <% for (var i=0; i < specifiedEmployeeInDisciplineDBs.discipline_list.length; i++) { %>
+                    <tr class="body" id=<%=i+1 %>>
+                        <td id="ordinal">
+                            <%= (i + 1) %>
+                        </td>
+                        <td class="body_enable-searching body_enable-sorting" id="discipline_code">
+                            <%= specifiedEmployeeInDisciplineDBs.discipline_list[i].discipline_code %>
+                        </td>
+                        <td class="body_enable-searching body_enable-sorting" id="discipline">
+                            <%= specifiedEmployeeInDisciplineDBs.discipline_list[i].discipline %>
+                        </td>
+                        <td class="body_enable-searching body_enable-sorting" id="numbers">
+                            <%= specifiedEmployeeInDisciplineDBs.discipline_list[i].numbers %>
+                        </td>
+                        <td class="body_enable-searching body_enable-sorting" id="discipline_type">
+                            <%= specifiedEmployeeInDisciplineDBs.discipline_list[i].discipline_type %>
+                        </td>
+                        <td class="body_enable-searching body_enable-sorting" id="description">
+                            <%= specifiedEmployeeInDisciplineDBs.discipline_list[i].description %>
+                        </td>
+                        <td class="body_enable-searching body_enable-sorting" id="dateCreated">
+                            <%= specifiedEmployeeInDisciplineDBs.discipline_list[i].dateCreated %>
+                        </td>
+                        <td class="update-employee-discipline">
+                            <a href="
+                            <%= "/admin/category/discipline/update-employee-discipline/"
+                                + specifiedEmployeeInDisciplineDBs._id.toString() + "/"
+                                + specifiedEmployeeInDisciplineDBs.discipline_list[i]._id.toString() %>"><i
+                                class="fa-sharp fa-solid fa-pencil"></i> </a>
+                        </td>
+                        <td class="delete-employee-discipline">
+                            <a discipline_id=<%=specifiedEmployeeInDisciplineDBs.discipline_list[i]._id.toString() %>><i
+                                class="fa-sharp fa-solid fa-trash"></i> </a>
+                        </td>
+                    </tr>
+                <% } %>
+            </tbody>
+        </table>
+    </div>
+</div>
+<script src="/js/discipline_view-employee-discipline.js"></script>

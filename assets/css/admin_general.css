@@ -1,0 +1,177 @@
+
+#general_blocks {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+}
+
+.general_block_items>a {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    width: 280px;
+    margin-left: 20px;
+    margin-top: 20px;
+}
+
+#employee-list>a {
+    background-color: #3c92d4;
+}
+
+#layoff-employee-list>a {
+    background-color: #e14a4a;
+}
+
+#bussiness-list>a {
+    background-color: #20a48e;
+}
+
+#account-list>a {
+    background-color: #00d30b;
+}
+
+#department-list>a {
+    background-color: #b559aa;
+}
+
+#group-list>a {
+    background-color: #ec7b11;
+}
+
+.general_block_items>a::before {
+    display: block;
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: transparent;
+    transition: background-color ease 0.25s;
+}
+
+.general_block_items>a:hover::before {
+    background-color: rgba(0, 0, 0, 0.25);
+}
+
+.general_block_items>a>span {
+    display: block;
+    width: 100%;
+    font-size: 1rem;
+}
+
+.general_block_items .quantity {
+    font-weight: 900;
+    font-size: 2.8rem;
+    padding: 20px 12px;
+    padding-bottom: 0;
+    line-height: 60px;
+}
+
+.general_block_items .field {
+    padding: 0 12px;
+}
+
+.general_block_items .block-name {
+    position: relative;
+    padding: 4px 12px;
+    margin-top: 20px;
+    text-align: center;
+    background-color: var(--blur-black);
+}
+
+.general_block_items .block-name .fa-arrow-right-long {
+    margin-left: 6px;
+    transition: margin-left ease 0.25s;
+}
+
+.general_block_items:hover .block-name .fa-arrow-right-long {
+    margin-left: 16px;
+}
+
+.general_block_items .gird-right-icon {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    font-size: 5rem;
+    color: var(--blur-black);
+}
+
+/* _________________________________________Tables____________________________________________ */
+#general_tables #department-list,
+#general_tables #position-list {
+    display: inline-block;
+    width: 47.8%;
+    margin: var(--form-margin);
+    background-color: white;
+    border: solid 1px transparent;
+    border-radius: var(--form-border-radius);
+    padding: 12px;
+    box-shadow: var(--black-box-shadow);
+    font-size: 0.95rem;
+}
+
+#general_tables table {
+    border-collapse: collapse;
+}
+
+#general_tables th,
+td {
+    border: solid 1px var(--smoking-grey);
+}
+
+#general_tables #title {
+    display: block;
+}
+
+#general_tables #title span {
+    font-size: 1.6rem;
+    padding: 10px;
+}
+
+#general_tables #title::after {
+    display: block;
+    content: "";
+    border-top: solid 1px rgb(94, 94, 255);
+    padding-bottom: 8px;
+}
+
+#general_tables .table_title {
+    text-align: left;
+}
+
+#general_tables .table_title th i {
+    width: 20px;
+    font-size: 0.7rem;
+    float: right;
+    line-height: 24px;
+    cursor: pointer;
+}
+
+#general_tables .table_title th {
+    padding: 6px;
+    text-align: center;
+}
+
+#general_tables tr.body td {
+    text-align: center;
+}
+
+#general_tables .table_title th#ordinal {
+    width: 6%;
+}
+
+#general_tables #department-list .table_title th#department_code,
+#general_tables #position-list .table_title th#position_code {
+    width: 12%;
+}
+
+#general_tables #department-list .table_title th#department,
+#general_tables #position-list .table_title th#position {
+    width: 20%;
+}
+
+#general_tables .table_title th#dateCreated {
+    width: 18%;
+}

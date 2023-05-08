@@ -1,0 +1,27 @@
+<link rel="stylesheet" href="/css/group_add-employee-into-group.css">
+<div id="add-employee-into-group">
+    <div id="heading">
+        <div id="turn-back-btn">
+            <a href="/admin/category/group/view-group/<%= specifiedGroup._id %>"><i class="fa-solid fa-arrow-left-long"></i> Thoát</a>
+        </div>
+        <div id="title">
+            <span>Thêm thành viên vào nhóm</span>
+        </div>
+    </div>
+    <form method="POST" onsubmit="return submitFormCancellation"
+    action="/api/admin/add-employee-into-group/<%= specifiedGroup._id %>">
+        <label id="title" for="employee">Chọn nhân viên</label>
+        <select name="employee" required>
+            <option selected disabled value="">--Chọn nhân viên--</option>
+            <% for(var index in allEmployees) { %>
+            <% const technique=allTechnique.find(tech=> tech.group_code == allEmployees[index].group_code).technique; %>
+                <option value="<%= allEmployees[index].employee_code%>-<%= technique%>">
+                    <%= `PB ${allEmployees[index].department} - ${allEmployees[index].employee_code} -
+                        ${allEmployees[index].name} - ${technique}` %>
+                </option>
+            <% } %>
+        </select>
+        <input type="submit" value="Thêm nhân viên">
+    </form>
+</div>
+<script src="/js/group_add-employee-into-group.js"></script>

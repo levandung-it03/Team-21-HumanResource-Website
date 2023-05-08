@@ -1,0 +1,120 @@
+table {
+    border-collapse: collapse;
+}
+th, td {
+    border: solid 1px var(--smoking-grey);
+}
+#employee-discipline-list #add-btn {
+    float: right;
+    margin-right: 12px;
+    margin-top: 4px;
+}
+#employee-discipline-list #title {
+    display: inline-block;
+}
+#employee-discipline-list #title span {
+    font-size: 2.4rem;
+    padding: 10px;
+}
+#employee-discipline-list table {
+    margin: var(--form-margin);
+    background-color: white;
+    border: solid 1px transparent;
+    border-radius: var(--form-border-radius);
+    padding: 12px;
+    box-shadow: var(--black-box-shadow);
+    font-size: 0.95rem;
+}
+#employee-discipline-list .table_title {
+    text-align: left;
+}
+#employee-discipline-list .table_title th i {
+    width: 20px;
+    font-size: 0.7rem;
+    float: right;
+    line-height: 24px;
+    cursor: pointer;
+}
+#employee-discipline-list .table_title th {
+    padding: 6px;
+    text-align: center;
+}
+#employee-discipline-list .table_title th#ordinal {
+    width: 5%;
+}
+#employee-discipline-list .table_title th#discipline_code {
+    width: 20%;
+}
+#employee-discipline-list .table_title th#discipline {
+    width: 24%;
+}
+#employee-discipline-list .table_title th#dateCreated {
+    width: 14%;
+}
+#employee-discipline-list .table_title th#view-employee-discipline {
+    width: 8%;
+}
+#employee-discipline-list .table_title th#update-employee-discipline {
+    width: 8%;
+}
+#employee-discipline-list .table_title th#delete-employee-discipline {
+    width: 8%;
+}
+#employee-discipline-list tr.body td {
+    text-align: center;
+}
+#employee-discipline-list tr.body td#discipline,
+#employee-discipline-list tr.body td#description {
+    padding: 10px;
+}
+#employee-discipline-list tr.body .view-employee-discipline {
+    padding: 12px 24px 12px;
+}
+#employee-discipline-list tr.body .view-employee-discipline a {
+    display: block;
+    margin: auto;
+    width: 50px;
+    line-height: 32px;
+    background-color: var(--blue);
+    border: solid 1px transparent;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color ease 0.3s;
+}
+#employee-discipline-list tr.body .view-employee-discipline a:hover {
+    background-color: var(--blur-blue);
+}
+#employee-discipline-list tr.body .update-employee-discipline {
+    padding: 12px 24px 12px;
+}
+#employee-discipline-list tr.body .update-employee-discipline a {
+    display: block;
+    margin: auto;
+    width: 50px;
+    line-height: 32px;
+    background-color: var(--green);
+    border: solid 1px transparent;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color ease 0.3s;
+}
+#employee-discipline-list tr.body .update-employee-discipline a:hover {
+    background-color: var(--blur-green);
+}
+#employee-discipline-list tr.body .delete-employee-discipline {
+    padding: 12px 24px 12px;
+}
+#employee-discipline-list tr.body .delete-employee-discipline a {
+    display: block;
+    margin: auto;
+    width: 50px;
+    line-height: 32px;
+    background-color: var(--red);
+    border: solid 1px transparent;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color ease 0.3s;
+}
+#employee-discipline-list tr.body .delete-employee-discipline a:hover {
+    background-color: rgb(238, 102, 102);
+}

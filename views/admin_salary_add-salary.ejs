@@ -1,0 +1,97 @@
+<link rel="stylesheet" href="/css/salary_add-salary.css">
+<div id="add-salary">
+    <div id="form-title">
+        <span>Tính lương nhân viên</span>
+    </div>
+    <form method="POST" action="<%= employeeId != undefined ? "/api/admin/add-salary/" + specifiedEmployee._id
+    : "/api/admin/add-salary" %>" onsubmit="return submitFormCancellation">
+        <div class="form_select-input" id="employee">
+            <label for="employee">Chọn nhân viên</label>
+            <select data="<%= employeeId != undefined ? specifiedEmployee.employee_code
+            : "" %>" name="employee" required>
+                <option selected disabled value="">--Chọn nhân viên--</option>
+                <% for(var index in allEmployees) { %>
+                    <option value="<%= allEmployees[index].employee_code
+                        + "-" + allEmployees[index].name
+                        + "-" + allEmployees[index].position
+                        + "-" + positionList.find(p=>p.position==allEmployees[index].position).salary_per_day
+                        + "-" + allEmployees[index].employee_type
+                        + "-" + employeeTypeList.find(et=>et.employee_type==allEmployees[index].employee_type).multipleSalary
+                        + "-" + allEmployees[index].degree
+                        + "-" + degreeList.find(dg=>dg.degree==allEmployees[index].degree).multipleSalary
+                        + "-" + allEmployees[index].department
+                        + "-" + departmentList.find(d=>d.department==allEmployees[index].department).multipleSalary
+                    %>">
+                        <%= `${allEmployees[index].employee_code} - ${allEmployees[index].name}` %></option>
+                <% } %>
+            </select>
+        </div>
+        <div class="form_select-input" id="position">
+            <label for="position">Chức vụ</label>
+            <select name="position" disabled>
+                <option selected disabled value="">--Trống--</option>
+                <% for(var index in positionList) { %>
+                    <option value="<%= `${positionList[index].position}-${positionList[index].salary_per_day}` %>">
+                        <%= `${positionList[index].position} - ${positionList[index].salary_per_day}VNĐ/ngày` %></option>
+                <% } %>
+            </select>
+        </div>
+        <div class="form_select-input" id="employee_type">
+            <label for="employee_type">Loại nhân viên</label>
+            <select name="employee_type" disabled>
+                <option selected disabled value="">--Trống--</option>
+                <% for(var index in employeeTypeList) { %>
+                    <option value="<%= `${employeeTypeList[index].employee_type}-${employeeTypeList[index].multipleSalary}` %>">
+                        <%= `${employeeTypeList[index].employee_type} - x${employeeTypeList[index].multipleSalary} lần` %></option>
+                <% } %>
+            </select>
+        </div>
+        <div class="form_select-input" id="degree">
+            <label for="degree">Bằng cấp</label>
+            <select name="degree" disabled>
+                <option selected disabled value="">--Trống--</option>
+                <% for(var index in degreeList) { %>
+                    <option value="<%= `${degreeList[index].degree}-${degreeList[index].multipleSalary}` %>">
+                        <%= `${degreeList[index].degree} - x${degreeList[index].multipleSalary} lần` %></option>
+                <% } %>
+            </select>
+        </div>
+        <div class="form_select-input" id="department">
+            <label for="department">Phòng ban</label>
+            <select name="department" disabled>
+                <option selected disabled value="">--Trống--</option>
+                <% for(var index in departmentList) { %>
+                    <option value="<%= `${departmentList[index].department}-${departmentList[index].multipleSalary}` %>">
+                        <%= `${departmentList[index].department} - x${departmentList[index].multipleSalary} lần` %></option>
+                <% } %>
+            </select>
+        </div>
+        <div class="form_text-input more-condition" id="totalDays">
+            <label for="totalDays">Số ngày đã làm việc</label>
+            <input placeholder="VD: 30" type="number" name="totalDays" value="" maxlength="2" required>
+            <div class="form_text-input_err-message"></div>
+        </div>
+        <div class="form_text-input more-condition" id="dayOff">
+            <label for="dayOff">Số ngày nghỉ không phép</label>
+            <input placeholder="VD: 2" type="number" name="dayOff" value="" maxlength="2" required>
+            <div class="form_text-input_err-message"></div>
+        </div>
+        <div class="form_text-input more-condition" id="allowance">
+            <label for="allowance">Tiền trợ cấp</label>
+            <input placeholder="VD: 300000" type="number" name="allowance" value="" required>
+            <div class="form_text-input_err-message"></div>
+        </div>
+        <div class="form_text-input more-condition" id="bonusSalary">
+            <label for="bonusSalary">Lương thưởng</label>
+            <input placeholder="VD: 2000000" type="number" name="bonusSalary" value="" required>
+            <div class="form_text-input_err-message"></div>
+        </div>
+        <div class="form_text-input more-condition" id="advanceSalary">
+            <label for="advanceSalary">Tổng lương ứng trước</label>
+            <input placeholder="VD: 2000000" type="number" name="advanceSalary" value="" required>
+            <div class="form_text-input_err-message"></div>
+        </div>
+        <input type="submit" value="Xác nhận">
+    </form>
+</div>
+<script src="/js/salary_add-salary.js"></script>

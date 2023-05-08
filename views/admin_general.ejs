@@ -1,0 +1,158 @@
+<link rel="stylesheet" href="/css/admin_general.css">
+<div id="general">
+    <div id="general_blocks">
+        <div class="general_block_items" id="employee-list">
+            <a class="anchor-linking" href="/admin/category/employee/employee-list">
+                <span class="quantity">
+                    <%= allEmployees.length %>
+                </span>
+                <span class="field">Tổng nhân viên</span>
+                <span class="block-name">Danh sách nhân viên<i class="fa-solid fa-arrow-right-long"></i></span>
+                <i class="gird-right-icon fa-solid fa-user"></i>
+            </a>
+        </div>
+        <div class="general_block_items" id="layoff-employee-list">
+            <a class="anchor-linking" href="/admin/category/employee/employee-list">
+                <span class="quantity">
+                    <%= allEmployees.reduce((a,e)=>((e.status.trim()=="Đã nghỉ việc")?++a:a),0) %>
+                </span>
+                <span class="field">Đã nghỉ việc</span>
+                <span class="block-name">Danh sách nhân viên<i class="fa-solid fa-arrow-right-long"></i></span>
+                <i class="gird-right-icon fa-solid fa-user-xmark"></i>
+            </a>
+        </div>
+        <div class="general_block_items" id="bussiness-list">
+            <a class="anchor-linking" href="/admin/category/bussiness/bussiness-list">
+                <span class="quantity">
+                    <%= allBussiness.length %>
+                </span>
+                <span class="field">Nhân viên đi công tác</span>
+                <span class="block-name">Danh sách công tác<i class="fa-solid fa-arrow-right-long"></i></span>
+                <i class="gird-right-icon fa-solid fa-user-secret"></i>
+            </a>
+        </div>
+        <div class="general_block_items" id="account-list">
+            <a class="anchor-linking" href="/admin/category/employee/account-list">
+                <span class="quantity">
+                    <%= allEmployees.length %>
+                </span>
+                <span class="field">Tài khoản</span>
+                <span class="block-name">Danh sách tài khoản<i class="fa-solid fa-arrow-right-long"></i></span>
+                <i class="gird-right-icon fa-solid fa-file-invoice"></i>
+            </a>
+        </div>
+        <div class="general_block_items" id="department-list">
+            <a class="anchor-linking" href="/admin/category/employee/department-list">
+                <span class="quantity">
+                    <%= allDepartments.length %>
+                </span>
+                <span class="field">Phòng ban</span>
+                <span class="block-name">Danh sách phòng ban<i class="fa-solid fa-arrow-right-long"></i></span>
+                <i class="gird-right-icon fa-solid fa-building-user"></i>
+            </a>
+        </div>
+        <div class="general_block_items" id="group-list">
+            <a class="anchor-linking" href="/admin/category/group/group-list">
+                <span class="quantity">
+                    <%= allGroups.length %>
+                </span>
+                <span class="field">Đội nhóm</span>
+                <span class="block-name">Danh sách nhóm<i class="fa-solid fa-arrow-right-long"></i></span>
+                <i class="gird-right-icon fa-solid fa-users"></i>
+            </a>
+        </div>
+    </div>
+    <div id="general_tables">
+        <div id="department-list">
+            <div id="title">
+                <span>Danh sách phòng ban</span>
+            </div>
+            <table>
+                <thead>
+                    <tr class="table_title">
+                        <th id="ordinal">
+                            <span class="title_name">STT</span>
+                            <i class="fa-solid fa-arrow-down-short-wide department-list" id="ordinal"></i>
+                        </th>
+                        <th id="department_code">
+                            <span class="title_name">Mã phòng ban</span>
+                            <i class="fa-solid fa-arrow-down-short-wide department-list" id="department_code"></i>
+                        </th>
+                        <th id="department">
+                            <span class="title_name">Tên phòng ban</span>
+                            <i class="fa-solid fa-arrow-down-short-wide department-list" id="department"></i>
+                        </th>
+                        <th id="dateCreated">
+                            <span class="title_name">Ngày tạo</span>
+                            <i class="fa-solid fa-arrow-down-short-wide department-list" id="dateCreated"></i>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% for (var i=0; i < allDepartments.length; i++) { %>
+                        <tr class="body" id=<%=i+1 %>>
+                            <td id="ordinal">
+                                <%= (i + 1) %>
+                            </td>
+                            <td class="body_enable-searching body_enable-sorting" id="department_code">
+                                <%= allDepartments[i].department_code %>
+                            </td>
+                            <td class="body_enable-searching body_enable-sorting" id="department">
+                                <%= allDepartments[i].department %>
+                            </td>
+                            <td class="body_enable-searching body_enable-sorting" id="dateCreated">
+                                <%= allDepartments[i].dateCreated %>
+                            </td>
+                        </tr>
+                        <% } %>
+                </tbody>
+            </table>
+        </div>
+        <div id="position-list">
+            <div id="title">
+                <span>Danh sách chức vụ</span>
+            </div>
+            <table>
+                <thead>
+                    <tr class="table_title">
+                        <th id="ordinal">
+                            <span class="title_name">STT</span>
+                            <i class="fa-solid fa-arrow-down-short-wide position-list" id="ordinal"></i>
+                        </th>
+                        <th id="position_code">
+                            <span class="title_name">Mã chức vụ</span>
+                            <i class="fa-solid fa-arrow-down-short-wide position-list" id="position_code"></i>
+                        </th>
+                        <th id="position">
+                            <span class="title_name">Tên chức vụ</span>
+                            <i class="fa-solid fa-arrow-down-short-wide position-list" id="position"></i>
+                        </th>
+                        <th id="dateCreated">
+                            <span class="title_name">Ngày tạo</span>
+                            <i class="fa-solid fa-arrow-down-short-wide position-list" id="dateCreated"></i>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% for (var i=0; i < allPositions.length; i++) { %>
+                        <tr class="body" id=<%=i+1 %>>
+                            <td id="ordinal">
+                                <%= (i + 1) %>
+                            </td>
+                            <td class="body_enable-searching body_enable-sorting" id="position_code">
+                                <%= allPositions[i].position_code %>
+                            </td>
+                            <td class="body_enable-searching body_enable-sorting" id="position">
+                                <%= allPositions[i].position %>
+                            </td>
+                            <td class="body_enable-searching body_enable-sorting" id="dateCreated">
+                                <%= allPositions[i].dateCreated %>
+                            </td>
+                        </tr>
+                        <% } %>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<script src="/js/admin_general.js"></script>

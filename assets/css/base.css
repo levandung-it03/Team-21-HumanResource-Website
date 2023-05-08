@@ -1,0 +1,229 @@
+@import url('https://fonts.googleapis.com/css?family=Muli&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Quicksand&display=swap');
+:root {
+    --black-box-shadow: 4px 4px 20px rgba(0, 0, 0, 0.2);
+    --grey-form-text: rgb(112, 102, 102);
+    --blur-white: #efefef;
+    --white-text: #FFFFFF;
+    --grey-border: #a5a5a5;
+    --smoking-grey: rgba(216, 216, 216, 0.7);
+    --x2-dark-blue: #183153;
+    --blue: #3456FF;
+    --blur-blue: rgb(0, 63, 151);
+    --green: rgb(0, 153, 110);
+    --light-green: rgb(17, 255, 0);
+    --blur-green: rgb(0, 255, 208);
+    --red: rgb(234, 16, 16);
+    --blur-black: rgba(0, 0, 0, 0.15);
+
+    --footer-height: 40px;
+    --category-width: 17%;
+    --form-border-radius: 12px;
+    --form-margin: 12px;
+}
+/* Reset CSS */
+html {
+    position: relative;
+    box-sizing: border-box;
+    font-size: 16px;
+    height: auto;
+    background-color: var(--blur-white);
+    padding-bottom: var(--footer-height);
+}
+#category {
+    position: absolute;
+    width: var(--category-width);
+    height: auto;
+    min-height: 100%;
+    padding: 20px;
+    background-color: var(--x2-dark-blue);
+    color: var(--white-text);
+    font-size: 1rem;
+}
+main {
+    padding-left: var(--category-width);
+    min-height: calc(100vh - var(--footer-height));
+    height: 100%;
+}
+
+*,
+*:before,
+*:after {
+    box-sizing: inherit;
+}
+
+body, h1, h2, h3, h4, h5, h6, p, ol, ul {
+    margin: 0;
+    padding: 0;
+    font-weight: normal;
+}
+
+ol,
+ul {
+    list-style: none;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+body {
+  font-family: 'Muli', sans-serif;
+  color: rgba(0, 0, 0, 0.8);
+  font-weight: 400;
+  line-height: 1.58;
+  letter-spacing: -.003em;
+  font-size: 20px;
+}
+
+form input[type=submit] {
+    display: block;
+    border: 2px var(--grey-border) solid;
+    background-color: var(--smoking-grey);
+    color: var(--grey-text-form);
+    border-radius: 4px;
+    transition: background-color ease 0.2s;
+    transition: border-radius ease 0.3s;
+}
+
+form input[type=submit]:hover {
+    background-color: rgb(147, 147, 147);
+    color: white;
+    cursor: pointer;
+    border-radius: 22px;
+}
+
+.hide {
+    display: none;
+}
+#heading {
+    display: relative;
+    height: 60px;
+}
+#heading #title {
+    display: inline-block;
+    position: absolute;
+}
+.status-block {
+    display: inline-block;
+    font-size: 0.8rem;
+    color: var(--white-text);
+    border: solid 1px transparent;
+    border-radius: 12px;
+    padding: 0 4px;
+}
+.green-block {
+    background-color: var(--green);
+}
+.light-green-block {
+    background-color: var(--light-green);
+    color: black;
+}
+.blur-green-block {
+    background-color: var(--blur-green);
+    color: black;
+}
+.red-block {
+    background-color: var(--red);
+}
+.blue-right {
+    background-color: var(--blue);
+}
+.black-blue-block {
+    background-color: var(--blur-blue);
+}
+footer {
+    position: absolute;
+    bottom: 0;
+    /* Position property made <footer>'s width depend on the <body> tag */
+    width: calc(100% - var(--category-width));
+    background-color: #3787c3;
+    line-height: var(--footer-height);
+    color: var(--white-text);
+    font-size: 0.8rem;
+    text-align: center;
+}
+footer a {
+    text-decoration: underline;
+}
+
+header {
+    background-color: #3787c3;
+    width: 100%;
+    line-height: var(--footer-height);
+    border-top: solid 1px var(--blue);
+    color: var(--white-text);
+    font-size: 0.8rem;
+}
+#turn-back-btn {
+    display: inline-block;
+}
+#turn-back-btn a {
+    display: inline-block;
+    font-size: 1rem;
+    background-color: var(--blue);
+    color: white;
+    margin: 10px 0 0 20px;
+    padding: 8px;
+    border-radius: 8px;
+    transition: background-color ease 0.3s;
+}
+#turn-back-btn a:hover {
+    cursor: pointer;
+    background-color: rgb(120, 120, 255);
+}
+#add-btn {
+    display: inline-block;
+}
+#add-btn a {
+    display: inline-block;
+    font-size: 1rem;
+    background-color: var(--blue);
+    color: white;
+    margin: 10px 0 0 20px;
+    padding: 8px;
+    border-radius: 8px;
+    transition: background-color ease 0.3s;
+}
+#add-btn a:hover {
+    background-color: rgb(120, 120, 255);
+}
+
+div#search {
+    position: relative;
+    float: right;
+    margin: 16px 16px 0 0;
+}
+div#search input {
+    width: 240px;
+    padding: 10px;
+    border: solid 1px var(--grey-border);
+    border-radius: 8px;
+}
+div#search i {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 1rem;
+    cursor: pointer;
+}
+#heading div.hide {
+    display: none;
+}
+
+.table_title th i {
+    display: block;
+    font-size: 0.8rem;
+    margin-right: -3px;
+    float: right;
+    line-height: 24px;
+    width: 18px!important;
+    cursor: pointer;
+    background-color: var(--blur-black);
+    border-radius: 8px;
+}
+.table_title th i:hover {
+    color: white;
+    background-color: rgba(0, 0, 0, 0.7);
+}

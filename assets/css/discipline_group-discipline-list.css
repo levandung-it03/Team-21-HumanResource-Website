@@ -1,0 +1,120 @@
+table {
+    border-collapse: collapse;
+}
+th, td {
+    border: solid 1px var(--smoking-grey);
+}
+#group-discipline-list #add-btn {
+    float: right;
+    margin-right: 12px;
+    margin-top: 4px;
+}
+#group-discipline-list #title {
+    display: inline-block;
+}
+#group-discipline-list #title span {
+    font-size: 2.4rem;
+    padding: 10px;
+}
+#group-discipline-list table {
+    margin: var(--form-margin);
+    background-color: white;
+    border: solid 1px transparent;
+    border-radius: var(--form-border-radius);
+    padding: 12px;
+    box-shadow: var(--black-box-shadow);
+    font-size: 0.95rem;
+}
+#group-discipline-list .table_title {
+    text-align: left;
+}
+#group-discipline-list .table_title th i {
+    width: 20px;
+    font-size: 0.7rem;
+    float: right;
+    line-height: 24px;
+    cursor: pointer;
+}
+#group-discipline-list .table_title th {
+    padding: 6px;
+    text-align: center;
+}
+#group-discipline-list .table_title th#ordinal {
+    width: 5%;
+}
+#group-discipline-list .table_title th#discipline_code {
+    width: 20%;
+}
+#group-discipline-list .table_title th#discipline {
+    width: 24%;
+}
+#group-discipline-list .table_title th#dateCreated {
+    width: 14%;
+}
+#group-discipline-list .table_title th#view-group-discipline {
+    width: 8%;
+}
+#group-discipline-list .table_title th#update-group-discipline {
+    width: 8%;
+}
+#group-discipline-list .table_title th#delete-group-discipline {
+    width: 8%;
+}
+#group-discipline-list tr.body td {
+    text-align: center;
+}
+#group-discipline-list tr.body td#discipline,
+#group-discipline-list tr.body td#description {
+    padding: 10px;
+}
+#group-discipline-list tr.body .view-group-discipline {
+    padding: 12px 24px 12px;
+}
+#group-discipline-list tr.body .view-group-discipline a {
+    display: block;
+    margin: auto;
+    width: 50px;
+    line-height: 32px;
+    background-color: var(--blue);
+    border: solid 1px transparent;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color ease 0.3s;
+}
+#group-discipline-list tr.body .view-group-discipline a:hover {
+    background-color: var(--blur-blue);
+}
+#group-discipline-list tr.body .update-group-discipline {
+    padding: 12px 24px 12px;
+}
+#group-discipline-list tr.body .update-group-discipline a {
+    display: block;
+    margin: auto;
+    width: 50px;
+    line-height: 32px;
+    background-color: var(--green);
+    border: solid 1px transparent;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color ease 0.3s;
+}
+#group-discipline-list tr.body .update-group-discipline a:hover {
+    background-color: var(--blur-green);
+}
+#group-discipline-list tr.body .delete-group-discipline {
+    padding: 12px 24px 12px;
+}
+#group-discipline-list tr.body .delete-group-discipline a {
+    display: block;
+    margin: auto;
+    width: 50px;
+    line-height: 32px;
+    background-color: var(--red);
+    border: solid 1px transparent;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color ease 0.3s;
+}
+#group-discipline-list tr.body .delete-group-discipline a:hover {
+    background-color: rgb(238, 102, 102);
+}

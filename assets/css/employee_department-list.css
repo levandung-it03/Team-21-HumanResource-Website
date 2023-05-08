@@ -1,0 +1,99 @@
+table {
+    border-collapse: collapse;
+}
+th, td {
+    border: solid 1px var(--smoking-grey);
+}
+#department-list #add-btn {
+    float: right;
+    margin-right: 12px;
+    margin-top: 4px;
+}
+#department-list #title {
+    display: inline-block;
+}
+#department-list #title span {
+    font-size: 2.4rem;
+    padding: 10px;
+}
+#department-list table {
+    margin: var(--form-margin);
+    background-color: white;
+    border: solid 1px transparent;
+    border-radius: var(--form-border-radius);
+    padding: 12px;
+    box-shadow: var(--black-box-shadow);
+    font-size: 0.95rem;
+}
+#department-list .table_title {
+    text-align: left;
+}
+#department-list .table_title th i {
+    width: 20px;
+    font-size: 0.7rem;
+    float: right;
+    line-height: 24px;
+    cursor: pointer;
+}
+#department-list .table_title th {
+    padding: 6px;
+    text-align: center;
+}
+#department-list .table_title th#ordinal {
+    width: 5%;
+}
+#department-list .table_title th#department_code {
+    width: 20%;
+}
+#department-list .table_title th#dateCreated {
+    width: 18%;
+}
+#department-list .table_title th#department {
+    width: 24%;
+}
+#department-list .table_title th#multipleSalary {
+    width: 18%;
+}
+#department-list .table_title th#update-department {
+    width: 8%;
+}
+#department-list .table_title th#delete-department {
+    width: 8%;
+}
+#department-list tr.body td {
+    text-align: center;
+}
+#department-list tr.body .update-department {
+    padding: 12px 24px 12px;
+}
+#department-list tr.body .update-department a {
+    display: block;
+    margin: auto;
+    width: 50px;
+    line-height: 32px;
+    background-color: var(--green);
+    border: solid 1px transparent;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color ease 0.3s;
+}
+#department-list tr.body .update-department a:hover {
+    background-color: var(--blur-green);
+}
+#department-list tr.body .delete-department {
+    padding: 12px 24px 12px;
+}
+#department-list tr.body .delete-department a {
+    display: block;
+    margin: auto;
+    width: 50px;
+    line-height: 32px;
+    background-color: var(--red);
+    border: solid 1px transparent;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color ease 0.3s;
+}
+#department-list tr.body .delete-department a:hover {
+    background-color: rgb(238, 102, 102);
+}

@@ -1,0 +1,99 @@
+table {
+    border-collapse: collapse;
+}
+th, td {
+    border: solid 1px var(--smoking-grey);
+}
+#employee-type-list #add-btn {
+    float: right;
+    margin-right: 12px;
+    margin-top: 4px;
+}
+#employee-type-list #title {
+    display: inline-block;
+}
+#employee-type-list #title span {
+    font-size: 2.4rem;
+    padding: 10px;
+}
+#employee-type-list table {
+    margin: var(--form-margin);
+    background-color: white;
+    border: solid 1px transparent;
+    border-radius: var(--form-border-radius);
+    padding: 12px;
+    box-shadow: var(--black-box-shadow);
+    font-size: 0.95rem;
+}
+#employee-type-list .table_title {
+    text-align: left;
+}
+#employee-type-list .table_title th i {
+    width: 20px;
+    font-size: 0.7rem;
+    float: right;
+    line-height: 24px;
+    cursor: pointer;
+}
+#employee-type-list .table_title th {
+    padding: 6px;
+    text-align: center;
+}
+#employee-type-list .table_title th#ordinal {
+    width: 5%;
+}
+#employee-type-list .table_title th#employee_type_code {
+    width: 20%;
+}
+#employee-type-list .table_title th#employee_type {
+    width: 24%;
+}
+#employee-type-list .table_title th#dateCreated {
+    width: 18%;
+}
+#employee-type-list .table_title th#multipleSalary {
+    width: 18%;
+}
+#employee-type-list .table_title th#update-employee-type {
+    width: 8%;
+}
+#employee-type-list .table_title th#delete-employee-type {
+    width: 8%;
+}
+#employee-type-list tr.body td {
+    text-align: center;
+}
+#employee-type-list tr.body .update-employee-type {
+    padding: 12px 24px 12px;
+}
+#employee-type-list tr.body .update-employee-type a {
+    display: block;
+    margin: auto;
+    width: 50px;
+    line-height: 32px;
+    background-color: var(--green);
+    border: solid 1px transparent;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color ease 0.3s;
+}
+#employee-type-list tr.body .update-employee-type a:hover {
+    background-color: var(--blur-green);
+}
+#employee-type-list tr.body .delete-employee-type {
+    padding: 12px 24px 12px;
+}
+#employee-type-list tr.body .delete-employee-type a {
+    display: block;
+    margin: auto;
+    width: 50px;
+    line-height: 32px;
+    background-color: var(--red);
+    border: solid 1px transparent;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color ease 0.3s;
+}
+#employee-type-list tr.body .delete-employee-type a:hover {
+    background-color: rgb(238, 102, 102);
+}

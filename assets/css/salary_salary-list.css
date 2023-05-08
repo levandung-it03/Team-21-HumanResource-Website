@@ -1,0 +1,89 @@
+table {
+    border-collapse: collapse;
+}
+th, td {
+    border: solid 1px var(--smoking-grey);
+}
+#salary-list #title {
+    display: inline-block;
+}
+#salary-list #title span {
+    font-size: 2.4rem;
+    padding: 10px;
+}
+#salary-list {
+    width: 100%;
+}
+#salary-list table {
+    margin: var(--form-margin);
+    background-color: white;
+    border: solid 1px transparent;
+    border-radius: var(--form-border-radius);
+    padding: 12px;
+    width: 98%;
+    box-shadow: var(--black-box-shadow);
+    font-size: 0.95rem;
+}
+#salary-list .table_title {
+    text-align: left;
+}
+#salary-list .table_title th i {
+    width: 20px;
+    font-size: 0.7rem;
+    float: right;
+    line-height: 24px;
+    cursor: pointer;
+}
+#salary-list .table_title th {
+    padding: 6px;
+    text-align: center;
+}
+#salary-list .table_title th#ordinal {
+    width: 5%;
+}
+#salary-list .table_title th#position {
+    width: 14%;
+}
+#salary-list .table_title th#realSalary {
+    width: 14%;
+}
+#salary-list .table_title th#dateCreated {
+    width: 10%;
+}
+#salary-list tr.body td {
+    text-align: center;
+}
+#salary-list tr.body .view-salary {
+    padding: 12px;
+}
+#salary-list tr.body .view-salary a {
+    display: block;
+    margin: auto;
+    width: 50px;
+    line-height: 32px;
+    background-color: var(--green);
+    border: solid 1px transparent;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color ease 0.3s;
+}
+#salary-list tr.body .view-salary a:hover {
+    background-color: var(--blur-green);
+}
+#salary-list tr.body .delete-salary {
+    padding: 12px;
+}
+#salary-list tr.body .delete-salary a {
+    display: block;
+    margin: auto;
+    width: 50px;
+    line-height: 32px;
+    background-color: var(--red);
+    border: solid 1px transparent;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color ease 0.3s;
+}
+#salary-list tr.body .delete-salary a:hover {
+    background-color: rgb(238, 102, 102);
+}

@@ -1,0 +1,72 @@
+<link rel="stylesheet" href="/css/compliment_compliment-type.css">
+<div id="compliment-type">
+    <div id="heading">
+        <div class="hide" id="turn-back-btn">
+            <a><i class="fa-solid fa-arrow-left-long"></i> Thoát</a>
+        </div>
+        <div id="title">
+            <span>Danh sách loại hình khen thưởng</span>
+        </div>
+        <div id="add-btn">
+            <a href="/admin/category/compliment/add-compliment-type">Thêm loại hình khen thưởng</a>
+        </div>
+        <div id="search">
+            <input class="search" type="text" placeholder="Tìm kiếm">
+            <i class="fa-solid fa-magnifying-glass"></i>
+        </div>
+    </div>
+    <table>
+        <thead>
+            <tr class="table_title">
+                <th id="ordinal">
+                    <span class="title_name">STT</span>
+                        <i class="fa-solid fa-arrow-down-short-wide" id="ordinal"></i>      
+                </th>
+                <th id="compliment_type_code">
+                    <span class="title_name">Mã loại hình khen thưởng</span>
+                    <i class="fa-solid fa-arrow-down-short-wide" id="compliment_type_code"></i>
+                </th>
+                <th id="compliment_type">
+                    <span class="title_name">Tên loại hình khen thưởng</span>
+                    <i class="fa-solid fa-arrow-down-short-wide" id="compliment_type"></i>
+                </th>
+                <th id="description">
+                    <span class="title_name">Mô tả</span>
+                </th>
+                <th id="dateCreated">
+                    <span class="title_name">Ngày tạo</span>
+                    <i class="fa-solid fa-arrow-down-short-wide" id="dateCreated"></i>
+                </th>
+                <th id="update-compliment_type">
+                    <span class="title_name">Sửa</span>
+                </th>
+                <th id="delete-compliment_type">
+                    <span class="title_name">Xoá</span>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <% for (var i = 0; i < allCompliment_type.length; i++) { %>
+                <tr class="body" id=<%= i+1 %>>
+                    <td id="ordinal"><%= (i + 1) %></td>
+                    <td class="body_enable-searching body_enable-sorting"
+                        id="compliment_type_code"><%= allCompliment_type[i].compliment_type_code %></td>
+                    <td class="body_enable-searching body_enable-sorting"
+                        id="compliment_type"><%= allCompliment_type[i].compliment_type %></td>
+                    <td class="body_enable-searching body_enable-sorting"
+                        id="description"><%= allCompliment_type[i].description %></td>
+                    <td class="body_enable-searching body_enable-sorting"
+                        id="dateCreated"><%= allCompliment_type[i].dateCreated %></td>
+                    <td class="update-compliment_type">
+                        <a href="/admin/category/compliment/update-compliment-type/<%= allCompliment_type[i]._id.toString() %>">
+                            <i class="fa-sharp fa-solid fa-pencil"></i></a>
+                    </td>
+                    <td class="delete-compliment_type">
+                        <a compliment_type_id=<%= allCompliment_type[i]._id.toString() %>><i class="fa-sharp fa-solid fa-trash"></i></a>
+                    </td>
+                </tr>
+            <% } %>
+        </tbody>
+    </table>
+</div>
+<script src="/js/compliment_compliment-type.js"></script>

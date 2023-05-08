@@ -1,0 +1,193 @@
+#view-employee-discipline {
+    position: relative;
+}
+#view-employee-discipline > #title {
+    position: absolute;
+    top: 0;
+    left: 116px;
+}
+#view-employee-discipline > #title span {
+    font-size: 2.4rem;
+    display: block;
+}
+#view-employee-discipline #employee-information_heading #title span {
+    font-size: 1.4rem;
+    padding: 10px;
+}
+#view-employee-discipline #employee-information {
+    margin: var(--form-margin);
+    min-height: 60vh;
+    max-width: 98%;
+    background-color: white;
+    border: solid 1px transparent;
+    border-radius: var(--form-border-radius);
+    padding: 12px;
+    box-shadow: var(--black-box-shadow);
+}
+#container_info {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+}
+#view-employee-discipline #employee-information #title {
+    margin-bottom: 12px;
+    font-weight: 600;
+}
+#view-employee-discipline #employee-information #title::after {
+    display: block;
+    content: "";
+    border-top: solid 1px rgb(94, 94, 255);
+    padding-bottom: 8px;
+}
+#container_info #avatar {
+    width: 16%;
+}
+#container_info #avatar img {
+    width: 100%;
+}
+#container_info .info {
+    width: 40%;
+    padding-left: 20px;
+}
+#view-employee-discipline #employee-information #container_info .info li {
+    display: block;
+    width: 100%;
+    font-size: 1rem;
+}
+/*========================================TABLE================================================*/
+#employee-discipline-list {
+    background-color: white;
+    padding: 12px 0;
+    margin: 12px;
+    margin-top: 32px;
+    box-shadow: var(--black-box-shadow);
+    border-radius: 8px;
+}
+#employee-discipline-list #add-btn {
+    float: right;
+    margin-right: 12px;
+    margin-top: 4px;
+}
+#employee-discipline-list #heading {
+    position: relative; 
+    margin-bottom: 16px;
+}
+#employee-discipline-list #heading::after {
+    display: block;
+    content: "";
+    position: absolute;
+    top: 62px;
+    width: 98%;
+    margin-left: 12px;
+    border-top: solid 1px rgb(94, 94, 255);
+    padding-bottom: 8px;
+}
+#employee-discipline-list #heading #title {
+    display: inline-block;
+}
+table {
+    border-collapse: collapse;
+}
+th, td {
+    border: solid 1px var(--smoking-grey);
+}
+#employee-discipline-list #add-btn {
+    float: right;
+    margin-right: 12px;
+    margin-top: 4px;
+}
+#employee-discipline-list #title {
+    display: inline-block;
+}
+#employee-discipline-list #title span {
+    font-size: 2.4rem;
+    padding: 10px;
+}
+#employee-discipline-list table {
+    margin: 0 12px;
+    background-color: white;
+    border: solid 1px transparent;
+    border-radius: var(--form-border-radius);
+    padding: 0 12px;
+    font-size: 0.95rem;
+}
+#employee-discipline-list .table_title {
+    text-align: left;
+}
+#employee-discipline-list .table_title th i {
+    width: 20px;
+    font-size: 0.7rem;
+    float: right;
+    line-height: 24px;
+    cursor: pointer;
+}
+#employee-discipline-list .table_title th {
+    padding: 6px;
+    text-align: center;
+}
+#employee-discipline-list .table_title th#ordinal {
+    width: 5%;
+}
+#employee-discipline-list .table_title th#discipline_code {
+    width: 14%;
+}
+#employee-discipline-list .table_title th#discipline {
+    width: 14%;
+}
+#employee-discipline-list .table_title th#description {
+    width: 18%;
+}
+#employee-discipline-list .table_title th#numbers {
+    width: 11%;
+}
+#employee-discipline-list .table_title th#dateCreated {
+    width: 13%;
+}
+#employee-discipline-list .table_title th#update-employee-discipline {
+    width: 6%;
+}
+#employee-discipline-list .table_title th#delete-employee-discipline {
+    width: 6%;
+}
+#employee-discipline-list tr.body td {
+    text-align: center;
+}
+#employee-discipline-list tr.body td#discipline,
+#employee-discipline-list tr.body td#discipline_type,
+#employee-discipline-list tr.body td#description {
+    padding: 8px;
+}
+#employee-discipline-list tr.body .update-employee-discipline {
+    padding: 12px;
+}
+#employee-discipline-list tr.body .update-employee-discipline a {
+    display: block;
+    margin: auto;
+    width: 50px;
+    line-height: 32px;
+    background-color: var(--green);
+    border: solid 1px transparent;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color ease 0.3s;
+}
+#employee-discipline-list tr.body .update-employee-discipline a:hover {
+    background-color: var(--blur-green);
+}
+#employee-discipline-list tr.body .delete-employee-discipline {
+    padding: 12px;
+}
+#employee-discipline-list tr.body .delete-employee-discipline a {
+    display: block;
+    margin: auto;
+    width: 50px;
+    line-height: 32px;
+    background-color: var(--red);
+    border: solid 1px transparent;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color ease 0.3s;
+}
+#employee-discipline-list tr.body .delete-employee-discipline a:hover {
+    background-color: rgb(238, 102, 102);
+}

@@ -1,0 +1,109 @@
+<link rel="stylesheet" href="/css/employee_account-list.css">
+<div id="account_list">
+    <div id="heading">
+        <div class="hide" id="turn-back-btn">
+            <a><i class="fa-solid fa-arrow-left-long"></i> Thoát</a>
+        </div>
+        <div id="title">
+            <span>Danh sách tài khoản nhân viên</span>
+        </div>
+        <div id="search">
+            <input class="search" type="text" placeholder="Tìm kiếm">
+            <i class="fa-solid fa-magnifying-glass"></i>
+        </div>
+    </div>
+    <table>
+        <thead>
+            <tr class="table_title">
+                <th id="ordinal">
+                    <span class="title_name">STT</span>
+                        <i class="fa-solid fa-arrow-down-short-wide" id="ordinal"></i>                 
+                </th>
+                <th id="avatar">
+                    <span class="title_name">Ảnh</span>
+                </th>
+                <th id="first-name">
+                    <span class="title_name">Họ</span>
+                    <i class="fa-solid fa-arrow-down-short-wide" id="first-name"></i>
+                </th>
+                <th id="last-name">
+                    <span class="title_name">Tên</span>
+                    <i class="fa-solid fa-arrow-down-short-wide" id="last-name"></i>
+                </th>
+                <th id="email">
+                    <span class="title_name">Tài khoản</span>
+                    <i class="fa-solid fa-arrow-down-short-wide" id="email"></i>
+                </th>
+                <th id="phone">
+                    <span class="title_name">Điện thoại</span>
+                    <i class="fa-solid fa-arrow-down-short-wide" id="phone"></i>
+                </th>
+                <th id="employee_type">
+                    <span class="title_name">Loại NV</span>
+                    <i class="fa-solid fa-arrow-down-short-wide light-block" id="employee_type"></i>
+                </th>
+                <th id="right">
+                    <span class="title_name">Quyền hạn</span>
+                    <i class="fa-solid fa-arrow-down-short-wide light-block" id="right"></i>
+                </th>
+                <th id="status">
+                    <span class="title_name">Tình trạng</span>
+                    <i class="fa-solid fa-arrow-down-short-wide light-block" id="status"></i>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <% for (var i = 0; i < employeeList.length; i++) { %>
+                <tr class="body" id=<%= i+1 %>>
+                    <td id="ordinal">
+                        <%= (i + 1) %>
+                    </td>
+                    <td id="avatar">
+                        <img src=<%= employeeList[i].avatar_url %> alt="">
+                    </td>
+                    <%  const name = employeeList[i].name.split(' '); %>
+                    <td class="body_enable-searching body_enable-sorting" id="first-name">
+                        <%= name.slice(0, name.length - 1).join(" ") %>
+                    </td>
+                    <td class="body_enable-searching body_enable-sorting" id="last-name">
+                        <%= name[name.length - 1] %>
+                    </td>
+                    <td class="body_enable-searching body_enable-sorting" id="email">
+                        <%= employeeList[i].account.email %>
+                    </td>
+                    <td class="body_enable-searching body_enable-sorting" id="phone">
+                        <%= employeeList[i].phone %>
+                    </td>
+                    <td id="employee_type">
+                        <% const blockType = employeeList[i].employee_type == "Chính Thức" ? "green-block"
+                        : (employeeList[i].employee_type == "Bán Thời Gian" ? "blur-green-block"
+                        : "light-green-block") %>
+                        <span class="body_enable-searching body_enable-sorting status-block <%=blockType%>" id="employee_type">
+                            <%= employeeList[i].employee_type %>
+                        </span>
+                    </td>
+                    <td id="right">
+                        <% if(employeeList[i].admin == 1) { %>
+                            <span class="body_enable-searching body_enable-sorting status-block blue-right" id="right">
+                                Quản trị viên
+                        <% } else { %>
+                            <span class="body_enable-searching body_enable-sorting status-block black-blue-block" id="right">
+                                Nhân viên
+                        <% } %>
+                        </span>
+                    </td>
+                    <td id="status">
+                        <% if(employeeList[i].status == "Đang làm việc") { %>
+                        <span class="body_enable-searching body_enable-sorting status-block green-block" id="status">
+                        <% } else { %>
+                        <span class="body_enable-searching body_enable-sorting status-block red-block" id="status">
+                        <% } %>
+                            <%= employeeList[i].status %>
+                        </span>
+                    </td>
+                </tr>
+            <% } %>
+        </tbody>
+    </table>
+</div>
+<script src="/js/employee_account-list.js"></script>

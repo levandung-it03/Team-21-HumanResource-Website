@@ -1,0 +1,87 @@
+<link rel="stylesheet" href="/css/bussiness_bussiness-list.css">
+<div id="bussiness-list">
+    <div id="heading">
+        <div class="hide" id="turn-back-btn">
+            <a><i class="fa-solid fa-arrow-left-long"></i> Thoát</a>
+        </div>
+        <div id="title">
+            <span>Danh sách công tác</span>
+        </div>
+        <div id="search">
+            <input class="search" type="text" placeholder="Tìm kiếm">
+            <i class="fa-solid fa-magnifying-glass"></i>
+        </div>
+    </div>
+    <table>
+        <thead>
+            <tr class="table_title">
+                <th id="ordinal">
+                    <span class="title_name">STT</span>
+                        <i class="fa-solid fa-arrow-down-short-wide" id="ordinal"></i>                 
+                </th>
+                <th id="bussiness_code">
+                    <span class="title_name">Mã công tác</span>
+                    <i class="fa-solid fa-arrow-down-short-wide" id="bussiness_code"></i>
+                </th>
+                <th id="name">
+                    <span class="title_name">Nhân viên</span>
+                    <i class="fa-solid fa-arrow-down-short-wide" id="name"></i>
+                </th>
+                <th id="location">
+                    <span class="title_name">Địa điểm</span>
+                    <i class="fa-solid fa-arrow-down-short-wide" id="location"></i>
+                </th>
+                <th id="purpose">
+                    <span class="title_name">Mục đích công tác</span>
+                </th>
+                <th id="startingDate">
+                    <span class="title_name">Bắt đầu</span>
+                    <i class="fa-solid fa-arrow-down-short-wide" id="startingDate"></i>
+                </th>
+                <th id="endingDate">
+                    <span class="title_name">Kết thúc</span>
+                    <i class="fa-solid fa-arrow-down-short-wide" id="endingDate"></i>
+                </th>
+                <th id="dateCreated">
+                    <span class="title_name">Ngày chỉnh sửa</span>
+                    <i class="fa-solid fa-arrow-down-short-wide" id="dateCreated"></i>
+                </th>
+                <th id="update-bussiness">
+                    <span class="title_name">Sửa</span>
+                </th>
+                <th id="delete-bussiness">
+                    <span class="title_name">Xoá</span>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <% for (var i = 0; i < bussinessList.length; i++) { %>
+                <tr class="body" id=<%= i+1 %>>
+                    <td id="ordinal"><%= (i + 1) %></td>
+                    <td class="body_enable-searching body_enable-sorting"
+                        id="bussiness_code"><%= bussinessList[i].bussiness_code %></td>
+                        <td class="body_enable-searching body_enable-sorting"
+                            id="bussiness"><%= bussinessList[i].name %></td>
+                    <td class="body_enable-searching body_enable-sorting"
+                        id="bussiness"><%= bussinessList[i].location %></td>
+                    <td class="body_enable-searching body_enable-sorting"
+                        id="bussiness"><%= bussinessList[i].purpose %></td>
+                    <td class="body_enable-searching body_enable-sorting"
+                        id="startingDate"><b><%= bussinessList[i].startingDate %></b></td>
+                    <td class="body_enable-searching body_enable-sorting"
+                        id="endingDate"><b><%= bussinessList[i].endingDate %></b></td>
+                    <td class="body_enable-searching body_enable-sorting"
+                        id="dateCreated"><%= bussinessList[i].dateCreated %></td>
+                    <td class="update-bussiness">
+                        <a href="/admin/category/bussiness/update-bussiness/<%= bussinessList[i]._id.toString() %>">
+                            <i class="fa-sharp fa-solid fa-pencil"></i></a>
+                    </td>
+                    <td class="delete-bussiness">
+                        <a bussiness_id=<%= bussinessList[i]._id.toString() %>><i class="fa-sharp fa-solid fa-trash"></i></a>
+                    </td>
+                </tr>
+            <% } %>
+        </tbody>
+    </table>
+</div>
+<script src="/js/bussiness_bussiness-list.js"></script>

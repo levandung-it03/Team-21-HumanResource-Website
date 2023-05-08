@@ -1,0 +1,33 @@
+<link rel="stylesheet" href="/css/add-simple-db.css">
+<div id="add-degree">
+    <div id="heading">
+        <div id="turn-back-btn">
+            <a href="/admin/category/employee/degree-list"><i class="fa-solid fa-arrow-left-long"></i> Thoát</a>
+        </div>
+        <div id="title">
+            <% if (isUpdating) { %>
+                <span>Cập nhật loại bằng cấp</span>
+            <% } else { %>
+                <span>Thêm loại bằng cấp</span>
+            <% } %>
+        </div>
+    </div>
+    <form method="POST" onsubmit="return submitFormCancellation"
+    action="/api/admin/<%= isUpdating ? 'update-degree/' + specifiedDegree._id.toString() : 'add-degree'%>">
+        <div class="form_text-input more-condition" id="degree">
+            <label for="degree">Loại bằng cấp</label>
+            <input class="adjust-upper-and-lower-case" value="<%= isUpdating ? specifiedDegree.degree : '' %>"
+            <% if (isUpdating) { %>readonly<% } %>
+            name="degree" type="text" placeholder="VD: Thạc sỹ,..." required>
+            <div class="form_text-input_err-message"></div>
+        </div>
+        <div class="form_text-input more-condition" id="multipleSalary">
+            <label for="multipleSalary">Hệ số lương</label>
+            <input value="<%= isUpdating ? specifiedDegree.multipleSalary : '' %>"
+            name="multipleSalary" type="text" placeholder="VD: 1.3 ,..." required>
+            <div class="form_text-input_err-message"></div>
+        </div>
+        <input type="submit" value="Xác nhận">
+    </form>
+</div>
+<script src="/js/employee_add-degree.js"></script>

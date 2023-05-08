@@ -1,0 +1,120 @@
+table {
+    border-collapse: collapse;
+}
+th, td {
+    border: solid 1px var(--smoking-grey);
+}
+#employee-compliments-list #add-btn {
+    float: right;
+    margin-right: 12px;
+    margin-top: 4px;
+}
+#employee-compliments-list #title {
+    display: inline-block;
+}
+#employee-compliments-list #title span {
+    font-size: 2.4rem;
+    padding: 10px;
+}
+#employee-compliments-list table {
+    margin: var(--form-margin);
+    background-color: white;
+    border: solid 1px transparent;
+    border-radius: var(--form-border-radius);
+    padding: 12px;
+    box-shadow: var(--black-box-shadow);
+    font-size: 0.95rem;
+}
+#employee-compliments-list .table_title {
+    text-align: left;
+}
+#employee-compliments-list .table_title th i {
+    width: 20px;
+    font-size: 0.7rem;
+    float: right;
+    line-height: 24px;
+    cursor: pointer;
+}
+#employee-compliments-list .table_title th {
+    padding: 6px;
+    text-align: center;
+}
+#employee-compliments-list .table_title th#ordinal {
+    width: 5%;
+}
+#employee-compliments-list .table_title th#compliment_code {
+    width: 20%;
+}
+#employee-compliments-list .table_title th#compliment {
+    width: 24%;
+}
+#employee-compliments-list .table_title th#dateCreated {
+    width: 14%;
+}
+#employee-compliments-list .table_title th#view-employee-compliment {
+    width: 8%;
+}
+#employee-compliments-list .table_title th#update-employee-compliment {
+    width: 8%;
+}
+#employee-compliments-list .table_title th#delete-employee-compliment {
+    width: 8%;
+}
+#employee-compliments-list tr.body td {
+    text-align: center;
+}
+#employee-compliments-list tr.body td#compliment,
+#employee-compliments-list tr.body td#description {
+    padding: 10px;
+}
+#employee-compliments-list tr.body .view-employee-compliment {
+    padding: 12px 24px 12px;
+}
+#employee-compliments-list tr.body .view-employee-compliment a {
+    display: block;
+    margin: auto;
+    width: 50px;
+    line-height: 32px;
+    background-color: var(--blue);
+    border: solid 1px transparent;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color ease 0.3s;
+}
+#employee-compliments-list tr.body .view-employee-compliment a:hover {
+    background-color: var(--blur-blue);
+}
+#employee-compliments-list tr.body .update-employee-compliment {
+    padding: 12px 24px 12px;
+}
+#employee-compliments-list tr.body .update-employee-compliment a {
+    display: block;
+    margin: auto;
+    width: 50px;
+    line-height: 32px;
+    background-color: var(--green);
+    border: solid 1px transparent;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color ease 0.3s;
+}
+#employee-compliments-list tr.body .update-employee-compliment a:hover {
+    background-color: var(--blur-green);
+}
+#employee-compliments-list tr.body .delete-employee-compliment {
+    padding: 12px 24px 12px;
+}
+#employee-compliments-list tr.body .delete-employee-compliment a {
+    display: block;
+    margin: auto;
+    width: 50px;
+    line-height: 32px;
+    background-color: var(--red);
+    border: solid 1px transparent;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color ease 0.3s;
+}
+#employee-compliments-list tr.body .delete-employee-compliment a:hover {
+    background-color: rgb(238, 102, 102);
+}

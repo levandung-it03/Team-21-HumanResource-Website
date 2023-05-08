@@ -1,0 +1,136 @@
+<link rel="stylesheet" href="/css/category.css">
+<div id="category">
+    <div id="category_heading">
+        <div id="avatar">
+            <img src=<%=user.avatar_url %> alt="">
+        </div>
+        <div id="info">
+            <span id="info_title">
+                <%= user.name %>
+            </span>
+            <span id="info_right">
+                <% if (user.admin=="1" ) { %>
+                    Quản trị viên
+                <% } else { %>
+                    Nhân viên
+                <% } %>
+            </span>
+        </div>
+    </div>
+    <div id="category_body">
+        <div class="category_items general">
+            <a href="/admin/general" class="title">
+                Tổng quan
+            </a>
+        </div>
+        <div class="category_items employee">
+            <a class="title">
+                Nhân viên
+                <i class="fa-solid fa-angle-down"></i>
+            </a>
+            <ul class="list hide">
+                <li class="index">
+                    <a href="/admin/category/employee/add-employee" class="index_label">Thêm nhân viên</a>
+                </li>
+                <li class="index">
+                    <a href="/admin/category/employee/employee-list" class="index_label">Danh sách nhân viên</a>
+                </li>
+                <li class="index">
+                    <a href="/admin/category/employee/account-list" class="index_label">Danh sách tài khoản</a>
+                </li>
+                <li class="index">
+                    <a href="/admin/category/employee/employee-type-list" class="index_label">Các loại nhân viên</a>
+                </li>
+                <li class="index">
+                    <a href="/admin/category/employee/degree-list" class="index_label">Danh sách bằng cấp</a>
+                </li>
+                <li class="index">
+                    <a href="/admin/category/employee/technique-list" class="index_label">Danh sách chuyên môn</a>
+                </li>
+                <li class="index">
+                    <a href="/admin/category/employee/position-list" class="index_label">Danh sách chức vụ</a>
+                </li>
+                <li class="index">
+                    <a href="/admin/category/employee/department-list" class="index_label">Danh sách phòng ban</a>
+                </li>
+            </ul>
+        </div>
+        <div class="category_items salary">
+            <a class="title">
+                Quản lý lương
+                <i class="fa-solid fa-angle-down"></i>
+            </a>
+            <ul class="list hide">
+                <li class="index">
+                    <a href="/admin/category/salary/salary-list" class="index_label">Danh sách lương</a>
+                </li>
+                <li class="index">
+                    <a href="/admin/category/salary/add-salary" class="index_label">Tính lương</a>
+                </li>
+            </ul>
+        </div>
+        <div class="category_items bussiness">
+            <a class="title">
+                Quản lý công tác
+                <i class="fa-solid fa-angle-down"></i>
+            </a>
+            <ul class="list hide">
+                <li class="index">
+                    <a href="/admin/category/bussiness/bussiness-list" class="index_label">Danh sách công tác</a>
+                </li>
+                <li class="index">
+                    <a href="/admin/category/bussiness/add-bussiness" class="index_label">Tạo công tác</a>
+                </li>
+            </ul>
+        </div>
+        <div class="category_items group">
+            <a class="title">
+                Nhóm nhân viên
+                <i class="fa-solid fa-angle-down"></i>
+            </a>
+            <ul class="list hide">
+                <li class="index">
+                    <a href="/admin/category/group/group-list" class="index_label">Danh sách nhóm</a>
+                </li>
+                <li class="index">
+                    <a href="/admin/category/group/add-group" class="index_label">Tạo nhóm nhân viên</a>
+                </li>
+            </ul>
+        </div>
+        <div class="category_items group">
+            <a class="title">
+                Khen thưởng
+                <i class="fa-solid fa-angle-down"></i>
+            </a>
+            <ul class="list hide">
+                <li class="index">
+                    <a href="/admin/category/compliment/compliment-type" class="index_label">Loại hình khen thưởng</a>
+                </li>
+                <li class="index">
+                    <a href="/admin/category/compliment/employee-compliments-list" class="index_label">Khen thưởng nhân viên</a>
+                </li>
+                <li class="index">
+                    <a href="/admin/category/compliment/group-compliments-list" class="index_label">Khen thưởng đội nhóm</a>
+                </li>
+            </ul>
+        </div>
+        <div class="category_items group">
+            <a class="title">
+                Kỷ luật
+                <i class="fa-solid fa-angle-down"></i>
+            </a>
+            <ul class="list hide">
+                <li class="index">
+                    <a href="/admin/category/discipline/discipline-type" class="index_label">Loại hình kỷ luật</a>
+                </li>
+                <li class="index">
+                    <a href="/admin/category/discipline/employee-discipline-list" class="index_label">Kỷ luật nhân viên</a>
+                </li>
+                <li class="index">
+                    <a href="/admin/category/discipline/group-discipline-list" class="index_label">Kỷ luật đội nhóm</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<script src="/js/category.js"></script>
