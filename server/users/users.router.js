@@ -70,7 +70,7 @@ route.get('/admin/category/employee/employee-list/view/:id',
 route.get('/admin/category/employee/employee-list/update/:id',
     authMiddlewares.verifyTokenAndGenerateAccessTokenIfExpiring,
     authMiddlewares.verifyAdmin,
-    renderMethods.admin_addEmployee);
+    renderMethods.admin_updateEmployee);
 
 route.get('/admin/category/employee/degree-list',
     authMiddlewares.verifyTokenAndGenerateAccessTokenIfExpiring,
@@ -331,6 +331,26 @@ route.get('/admin/category/discipline/update-group-discipline/:groupId/:id',
     authMiddlewares.verifyTokenAndGenerateAccessTokenIfExpiring,
     authMiddlewares.verifyAdmin,
     renderMethods.admin_updateGroupDiscipline);
+
+route.get('/admin/category/contract/contract-type',
+    authMiddlewares.verifyTokenAndGenerateAccessTokenIfExpiring,
+    authMiddlewares.verifyAdmin,
+    renderMethods.admin_contractType);
+
+route.get('/admin/category/contract/contract-list',
+    authMiddlewares.verifyTokenAndGenerateAccessTokenIfExpiring,
+    authMiddlewares.verifyAdmin,
+    renderMethods.admin_contractList);
+
+route.get('/admin/category/contract/add-contract',
+    authMiddlewares.verifyTokenAndGenerateAccessTokenIfExpiring,
+    authMiddlewares.verifyAdmin,
+    renderMethods.admin_addContract);
+
+route.get('/admin/category/contract/update-contract/:id',
+    authMiddlewares.verifyTokenAndGenerateAccessTokenIfExpiring,
+    authMiddlewares.verifyAdmin,
+    renderMethods.admin_addContract);
     
 /** @________________________________________WORKING______________________________________________ */
 /** @_____________________________________________________________________________________________ */

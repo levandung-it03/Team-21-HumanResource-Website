@@ -88,30 +88,6 @@
             <input value="<%= isUpdating ? specifiedUser.phone : "" %>" name="phone" type="text" placeholder="0963341278" required>
             <div class="form_text-input_err-message"></div>
         </div>
-        <!-- ========================================================================= -->
-        <div class="form_select-input more-condition large-block" id="bank_name">
-            <label for="bank_name">Tên ngân hàng</label>
-            <select data="<%= isUpdating ? specifiedUser.bank_name : "" %>" name="bank_name">
-                <option selected disabled value="">--Chọn ngân hàng--</option>
-                
-            </select>
-        </div>
-        <div class="form_text-input more-condition" id="bank_number">
-            <label for="bank_number">Số thẻ</label>
-            <input value="<%= isUpdating ? specifiedUser.bank_number : "" %>" name="bank_number" type="text" placeholder="0963341278" required>
-            <div class="form_text-input_err-message"></div>
-        </div>
-        <div class="form_text-input more-condition" id="bank_account_number">
-            <label for="bank_account_number">Số tài khoản</label>
-            <input value="<%= isUpdating ? specifiedUser.bank_account_number : "" %>" name="bank_account_number" type="text" placeholder="0963341278" required>
-            <div class="form_text-input_err-message"></div>
-        </div>
-        <div class="form_text-input more-condition" id="expiredDate">
-            <label for="expiredDate">Ngày hết hạn</label>
-            <input value="<%= isUpdating ? specifiedUser.expiredDate : "" %>" name="expiredDate" type="text" placeholder="09/27" required>
-            <div class="form_text-input_err-message"></div>
-        </div>
-        <!-- ========================================================================= -->
         <div class="form_text-input large-block" id="household">
             <label for="household">Hộ khẩu</label>
             <input value="<%= isUpdating ? specifiedUser.household : "" %>" name="household" type="text"
