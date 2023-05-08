@@ -78,6 +78,49 @@ const mainData = [...$$("tr.body")];
             message: "Điện thoại chỉ gồm số và có 10 chữ số.",
             isValid: false,
         },
+<<<<<<< HEAD
+        bank_name: {
+            confirm: function (value) {
+                this.isValid = /^[a-zA-ZÀ-ỹ\s]+$/u.test(value);
+            },
+            message: "Tên ngân hàng không hợp lệ.",
+            isValid: false,
+        },
+        bank_number: {
+            confirm: function (value) {
+                if (value.length != 10) {
+                    this.isValid = false;
+                } else {
+                    this.isValid = value.split("").every((e) => !isNaN(Number.parseInt(e))) && (value[0] == "0");
+                }
+            },
+            message: "Điện thoại chỉ gồm số và có 10 chữ số.",
+            isValid: false,
+        },
+        bank_account_number: {
+            confirm: function (value) {
+                if (value.length != 10) {
+                    this.isValid = false;
+                } else {
+                    this.isValid = value.split("").every((e) => !isNaN(Number.parseInt(e))) && (value[0] == "0");
+                }
+            },
+            message: "Điện thoại chỉ gồm số và có 10 chữ số.",
+            isValid: false,
+        },
+        expiredDate: {
+            confirm: function (value) {
+                if (value.length != 10) {
+                    this.isValid = false;
+                } else {
+                    this.isValid = value.split("").every((e) => !isNaN(Number.parseInt(e))) && (value[0] == "0");
+                }
+            },
+            message: "Điện thoại chỉ gồm số và có 10 chữ số.",
+            isValid: false,
+        },
+=======
+>>>>>>> bbc1cf5f06cff04de9a9421a8c445a2fad83ece0
     }
     const inputTags = [...$$('.form_text-input input')];
     const strictInputTags = [...$$('.more-condition input')];
