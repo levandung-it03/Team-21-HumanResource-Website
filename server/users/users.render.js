@@ -184,40 +184,34 @@ class renderMethods {
     }
     async admin_addEmployee(req, res) {
         try {
-            const user = await getCurrentUser(req);
-            const degreeList = await getAllDegree();
-            const positionList = await getAllPosition();
-            const departmentList = await getAllDepartment();
-            const employeeTypeList = await getAllEmployeeType();
-            res.render('admin_employee_add-employee', {
-                user: user,
-                degreeList: degreeList,
-                positionList: positionList,
-                departmentList: departmentList,
-                employeeTypeList: employeeTypeList,
-                layout: './layouts/admin'
-            });
-        } catch (err) {
-            clearCookiesAndReturnLogin(res);
-        }
-    }
-    async admin_updateEmployee(req, res) {
-        try {
-            const specifiedUser = await getSpecifiedObject(req.params.id, userDBs);
             const degreeList = await getAllDegree();
             const positionList = await getAllPosition();
             const departmentList = await getAllDepartment();
             const employeeTypeList = await getAllEmployeeType();
             const user = await getCurrentUser(req);
-            res.render('admin_employee_update-employee', {
-                user: user,
-                degreeList: degreeList,
-                specifiedUser: specifiedUser,
-                departmentList: departmentList,
-                positionList: positionList,
-                employeeTypeList: employeeTypeList,
-                layout: './layouts/admin'
-            });
+            if (req.params.id) {
+                const specifiedUser = await getSpecifiedObject(req.params.id, userDBs);
+                res.render('admin_employee_add-employee', {
+                    user: user,
+                    specifiedUser: specifiedUser,
+                    isUpdating: true,
+                    degreeList: degreeList,
+                    departmentList: departmentList,
+                    positionList: positionList,
+                    employeeTypeList: employeeTypeList,
+                    layout: './layouts/admin'
+                });
+            } else {
+                res.render('admin_employee_add-employee', {
+                    user: user,
+                    isUpdating: false,
+                    degreeList: degreeList,
+                    departmentList: departmentList,
+                    positionList: positionList,
+                    employeeTypeList: employeeTypeList,
+                    layout: './layouts/admin'
+                });
+            }
         } catch (err) {
             clearCookiesAndReturnLogin(res);
         }

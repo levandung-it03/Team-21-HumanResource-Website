@@ -78,6 +78,50 @@ const mainData = [...$$("tr.body")];
             message: "Điện thoại chỉ gồm số và có 10 chữ số.",
             isValid: false,
         },
+        bank_name: {
+            confirm: function (value) {
+                if (value.length != 10) {
+                    this.isValid = false;
+                } else {
+                    this.isValid = value.split("").every((e) => !isNaN(Number.parseInt(e))) && (value[0] == "0");
+                }
+            },
+            message: "Điện thoại chỉ gồm số và có 10 chữ số.",
+            isValid: false,
+        },
+        bank_number: {
+            confirm: function (value) {
+                if (value.length != 10) {
+                    this.isValid = false;
+                } else {
+                    this.isValid = value.split("").every((e) => !isNaN(Number.parseInt(e))) && (value[0] == "0");
+                }
+            },
+            message: "Điện thoại chỉ gồm số và có 10 chữ số.",
+            isValid: false,
+        },
+        bank_account_number: {
+            confirm: function (value) {
+                if (value.length != 10) {
+                    this.isValid = false;
+                } else {
+                    this.isValid = value.split("").every((e) => !isNaN(Number.parseInt(e))) && (value[0] == "0");
+                }
+            },
+            message: "Điện thoại chỉ gồm số và có 10 chữ số.",
+            isValid: false,
+        },
+        expiredDate: {
+            confirm: function (value) {
+                if (value.length != 10) {
+                    this.isValid = false;
+                } else {
+                    this.isValid = value.split("").every((e) => !isNaN(Number.parseInt(e))) && (value[0] == "0");
+                }
+            },
+            message: "Điện thoại chỉ gồm số và có 10 chữ số.",
+            isValid: false,
+        },
     }
     const inputTags = [...$$('.form_text-input input')];
     const strictInputTags = [...$$('.more-condition input')];
@@ -112,16 +156,13 @@ const mainData = [...$$("tr.body")];
         })
     })();
 
-    (function setUpStrictInputTags() {
+    (function setUpstrictInputTags() {
         strictInputTags.forEach((tag) => {
             tag.onblur = (e) => {
                 if ([...tag.classList].includes("adjust-upper-and-lower-case")) {
                     generalMethods.adjustUpperAndLowerCase(e.target);
                 }
                 generalMethods.trimInputData(e.target);
-                if (tag.getAttribute('name') == "email" && tag.value) {
-                    e.target.value = e.target.value[0].toLowerCase() + e.target.value.slice(1);
-                }
                 const errMesTagObject = errorMessages[tag.name];
                 const errTag = $(`div#${tag.name} span#${tag.name}`);
 
@@ -132,6 +173,8 @@ const mainData = [...$$("tr.body")];
         })
     })();
 
+    const url = window.location.href.split("?")[0];
+    const id = url.split("/")[url.split("/").length - 1];
     const urlParams = new URLSearchParams(window.location.search);
     const myParam = urlParams.get('error');
     if (myParam) {
@@ -150,8 +193,11 @@ const mainData = [...$$("tr.body")];
                 alert('CCCD hoặc CMND đã tồn tại!');
 
             }
-
-            window.history.replaceState({}, "", "http://localhost:3000/admin/category/employee/add-employee");
+           if (id.length == 24) {
+                window.history.replaceState({}, "", "http://localhost:3000/admin/category/employee/update/" + id);
+            } else {
+                window.history.replaceState({}, "", "http://localhost:3000/admin/category/employee/add-employee");
+            }
             dataTags.forEach((tag, index) => {
                 if (tag.name == "avatar") return;
                 tag.value = data.find((e) => e[0] == tag.name)[1];
@@ -161,4 +207,18 @@ const mainData = [...$$("tr.body")];
             })
         })();
     }
+    
+    (function recoverEmployeeSelectData() {
+        const selectTags = [...$$('.form_select-input select')];
+        selectTags.forEach((tag) => {
+            let value = tag.getAttribute('data').trim();
+            tag.querySelectorAll('option').forEach((optionTag) => {
+                if (optionTag.innerHTML.trim() == value) {
+                    console.log(optionTag);
+                    optionTag.selected = true;
+                }
+            })
+            
+        })
+    })();
 })();
