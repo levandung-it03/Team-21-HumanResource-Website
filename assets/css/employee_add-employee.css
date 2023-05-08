@@ -1,6 +1,6 @@
-html {
-    background-size: 100vw;
-    background-repeat: no-repeat;
+#add-employee #form-title {
+    display: inline-block;
+    position: absolute;
 }
 #add-employee #form-title span {
     font-size: 2.4rem;
@@ -20,7 +20,6 @@ form {
     font-size: 0.9rem;
     font-weight: 600;
 }
-
 form .form_text-input,
 form .form_select-input {
     display: inline-block;

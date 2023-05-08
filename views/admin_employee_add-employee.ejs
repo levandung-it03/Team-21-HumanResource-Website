@@ -1,141 +1,180 @@
 <link rel="stylesheet" href="/css/employee_add-employee.css">
 <div id="add-employee">
-    <div id="form-title">
-        <span>Thêm nhân viên</span>
+    <div id="heading">
+        <% if (isUpdating) { %>
+            <div id="turn-back-btn">
+                <a href="/admin/category/employee/employee-list"><i class="fa-solid fa-arrow-left-long"></i> Thoát</a>
+            </div>
+        <% } %>
+        <div id="form-title">
+            <% if (isUpdating) { %>
+                <span>Chỉnh sửa thông tin nhân viên</span>
+            <% } else { %>
+                <span>Thêm nhân viên</span>
+            <% } %>
+        </div>
     </div>
-    <form method="POST" action="/api/admin/add-employee" enctype="multipart/form-data" onsubmit="return submitFormCancellation">
+    <form method="POST" action="<%= isUpdating ? '/api/admin/update-employee/' + specifiedUser._id.toString()
+    : '/api/admin/add-employee/' %>" enctype="multipart/form-data" onsubmit="return submitFormCancellation">
         <div class="form_text-input more-condition" id="name">
             <label for="name">Họ và Tên</label>
-            <input class="adjust-upper-and-lower-case" name="name" type="text" placeholder="Nguyễn Thị A" required>
+            <input class="adjust-upper-and-lower-case" value="<%= isUpdating ? specifiedUser.name : "" %>" name="name" type="text"
+                placeholder="Nguyễn Thị A" required>
             <div class="form_text-input_err-message"></div>
         </div>
         <div class="form_text-input" id="avatar">
             <label for="avatar">Ảnh đại diện</label>
-            <input name="avatar" type="file" accept="image/jpg" required>
+            <input name="avatar" type="file" accept="image/jpg" <% if(!isUpdating) { %>required<%}%>>
         </div>
         <div class="form_text-input more-condition" id="email">
             <label for="email">Địa chỉ gmail</label>
-            <input name="email" type="text" placeholder="name.01@gmail.com" required>
+            <input value="<%= isUpdating ? specifiedUser.account.email : "" %>" name="email" type="text" placeholder="name.01@gmail.com"
+                required>
             <div class="form_text-input_err-message"></div>
         </div>
         <div class="form_select-input" id="gender">
             <label for="gender">Giới tính</label>
-            <select name="gender">
+            <select data="<%= isUpdating ? specifiedUser.gender : "" %>" name="gender">
                 <option value="Nam">Nam</option>
                 <option value="Nữ">Nữ</option>
             </select>
         </div>
         <div class="form_text-input" id="birthday">
             <label for="birthday">Ngày sinh</label>
-            <input name="birthday" type="date" required>
+            <input value="<%= isUpdating ? specifiedUser.birthday : "" %>" name="birthday" type="date" required>
             <div class="form_text-input_err-message"></div>
         </div>
         <div class="form_text-input more-condition" id="identifier">
             <label for="identifier">Số CCCD hoặc CMND</label>
-            <input name="identifier" type="text" placeholder="038203032575" required>
+            <input value="<%= isUpdating ? specifiedUser.identifier : "" %>" name="identifier" type="text" placeholder="038203032575"
+                required>
             <div class="form_text-input_err-message"></div>
         </div>
         <div class="form_text-input large-block" id="identifier_place">
             <label for="identifier_place">Nơi cấp</label>
-            <input name="identifier_place" type="text" placeholder="UBND phường Đa-Kao, Quận 1, thành phố Hồ Chí Minh" required>
+            <input value="<%= isUpdating ? specifiedUser.identifier_place : "" %>" name="identifier_place" type="text"
+                placeholder="UBND phường Đa-Kao, Quận 1, thành phố Hồ Chí Minh" required>
         </div>
         <div class="form_text-input" id="identifier_date">
             <label for="identifier_date">Ngày cấp</label>
-            <input name="identifier_date" type="date" required>
+            <input value="<%= isUpdating ? specifiedUser.identifier_date : "" %>" name="identifier_date" type="date" required>
         </div>
         <div class="form_text-input more-condition" id="birthplace">
             <label for="birthplace">Nơi sinh</label>
-            <input class="adjust-upper-and-lower-case" name="birthplace" type="text" placeholder="Hà Nội" required>
+            <input class="adjust-upper-and-lower-case" value="<%= isUpdating ? specifiedUser.birthplace : "" %>" name="birthplace"
+                type="text" placeholder="Hà Nội" required>
             <div class="form_text-input_err-message"></div>
         </div>
         <div class="form_text-input more-condition" id="country">
             <label for="country">Quốc gia</label>
-            <input class="adjust-upper-and-lower-case" name="country" type="text" value="Việt Nam" required>
+            <input class="adjust-upper-and-lower-case" value="<%= isUpdating ? specifiedUser.country : "" %>" name="country" type="text"
+                value="Việt Nam" required>
             <div class="form_text-input_err-message"></div>
         </div>
         <div class="form_text-input more-condition" id="ethnic">
             <label for="ethnic">Dân tộc</label>
-            <input class="adjust-upper-and-lower-case" name="ethnic" type="text" placeholder="Kinh" required>
+            <input class="adjust-upper-and-lower-case" value="<%= isUpdating ? specifiedUser.ethnic : "" %>" name="ethnic" type="text"
+                placeholder="Kinh" required>
             <div class="form_text-input_err-message"></div>
         </div>
         <div class="form_text-input more-condition" id="religion">
             <label for="religion">Tôn giáo</label>
-            <input class="adjust-upper-and-lower-case" name="religion" type="text" value="Không" required>
+            <input class="adjust-upper-and-lower-case" value="<%= isUpdating ? specifiedUser.religion : "" %>" name="religion" type="text"
+                value="Không" required>
             <div class="form_text-input_err-message"></div>
         </div>
         <div class="form_text-input more-condition" id="phone">
             <label for="phone">Số điện thoại</label>
-            <input name="phone" type="text" placeholder="0963341278" required>
+            <input value="<%= isUpdating ? specifiedUser.phone : "" %>" name="phone" type="text" placeholder="0963341278" required>
             <div class="form_text-input_err-message"></div>
         </div>
         <!-- ========================================================================= -->
         <div class="form_select-input more-condition large-block" id="bank_name">
             <label for="bank_name">Tên ngân hàng</label>
-            <select name="bank_name">
+            <select data="<%= isUpdating ? specifiedUser.bank_name : "" %>" name="bank_name">
                 <option selected disabled value="">--Chọn ngân hàng--</option>
-
+                
             </select>
         </div>
         <div class="form_text-input more-condition" id="bank_number">
             <label for="bank_number">Số thẻ</label>
-            <input name="bank_number" type="text" placeholder="0963341278" required>
+            <input value="<%= isUpdating ? specifiedUser.bank_number : "" %>" name="bank_number" type="text" placeholder="0963341278" required>
             <div class="form_text-input_err-message"></div>
         </div>
         <div class="form_text-input more-condition" id="bank_account_number">
             <label for="bank_account_number">Số tài khoản</label>
-            <input name="bank_account_number" type="text" placeholder="0963341278" required>
+            <input value="<%= isUpdating ? specifiedUser.bank_account_number : "" %>" name="bank_account_number" type="text" placeholder="0963341278" required>
             <div class="form_text-input_err-message"></div>
         </div>
         <div class="form_text-input more-condition" id="expiredDate">
             <label for="expiredDate">Ngày hết hạn</label>
-            <input name="expiredDate" type="text" placeholder="09/27" required>
+            <input value="<%= isUpdating ? specifiedUser.expiredDate : "" %>" name="expiredDate" type="text" placeholder="09/27" required>
             <div class="form_text-input_err-message"></div>
         </div>
         <!-- ========================================================================= -->
         <div class="form_text-input large-block" id="household">
             <label for="household">Hộ khẩu</label>
-            <input name="household" type="text" placeholder="97 Man Thiện, phường Hiệp Phú, thành phố Thủ Đức, thành phố Hồ Chí Minh" required>
+            <input value="<%= isUpdating ? specifiedUser.household : "" %>" name="household" type="text"
+                placeholder="97 Man Thiện, phường Hiệp Phú, thành phố Thủ Đức, thành phố Hồ Chí Minh" required>
         </div>
         <div class="form_text-input large-block" id="temporary_address">
             <label for="temporary_address">Tạm trú</label>
-            <input name="temporary_address" type="text" placeholder="97 Man Thiện, phường Hiệp Phú, thành phố Thủ Đức, thành phố Hồ Chí Minh" required>
+            <input value="<%= isUpdating ? specifiedUser.temporary_address : "" %>" name="temporary_address" type="text"
+                placeholder="97 Man Thiện, phường Hiệp Phú, thành phố Thủ Đức, thành phố Hồ Chí Minh" required>
         </div>
         <div class="form_select-input" id="department">
             <label for="department">Phòng ban</label>
-            <select name="department">
-                <option selected disabled value="">--Chọn phòng ban--</option>
+            <select data="<%= isUpdating ? specifiedUser.department : "" %>" name="department">
+                <% if(!isUpdating) {%> <option selected disabled value="">--Chọn phòng ban--</option> <% } %>
                 <% for (var index in departmentList) { %>
-                    <option value="<%= departmentList[index].department %>"><%= departmentList[index].department %></option>
-                <% } %>
+                    <option value="<%= departmentList[index].department %>">
+                        <%= departmentList[index].department %>
+                    </option>
+                    <% } %>
             </select>
         </div>
         <div class="form_select-input" id="employee_type">
             <label for="employee_type">Loại nhân viên</label>
-            <select name="employee_type">
-                <option selected disabled value="">--Chọn loại nhân viên--</option>
+            <select data="<%= isUpdating ? specifiedUser.employee_type : "" %>" name="employee_type">
+                <% if(!isUpdating) {%> <option selected disabled value="">--Chọn loại nhân viên--</option> <% } %>
                 <% for (var index in employeeTypeList) { %>
-                    <option value="<%= employeeTypeList[index].employee_type %>"><%= employeeTypeList[index].employee_type %></option>
-                <% } %>
+                    <option value="<%= employeeTypeList[index].employee_type %>">
+                        <%= employeeTypeList[index].employee_type %>
+                    </option>
+                    <% } %>
             </select>
         </div>
         <div class="form_select-input" id="position">
             <label for="position">Chức vụ</label>
-            <select name="position">
-                <option selected disabled value="">--Chọn chức vụ--</option>
+            <select data="<%= isUpdating ? specifiedUser.position : "" %>" name="position">
+                <% if(!isUpdating) {%> <option selected disabled value="">--Chọn chức vụ--</option> <% } %>
                 <% for (var index in positionList) { %>
-                    <option value="<%= positionList[index].position %>"><%= positionList[index].position %></option>
-                <% } %>
+                    <option value="<%= positionList[index].position %>">
+                        <%= positionList[index].position %>
+                    </option>
+                    <% } %>
             </select>
         </div>
         <div class="form_select-input" id="degree">
             <label for="degree">Bằng cấp</label>
-            <select name="degree">
-                <option selected disabled value="">--Chọn bằng cấp--</option>
+            <select data="<%= isUpdating ? specifiedUser.degree : "" %>" name="degree">
+                <% if(!isUpdating) {%> <option selected disabled value="">--Chọn loại bằng cấp--</option> <% } %>
                 <% for (var index in degreeList) { %>
-                    <option value="<%= degreeList[index].degree %>"><%= degreeList[index].degree %></option>
-                <% } %>
+                    <option value="<%= degreeList[index].degree %>">
+                        <%= degreeList[index].degree %>
+                    </option>
+                    <% } %>
             </select>
         </div>
+        <% if(isUpdating) { %>
+            <div class="form_select-input" id="status">
+                <label for="status">Trạng thái làm việc</label>
+                <select data="<%= isUpdating? specifiedUser.status : "" %>" name="status">
+                    <option value="Đang làm việc">Đang làm việc</option>
+                    <option value="Đã nghỉ việc">Đã nghỉ việc</option>
+                </select>
+            </div>
+        <% } %>
         <input type="submit" value="Xác nhận">
     </form>
 </div>

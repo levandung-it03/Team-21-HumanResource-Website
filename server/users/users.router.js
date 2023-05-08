@@ -70,7 +70,7 @@ route.get('/admin/category/employee/employee-list/view/:id',
 route.get('/admin/category/employee/employee-list/update/:id',
     authMiddlewares.verifyTokenAndGenerateAccessTokenIfExpiring,
     authMiddlewares.verifyAdmin,
-    renderMethods.admin_updateEmployee);
+    renderMethods.admin_addEmployee);
 
 route.get('/admin/category/employee/degree-list',
     authMiddlewares.verifyTokenAndGenerateAccessTokenIfExpiring,
