@@ -386,6 +386,21 @@ let contract_typeSchema = new mongoose.Schema({
 }, { collection: 'contract_type' });
 
 let contractSchema = new mongoose.Schema({
+    contract_code: {
+        type: String,
+        unique: true,
+        required: true
+    },
+    contract_type: String,
+    employee_code: {
+        type: String,
+        unique: true,
+        required: true
+    },
+    name: {
+        type: String,
+        required: true
+    },
     
 }, { collection: 'contract' });
 
