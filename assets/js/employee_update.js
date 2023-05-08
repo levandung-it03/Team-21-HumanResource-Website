@@ -78,6 +78,20 @@ const mainData = [...$$("tr.body")];
             message: "Điện thoại chỉ gồm số và có 10 chữ số.",
             isValid: false,
         },
+<<<<<<< HEAD
+=======
+        phone: {
+            confirm: function (value) {
+                if (value.length != 10) {
+                    this.isValid = false;
+                } else {
+                    this.isValid = value.split("").every((e) => !isNaN(Number.parseInt(e))) && (value[0] == "0");
+                }
+            },
+            message: "Điện thoại chỉ gồm số và có 10 chữ số.",
+            isValid: false,
+        },
+>>>>>>> 4bafa0649959542d2ac9639bd6b276f44a5361f1
     }
     const inputTags = [...$$('.form_text-input input')];
     const strictInputTags = [...$$('.more-condition input')];
