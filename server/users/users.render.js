@@ -16,6 +16,8 @@ const compliment_typeDBs = client.db('company').collection('compliment_type');
 const group_complimentsDBs = client.db('company').collection('group_compliments');
 const employee_complimentsDBs = client.db('company').collection('employee_compliments');
 const discipline_typeDBs = client.db('company').collection('discipline_type');
+const contract_typeDBs = client.db('company').collection('contract_type');
+const contractDBs = client.db('company').collection('contract');
 const employee_disciplineDBs = client.db('company').collection('employee_discipline');
 const group_disciplineDBs = client.db('company').collection('group_discipline');
 const techniqueDBs = client.db('company').collection('technique');
@@ -189,29 +191,37 @@ class renderMethods {
             const departmentList = await getAllDepartment();
             const employeeTypeList = await getAllEmployeeType();
             const user = await getCurrentUser(req);
-            if (req.params.id) {
-                const specifiedUser = await getSpecifiedObject(req.params.id, userDBs);
-                res.render('admin_employee_add-employee', {
-                    user: user,
-                    specifiedUser: specifiedUser,
-                    isUpdating: true,
-                    degreeList: degreeList,
-                    departmentList: departmentList,
-                    positionList: positionList,
-                    employeeTypeList: employeeTypeList,
-                    layout: './layouts/admin'
-                });
-            } else {
-                res.render('admin_employee_add-employee', {
-                    user: user,
-                    isUpdating: false,
-                    degreeList: degreeList,
-                    departmentList: departmentList,
-                    positionList: positionList,
-                    employeeTypeList: employeeTypeList,
-                    layout: './layouts/admin'
-                });
-            }
+            res.render('admin_employee_add-employee', {
+                user: user,
+                isUpdating: false,
+                degreeList: degreeList,
+                departmentList: departmentList,
+                positionList: positionList,
+                employeeTypeList: employeeTypeList,
+                layout: './layouts/admin'
+            });
+        } catch (err) {
+            clearCookiesAndReturnLogin(res);
+        }
+    }
+    async admin_updateEmployee(req, res) {
+        try {
+            const degreeList = await getAllDegree();
+            const positionList = await getAllPosition();
+            const departmentList = await getAllDepartment();
+            const employeeTypeList = await getAllEmployeeType();
+            const user = await getCurrentUser(req);
+            const specifiedUser = await getSpecifiedObject(req.params.id, userDBs);
+            res.render('admin_employee_add-employee', {
+                user: user,
+                specifiedUser: specifiedUser,
+                isUpdating: true,
+                degreeList: degreeList,
+                departmentList: departmentList,
+                positionList: positionList,
+                employeeTypeList: employeeTypeList,
+                layout: './layouts/admin'
+            });
         } catch (err) {
             clearCookiesAndReturnLogin(res);
         }
@@ -1122,6 +1132,37 @@ class renderMethods {
         } catch (err) {
             clearCookiesAndReturnLogin(res);
         }
+    }
+    async admin_contractType(req, res) {
+        try {
+            const user = await getCurrentUser(req);
+            res.render('admin_contract_contract-type', {
+                user: user,
+                layout: './layouts/admin'
+            });
+        } catch (err) {
+            clearCookiesAndReturnLogin(res);
+        }
+    }
+    async admin_addContractType(req, res) {
+        try {
+            const user = await getCurrentUser(req);
+            res.render('admin_contract_add-contract-type', {
+                user: user,
+                layout: './layouts/admin'
+            });
+        } catch (err) {
+            clearCookiesAndReturnLogin(res);
+        }
+    }
+    async admin_contractList(req, res) {
+
+    }
+    async admin_addContract(req, res) {
+
+    }
+    async admin_addContract(req, res) {
+
     }
 }
 

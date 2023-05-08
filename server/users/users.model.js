@@ -371,6 +371,24 @@ let group_disciplineSchema = new mongoose.Schema({
     ],
 }, { collection: 'group_discipline' });
 
+let contract_typeSchema = new mongoose.Schema({
+    contract_type_code: {
+        type: String,
+        unique: true,
+        required: true
+    },
+    contract_type: {
+        type: String,
+        required: true
+    },
+    description: String,
+    dateCreated: String,
+}, { collection: 'contract_type' });
+
+let contractSchema = new mongoose.Schema({
+    
+}, { collection: 'contract' });
+
 let Group = mongoose.model('group', groupSchema);
 let UserDb = mongoose.model('userdbs', userSchema);
 let Salary = mongoose.model('salary', salarySchema);
@@ -379,6 +397,8 @@ let Position = mongoose.model('position', positionSchema);
 let Technique = mongoose.model('technique', techniqueSchema);
 let Bussiness = mongoose.model('bussiness', bussinessSchema);
 let Department = mongoose.model('department', departmentSchema);
+let Contract_type = mongoose.model('contract_type', contract_typeSchema);
+let Contract = mongoose.model('contract', contractSchema);
 let Employee_type = mongoose.model('employee_type', employeeTypeSchema);
 let Compliment_type = mongoose.model('compliment_type', compliment_typeSchema);
 let Employee_compliments = mongoose.model('employee_compliments', employee_complimentsSchema);
@@ -389,4 +409,4 @@ let Group_discipline = mongoose.model('group_discipline', group_disciplineSchema
 
 module.exports = { UserDb, Salary, Position, Degree, Department, Employee_type, Technique, Bussiness, Group,
 Compliment_type, Employee_compliments, Group_compliments, Discipline_type, Employee_discipline,
-Group_discipline };
+Group_discipline, Contract_type, Contract };

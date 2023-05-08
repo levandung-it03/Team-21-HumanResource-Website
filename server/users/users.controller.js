@@ -20,6 +20,8 @@ const group_disciplineDBs = client.db('company').collection('group_discipline');
 const positionDBs = client.db('company').collection('position');
 const bussinessDBs = client.db('company').collection('bussiness');
 const techniqueDBs = client.db('company').collection('technique');
+const contract_typeDBs = client.db('company').collection('contract_type');
+const contractDBs = client.db('company').collection('contract');
 const departmentDBs = client.db('company').collection('department');
 const employee_typeDBs = client.db('company').collection('employee_type');
 
@@ -27,7 +29,7 @@ const usersMethods = require('./users.methods');
 const authMethods = require('../auth/auth.methods');
 const { UserDb, Salary, Position, Degree, Department, Employee_type, Technique, Bussiness, Group,
 Compliment_type, Employee_compliments, Group_compliments, Discipline_type, Employee_discipline,
-Group_discipline } = require('./users.model');
+Group_discipline, Contract_type, Contract } = require('./users.model');
 
 function showErrMes(res, err) {
     res.status(500).send({ err_mes: err.message });

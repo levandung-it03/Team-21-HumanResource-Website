@@ -78,50 +78,6 @@ const mainData = [...$$("tr.body")];
             message: "Điện thoại chỉ gồm số và có 10 chữ số.",
             isValid: false,
         },
-        bank_name: {
-            confirm: function (value) {
-                if (value.length != 10) {
-                    this.isValid = false;
-                } else {
-                    this.isValid = value.split("").every((e) => !isNaN(Number.parseInt(e))) && (value[0] == "0");
-                }
-            },
-            message: "Điện thoại chỉ gồm số và có 10 chữ số.",
-            isValid: false,
-        },
-        bank_number: {
-            confirm: function (value) {
-                if (value.length != 10) {
-                    this.isValid = false;
-                } else {
-                    this.isValid = value.split("").every((e) => !isNaN(Number.parseInt(e))) && (value[0] == "0");
-                }
-            },
-            message: "Điện thoại chỉ gồm số và có 10 chữ số.",
-            isValid: false,
-        },
-        bank_account_number: {
-            confirm: function (value) {
-                if (value.length != 10) {
-                    this.isValid = false;
-                } else {
-                    this.isValid = value.split("").every((e) => !isNaN(Number.parseInt(e))) && (value[0] == "0");
-                }
-            },
-            message: "Điện thoại chỉ gồm số và có 10 chữ số.",
-            isValid: false,
-        },
-        expiredDate: {
-            confirm: function (value) {
-                if (value.length != 10) {
-                    this.isValid = false;
-                } else {
-                    this.isValid = value.split("").every((e) => !isNaN(Number.parseInt(e))) && (value[0] == "0");
-                }
-            },
-            message: "Điện thoại chỉ gồm số và có 10 chữ số.",
-            isValid: false,
-        },
     }
     const inputTags = [...$$('.form_text-input input')];
     const strictInputTags = [...$$('.more-condition input')];
