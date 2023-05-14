@@ -18,6 +18,7 @@ const employee_complimentsDBs = client.db('company').collection('employee_compli
 const discipline_typeDBs = client.db('company').collection('discipline_type');
 const contract_typeDBs = client.db('company').collection('contract_type');
 const contractDBs = client.db('company').collection('contract');
+const insuranceDBs = client.db('company').collection('insurance');
 const employee_disciplineDBs = client.db('company').collection('employee_discipline');
 const group_disciplineDBs = client.db('company').collection('group_discipline');
 const techniqueDBs = client.db('company').collection('technique');
@@ -100,7 +101,7 @@ async function getEmployeeComplimentsList() {
     return await employeeComplimentsList.toArray();
 }
 
-async function getGroupComplimentsList () {
+async function getGroupComplimentsList() {
     const groupComplimentsList = group_complimentsDBs.find({});
     return await groupComplimentsList.toArray();
 }
@@ -115,7 +116,7 @@ async function getEmployeeDisciplineList() {
     return await employeeDisciplineList.toArray();
 }
 
-async function getGroupDisciplineList () {
+async function getGroupDisciplineList() {
     const groupDisciplineList = group_disciplineDBs.find({});
     return await groupDisciplineList.toArray();
 }
@@ -739,7 +740,7 @@ class renderMethods {
             const specifiedEmployee = await getSpecifiedObject(req.params.employeeId, employee_complimentsDBs);
             const specifiedCompliment =
                 specifiedEmployee.compliments_list.find(compliment => compliment._id.toString() == req.params.id);
-                
+
             res.render('admin_compliment_add-employee-compliment', {
                 user: user,
                 isUpdating: true,
@@ -868,7 +869,7 @@ class renderMethods {
             const specifiedGroup = await getSpecifiedObject(req.params.groupId, group_complimentsDBs);
             const specifiedCompliment =
                 specifiedGroup.compliments_list.find(compliment => compliment._id.toString() == req.params.id);
-                
+
             res.render('admin_compliment_add-group-compliment', {
                 user: user,
                 isUpdating: true,
@@ -990,7 +991,7 @@ class renderMethods {
             const specifiedEmployee = await getSpecifiedObject(req.params.employeeId, employee_disciplineDBs);
             const specifiedDiscipline =
                 specifiedEmployee.discipline_list.find(discipline => discipline._id.toString() == req.params.id);
-                
+
             res.render('admin_discipline_add-employee-discipline', {
                 user: user,
                 isUpdating: true,
@@ -1119,7 +1120,7 @@ class renderMethods {
             const specifiedGroup = await getSpecifiedObject(req.params.groupId, group_disciplineDBs);
             const specifiedDiscipline =
                 specifiedGroup.discipline_list.find(discipline => discipline._id.toString() == req.params.id);
-                
+
             res.render('admin_discipline_add-group-discipline', {
                 user: user,
                 isUpdating: true,
@@ -1133,6 +1134,28 @@ class renderMethods {
             clearCookiesAndReturnLogin(res);
         }
     }
+
+    async admin_insuranceList(req, res) {
+
+    }
+    async admin_addInsurance(req, res) {
+        try {
+            const user = await getCurrentUser(req);
+            const allEmployees = await getAllEmployees();
+            res.render('admin_insurance_add-insurance', {
+                user: user,
+                allEmployees: allEmployees,
+                isUpdating: false,
+                layout: './layouts/admin'
+            });
+        } catch (err) {
+            clearCookiesAndReturnLogin(res);
+        }
+    }
+    async admin_updateInsurance(req, res) {
+
+    }
+
     async admin_contractType(req, res) {
         try {
             const user = await getCurrentUser(req);

@@ -98,12 +98,12 @@ const generalMethods = {
             })
         }
         if (!result.length) {
-            $('table').innerHTML = '<p style="padding: 50px; font-size: 2rem;">Không tìm thấy kết quả của bạn!</p>';
+            $('tbody').innerHTML = '<p style="padding: 50px; font-size: 2rem; position: absolute">Không tìm thấy kết quả của bạn!</p>';
 
         } else {
             $('tbody').innerHTML = result.map(tag => tag.outerHTML).join("");
         }
-        $('#heading div#search').classList.add('hide');
-        $('#heading div#turn-back-btn').classList.remove('hide');
+        $('div#turn-back-btn').style.display = "inline-block";
+        $('div#search').style.display = "none";
     }
 }

@@ -22,6 +22,7 @@ const bussinessDBs = client.db('company').collection('bussiness');
 const techniqueDBs = client.db('company').collection('technique');
 const contract_typeDBs = client.db('company').collection('contract_type');
 const contractDBs = client.db('company').collection('contract');
+const insuranceDBs = client.db('company').collection('insurance');
 const departmentDBs = client.db('company').collection('department');
 const employee_typeDBs = client.db('company').collection('employee_type');
 
@@ -29,7 +30,7 @@ const usersMethods = require('./users.methods');
 const authMethods = require('../auth/auth.methods');
 const { UserDb, Salary, Position, Degree, Department, Employee_type, Technique, Bussiness, Group,
 Compliment_type, Employee_compliments, Group_compliments, Discipline_type, Employee_discipline,
-Group_discipline, Contract_type, Contract } = require('./users.model');
+Group_discipline, Contract_type, Contract, Insurance } = require('./users.model');
 
 function showErrMes(res, err) {
     res.status(500).send({ err_mes: err.message });
@@ -1357,4 +1358,30 @@ exports.deleteGroupDiscipline = async (req, res) => {
     } catch (err) {
         res.status(404).send({ mes: err.message });
     }
+}
+
+exports.addInsurance = async (req, res) => {
+    await client.connect();
+    const inputData = req.body;
+    const prevData = usersMethods.createErrorString(req.body);
+    const splitedArray = inputData.employee.split("-");
+
+    delete inputData.employee;
+    const remaindingData = {
+        employee_code:  splitedArray[0],
+        name: splitedArray[1],
+        insurance_code: usersMethods.getRandomInsuranceCode(),
+        dateCreated: usersMethods.getNowDate()
+    }
+    const result = Object.assign(inputData, remaindingData);
+    const insurance = new Insurance(result);
+    console.log(insurance);
+
+    await insurance.save(insurance)
+        .then(data => {
+            res.status(200).redirect('/admin/category/insurance/insurance-list');
+        })
+        .catch(err => {
+            res.redirect(DOMAIN + '/admin/category/insurance/add-insurance?error=' + encodeURIComponent(`error_${Object.keys(err.keyValue)[0]}`) + prevData);
+        })
 }

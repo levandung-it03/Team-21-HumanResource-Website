@@ -371,6 +371,46 @@ let group_disciplineSchema = new mongoose.Schema({
     ],
 }, { collection: 'group_discipline' });
 
+let insuranceSchema = new mongoose.Schema({
+    employee_code: {
+        type: String,
+        unique: true,
+        required: true
+    },
+    name: {
+        type: String,
+        required: true
+    },
+    insurance_code: {
+        type: String,
+        unique: true,
+        required: true
+    },
+    insurance_book_number: {
+        type: String,
+        unique: true
+    },
+    insurance_card: {
+        type: String,
+        unique: true,
+        required: true
+    },
+    insurance_type: {
+        type: String,
+        required: true
+    },
+    insurancePlace: String,
+    insuranceCash: String,
+    startingDate: String,
+    endingDate: String,
+    status: String,
+    household: String,
+    isSubmitted: String,
+    household_code: String,
+    description: String,
+    dateCreated: String
+}, { collection: 'insurance' });
+
 let contract_typeSchema = new mongoose.Schema({
     contract_type_code: {
         type: String,
@@ -406,7 +446,8 @@ let Group_compliments = mongoose.model('group_compliments', group_complimentsSch
 let Discipline_type = mongoose.model('discipline_type', discipline_typeSchema);
 let Employee_discipline = mongoose.model('employee_discipline', employee_disciplineSchema);
 let Group_discipline = mongoose.model('group_discipline', group_disciplineSchema);
+let Insurance = mongoose.model('insurance', insuranceSchema);
 
 module.exports = { UserDb, Salary, Position, Degree, Department, Employee_type, Technique, Bussiness, Group,
 Compliment_type, Employee_compliments, Group_compliments, Discipline_type, Employee_discipline,
-Group_discipline, Contract_type, Contract };
+Group_discipline, Contract_type, Contract, Insurance };

@@ -332,6 +332,21 @@ route.get('/admin/category/discipline/update-group-discipline/:groupId/:id',
     authMiddlewares.verifyAdmin,
     renderMethods.admin_updateGroupDiscipline);
 
+route.get('/admin/category/insurance/insurance-list',
+    authMiddlewares.verifyTokenAndGenerateAccessTokenIfExpiring,
+    authMiddlewares.verifyAdmin,
+    renderMethods.admin_insuranceList);
+
+route.get('/admin/category/insurance/add-insurance',
+    authMiddlewares.verifyTokenAndGenerateAccessTokenIfExpiring,
+    authMiddlewares.verifyAdmin,
+    renderMethods.admin_addInsurance);
+
+route.get('/admin/category/insurance/update-insurance/:id',
+    authMiddlewares.verifyTokenAndGenerateAccessTokenIfExpiring,
+    authMiddlewares.verifyAdmin,
+    renderMethods.admin_addInsurance);
+
 route.get('/admin/category/contract/contract-type',
     authMiddlewares.verifyTokenAndGenerateAccessTokenIfExpiring,
     authMiddlewares.verifyAdmin,
@@ -531,6 +546,11 @@ route.post('/api/admin/update-group-discipline/:disciplineCode',
     authMiddlewares.verifyTokenAndGenerateAccessTokenIfExpiring,
     authMiddlewares.verifyAdmin,
     usersController.updateGroupDiscipline);
+    
+route.post('/api/admin/add-insurance',
+    authMiddlewares.verifyTokenAndGenerateAccessTokenIfExpiring,
+    authMiddlewares.verifyAdmin,
+    usersController.addInsurance);
 
 /** @DELETE_METHODS__________________________ */
 route.delete('/api/admin/delete-employee/:id',

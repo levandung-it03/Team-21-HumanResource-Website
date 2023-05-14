@@ -1,0 +1,106 @@
+<link rel="stylesheet" href="/css/insurance_add-insurance.css">
+<div id="add-insurance">
+    <div id="heading">
+        <% if (isUpdating) { %>
+            <div id="turn-back-btn">
+                <a href="/admin/category/insurance/insurance-list"><i class="fa-solid fa-arrow-left-long"></i> Thoát</a>
+            </div>
+        <% } %>
+        <div id="form-title">
+            <% if (isUpdating) { %>
+                <span>Chỉnh sửa thông tin bảo hiểm</span>
+            <% } else { %>
+                <span>Thêm bảo hiểm</span>
+            <% } %>
+        </div>
+    </div>
+    <form method="POST" action="<%= isUpdating ? '/api/admin/update-insurance/' + specifiedUser._id.toString()
+    : '/api/admin/add-insurance/' %>" onsubmit="return submitFormCancellation">
+        <div class="form_select-input more-condition" id="employee">
+            <label for="employee">Họ và Tên</label>
+            <select data="<%= isUpdating ? (specifiedUser.employee_code + "-" + specifiedUser.name)
+            : "" %>" name="employee" required>
+                <% if(!isUpdating) {%> <option selected disabled value="">--Chọn nhân viên--</option> <% } %>
+                <% for (var index in allEmployees) { %>
+                    <option value="<%= allEmployees[index].employee_code + "-" + allEmployees[index].name %>">
+                        <%= allEmployees[index].employee_code + " - " + allEmployees[index].name %>
+                    </option>
+                    <% } %>
+            </select>
+        </div>
+        <div class="form_text-input more-condition" id="insurance_book_number">
+            <label for="insurance_book_number">Số sổ bảo hiểm</label>
+            <input value="<%= isUpdating ? specifiedUser.insurance_book_number : "" %>" name="insurance_book_number" type="text"
+            placeholder="0120878812" required>
+            <div class="form_text-input_err-message"></div>
+        </div>
+        <div class="form_text-input more-condition" id="insurance_card">
+            <label for="insurance_card">Số thẻ bảo hiểm</label>
+            <input value="<%= isUpdating ? specifiedUser.insurance_card : "" %>" name="insurance_card" type="text" placeholder="HS4010120878812"
+                required>
+            <div class="form_text-input_err-message"></div>
+        </div>
+        <div class="form_select-input" id="insurance_type">
+            <label for="insurance_type">Loại bảo hiểm</label>
+            <select data="<%= isUpdating? specifiedUser.insurance_type : "" %>" name="insurance_type" required>
+                <% if(!isUpdating) {%> <option selected disabled value="">--Chọn loại bảo hiểm--</option> <% } %>
+                <option value="Bảo hiểm nhân thọ">Bảo hiểm nhân thọ</option>
+                <option value="Bảo hiểm phi nhân thọ">Bảo hiểm phi nhân thọ</option>
+                <option value="Bảo hiểm xã hội">Bảo hiểm xã hội</option>
+            </select>
+        </div>
+        <div class="form_text-input more-condition" id="insuranceCash">
+            <label for="insuranceCash">Mức đóng bảo hiểm</label>
+            <input value="<%= isUpdating ? specifiedUser.insuranceCash : "" %>" name="insuranceCash" type="text" placeholder="7000000" required>
+            <div class="form_text-input_err-message"></div>
+        </div>
+        <div class="form_text-input more-condition large-block" id="insurancePlace">
+            <label for="insurancePlace">Nơi đăng ký khám bệnh</label>
+            <input value="<%= isUpdating ? specifiedUser.insurancePlace : "" %>" name="insurancePlace" type="text"
+                placeholder="UBND phường Đa-Kao, Quận 1, thành phố Hồ Chí Minh" required>
+            <div class="form_text-input_err-message"></div>
+        </div>
+        <div class="form_select-input" id="isSubmitted">
+            <label for="isSubmitted">Nộp sổ bảo hiểm</label>
+            <select data="<%= isUpdating? specifiedUser.isSubmitted : "" %>" name="isSubmitted" required>
+                <% if(!isUpdating) {%> <option selected disabled value="">--Chọn trạng thái--</option> <% } %>
+                <option value="Rồi">Rồi</option>
+                <option value="Chưa">Chưa</option>
+            </select>
+        </div>
+        <div class="form_text-input more-condition" id="startingDate">
+            <label for="startingDate">Ngày bắt đầu đóng bảo hiểm</label>
+            <input value="<%= isUpdating ? specifiedUser.startingDate : "" %>" name="startingDate" type="date" required>
+            <div class="form_text-input_err-message"></div>
+        </div>
+        <div class="form_text-input more-condition" id="endingDate">
+            <label for="endingDate">Ngày kết thúc bảo hiểm</label>
+            <input value="<%= isUpdating ? specifiedUser.endingDate : "" %>" name="endingDate" type="date" required>
+            <div class="form_text-input_err-message"></div>
+        </div>
+        <div class="form_select-input" id="status">
+            <label for="status">Trạng thái bảo hiểm</label>
+            <select data="<%= isUpdating? specifiedUser.status : "" %>" name="status" required>
+                <% if(!isUpdating) {%> <option selected disabled value="">--Chọn trạng thái--</option> <% } %>
+                <option value="Đang tham gia">Đang tham gia</option>
+                <option value="Dừng tham gia">Dừng tham gia</option>
+            </select>
+        </div>
+        <div class="form_text-input more-condition" id="household">
+            <label for="household">Số hộ khẩu</label>
+            <input value="<%= isUpdating ? specifiedUser.household : "" %>" name="household" type="text" placeholder="571165490" required>
+            <div class="form_text-input_err-message"></div>
+        </div>
+        <div class="form_text-input more-condition" id="household_code">
+            <label for="household_code">Mã hộ gia đình</label>
+            <input value="<%= isUpdating ? specifiedUser.household_code : "" %>" name="household_code" type="text" placeholder="4010120878812" required>
+            <div class="form_text-input_err-message"></div>
+        </div>
+        <div class="form_textarea-input" id="description">
+            <label for="description">Ghi chú</label>
+            <textarea name="description" id="description" cols="66" rows="10"><%= isUpdating ? specifiedTechnique.description.trim() : '' %></textarea>
+        </div>
+        <input type="submit" value="Xác nhận">
+    </form>
+</div>
+<script src="/js/insurance_add-insurance.js"></script>

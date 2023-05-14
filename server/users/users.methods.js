@@ -110,6 +110,9 @@ class UsersMethods {
     getRandomDisciplineCode(dateCreated, discipline_type_code) {
         return `LN${Date.now()}${Math.floor(Math.random() * 99)}`;
     }
+    getRandomInsuranceCode() {
+        return `BH${Date.now()}${Math.floor(Math.random() * 99)}`;
+    }
 }
 
 module.exports = new UsersMethods;
