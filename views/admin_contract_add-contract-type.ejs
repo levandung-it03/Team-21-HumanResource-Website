@@ -1,0 +1,32 @@
+<link rel="stylesheet" href="/css/add-simple-db.css">
+<link rel="stylesheet" href="/css/contract_add-contract-type.css">
+<div id="add-contract-type">
+    <div id="heading">
+        <div id="turn-back-btn">
+            <a href="/admin/category/contract/contract-type"><i class="fa-solid fa-arrow-left-long"></i> Thoát</a>
+        </div>
+        <div id="title">
+            <% if (isUpdating) { %>
+                <span>Cập nhật loại hình hợp đồng</span>
+            <% } else { %>
+                <span>Thêm loại hình hợp đồng</span>
+            <% } %>
+        </div>
+    </div>
+    <form method="POST" onsubmit="return submitFormCancellation"
+    action="/api/admin/<%= isUpdating ? 'update-contract-type/' + specifiedContractType._id.toString() : 'add-contract-type'%>">
+        <div class="form_text-input more-condition" id="contract_type">
+            <label for="contract_type">Loại hợp đồng</label>
+            <input class="adjust-upper-and-lower-case" value="<%= isUpdating ? specifiedContractType.contract_type : '' %>"
+            name="contract_type" type="text" placeholder="VD: Hợp đồng chính thức 12 tháng,..." required
+            <%= isUpdating ? "readonly" : "" %>>
+            <div class="form_text-input_err-message"></div>
+        </div>
+        <div class="form_textarea-input" id="description">
+            <label for="description">Mô tả loại hợp đồng</label>
+            <textarea name="description" id="description" cols="66" rows="10"><%= isUpdating ? specifiedContractType.description.trim() : '' %></textarea>
+        </div>
+        <input type="submit" value="Xác nhận">
+    </form>
+</div>
+<script src="/js/contract_add-contract-type.js"></script>

@@ -426,7 +426,38 @@ let contract_typeSchema = new mongoose.Schema({
 }, { collection: 'contract_type' });
 
 let contractSchema = new mongoose.Schema({
-    
+    contract_code: {
+        type: String,
+        unique: true,
+        required: true
+    },
+    contract_type: String,
+    employee_code: {
+        type: String,
+        unique: true,
+        required: true
+    },
+    name: {
+        type: String,
+        required: true
+    },
+    corporation: String,
+    tax_type: String,
+    signingDate: String,
+    startingDate: String,
+    endingDate: String,
+    actuallyDate: String,
+    employee_type: String,
+    degree: String,
+    department: String,
+    position: String,
+    originalSalary: Number,
+    negotiableRatio: Number,
+    insuranceFee: Number,
+    internalFund: Number,
+    unionFee: Number,
+    description: String,
+    dateCreated: String,
 }, { collection: 'contract' });
 
 let Group = mongoose.model('group', groupSchema);
