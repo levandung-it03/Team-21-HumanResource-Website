@@ -1,0 +1,153 @@
+<link rel="stylesheet" href="/css/contract_add-contract.css">
+<div id="add-contract">
+    <div id="heading">
+        <% if (isUpdating) { %>
+            <div id="turn-back-btn">
+                <a href="/admin/category/contract/contract-list"><i class="fa-solid fa-arrow-left-long"></i> Thoát</a>
+            </div>
+        <% } %>
+        <div id="form-title">
+            <% if (isUpdating) { %>
+                <span>Chỉnh sửa thông tin hợp đồng</span>
+            <% } else { %>
+                <span>Thêm hợp đồng</span>
+            <% } %>
+        </div>
+    </div>
+    <form method="POST" action="<%= isUpdating ? '/api/admin/update-contract/' + specifiedContract._id.toString()
+    : '/api/admin/add-contract/' %>" onsubmit="return submitFormCancellation">
+        <div class="form_select-input" id="employee">
+            <label for="employee">Nhân viên</label>
+            <select data="<%= isUpdating ? `${specifiedContract.employee_code}-${specifiedContract.name}`
+            : "" %>" <% if(isUpdating) { %>disabled<% } %> name="employee">
+                <% if(!isUpdating) {%> <option selected disabled value="">--Chọn nhân viên--</option> <% } %>
+                <% for (var index in allEmployees) { %>
+                    <option value="<%= allEmployees[index].employee_code
+                    + "-" + allEmployees[index].name
+                    + "-" + allEmployees[index].employee_type
+                    + "-" + allEmployees[index].degree
+                    + "-" + allEmployees[index].department %>">
+                        <%= `${allEmployees[index].employee_code} - ${allEmployees[index].name}` %>
+                    </option>
+                <% } %>
+            </select>
+        </div>
+        <div class="form_text-input" id="employee_type">
+            <label for="employee_type">Loại nhân viên</label>
+            <input placeholder="Chọn nhân viên" name="employee_type" type="text" value="" readonly>
+        </div>
+        <div class="form_text-input" id="degree">
+            <label for="degree">Loại bằng cấp</label>
+            <input placeholder="Chọn nhân viên" name="degree" type="text" value="" readonly>
+        </div>
+        <div class="form_text-input" id="department">
+            <label for="department">Phòng ban</label>
+            <input placeholder="Chọn nhân viên" name="department" type="text" value="" readonly>
+        </div>
+        <div class="form_select-input" id="contract_type">
+            <label for="contract_type">Loại hợp đồng</label>
+            <select data="<%= isUpdating ? specifiedContract.contract_type : "" %>" name="contract_type">
+                <% if(!isUpdating) {%> <option selected disabled value="">--Chọn loại hợp đồng--</option> <% } %>
+                <% for (var index in allContractType) { %>
+                    <option value="<%= allContractType[index].contract_type %>">
+                        <%= allContractType[index].contract_type %>
+                    </option>
+                    <% } %>
+            </select>
+        </div>
+        <div class="form_select-input" id="corporation">
+            <label for="corporation">Pháp nhân</label>
+            <select data="<%= isUpdating ? specifiedContract.corporation : "" %>" name="corporation">
+                <% if(!isUpdating) {%> <option selected disabled value="">--Chọn pháp nhân--</option> <% } %>
+                <option value="LongXuyen - Công ty Vietral Long Xuyên">LongXuyen - Công ty Vietral Long Xuyên</option>
+            </select>
+        </div>
+        <div class="form_text-input more-condition" id="signingDate">
+            <label for="signingDate">Ngày ký</label>
+            <input value="<%= isUpdating ? specifiedContract.signingDate : "" %>" name="signingDate" type="date" required>
+            <div class="form_text-input_err-message"></div>
+        </div>
+        <div class="form_text-input more-condition" id="startingDate">
+            <label for="startingDate">Ngày bắt đầu</label>
+            <input value="<%= isUpdating ? specifiedContract.startingDate : "" %>" name="startingDate" type="date" required>
+            <div class="form_text-input_err-message"></div>
+        </div>
+        <div class="form_text-input more-condition" id="endingDate">
+            <label for="endingDate">Ngày kết thúc</label>
+            <input value="<%= isUpdating ? specifiedContract.endingDate : "" %>" name="endingDate" type="date" required>
+            <div class="form_text-input_err-message"></div>
+        </div>
+        <div class="form_text-input more-condition" id="actualltyDate">
+            <label for="actualltyDate">Ngày bắt đầu tính phép</label>
+            <input value="<%= isUpdating ? specifiedContract.actualltyDate : "" %>" name="actualltyDate" type="date" required>
+            <div class="form_text-input_err-message"></div>
+        </div>
+        <div class="form_select-input" id="tax_type">
+            <label for="tax_type">Loại tính thuế</label>
+            <select data="<%= isUpdating ? specifiedContract.tax_type : "" %>" name="tax_type">
+                <% if(!isUpdating) {%> <option selected disabled value="">--Chọn loại tính thuế--</option> <% } %>
+                <option value="Thuế luỹ tiến">Thuế luỹ tiến</option>
+            </select>
+        </div>
+        <div class="form_text-input" id="originalSalary">
+            <label for="originalSalary">Lương gốc (VNĐ/Ngày)</label>
+            <input value="<%= isUpdating ? specifiedContract.originalSalary : "" %>"
+            name="originalSalary" type="text" placeholder="Chọn nhân viên" required readonly>
+        </div>
+        <div class="form_text-input more-condition" id="negotiableRatio">
+            <label for="negotiableRatio">Tỉ lệ lương thoả thuận (%)</label>
+            <input value="<%= isUpdating ? specifiedContract.negotiableRatio : "" %>"
+            name="negotiableRatio" type="text" placeholder="Nhập tỉ lệ" required>
+            <div class="form_text-input_err-message"></div>
+        </div>
+        <div class="form_text-input" id="totalSalary">
+            <label for="totalSalary">Tổng lương (VNĐ/30 ngày)</label>
+            <input value="<%= isUpdating ? specifiedContract.totalSalary : "" %>"
+            name="totalSalary" type="text" placeholder="Tổng lương" required readonly>
+        </div>
+        <div class="form_text-input more-condition" id="insuranceFee">
+            <label for="insuranceFee">Lương đóng bảo hiểm (VNĐ)</label>
+            <input value="<%= isUpdating ? specifiedContract.insuranceFee : "" %>"
+            name="insuranceFee" type="text" placeholder="Nhập phí bảo hiểm" required>
+            <div class="form_text-input_err-message"></div>
+        </div>
+        <div class="form_text-input more-condition" id="internalFund">
+            <label for="internalFund">Quỹ nội bộ (VNĐ)</label>
+            <input value="<%= isUpdating ? specifiedContract.internalFund : "" %>"
+            name="internalFund" type="text" placeholder="Nhập quỹ nội bộ" required>
+            <div class="form_text-input_err-message"></div>
+        </div>
+        <div class="form_text-input more-condition" id="unionFee">
+            <label for="unionFee">Phí đảng, công đoàn (VNĐ)</label>
+            <input value="<%= isUpdating ? specifiedContract.unionFee : "" %>"
+            name="unionFee" type="text" placeholder="Nhập phí" required>
+            <div class="form_text-input_err-message"></div>
+        </div>
+        <div class="form_textarea-input" id="description">
+            <label for="description">Ghi chú hợp đồng</label>
+            <textarea name="description" id="description" cols="66" rows="10"><%= isUpdating ? specifiedContract.description.trim() : '' %></textarea>
+        </div>
+        <input type="submit" value="Xác nhận">
+    </form>
+</div>
+<div id="hiddenData">
+    <div id="position">
+        <input type="hidden" name="position" value="<%= positionList.find(o=>o.position=="Nhân Viên").salary_per_day %>">
+    </div>
+    <div id="degree">
+        <% for (let value of degreeList) { %>
+            <input type="hidden" name="<%= value.degree %>" value="<%= value.multipleSalary %>">
+        <% } %>
+    </div>
+    <div id="department">
+        <% for (let value of departmentList) { %>
+            <input type="hidden" name="<%= value.department %>" value="<%= value.multipleSalary %>">
+        <% } %>
+    </div>
+    <div id="employee-type">
+        <% for (let value of employeeTypeList) { %>
+            <input type="hidden" name="<%= value.employee_type %>" value="<%= value.multipleSalary %>">
+        <% } %>
+    </div>
+</div>
+<script src="/js/contract_add-contract.js"></script>

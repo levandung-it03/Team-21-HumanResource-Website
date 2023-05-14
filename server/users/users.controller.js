@@ -1358,3 +1358,81 @@ exports.deleteGroupDiscipline = async (req, res) => {
         res.status(404).send({ mes: err.message });
     }
 }
+
+exports.addContractType = async (req, res) => {
+    await client.connect();
+    const prevData = usersMethods.createErrorString(req.body);
+
+    const dateCreated = usersMethods.getNowDate();
+    const contract_type_code = usersMethods.getRandomContractTypeCode();
+
+    const contract_type = new Contract_type({
+        contract_type_code: contract_type_code,
+        contract_type: req.body.contract_type,
+        description: req.body.description,
+        dateCreated: dateCreated
+    })
+
+    await contract_type.save(contract_type)
+        .then(data => {
+            res.status(200).redirect('/admin/category/contract/contract-type');
+        })
+        .catch(err => { 
+            res.redirect(DOMAIN + '/admin/category/contract/add-contract-type?error=' + encodeURIComponent(`error_${Object.keys(err.keyValue)[0]}`) + prevData);
+        })
+}
+
+exports.updateContractType = async (req, res) => {
+    try {
+        await client.connect();
+        const data = req.body;
+        data.dateCreated = usersMethods.getNowDate();
+
+        contract_typeDBs.updateOne(
+            { _id: new ObjectId(req.params.id) },
+            { "$set": data }
+        )
+        res.status(200).redirect('/admin/category/contract/contract-type');
+    } catch (err) {
+        res.status(500).send({ err_mes: err.message });
+    }
+}
+
+exports.deleteContractType = async (req, res) => {
+    const id = req.params.id;
+    try {
+        await client.connect();
+        await contract_typeDBs.deleteOne({ _id: new ObjectId(id) });
+        res.end();
+    } catch (err) {
+        res.status(404).send({ mes: err.message });
+    }
+}
+
+exports.addContract = async (req, res) => {
+    await client.connect();
+    const inputData = req.body;
+    const prevData = usersMethods.createErrorString(req.body);
+    const employeeData = inputData.employee.split("-");
+    delete inputData.employee;
+    
+    const remainingEmployeeData = {
+        contract_code: usersMethods.getRandomContractCode(),
+        employee_code: employeeData.shift(),
+        name: employeeData.shift(),
+        degree: employeeData.shift(),
+        department: employeeData.shift(),
+        dateCreated: usersMethods.getNowDate(),
+    }
+    const result = Object.assign(inputData, remainingEmployeeData);
+    const contract = new Contract(result);
+    console.log(result);
+
+    await contract.save(contract)
+        .then(data => {
+            res.status(200).redirect('/admin/category/contract/contract-list');
+        })
+        .catch(err => {
+            res.redirect(DOMAIN + '/admin/category/contract/add-contract?error=' + encodeURIComponent(`error_${Object.keys(err.keyValue)[0]}`) + prevData);
+        })
+}

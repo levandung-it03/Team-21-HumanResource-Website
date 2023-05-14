@@ -332,10 +332,22 @@ route.get('/admin/category/discipline/update-group-discipline/:groupId/:id',
     authMiddlewares.verifyAdmin,
     renderMethods.admin_updateGroupDiscipline);
 
+/** @________________________________________WORKING______________________________________________ */
+
 route.get('/admin/category/contract/contract-type',
     authMiddlewares.verifyTokenAndGenerateAccessTokenIfExpiring,
     authMiddlewares.verifyAdmin,
     renderMethods.admin_contractType);
+
+route.get('/admin/category/contract/add-contract-type',
+    authMiddlewares.verifyTokenAndGenerateAccessTokenIfExpiring,
+    authMiddlewares.verifyAdmin,
+    renderMethods.admin_addContractType);
+
+route.get('/admin/category/contract/update-contract-type/:id',
+    authMiddlewares.verifyTokenAndGenerateAccessTokenIfExpiring,
+    authMiddlewares.verifyAdmin,
+    renderMethods.admin_updateContractType);
 
 route.get('/admin/category/contract/contract-list',
     authMiddlewares.verifyTokenAndGenerateAccessTokenIfExpiring,
@@ -350,9 +362,8 @@ route.get('/admin/category/contract/add-contract',
 route.get('/admin/category/contract/update-contract/:id',
     authMiddlewares.verifyTokenAndGenerateAccessTokenIfExpiring,
     authMiddlewares.verifyAdmin,
-    renderMethods.admin_addContract);
+    renderMethods.admin_updateContract);
     
-/** @________________________________________WORKING______________________________________________ */
 /** @_____________________________________________________________________________________________ */
 /** @POST_METHODS__________________________ */
 route.post('/api/admin/add-employee',
@@ -531,6 +542,21 @@ route.post('/api/admin/update-group-discipline/:disciplineCode',
     authMiddlewares.verifyTokenAndGenerateAccessTokenIfExpiring,
     authMiddlewares.verifyAdmin,
     usersController.updateGroupDiscipline);
+    
+route.post('/api/admin/add-contract-type',
+    authMiddlewares.verifyTokenAndGenerateAccessTokenIfExpiring,
+    authMiddlewares.verifyAdmin,
+    usersController.addContractType);
+
+route.post('/api/admin/update-contract-type/:id',
+    authMiddlewares.verifyTokenAndGenerateAccessTokenIfExpiring,
+    authMiddlewares.verifyAdmin,
+    usersController.updateContractType);
+
+route.post('/api/admin/add-contract/',
+    authMiddlewares.verifyTokenAndGenerateAccessTokenIfExpiring,
+    authMiddlewares.verifyAdmin,
+    usersController.addContract);
 
 /** @DELETE_METHODS__________________________ */
 route.delete('/api/admin/delete-employee/:id',
@@ -554,10 +580,9 @@ route.delete('/api/admin/delete-salary/:employeeId/:id',
     usersController.deleteSalaryOfEmployee);
 
 route.delete('/api/admin/delete-salary/:id',
-        authMiddlewares.verifyTokenAndGenerateAccessTokenIfExpiring,
-        authMiddlewares.verifyAdmin,
+    authMiddlewares.verifyTokenAndGenerateAccessTokenIfExpiring,
+    authMiddlewares.verifyAdmin,
     usersController.deleteSalary);
-
 
 route.delete('/api/admin/delete-employee-type/:id',
     authMiddlewares.verifyTokenAndGenerateAccessTokenIfExpiring,
@@ -638,6 +663,11 @@ route.delete('/api/admin/delete-discipline-of-group/:groupId/:id',
     authMiddlewares.verifyTokenAndGenerateAccessTokenIfExpiring,
     authMiddlewares.verifyAdmin,
     usersController.deleteDisciplineOfGroup);
+    
+route.delete('/api/admin/delete-contract-type/:id',
+    authMiddlewares.verifyTokenAndGenerateAccessTokenIfExpiring,
+    authMiddlewares.verifyAdmin,
+    usersController.deleteContractType);
 
 /**@_______________________________________________________________________________________________ */
 

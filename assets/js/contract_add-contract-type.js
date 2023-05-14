@@ -3,13 +3,11 @@ let submitFormCancellation = false;
 const mainData = [...$$("tr.body")];
 (function main() {
     const errorMessages = {
-        endingDate: {
+        contract_type: {
             confirm: function (value) {
-                const startingDate = Date.parse($('input[name=startingDate]').value);
-                const endingDate = Date.parse(value);
-                this.isValid = (startingDate <= endingDate);
+                this.isValid = /^[0-9a-zA-ZÀ-ỹ\s]+$/u.test(value);
             },
-            message: "Ngày kết thúc không hợp lệ.",
+            message: "Loại hợp đồng không hợp lệ.",
             isValid: false,
         },
     }
@@ -45,55 +43,40 @@ const mainData = [...$$("tr.body")];
     })();
 
     (function setUpstrictInputTags() {
-        $$('input[type=date]').forEach((tag) => {
+        strictInputTags.forEach((tag) => {
             tag.onblur = (e) => {
-                const errMesTagObject = errorMessages[strictInputTags[0].name];
-                const errTag = $(`div#${strictInputTags[0].name} span#${strictInputTags[0].name}`);
+                if ([...tag.classList].includes("adjust-upper-and-lower-case")) {
+                    generalMethods.adjustUpperAndLowerCase(e.target);
+                }
+                generalMethods.trimInputData(e.target);
 
-                errMesTagObject.confirm(strictInputTags[0].value);
+                const errMesTagObject = errorMessages[tag.name];
+                const errTag = $(`div#${tag.name} span#${tag.name}`);
+
+                errMesTagObject.confirm(tag.value);
                 if (errMesTagObject.isValid) errTag.style.display = "none";
                 else errTag.style.display = "inline";
             }
         })
-        $$('div.need-to-trim .need-to-trim').forEach(tag => {
-            tag.onblur = (e) => {
-                generalMethods.trimInputData(e.target);
-                if ([...tag.classList].includes("adjust-upper-and-lower-case")) {
-                    generalMethods.adjustUpperAndLowerCase(e.target);
-                }
-            }
-        })
-    })();
-
-    (function recoverEmployeeSelectData() {
-        const selectTag = $('.form_select-input#employee select');
-        let value = selectTag.getAttribute('data').trim();
-        selectTag.querySelectorAll('option').forEach((optionTag) => {
-            if (optionTag.innerHTML.split("-")[1].trim() == value) {
-                optionTag.selected = true;
-            }
-        })
+        $('textarea').onblur = (e) => {
+            generalMethods.trimInputData(e.target);
+        }
     })();
 
     const urlParams = new URLSearchParams(window.location.search);
     const myParam = urlParams.get('error');
     if (myParam) {
-        alert('Nhân viên này đã tồn tại một chuyên môn khác!');
+        alert('Đã tồn tại loại hợp đồng này!');
         (async function handleRedirect() {
             const dataMessages = myParam.split('?');
             const data = dataMessages.map((e) => {
                 return e.split('=');
             })
 
-            window.history.replaceState({}, "", "http://localhost:3000/admin/category/employee/add-technique");
+            window.history.replaceState({}, "", "http://localhost:3000/admin/category/contract/add-contract-type");
             strictInputTags.forEach((tag, index) => {
                 tag.value = data.find((e) => e[0] == tag.name)[1];
                 errorMessages[tag.name].confirm(tag.value);
-            })
-            $$('.form_select-input select option').forEach(optionTag => {
-                if (optionTag.value.includes(data[2][1].split("-")[1])) {
-                    optionTag.selected = true;
-                }
             })
             $('.form_textarea-input textarea').innerText = data[3][1];
         })();

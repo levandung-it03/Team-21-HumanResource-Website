@@ -110,6 +110,12 @@ class UsersMethods {
     getRandomDisciplineCode(dateCreated, discipline_type_code) {
         return `LN${Date.now()}${Math.floor(Math.random() * 99)}`;
     }
+    getRandomContractTypeCode(dateCreated, discipline_type_code) {
+        return `LH${Date.now()}${Math.floor(Math.random() * 99)}`;
+    }
+    getRandomContractCode() {
+        return `HD${Date.now()}${Math.floor(Math.random() * 99)}`;
+    }
 }
 
 module.exports = new UsersMethods;
