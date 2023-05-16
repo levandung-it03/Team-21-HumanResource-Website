@@ -332,7 +332,6 @@ route.get('/admin/category/discipline/update-group-discipline/:groupId/:id',
     authMiddlewares.verifyAdmin,
     renderMethods.admin_updateGroupDiscipline);
 
-<<<<<<< HEAD
 route.get('/admin/category/insurance/insurance-list',
     authMiddlewares.verifyTokenAndGenerateAccessTokenIfExpiring,
     authMiddlewares.verifyAdmin,
@@ -347,9 +346,7 @@ route.get('/admin/category/insurance/update-insurance/:id',
     authMiddlewares.verifyTokenAndGenerateAccessTokenIfExpiring,
     authMiddlewares.verifyAdmin,
     renderMethods.admin_addInsurance);
-=======
 /** @________________________________________WORKING______________________________________________ */
->>>>>>> a05353faef8e5eeb5756c051b233ae61f351ccd9
 
 route.get('/admin/category/contract/contract-type',
     authMiddlewares.verifyTokenAndGenerateAccessTokenIfExpiring,
