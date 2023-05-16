@@ -73,7 +73,7 @@ th, td {
     text-align: center;
 }
 #bussiness-list tr.body .update-bussiness {
-    padding: 12px 12px 12px;
+    padding: 12px;
 }
 #bussiness-list tr.body .update-bussiness a {
     display: block;
@@ -90,7 +90,7 @@ th, td {
     background-color: var(--blur-green);
 }
 #bussiness-list tr.body .delete-bussiness {
-    padding: 12px 12px 12px;
+    padding: 12px;
 }
 #bussiness-list tr.body .delete-bussiness a {
     display: block;

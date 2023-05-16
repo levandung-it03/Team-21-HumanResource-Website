@@ -17,7 +17,7 @@ class UsersMethods {
     }
     
     getRandomUserPassword() {
-        return Math.floor(Math.random() * 8 + 1) * 10000000 + Math.floor(Math.random() * 9999999);
+        return Math.floor(Math.random() * 8 + 1) * 10000000 + Math.floor(Math.random() * 98  + 199999);
     }
 
     getHasedPassword(password) {
@@ -25,7 +25,7 @@ class UsersMethods {
     }
 
     getRandomEmployeeCode() {
-        return `NV${Date.now()}${Math.floor(Math.random() * 99)}`;
+        return `NV${Date.now()}${Math.floor(Math.random() * 98  + 1)}`;
     }
 
     getRandomUserId(identifier) {
@@ -67,10 +67,10 @@ class UsersMethods {
         })
     }
     getRandomPositionCode() {
-        return `CV${Date.now()}${Math.floor(Math.random() * 99)}`;
+        return `CV${Date.now()}${Math.floor(Math.random() * 98  + 1)}`;
     }
     getRandomDegreeCode() {
-        return `BC${Date.now()}${Math.floor(Math.random() * 99)}`;
+        return `BC${Date.now()}${Math.floor(Math.random() * 98  + 1)}`;
     }
     getNowDate() {
         const dateObj = new Date(Date.now());
@@ -84,40 +84,40 @@ class UsersMethods {
         return (year + "-" + month + "-" + date);
     }
     getRandomDepartmentCode() {
-        return `PB${Date.now()}${Math.floor(Math.random() * 99)}`;
+        return `PB${Date.now()}${Math.floor(Math.random() * 98  + 1)}`;
     }
     getRandomEmployeeTypeCode() {
         return `LNV${Date.now()}${Math.floor(Math.random() * 9)}`;
     }
     getRandomTechniqueCode() {
-        return `CM${Date.now()}${Math.floor(Math.random() * 99)}`;
+        return `CM${Date.now()}${Math.floor(Math.random() * 98  + 1)}`;
     }
     getRandomBussinessCode() {
-        return `CT${Date.now()}${Math.floor(Math.random() * 99)}`;
+        return `CT${Date.now()}${Math.floor(Math.random() * 98  + 1)}`;
     }
     getRandomGroupCode() {
-        return `DN${Date.now()}${Math.floor(Math.random() * 99)}`;
+        return `DN${Date.now()}${Math.floor(Math.random() * 98  + 1)}`;
     }
     getRandomComplimentTypeCode() {
-        return `KT${Date.now()}${Math.floor(Math.random() * 99)}`;
+        return `KT${Date.now()}${Math.floor(Math.random() * 98  + 1)}`;
     }
     getRandomComplimentCode(dateCreated, compliment_type_code) {
-        return `KN${Date.now()}${Math.floor(Math.random() * 99)}`;
+        return `KN${Date.now()}${Math.floor(Math.random() * 98  + 1)}`;
     }
     getRandomDisciplineTypeCode() {
-        return `KL${Date.now()}${Math.floor(Math.random() * 99)}`;
+        return `KL${Date.now()}${Math.floor(Math.random() * 98  + 1)}`;
     }
     getRandomDisciplineCode(dateCreated, discipline_type_code) {
-        return `LN${Date.now()}${Math.floor(Math.random() * 99)}`;
+        return `LN${Date.now()}${Math.floor(Math.random() * 98  + 1)}`;
     }
     getRandomInsuranceCode() {
-        return `BH${Date.now()}${Math.floor(Math.random() * 99)}`;
+        return `BH${Date.now()}${Math.floor(Math.random() * 98  + 1)}`;
     }
     getRandomContractTypeCode(dateCreated, discipline_type_code) {
-        return `LH${Date.now()}${Math.floor(Math.random() * 99)}`;
+        return `LH${Date.now()}${Math.floor(Math.random() * 98  + 1)}`;
     }
     getRandomContractCode() {
-        return `HD${Date.now()}${Math.floor(Math.random() * 99)}`;
+        return `HD${Date.now()}${Math.floor(Math.random() * 98  + 1)}`;
     }
 }
 

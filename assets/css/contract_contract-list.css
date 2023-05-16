@@ -1,0 +1,117 @@
+table {
+    border-collapse: collapse;
+}
+th, td {
+    border: solid 1px var(--smoking-grey);
+}
+#contract-list #add-btn {
+    float: right;
+    margin-right: 12px;
+    margin-top: 4px;
+}
+#contract-list #title {
+    display: inline-block;
+}
+#contract-list #title span {
+    font-size: 2.4rem;
+    padding: 10px;
+}
+#contract-list table {
+    margin: var(--form-margin);
+    background-color: white;
+    border: solid 1px transparent;
+    border-radius: var(--form-border-radius);
+    padding: 12px;
+    box-shadow: var(--black-box-shadow);
+    font-size: 0.95rem;
+}
+#contract-list .table_title {
+    text-align: left;
+}
+#contract-list .table_title th i {
+    width: 20px;
+    font-size: 0.7rem;
+    float: right;
+    line-height: 24px;
+    cursor: pointer;
+}
+#contract-list .table_title th {
+    padding: 6px;
+    text-align: center;
+}
+#contract-list .table_title th#ordinal {
+    width: 5%;
+}
+#contract-list .table_title th#contract_code {
+    width: 14%;
+}
+#contract-list .table_title th#employee_code {
+    width: 14%;
+}
+#contract-list .table_title th#name {
+    width: 16%;
+}
+#contract-list .table_title th#contract_type {
+    width: 13%;
+}
+#contract-list .table_title th#startingDate {
+    width: 12%;
+}
+#contract-list .table_title th#endingDate {
+    width: 12%;
+}
+#contract-list .table_title th#delete-contract,
+#contract-list .table_title th#view-contract,
+#contract-list .table_title th#update-contract {
+    width: 4%!important;
+}
+#contract-list tr.body td {
+    text-align: center;
+}
+#contract-list tr.body .update-contract,
+#contract-list tr.body .delete-contract,
+#contract-list tr.body .view-contract {
+    padding: 12px;
+}
+#contract-list tr.body .view-contract a {
+    display: block;
+    margin: auto;
+    width: 50px;
+    line-height: 32px;
+    background-color: var(--blue);
+    border: solid 1px transparent;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color ease 0.3s;
+}
+#contract-list tr.body .view-contract a:hover {
+    background-color: var(--blur-blue);
+}
+#contract-list tr.body .update-contract a {
+    display: block;
+    margin: auto;
+    width: 50px;
+    line-height: 32px;
+    background-color: var(--green);
+    border: solid 1px transparent;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color ease 0.3s;
+}
+#contract-list tr.body .update-contract a:hover {
+    background-color: var(--blur-green);
+}
+#contract-list tr.body .delete-contract a {
+    display: block;
+    margin: auto;
+    width: 50px;
+    line-height: 32px;
+    background-color: var(--red);
+    border: solid 1px transparent;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color ease 0.3s;
+}
+#contract-list tr.body .delete-contract a:hover {
+    background-color: rgb(238, 102, 102);
+}

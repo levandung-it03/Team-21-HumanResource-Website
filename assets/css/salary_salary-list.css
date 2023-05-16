@@ -61,14 +61,14 @@ th, td {
     margin: auto;
     width: 50px;
     line-height: 32px;
-    background-color: var(--green);
+    background-color: var(--blue);
     border: solid 1px transparent;
     border-radius: 4px;
     cursor: pointer;
     transition: background-color ease 0.3s;
 }
 #salary-list tr.body .view-salary a:hover {
-    background-color: var(--blur-green);
+    background-color: var(--blur-blue);
 }
 #salary-list tr.body .delete-salary {
     padding: 12px;

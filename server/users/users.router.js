@@ -62,12 +62,12 @@ route.get('/admin/category/employee/update-employee-type/:id',
     authMiddlewares.verifyAdmin,
     renderMethods.admin_updateEmployeeType);
 
-route.get('/admin/category/employee/employee-list/view/:id',
+route.get('/admin/category/employee/view-employee/:id',
     authMiddlewares.verifyTokenAndGenerateAccessTokenIfExpiring,
     authMiddlewares.verifyAdmin,
     renderMethods.admin_employeeView);
 
-route.get('/admin/category/employee/employee-list/update/:id',
+route.get('/admin/category/employee/update-employee/:id',
     authMiddlewares.verifyTokenAndGenerateAccessTokenIfExpiring,
     authMiddlewares.verifyAdmin,
     renderMethods.admin_updateEmployee);
@@ -378,6 +378,16 @@ route.get('/admin/category/contract/update-contract/:id',
     authMiddlewares.verifyAdmin,
     renderMethods.admin_updateContract);
     
+route.get('/admin/category/contract/view-contract/:id',
+    authMiddlewares.verifyTokenAndGenerateAccessTokenIfExpiring,
+    authMiddlewares.verifyAdmin,
+    renderMethods.admin_viewContract);
+
+route.get('/admin/category/contract/view-employee/:contractId/:id',
+    authMiddlewares.verifyTokenAndGenerateAccessTokenIfExpiring,
+    authMiddlewares.verifyAdmin,
+    renderMethods.admin_viewEmployeeFromContract);
+    
 /** @_____________________________________________________________________________________________ */
 /** @POST_METHODS__________________________ */
 route.post('/api/admin/add-employee',
@@ -577,6 +587,11 @@ route.post('/api/admin/add-contract/',
     authMiddlewares.verifyAdmin,
     usersController.addContract);
 
+route.post('/api/admin/update-contract/:id',
+    authMiddlewares.verifyTokenAndGenerateAccessTokenIfExpiring,
+    authMiddlewares.verifyAdmin,
+    usersController.updateContract);
+
 /** @DELETE_METHODS__________________________ */
 route.delete('/api/admin/delete-employee/:id',
     authMiddlewares.verifyTokenAndGenerateAccessTokenIfExpiring,
@@ -687,6 +702,11 @@ route.delete('/api/admin/delete-contract-type/:id',
     authMiddlewares.verifyTokenAndGenerateAccessTokenIfExpiring,
     authMiddlewares.verifyAdmin,
     usersController.deleteContractType);
+   
+route.delete('/api/admin/delete-contract/:id',
+    authMiddlewares.verifyTokenAndGenerateAccessTokenIfExpiring,
+    authMiddlewares.verifyAdmin,
+    usersController.deleteContract);
 
 /**@_______________________________________________________________________________________________ */
 
