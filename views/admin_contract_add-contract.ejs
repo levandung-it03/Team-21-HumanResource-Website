@@ -77,9 +77,9 @@
             <input value="<%= isUpdating ? specifiedContract.endingDate : "" %>" name="endingDate" type="date" required>
             <div class="form_text-input_err-message"></div>
         </div>
-        <div class="form_text-input more-condition" id="actualltyDate">
-            <label for="actualltyDate">Ngày bắt đầu tính phép</label>
-            <input value="<%= isUpdating ? specifiedContract.actualltyDate : "" %>" name="actualltyDate" type="date" required>
+        <div class="form_text-input more-condition" id="actuallyDate">
+            <label for="actuallyDate">Ngày bắt đầu tính phép</label>
+            <input value="<%= isUpdating ? specifiedContract.actuallyDate : "" %>" name="actuallyDate" type="date" required>
             <div class="form_text-input_err-message"></div>
         </div>
         <div class="form_select-input" id="tax_type">
@@ -97,7 +97,7 @@
         <div class="form_text-input more-condition" id="negotiableRatio">
             <label for="negotiableRatio">Tỉ lệ lương thoả thuận (%)</label>
             <input value="<%= isUpdating ? specifiedContract.negotiableRatio : "" %>"
-            name="negotiableRatio" type="text" placeholder="Nhập tỉ lệ" required>
+            name="negotiableRatio" type="number" maxlength="3" placeholder="Nhập tỉ lệ" required>
             <div class="form_text-input_err-message"></div>
         </div>
         <div class="form_text-input" id="totalSalary">
@@ -108,19 +108,19 @@
         <div class="form_text-input more-condition" id="insuranceFee">
             <label for="insuranceFee">Lương đóng bảo hiểm (VNĐ)</label>
             <input value="<%= isUpdating ? specifiedContract.insuranceFee : "" %>"
-            name="insuranceFee" type="text" placeholder="Nhập phí bảo hiểm" required>
+            name="insuranceFee" type="number" placeholder="Nhập phí bảo hiểm" required>
             <div class="form_text-input_err-message"></div>
         </div>
         <div class="form_text-input more-condition" id="internalFund">
             <label for="internalFund">Quỹ nội bộ (VNĐ)</label>
             <input value="<%= isUpdating ? specifiedContract.internalFund : "" %>"
-            name="internalFund" type="text" placeholder="Nhập quỹ nội bộ" required>
+            name="internalFund" type="number" placeholder="Nhập quỹ nội bộ" required>
             <div class="form_text-input_err-message"></div>
         </div>
         <div class="form_text-input more-condition" id="unionFee">
             <label for="unionFee">Phí đảng, công đoàn (VNĐ)</label>
             <input value="<%= isUpdating ? specifiedContract.unionFee : "" %>"
-            name="unionFee" type="text" placeholder="Nhập phí" required>
+            name="unionFee" type="number" placeholder="Nhập phí" required>
             <div class="form_text-input_err-message"></div>
         </div>
         <div class="form_textarea-input" id="description">
@@ -132,7 +132,7 @@
 </div>
 <div id="hiddenData">
     <div id="position">
-        <input type="hidden" name="position" value="<%= positionList.find(o=>o.position=="Nhân Viên").salary_per_day %>">
+        <input type="hidden" name="position" value="<%= positionList.find(p=>p.position=="Nhân Viên").salary_per_day %>">
     </div>
     <div id="degree">
         <% for (let value of degreeList) { %>

@@ -1,0 +1,54 @@
+<link rel="stylesheet" href="/css/contract_view-contract.css">
+<div id="view-contract">
+    <div id="turn-back-btn">
+        <a href="/admin/category/contract/contract-list"><i class="fa-solid fa-arrow-left-long"></i> Thoát</a>
+    </div>
+    <div id="title">
+        <span>Thông tin hợp đồng chi tiết</span>
+    </div>
+    <div id="add-btn">
+        <a href="/admin/category/contract/view-employee/<%= specifiedContract._id %>/<%= specifiedEmployee._id %>">Thông tin nhân viên</a>
+    </div>
+    <div id="main_container">
+        <div id="main_container_label">
+            <span>Mã hợp đồng: <%= specifiedContract.contract_code %></span>
+        </div>
+        <div id="main_container_info">
+            <div id="avatar">
+                <img src=<%=specifiedEmployee.avatar_url %> alt="">
+            </div>
+            <ul class="info" id="grid-left">
+                <li class="info-item">Mã nhân viên: <b><%= specifiedEmployee.employee_code %></b></li>
+                <li class="info-item">Tên nhân viên: <b><%= specifiedEmployee.name %></b></li>
+                <li class="info-item">Ngày sinh: <%= specifiedEmployee.birthday %></li>
+                <li class="info-item">Nơi sinh: <%= specifiedEmployee.birthplace %></li>
+                <li class="info-item">Phòng ban: <%= specifiedEmployee.department %></li>
+                <li class="info-item">Loại bằng cấp: <%= specifiedEmployee.degree %></li>
+                <li class="info-item">Loại nhân viên: <span
+                    <% if(specifiedEmployee.employee_type == "Thực tập") { %>
+                        class="status-block light-green-block"
+                    <% } else if (specifiedEmployee.employee_type == "Bán thời gian") { %>
+                        class="status-block blur-green-block"
+                    <% } else { %>
+                        class="status-block green-block"
+                    <% } %>
+                ><%= specifiedEmployee.employee_type %></span></li>
+                <li class="info-item">Loại hợp đồng: <b><%= specifiedContract.contract_type %></b></li>
+                <li class="info-item">Loại tính thuế: <b><%= specifiedContract.tax_type %></b></li>
+            </ul>
+            <ul class="info" id="grid-right">
+                <li class="info-item">Pháp nhân: <%= specifiedContract.corporation %></li>
+                <li class="info-item">Ngày ký: <%= specifiedContract.signingDate %></li>
+                <li class="info-item">Ngày bắt đầu: <b><%= specifiedContract.startingDate %></b></li>
+                <li class="info-item">Ngày đi làm thực: <b><%= specifiedContract.actuallyDate %></b></li>
+                <li class="info-item">Ngày kết thúc: <b><%= specifiedContract.endingDate %></b></li>
+                <% const totalSalary = specifiedContract.originalSalary *  specifiedContract.negotiableRatio/100 * 30; %>
+                <li class="info-item">Tổng lương: <b><%= totalSalary %> VNĐ/30_ngày</b></li>
+                <li class="info-item">Quỹ công ty: <%= specifiedContract.internalFund %> VNĐ/30_ngày</li>
+                <li class="info-item">Phí đảng, công đoàn: <%= specifiedContract.internalFund %> VNĐ/30_ngày</li>
+                <li class="info-item">Ngày khởi tạo: <%= specifiedContract.dateCreated %></li>
+                <li class="info-item">Ghi chú: <%= specifiedContract.description %></li>
+            </ul>
+        </div>
+    </div>
+</div>

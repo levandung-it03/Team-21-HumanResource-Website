@@ -98,10 +98,10 @@
                         </span>
                     </td>
                     <td class="interact-employee-btn view-employee">
-                        <a href=<%= "/admin/category/employee/employee-list/view/" + employeeList[i]._id.toString() %>><i class="fa-solid fa-eye"></i></a>
+                        <a href=<%= "/admin/category/employee/view-employee/" + employeeList[i]._id.toString() %>><i class="fa-solid fa-eye"></i></a>
                     </td>
                     <td class="interact-employee-btn update-employee">
-                        <a href=<%= "/admin/category/employee/employee-list/update/" + employeeList[i]._id.toString() %>><i class="fa-sharp fa-solid fa-pencil"></i></a>
+                        <a href=<%= "/admin/category/employee/update-employee/" + employeeList[i]._id.toString() %>><i class="fa-sharp fa-solid fa-pencil"></i></a>
                     </td>
                     <td class="interact-employee-btn delete-employee">
                     <% if (employeeList[i].admin == 0) { %>

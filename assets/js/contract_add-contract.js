@@ -28,7 +28,7 @@ const mainData = [...$$("tr.body")];
             message: "Ngày kết thúc không hợp lệ.",
             isValid: false,
         },
-        actualltyDate: {
+        actuallyDate: {
             confirm: function (value) {
                 const startingDate = Date.parse($('input[name=startingDate]').value);
                 const actualltyDate = Date.parse(value);
@@ -39,6 +39,8 @@ const mainData = [...$$("tr.body")];
         },
         negotiableRatio: {
             confirm: function (value) {
+                if (value.length > 3)
+                    $("input[name=negotiableRatio]").value = value.slice(0, 3);
                 this.isValid = /^[0-9\s]+$/u.test(value);
             },
             message: "Tỉ lệ không hợp lệ.",
@@ -170,9 +172,6 @@ const mainData = [...$$("tr.body")];
     }
     
     (function handleAutomaticallySetUpRemainingEmployeeDataTags() {
-        $$("option:disabled").forEach(tag => {
-            tag.selected = false;
-        })
         const degreeHiddenInpTags = [...$$('div#degree input[type=hidden]')];
         const departmentHiddenInpTags = [...$$('div#department input[type=hidden]')];
         const employee_typeHiddenInpTags = [...$$('div#employee-type input[type=hidden]')];
@@ -202,9 +201,13 @@ const mainData = [...$$("tr.body")];
         })
 
         $('select[name=employee]').onchange = (e) => {
+            $$("option:disabled").forEach(tag => {
+                tag.selected = false;
+            })
             e.target.querySelectorAll('option').forEach(tag => {
                 if (tag.value) {
                     if (tag.selected)   handleSelection(tag);
+                    automaticallyCalculateTotalSalary($('input[name=originalSalary]').value, $('input[name=negotiableRatio]').value);
                 }
             })
         }

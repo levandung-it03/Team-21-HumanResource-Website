@@ -1,7 +1,11 @@
 <link rel="stylesheet" href="/css/employee_info.css">
 <div id="main">
     <div id="turn-back-btn">
-        <a href="/admin/category/employee/employee-list"><i class="fa-solid fa-arrow-left-long"></i> Thoát</a>
+        <% if (isFromContract) { %>
+            <a href="/admin/category/contract/view-contract/<%= contractId %>"><i class="fa-solid fa-arrow-left-long"></i> Thoát</a>
+        <% } else { %>
+            <a href="/admin/category/employee/employee-list"><i class="fa-solid fa-arrow-left-long"></i> Thoát</a>
+        <% } %>
     </div>
     <div id="title">
         <span>Thông tin nhân viên chi tiết</span>

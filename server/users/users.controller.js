@@ -257,7 +257,7 @@ exports.updateEmployee = async (req, res) => {
             }
         })
         .catch(err => {
-            res.redirect(DOMAIN + '/admin/category/employee/employee-list/update/' + id + '?error=' + encodeURIComponent(`error_${Object.keys(err.keyValue)[0]}`) + prevData);
+            res.redirect(DOMAIN + '/admin/category/employee/update-employee/' + id + '?error=' + encodeURIComponent(`error_${Object.keys(err.keyValue)[0]}`) + prevData);
 
         })
 }
@@ -1441,19 +1441,15 @@ exports.addContract = async (req, res) => {
     const inputData = req.body;
     const prevData = usersMethods.createErrorString(req.body);
     const employeeData = inputData.employee.split("-");
-    delete inputData.employee;
     
     const remainingEmployeeData = {
         contract_code: usersMethods.getRandomContractCode(),
         employee_code: employeeData.shift(),
         name: employeeData.shift(),
-        degree: employeeData.shift(),
-        department: employeeData.shift(),
         dateCreated: usersMethods.getNowDate(),
     }
     const result = Object.assign(inputData, remainingEmployeeData);
     const contract = new Contract(result);
-    console.log(result);
 
     await contract.save(contract)
         .then(data => {
@@ -1462,4 +1458,31 @@ exports.addContract = async (req, res) => {
         .catch(err => {
             res.redirect(DOMAIN + '/admin/category/contract/add-contract?error=' + encodeURIComponent(`error_${Object.keys(err.keyValue)[0]}`) + prevData);
         })
+}
+
+exports.deleteContract = async (req, res) => {
+    const id = req.params.id;
+    try {
+        await client.connect();
+        await contractDBs.deleteOne({ _id: new ObjectId(id) });
+        res.end();
+    } catch (err) {
+        res.status(404).send({ mes: err.message });
+    }
+}
+
+exports.updateContract = async (req, res) => {
+    try {
+        await client.connect();
+        const data = req.body;
+        data.dateCreated = usersMethods.getNowDate();
+
+        contractDBs.updateOne(
+            { _id: new ObjectId(req.params.id) },
+            { "$set": data }
+        )
+        res.status(200).redirect('/admin/category/contract/view-contract/' + req.params.id);
+    } catch (err) {
+        res.status(500).send({ err_mes: err.message });
+    }
 }

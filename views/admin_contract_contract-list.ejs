@@ -1,0 +1,95 @@
+<link rel="stylesheet" href="/css/contract_contract-list.css">
+<div id="contract-list">
+    <div id="heading">
+        <div class="hide" id="turn-back-btn">
+            <a><i class="fa-solid fa-arrow-left-long"></i> Thoát</a>
+        </div>
+        <div id="title">
+            <span>Danh sách hợp đồng</span>
+        </div>
+        <div id="search">
+            <input class="search" type="text" placeholder="Tìm kiếm">
+            <i class="fa-solid fa-magnifying-glass"></i>
+        </div>
+    </div>
+    <table>
+        <thead>
+            <tr class="table_title">
+                <th id="ordinal">
+                    <span class="title_name">STT</span>
+                        <i class="fa-solid fa-arrow-down-short-wide" id="ordinal"></i>                 
+                </th>
+                <th id="contract_code">
+                    <span class="title_name">Mã hợp đồng</span>
+                    <i class="fa-solid fa-arrow-down-short-wide" id="contract_code"></i>
+                </th>
+                <th id="employee_code">
+                    <span class="title_name">Mã nhân viên</span>
+                    <i class="fa-solid fa-arrow-down-short-wide" id="employee_code"></i>
+                </th>
+                <th id="name">
+                    <span class="title_name">Tên nhân viên</span>
+                    <i class="fa-solid fa-arrow-down-short-wide" id="name"></i>
+                </th>
+                <th id="contract_type">
+                    <span class="title_name">Loại hợp đồng</span>
+                    <i class="fa-solid fa-arrow-down-short-wide" id="contract_type"></i>
+                </th>
+                <th id="startingDate">
+                    <span class="title_name">Ngày bắt đầu</span>
+                    <i class="fa-solid fa-arrow-down-short-wide light-block" id="startingDate"></i>
+                </th>
+                <th id="endingDate">
+                    <span class="title_name">Ngày kết thúc</span>
+                    <i class="fa-solid fa-arrow-down-short-wide light-block" id="endingDate"></i>
+                </th>
+                <th id="view-employee">
+                    <span class="title_name">Xem</span>
+                </th>
+                <th id="update-employee">
+                    <span class="title_name">Sửa</span>
+                </th>
+                <th id="delete-employee">
+                    <span class="title_name">Xoá</span>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <% for (var i = 0; i < contractList.length; i++) { %>
+                <tr class="body" id=<%= i+1 %>>
+                    <td id="ordinal">
+                        <%= (i + 1) %>
+                    </td>
+                    <td class="body_enable-searching body_enable-sorting" id="contract_code">
+                        <%= contractList[i].contract_code %>
+                    </td>
+                    <td class="body_enable-searching body_enable-sorting" id="employee_code">
+                        <%= contractList[i].employee_code %>
+                    </td>
+                    <td class="body_enable-searching body_enable-sorting" id="name">
+                        <%= contractList[i].name %>
+                    </td>
+                    <td class="body_enable-searching body_enable-sorting" id="contract_type">
+                        <%= contractList[i].contract_type %>
+                    </td>
+                    <td class="body_enable-searching body_enable-sorting" id="startingDate">
+                        <%= contractList[i].startingDate %>
+                    </td>
+                    <td class="body_enable-searching body_enable-sorting" id="endingDate">
+                        <%= contractList[i].endingDate %>
+                    </td>
+                    <td class="interact-contract-btn view-contract">
+                        <a href=<%= "/admin/category/contract/view-contract/" + contractList[i]._id.toString() %>><i class="fa-solid fa-eye"></i></a>
+                    </td>
+                    <td class="interact-contract-btn update-contract">
+                        <a href=<%= "/admin/category/contract/update-contract/" + contractList[i]._id.toString() %>><i class="fa-sharp fa-solid fa-pencil"></i></a>
+                    </td>
+                    <td class="interact-contract-btn delete-contract">
+                        <a contract_id=<%= contractList[i]._id.toString() %>><i class="fa-sharp fa-solid fa-trash"></i></a>
+                    </td>
+                </tr>
+            <% } %>
+        </tbody>
+    </table>
+</div>
+<script src="/js/contract_contract-list.js"></script>

@@ -126,6 +126,11 @@ async function getAllContractType() {
     return await allContractType.toArray();
 }
 
+async function getAllContract() {
+    const allContract = contractDBs.find({});
+    return await allContract.toArray();
+}
+
 class renderMethods {
     login(req, res) {
         res.render('login', { layout: './login' });
@@ -183,6 +188,7 @@ class renderMethods {
             const user = await getCurrentUser(req);
             res.render('admin_employee_view', {
                 user: user,
+                isFromContract: false,
                 specifiedEmployee: specifiedEmployee,
                 layout: './layouts/admin'
             });
@@ -1201,7 +1207,17 @@ class renderMethods {
         }
     }
     async admin_contractList(req, res) {
-        
+        try {
+            const contractList = await getAllContract();
+            const user = await getCurrentUser(req);
+            res.render('admin_contract_contract-list', {
+                user: user,
+                contractList: contractList,
+                layout: './layouts/admin'
+            });
+        } catch (err) {
+            clearCookiesAndReturnLogin(res);
+        }
     }
     async admin_addContract(req, res) {
         try {
@@ -1232,19 +1248,51 @@ class renderMethods {
             const user = await getCurrentUser(req);
             const allEmployees = await getAllEmployees();
             const degreeList = await getAllDegree();
+            const positionList = await getAllPosition();
             const departmentList = await getAllDepartment();
             const employeeTypeList = await getAllEmployeeType();
             const allContractType = await getAllContractType();
-            const specifiedContractType = await getSpecifiedObject(req.params.id, contract_typeDBs);
+            const specifiedContract = await getSpecifiedObject(req.params.id, contractDBs);
             res.render('admin_contract_add-contract', {
                 user: user,
-                isUpdating: false,
-                specifiedContractType: specifiedContractType,
+                isUpdating: true,
+                specifiedContract: specifiedContract,
                 allEmployees: allEmployees,
                 degreeList: degreeList,
                 departmentList: departmentList,
                 employeeTypeList: employeeTypeList,
+                positionList: positionList,
                 allContractType: allContractType,
+                layout: './layouts/admin'
+            });
+        } catch (err) {
+            clearCookiesAndReturnLogin(res);
+        }
+    }
+    async admin_viewContract(req, res) {
+        try {
+            const specifiedContract = await getSpecifiedObject(req.params.id, contractDBs);
+            const specifiedEmployee = await userDBs.findOne({ employee_code: specifiedContract.employee_code });
+            const user = await getCurrentUser(req);
+            res.render('admin_contract_view-contract', {
+                user: user,
+                specifiedContract: specifiedContract,
+                specifiedEmployee: specifiedEmployee,
+                layout: './layouts/admin'
+            });
+        } catch (err) {
+            clearCookiesAndReturnLogin(res);
+        }
+    }
+    async admin_viewEmployeeFromContract(req, res) {
+        try {
+            const specifiedEmployee = await getSpecifiedObject(req.params.id, userDBs);
+            const user = await getCurrentUser(req);
+            res.render('admin_employee_view', {
+                user: user,
+                isFromContract: true,
+                contractId: req.params.contractId,
+                specifiedEmployee: specifiedEmployee,
                 layout: './layouts/admin'
             });
         } catch (err) {
