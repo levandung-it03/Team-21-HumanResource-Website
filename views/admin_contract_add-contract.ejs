@@ -86,7 +86,10 @@
             <label for="tax_type">Loại tính thuế</label>
             <select data="<%= isUpdating ? specifiedContract.tax_type : "" %>" name="tax_type">
                 <% if(!isUpdating) {%> <option selected disabled value="">--Chọn loại tính thuế--</option> <% } %>
-                <option value="Thuế luỹ tiến">Thuế luỹ tiến</option>
+                <option value="Thuế Luỹ Tiến">Thuế Luỹ Tiến</option>
+                <option value="Thuế 10%">Thuế 10%</option>
+                <option value="Không Đóng Thuế">Không Đóng Thuế</option>
+                <option value="Thuế 20%">Thuế 20% (áp dụng cho người không cư trú)</option>
             </select>
         </div>
         <div class="form_text-input" id="originalSalary">
