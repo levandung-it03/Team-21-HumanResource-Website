@@ -131,6 +131,11 @@ async function getAllContract() {
     return await allContract.toArray();
 }
 
+async function getAllInsurance() {
+    const allInsurance = insuranceDBs.find({});
+    return await allInsurance.toArray();
+}
+
 class renderMethods {
     login(req, res) {
         res.render('login', { layout: './login' });
@@ -189,6 +194,7 @@ class renderMethods {
             res.render('admin_employee_view', {
                 user: user,
                 isFromContract: false,
+                isFromInsurance: false,
                 specifiedEmployee: specifiedEmployee,
                 layout: './layouts/admin'
             });
@@ -1145,9 +1151,18 @@ class renderMethods {
             clearCookiesAndReturnLogin(res);
         }
     }
-
     async admin_insuranceList(req, res) {
-
+        try {
+            const user = await getCurrentUser(req);
+            const insuranceList = await getAllInsurance();
+            res.render('admin_insurance_insurance-list', {
+                user: user,
+                insuranceList: insuranceList,
+                layout: './layouts/admin'
+            });
+        } catch (err) {
+            clearCookiesAndReturnLogin(res);
+        }
     }
     async admin_addInsurance(req, res) {
         try {
@@ -1164,9 +1179,52 @@ class renderMethods {
         }
     }
     async admin_updateInsurance(req, res) {
-
+        try {
+            const user = await getCurrentUser(req);
+            const allEmployees = await getAllEmployees();
+            const specifiedInsurance = await getSpecifiedObject(req.params.id, insuranceDBs);
+            res.render('admin_insurance_add-insurance', {
+                user: user,
+                allEmployees: allEmployees,
+                isUpdating: true,
+                specifiedInsurance: specifiedInsurance,
+                layout: './layouts/admin'
+            });
+        } catch (err) {
+            clearCookiesAndReturnLogin(res);
+        }
     }
-
+    async admin_viewInsurance(req, res) {
+        try {
+            const specifiedInsurance = await getSpecifiedObject(req.params.id, insuranceDBs);
+            const specifiedEmployee = await userDBs.findOne({ employee_code: specifiedInsurance.employee_code });
+            const user = await getCurrentUser(req);
+            res.render('admin_insurance_view-insurance', {
+                user: user,
+                specifiedEmployee: specifiedEmployee,
+                specifiedInsurance: specifiedInsurance,
+                layout: './layouts/admin'
+            });
+        } catch (err) {
+            clearCookiesAndReturnLogin(res);
+        }
+    }
+    async admin_viewEmployeeFromInsurance(req, res) {
+        try {
+            const specifiedEmployee = await getSpecifiedObject(req.params.id, userDBs);
+            const user = await getCurrentUser(req);
+            res.render('admin_employee_view', {
+                user: user,
+                isFromInsurance: true,
+                isFromContract: false,
+                insuranceId: req.params.insuranceId,
+                specifiedEmployee: specifiedEmployee,
+                layout: './layouts/admin'
+            });
+        } catch (err) {
+            clearCookiesAndReturnLogin(res);
+        }
+    }
     async admin_contractType(req, res) {
         try {
             const user = await getCurrentUser(req);
@@ -1290,6 +1348,7 @@ class renderMethods {
             const user = await getCurrentUser(req);
             res.render('admin_employee_view', {
                 user: user,
+                isFromInsurance: false,
                 isFromContract: true,
                 contractId: req.params.contractId,
                 specifiedEmployee: specifiedEmployee,

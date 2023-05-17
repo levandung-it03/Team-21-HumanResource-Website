@@ -1386,6 +1386,33 @@ exports.addInsurance = async (req, res) => {
         });
 }
 
+exports.updateInsurance = async (req, res) => {
+    try {
+        await client.connect();
+        const data = req.body;
+        data.dateCreated = usersMethods.getNowDate();
+
+        insuranceDBs.updateOne(
+            { _id: new ObjectId(req.params.id) },
+            { "$set": data }
+        )
+        res.status(200).redirect('/admin/category/insurance/view-insurance/' + req.params.id);
+    } catch (err) {
+        res.status(500).send({ err_mes: err.message });
+    }
+}
+
+exports.deleteInsurance = async (req, res) => {
+    const id = req.params.id;
+    try {
+        await client.connect();
+        await insuranceDBs.deleteOne({ _id: new ObjectId(id) });
+        res.end();
+    } catch (err) {
+        res.status(404).send({ mes: err.message });
+    }
+}
+
 exports.addContractType = async (req, res) => {
     await client.connect();
     const prevData = usersMethods.createErrorString(req.body);

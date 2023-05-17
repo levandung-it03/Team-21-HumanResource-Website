@@ -331,6 +331,7 @@ route.get('/admin/category/discipline/update-group-discipline/:groupId/:id',
     authMiddlewares.verifyTokenAndGenerateAccessTokenIfExpiring,
     authMiddlewares.verifyAdmin,
     renderMethods.admin_updateGroupDiscipline);
+/** @________________________________________WORKING______________________________________________ */
 
 route.get('/admin/category/insurance/insurance-list',
     authMiddlewares.verifyTokenAndGenerateAccessTokenIfExpiring,
@@ -345,8 +346,18 @@ route.get('/admin/category/insurance/add-insurance',
 route.get('/admin/category/insurance/update-insurance/:id',
     authMiddlewares.verifyTokenAndGenerateAccessTokenIfExpiring,
     authMiddlewares.verifyAdmin,
-    renderMethods.admin_addInsurance);
-/** @________________________________________WORKING______________________________________________ */
+    renderMethods.admin_updateInsurance);
+
+route.get('/admin/category/insurance/view-insurance/:id',
+    authMiddlewares.verifyTokenAndGenerateAccessTokenIfExpiring,
+    authMiddlewares.verifyAdmin,
+    renderMethods.admin_viewInsurance);
+
+route.get('/admin/category/insurance/view-employee/:insuranceId/:id',
+    authMiddlewares.verifyTokenAndGenerateAccessTokenIfExpiring,
+    authMiddlewares.verifyAdmin,
+    renderMethods.admin_viewEmployeeFromInsurance);
+/** @_____________________________________________________________________________________________ */
 
 route.get('/admin/category/contract/contract-type',
     authMiddlewares.verifyTokenAndGenerateAccessTokenIfExpiring,
@@ -388,7 +399,6 @@ route.get('/admin/category/contract/view-employee/:contractId/:id',
     authMiddlewares.verifyAdmin,
     renderMethods.admin_viewEmployeeFromContract);
     
-/** @_____________________________________________________________________________________________ */
 /** @POST_METHODS__________________________ */
 route.post('/api/admin/add-employee',
     authMiddlewares.verifyTokenAndGenerateAccessTokenIfExpiring,
@@ -591,6 +601,11 @@ route.post('/api/admin/update-contract/:id',
     authMiddlewares.verifyTokenAndGenerateAccessTokenIfExpiring,
     authMiddlewares.verifyAdmin,
     usersController.updateContract);
+    
+route.post('/api/admin/update-insurance/:id',
+    authMiddlewares.verifyTokenAndGenerateAccessTokenIfExpiring,
+    authMiddlewares.verifyAdmin,
+    usersController.updateInsurance);
 
 /** @DELETE_METHODS__________________________ */
 route.delete('/api/admin/delete-employee/:id',
@@ -707,6 +722,11 @@ route.delete('/api/admin/delete-contract/:id',
     authMiddlewares.verifyTokenAndGenerateAccessTokenIfExpiring,
     authMiddlewares.verifyAdmin,
     usersController.deleteContract);
+
+route.delete('/api/admin/delete-insurance/:id',
+    authMiddlewares.verifyTokenAndGenerateAccessTokenIfExpiring,
+    authMiddlewares.verifyAdmin,
+    usersController.deleteInsurance);
 
 /**@_______________________________________________________________________________________________ */
 

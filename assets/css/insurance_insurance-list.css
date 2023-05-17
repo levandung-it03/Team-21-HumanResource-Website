@@ -1,0 +1,117 @@
+table {
+    border-collapse: collapse;
+}
+th, td {
+    border: solid 1px var(--smoking-grey);
+}
+#insurance-list #add-btn {
+    float: right;
+    margin-right: 12px;
+    margin-top: 4px;
+}
+#insurance-list #title {
+    display: inline-block;
+}
+#insurance-list #title span {
+    font-size: 2.4rem;
+    padding: 10px;
+}
+#insurance-list table {
+    margin: var(--form-margin);
+    background-color: white;
+    border: solid 1px transparent;
+    border-radius: var(--form-border-radius);
+    padding: 12px;
+    box-shadow: var(--black-box-shadow);
+    font-size: 0.95rem;
+}
+#insurance-list .table_title {
+    text-align: left;
+}
+#insurance-list .table_title th i {
+    width: 20px;
+    font-size: 0.7rem;
+    float: right;
+    line-height: 24px;
+    cursor: pointer;
+}
+#insurance-list .table_title th {
+    padding: 6px;
+    text-align: center;
+}
+#insurance-list .table_title th#ordinal {
+    width: 5%;
+}
+#insurance-list .table_title th#insurance_code {
+    width: 14%;
+}
+#insurance-list .table_title th#name {
+    width: 16%;
+}
+#insurance-list .table_title th#insurance_card {
+    width: 16%;
+}
+#insurance-list .table_title th#insurance_type {
+    width: 13%;
+}
+#insurance-list .table_title th#startingDate {
+    width: 12%;
+}
+#insurance-list .table_title th#endingDate {
+    width: 12%;
+}
+#insurance-list .table_title th#delete-insurance,
+#insurance-list .table_title th#view-insurance,
+#insurance-list .table_title th#update-insurance {
+    width: 4%!important;
+}
+#insurance-list tr.body td {
+    text-align: center;
+}
+#insurance-list tr.body .update-insurance,
+#insurance-list tr.body .delete-insurance,
+#insurance-list tr.body .view-insurance {
+    padding: 12px;
+}
+#insurance-list tr.body .view-insurance a {
+    display: block;
+    margin: auto;
+    width: 50px;
+    line-height: 32px;
+    background-color: var(--blue);
+    border: solid 1px transparent;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color ease 0.3s;
+}
+#insurance-list tr.body .view-insurance a:hover {
+    background-color: var(--blur-blue);
+}
+#insurance-list tr.body .update-insurance a {
+    display: block;
+    margin: auto;
+    width: 50px;
+    line-height: 32px;
+    background-color: var(--green);
+    border: solid 1px transparent;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color ease 0.3s;
+}
+#insurance-list tr.body .update-insurance a:hover {
+    background-color: var(--blur-green);
+}
+#insurance-list tr.body .delete-insurance a {
+    display: block;
+    margin: auto;
+    width: 50px;
+    line-height: 32px;
+    background-color: var(--red);
+    border: solid 1px transparent;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color ease 0.3s;
+}
+#insurance-list tr.body .delete-insurance a:hover {
+    background-color: rgb(238, 102, 102);
+}

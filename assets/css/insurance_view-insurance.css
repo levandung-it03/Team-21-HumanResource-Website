@@ -1,0 +1,62 @@
+#view-insurance #main_title span {
+    font-size: 2.4rem;
+    padding: 10px;
+}
+#view-insurance {
+    position: relative;
+}
+#view-insurance #title {
+    position: absolute;
+    top: 0;
+    left: 116px;
+}
+#view-insurance #title span {
+    font-size: 2.4rem;
+    display: block;
+}
+#view-insurance #main_turn-back-btn a:hover {
+    background-color: rgb(109, 109, 255);
+}
+#view-insurance #main_container {
+    margin: var(--form-margin);
+    min-height: 60vh;
+    background-color: white;
+    border: solid 1px transparent;
+    border-radius: var(--form-border-radius);
+    padding: 12px;
+    box-shadow: var(--black-box-shadow);
+}
+#main_container_info {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+}
+#view-insurance  #main_container_label {
+    margin-bottom: 12px;
+    font-weight: 600;
+}
+#view-insurance  #main_container_label::after {
+    display: block;
+    content: "";
+    border-top: solid 1px rgb(94, 94, 255);
+    padding-bottom: 8px;
+}
+#main_container_info #avatar {
+    width: 16%;
+}
+#main_container_info #avatar img {
+    width: 100%;
+}
+#main_container_info .info {
+    width: 40%;
+    padding-left: 20px;
+}
+#view-insurance  #main_container_info .info li {
+    display: block;
+    width: 100%;
+    font-size: 1rem;
+}
+#add-btn {
+    float: right;
+    padding-right: 14px;
+}

@@ -1,0 +1,54 @@
+<link rel="stylesheet" href="/css/insurance_view-insurance.css">
+<div id="view-insurance">
+    <div id="turn-back-btn">
+        <a href="/admin/category/insurance/insurance-list"><i class="fa-solid fa-arrow-left-long"></i> Thoát</a>
+    </div>
+    <div id="title">
+        <span>Thông tin bảo hiểm chi tiết</span>
+    </div>
+    <div id="add-btn">
+        <a href="/admin/category/insurance/view-employee/<%= specifiedInsurance._id %>/<%= specifiedEmployee._id %>">Thông tin nhân viên</a>
+    </div>
+    <div id="main_container">
+        <div id="main_container_label">
+            <span>Mã bảo hiểm: <%= specifiedInsurance.insurance_code %></span>
+        </div>
+        <div id="main_container_info">
+            <div id="avatar">
+                <img src=<%=specifiedEmployee.avatar_url %> alt="">
+            </div>
+            <ul class="info" id="grid-left">
+                <li class="info-item">Mã nhân viên: <b><%= specifiedEmployee.employee_code %></b></li>
+                <li class="info-item">Tên nhân viên: <b><%= specifiedEmployee.name %></b></li>
+                <li class="info-item">Ngày sinh: <%= specifiedEmployee.birthday %></li>
+                <li class="info-item">Nơi sinh: <%= specifiedEmployee.birthplace %></li>
+                <li class="info-item">Phòng ban: <%= specifiedEmployee.department %></li>
+                <li class="info-item">Loại nhân viên: <span
+                    <% if(specifiedEmployee.employee_type == "Thực tập") { %>
+                        class="status-block light-green-block"
+                    <% } else if (specifiedEmployee.employee_type == "Bán thời gian") { %>
+                        class="status-block blur-green-block"
+                    <% } else { %>
+                        class="status-block green-block"
+                    <% } %>
+                ><%= specifiedEmployee.employee_type %></span></li>
+                <li class="info-item">Số hộ khẩu: <%= specifiedInsurance.household %></li>
+                <li class="info-item">Mã hộ gia đình: <%= specifiedInsurance.household_code %></li>
+                <li class="info-item">Đã nộp sổ bảo hiểm: <b><%= specifiedInsurance.isSubmitted %></b></li>
+            </ul>
+            <ul class="info" id="grid-right">
+                <li class="info-item">Số sổ bảo hiểm: <b><%= specifiedInsurance.insurance_book_number %></b></li>
+                <li class="info-item">Số thẻ bảo hiểm: <b><%= specifiedInsurance.insurance_card %></b></li>
+                <li class="info-item">Loại bảo hiểm: <b><%= specifiedInsurance.insurance_type %></b></li>
+                <li class="info-item">Mức đóng bảo hiểm: <b><%= specifiedInsurance.insuranceCash %></b></li>
+                <li class="info-item">Nơi đăng ký khám chữa bệnh: <%= specifiedInsurance.insurancePlace %></li>
+                <li class="info-item">Ngày bắt đầu đóng bảo hiểm: <b><%= specifiedInsurance.startingDate %></b></li>
+                <li class="info-item">Ngày kết thúc bảo hiểm: <b><%= specifiedInsurance.endingDate %></b></li>
+                <li class="info-item">Trạng thái: <span class="<%= specifiedInsurance.status.toUpperCase() == "DỪNG THAM GIA"
+                    ? "status-block red-block" : "status-block green-block"%>" ><%= specifiedInsurance.status %></span>
+                </li>
+                <li class="info-item">Ghi chú: <%= specifiedInsurance.description %></li>
+            </ul>
+        </div>
+    </div>
+</div>

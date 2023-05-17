@@ -3,6 +3,8 @@
     <div id="turn-back-btn">
         <% if (isFromContract) { %>
             <a href="/admin/category/contract/view-contract/<%= contractId %>"><i class="fa-solid fa-arrow-left-long"></i> Thoát</a>
+        <% } else if (isFromInsurance) { %>
+            <a href="/admin/category/insurance/view-insurance/<%= insuranceId %>"><i class="fa-solid fa-arrow-left-long"></i> Thoát</a>
         <% } else { %>
             <a href="/admin/category/employee/employee-list"><i class="fa-solid fa-arrow-left-long"></i> Thoát</a>
         <% } %>

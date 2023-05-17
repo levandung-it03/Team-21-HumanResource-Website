@@ -1,0 +1,91 @@
+<link rel="stylesheet" href="/css/insurance_insurance-list.css">
+<div id="insurance-list">
+    <div id="heading">
+        <div class="hide" id="turn-back-btn">
+            <a><i class="fa-solid fa-arrow-left-long"></i> Thoát</a>
+        </div>
+        <div id="title">
+            <span>Danh sách bảo hiểm</span>
+        </div>
+        <div id="search">
+            <input class="search" type="text" placeholder="Tìm kiếm">
+            <i class="fa-solid fa-magnifying-glass"></i>
+        </div>
+    </div>
+    <table>
+        <thead>
+            <tr class="table_title">
+                <th id="ordinal">
+                    <span class="title_name">STT</span>
+                        <i class="fa-solid fa-arrow-down-short-wide" id="ordinal"></i>                 
+                </th>
+                <th id="insurance_code">
+                    <span class="title_name">Mã bảo hiểm</span>
+                    <i class="fa-solid fa-arrow-down-short-wide" id="insurance_code"></i>
+                </th>
+                <th id="name">
+                    <span class="title_name">Tên nhân viên</span>
+                    <i class="fa-solid fa-arrow-down-short-wide" id="name"></i>
+                </th>
+                <th id="insurance_card">
+                    <span class="title_name">Số thẻ BH</span>
+                    <i class="fa-solid fa-arrow-down-short-wide" id="insurance_type"></i>
+                </th>
+                <th id="insurance_type">
+                    <span class="title_name">Loại BH</span>
+                    <i class="fa-solid fa-arrow-down-short-wide light-block" id="startingDate"></i>
+                </th>
+                <th id="status">
+                    <span class="title_name">Trạng thái</span>
+                    <i class="fa-solid fa-arrow-down-short-wide light-block" id="endingDate"></i>
+                </th>
+                <th id="view-insurance">
+                    <span class="title_name">Xem</span>
+                </th>
+                <th id="update-insurance">
+                    <span class="title_name">Sửa</span>
+                </th>
+                <th id="delete-insurance">
+                    <span class="title_name">Xoá</span>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <% for (var i = 0; i < insuranceList.length; i++) { %>
+                <tr class="body" id=<%= i+1 %>>
+                    <td id="ordinal">
+                        <%= (i + 1) %>
+                    </td>
+                    <td class="body_enable-searching body_enable-sorting" id="insurance_code">
+                        <%= insuranceList[i].insurance_code %>
+                    </td>
+                    <td class="body_enable-searching body_enable-sorting" id="name">
+                        <%= insuranceList[i].name %>
+                    </td>
+                    <td class="body_enable-searching body_enable-sorting" id="insurance_card">
+                        <%= insuranceList[i].insurance_card %>
+                    </td>
+                    <td class="body_enable-searching body_enable-sorting" id="insurance_type">
+                        <%= insuranceList[i].insurance_type %>
+                    </td>
+                    <td class="body_enable-searching body_enable-sorting" id="status">
+                        <span class="<%= insuranceList[i].status.toUpperCase() == "DỪNG THAM GIA"
+                        ? "status-block red-block" : "status-block green-block"%>" >
+                            <%= insuranceList[i].status %>
+                        </span>
+                    </td>
+                    <td class="interact-insurance-btn view-insurance">
+                        <a href=<%= "/admin/category/insurance/view-insurance/" + insuranceList[i]._id.toString() %>><i class="fa-solid fa-eye"></i></a>
+                    </td>
+                    <td class="interact-insurance-btn update-insurance">
+                        <a href=<%= "/admin/category/insurance/update-insurance/" + insuranceList[i]._id.toString() %>><i class="fa-sharp fa-solid fa-pencil"></i></a>
+                    </td>
+                    <td class="interact-insurance-btn delete-insurance">
+                        <a insurance_id=<%= insuranceList[i]._id.toString() %>><i class="fa-sharp fa-solid fa-trash"></i></a>
+                    </td>
+                </tr>
+            <% } %>
+        </tbody>
+    </table>
+</div>
+<script src="/js/insurance_insurance-list.js"></script>
