@@ -44,9 +44,9 @@
             <label for="insurance_type">Loại bảo hiểm</label>
             <select data="<%= isUpdating? specifiedInsurance.insurance_type : "" %>" name="insurance_type" required>
                 <% if(!isUpdating) {%> <option selected disabled value="">--Chọn loại bảo hiểm--</option> <% } %>
-                <option value="Bảo hiểm nhân thọ">Bảo hiểm nhân thọ</option>
-                <option value="Bảo hiểm phi nhân thọ">Bảo hiểm phi nhân thọ</option>
-                <option value="Bảo hiểm xã hội">Bảo hiểm xã hội</option>
+                <option value="Bảo Hiểm Nhân Thọ">Bảo Hiểm Nhân Thọ</option>
+                <option value="Bảo Hiểm Phi Nhân Thọ">Bảo Hiểm Phi Nhân Thọ</option>
+                <option value="Bảo Hiểm Xã Hội">Bảo Hiểm Xã Hội</option>
             </select>
         </div>
         <div class="form_text-input more-condition" id="insuranceCash">
@@ -82,8 +82,8 @@
             <label for="status">Trạng thái bảo hiểm</label>
             <select data="<%= isUpdating? specifiedInsurance.status : "" %>" name="status" required>
                 <% if(!isUpdating) {%> <option selected disabled value="">--Chọn trạng thái--</option> <% } %>
-                <option value="Đang tham gia">Đang tham gia</option>
-                <option value="Dừng tham gia">Dừng tham gia</option>
+                <option value="Đang Tham Gia">Đang Tham Gia</option>
+                <option value="Dừng Tham Gia">Dừng Tham Gia</option>
             </select>
         </div>
         <div class="form_text-input more-condition" id="household">
