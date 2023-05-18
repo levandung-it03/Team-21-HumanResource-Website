@@ -523,26 +523,29 @@ exports.addSalary = async (req, res) => {
     await client.connect();
     const [employee_code, name, position, salary_per_day, employee_type, multipleSalaryOfET, degree,
         multipleSalaryOfDG, department, multipleSalaryOfDepartment] = req.body.employee.split("-");
-
     const dateCreated = usersMethods.getNowDate();
-    const tax = 0;
+    const contractOfEmployee = await contractDBs.findOne({ employee_code: employee_code });
+    const negotiableRatio = Number.parseInt(contractOfEmployee.negotiableRatio);
+
     const realSalary = ((req.body.totalDays - req.body.dayOff) * salary_per_day * multipleSalaryOfET
         * multipleSalaryOfDepartment
         * multipleSalaryOfDG
         + Number.parseInt(req.body.allowance)
         + Number.parseInt(req.body.bonusSalary)
-        - Number.parseInt(req.body.advanceSalary)) * (1 - tax);
+        - Number.parseInt(req.body.advanceSalary)) * (negotiableRatio / 100);
+
+    const tax_type = contractOfEmployee.tax_type;
+
+    res.end();
 
     let filter = { employee_code: employee_code };
 
     let update = {
         "$set": {
+            employee_code: employee_code,
             name: name,
-            position: position,
-            employee_type: employee_type,
-            degree: degree,
-            salary_per_day: salary_per_day,
             department: department,
+            position: position,
         },
         "$push": {
             salaryList: {
@@ -552,7 +555,6 @@ exports.addSalary = async (req, res) => {
                 allowance: req.body.allowance,
                 advanceSalary: req.body.advanceSalary,
                 bonusSalary: req.body.bonusSalary,
-                tax: tax,
                 realSalary: realSalary,
             }
         }
@@ -1512,4 +1514,36 @@ exports.updateContract = async (req, res) => {
     } catch (err) {
         res.status(500).send({ err_mes: err.message });
     }
+}
+
+exports.reportApplication = async (req, res) => {
+    console.log(req.body);
+    res.status(200)
+        .json(req.body)
+        .end();
+    // const admin = await userDBs.findOne({ admin: 1 });
+    // const adminEmail = admin.account.email;
+    // const sendingMailOptions = {
+    //     body: admin.account,
+    //     subject: "Reporting HR Management Website",
+    //     html: `<div>
+    //             <sytle>
+    //                 p {
+    //                     font-size: 18px;
+    //                 }
+    //             </sytle>
+    //             <h2>Mã nhân viên: <b>${req.params.employee_code}</b></h2>
+    //             <p>Nội dung: <b>${req.params.details}</b></p>
+    //         </div>`,
+    //     flexibleOptions: {
+    //         type: null,
+    //     }
+    // }
+    // await usersMethods.sendingMail(sendingMailOptions)
+    //     .then(result => {
+    //         res.status(200).send({ result: result });
+    //     })
+    //     .catch(err => {
+    //         res.status(500).send({ err_mess: err.message });
+    //     })
 }

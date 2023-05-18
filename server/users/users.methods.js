@@ -56,7 +56,7 @@ class UsersMethods {
             if (err) console.log(err);
             else {
                 if (options.flexibleOptions.type == null) {
-                    return;
+                    return info;
                 } else if (options.flexibleOptions.type == "update_password") {
                     await options.flexibleOptions.updateNewPassword(
                         options.body.email,

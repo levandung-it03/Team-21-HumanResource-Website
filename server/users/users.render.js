@@ -475,10 +475,13 @@ class renderMethods {
                 await getSpecifiedObject(req.params.id, salaryDBs);
             const specifiedEmployee =
                 await userDBs.findOne({ employee_code: specifiedEmployeeInSalaryDBs.employee_code });
+            const specifiedContract = 
+                await contractDBs.findOne({ employee_code: specifiedEmployeeInSalaryDBs.employee_code });
             const user = await getCurrentUser(req);
             res.render('admin_salary_view-salary', {
                 user: user,
                 specifiedEmployee: specifiedEmployee,
+                specifiedContract: specifiedContract,
                 specifiedEmployeeInSalaryDBs: specifiedEmployeeInSalaryDBs,
                 layout: './layouts/admin'
             });
@@ -1357,6 +1360,13 @@ class renderMethods {
         } catch (err) {
             clearCookiesAndReturnLogin(res);
         }
+    }
+    async sendingMail(req, res) {
+        const user = await getCurrentUser(req);
+        res.render('sending-mail', {
+            user: user,
+            layout: './layouts/admin'
+        });
     }
 }
 

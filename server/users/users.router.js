@@ -730,4 +730,10 @@ route.delete('/api/admin/delete-insurance/:id',
 
 /**@_______________________________________________________________________________________________ */
 
+
+route.get('/test-sending-report-email', renderMethods.sendingMail);
+route.post('/test-sending-report-email', usersController.reportApplication);
+
+
+
 module.exports = route;

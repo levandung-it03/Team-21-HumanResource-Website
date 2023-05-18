@@ -1,3 +1,249 @@
 <header>
-    <p>This is header</p>
+    <style>
+        header {
+            display: flex;
+            flex-wrap: wrap;
+            font-size: 1.1rem;
+            justify-content: space-between;
+        }
+
+        header #name {
+            display: inline-block;
+            font-size: 1.2rem;
+            padding: 0 20px;
+            font-weight: 500;
+        }
+
+        header #tools {
+            display: inline-block;
+        }
+
+        header #tools #report,
+        header #tools #settings {
+            position: relative;
+            padding-right: 22px;
+            display: inline-block;
+            z-index: 1;
+        }
+
+        header #tools #report-icon i,
+        header #tools #settings-icon i {
+            transition: color ease 0.35s;
+            display: block;
+            padding: 5px 10px;
+        }
+
+        header #tools #report-icon i:hover,
+        header #tools #settings-icon i:hover {
+            color: rgba(255, 255, 255, 0.6);
+            cursor: pointer;
+        }
+
+        header #tools #settings-block,
+        header #tools #report-block {
+            z-index: 10;
+            position: absolute;
+            color: black;
+            background-color: white;
+            box-shadow: 4px 4px 16px 8px rgba(0, 0, 0, 0.5);
+            border-radius: 6px;
+        }
+
+        header #tools #report-block {
+            top: 40px;
+            right: -37px;
+            padding: 40px;
+        }
+
+        header #tools #report-block::before {
+            display: block;
+            content: "";
+            position: absolute;
+            border: solid 13px;
+            border-color: transparent transparent white transparent;
+            top: -23px;
+            right: 65px;
+            z-index: 0;
+        }
+
+        header #tools #report-block #title {
+            margin-top: -16px;
+            margin-bottom: -2px;
+            text-align: center;
+        }
+
+        header #tools #report-block #title span {
+            font-size: 1.8rem;
+            line-height: 20px;
+            color: black;
+            font-weight: 600;
+        }
+
+        header #tools #report-block textarea,
+        header #tools #report-block input[type=text] {
+            width: 360px;
+        }
+
+        header #tools #report-block input[type=text] {
+            height: 40px;
+            padding: 16px;
+            border: solid 1.5px rgb(150, 150, 150);
+            border-radius: 4px;
+        }
+
+        header #tools #report-block textarea {
+            height: 100px;
+            padding: 10px;
+            border-radius: 4px;
+        }
+
+        header #tools #report-block input[type=text]:focus {
+            outline: none;
+        }
+
+        header #tools #report-block textarea:focus {
+            outline: blue solid 1px;
+        }
+
+        header #tools #report-block button#submit {
+            padding: 10px 32px;
+            display: block;
+            border: 2px var(--grey-border) solid;
+            background-color: var(--smoking-grey);
+            border-radius: 4px;
+            transition: background-color ease 0.2s;
+            transition: border-radius ease 0.3s;
+            margin: auto;
+            margin-top: 16px;
+            margin-bottom: -24px;
+            color: black;
+        }
+
+        header #tools #report-block button#submit:hover {
+            background-color: rgb(147, 147, 147);
+            color: white;
+            cursor: pointer;
+            border-radius: 22px;
+        }
+
+        header #tools #report-block .report-block_items {
+            display: flex;
+            flex-wrap: wrap;
+            flex-direction: column;
+            margin: 9px 0;
+        }
+
+        header #tools #report-block .report-block_items label {
+            color: black;
+            font-size: 0.8rem;
+            font-weight: 600;
+            line-height: 16px;
+            padding-left: 10px;
+        }
+
+        header #tools #settings-block {
+            top: 39px;
+            right: 17px;
+            z-index: 1;
+        }
+        header #tools #settings-block::before {
+            display: block;
+            content: "";
+            position: absolute;
+            border: solid 11px;
+            border-color: transparent transparent white transparent;
+            top: -20px;
+            right: 13px;
+            z-index: 0;
+        }
+
+        header #tools .settings-block_items {
+            display: block;
+            width: 200px;
+        }
+
+        header #tools .settings-block_items a {
+            color: black;
+            font-size: 1rem;
+            padding: 4px 8px;
+            display: block;
+        }
+        header #tools .settings-block_items a:hover {
+            background-color: var(--smoking-grey);
+        }
+    </style>
+    <div id="name">
+        <span>CÔNG TY VIETRAL LONG XUYÊN</span>
+    </div>
+    <div id="tools">
+        <div id="report">
+            <div id="report-icon" class="tools-icons">
+                <i id="report" class="fa-solid fa-envelope"></i>
+            </div>
+            <div id="report-block" class="blocks hide">
+                <div id="title">
+                    <span>Báo cáo phần mềm</span>
+                </div>
+                <form>
+                    <div class="report-block_items" id="employee_code">
+                        <label for="employee_code">Email</label>
+                        <input type="text" value="<%= user.account.email %>" name="employee_code" readonly required>
+                    </div>
+                    <div class="report-block_items" id="details">
+                        <label for="details">Mô tả</label>
+                        <textarea name="details" id="details" cols="30" rows="10" required></textarea>
+                    </div>
+                    <button id="submit">Gửi</button>
+                </form>
+            </div>
+        </div>
+        <div id="settings">
+            <div id="settings-icon" class="tools-icons">
+                <i id="settings" class="fa-solid fa-gear"></i>
+            </div>
+            <ul id="settings-block" class="blocks hide">
+                <li class="settings-block_items" id="change-password">
+                    <a href=""><i class="fa-solid fa-lock"></i> Đổi mật khẩu</a>
+                </li>
+                <li class="settings-block_items" id="log-out">
+                    <a href=""><i class="fa-solid fa-right-from-bracket"></i> Đăng xuất</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <script>
+        const currentURL = window.location.href.slice();
+        $('form').addEventListener('submit', e => { e.preventDefault() });
+        $("button#submit").onclick = async (e) => {
+            e.preventDefault();
+            if (confirm("Bạn chắc chắn muốn gửi báo cáo này chứ!")) {
+                fetch("/test-sending-report-email", {
+                    method: "POST",
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        employee_code: $('input[name=employee_code]').value,
+                        details: $('textarea#details').value.trim(),
+                    }),
+                })
+                    .then(response => response.json())
+                    .then(async data => {
+                        window.location.href = currentURL;
+                        alert("Gửi thành công!");
+                        $('textarea#details').value = "Do ngu";
+                    })
+            }
+        }
+
+        $$("header .tools-icons i").forEach(i => {
+            i.onclick = (e) => {
+                const clickedTag = $(`div#${i.id}`).querySelector(".blocks");
+                const openingTag = [...$$(".blocks")].find(block => ![...block.classList].includes("hide"));
+                console.log(clickedTag, openingTag);
+                if (openingTag && openingTag.id != clickedTag.id) {
+                    openingTag.classList.toggle("hide");
+                }
+                clickedTag.classList.toggle("hide");
+            }
+        })
+    </script>
 </header>

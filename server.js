@@ -22,6 +22,8 @@ connectDB();
 
 //  parse request to body-parser
 app.use(bodyparser.urlencoded({ extended: true }));
+//  use this to parse json data through Fetch actions.
+app.use(bodyparser.json());
 
 // set view engines
 app.set('view engine', 'ejs');
