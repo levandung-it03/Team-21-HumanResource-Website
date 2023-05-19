@@ -208,8 +208,8 @@
                 <i id="settings" class="fa-solid fa-gear"></i>
             </div>
             <ul id="settings-block" class="blocks hide">
-                <li class="settings-block_items" id="change-password">
-                    <a id="change-password" href="/change-password"><i class="fa-solid fa-lock"></i> Đổi mật khẩu</a>
+                <li class="settings-block_items" id="change-password-btn">
+                    <a id="change-password-btn" href="/change-password"><i class="fa-solid fa-lock"></i> Đổi mật khẩu</a>
                 </li>
                 <li class="settings-block_items" id="log-out">
                     <a id="log-out"><i class="fa-solid fa-right-from-bracket"></i> Đăng xuất</a>
@@ -268,7 +268,7 @@
                             .then(response => { window.location.reload() })
                     }
                 }
-            });
+            })();
         })();
     </script>
 </header>
