@@ -137,11 +137,39 @@ async function getAllInsurance() {
 }
 
 class renderMethods {
+    getHome(req, res) {
+        const cookiesList = authMethods.handleCookie(req.headers.cookie);
+        if (cookiesList.admin == 1) {
+            res.redirect('/admin/general');
+        } else {
+            res.redirect('/employee/general');
+        }
+    }
     login(req, res) {
         res.render('login', { layout: './login' });
     }
     password(req, res) {
         res.render('password', { layout: './password' });
+    }
+    async changePassword(req, res) {
+        try {
+            const user = await getCurrentUser(req);
+            if (user.admin == 1) {
+                res.render('change-password', {
+                    user: user,
+                    layout: './layouts/admin'
+                });
+            } else if (user.admin == 0) {
+                res.render('change-password', {
+                    user: user,
+                    layout: './layouts/employee'
+                });
+            } else {
+                clearCookiesAndReturnLogin(res);
+            }
+        } catch (err) {
+            clearCookiesAndReturnLogin(res);
+        }
     }
     async admin_general(req, res) {
         try {
@@ -152,7 +180,6 @@ class renderMethods {
                 const allPositions = await getAllPosition();
                 const allGroups = await getAllGroup();
                 const allBussiness = await getAllBussiness();
-                const user = await getCurrentUser(req);
                 res.render('admin_general', {
                     user: user,
                     allEmployees: allEmployees,
@@ -163,7 +190,7 @@ class renderMethods {
                     layout: './layouts/admin'
                 });
             } else if (user.admin == 0) {
-                res.render('home', {
+                res.render('admin_general', {
                     user: user,
                     layout: './layouts/employee'
                 });
@@ -475,7 +502,7 @@ class renderMethods {
                 await getSpecifiedObject(req.params.id, salaryDBs);
             const specifiedEmployee =
                 await userDBs.findOne({ employee_code: specifiedEmployeeInSalaryDBs.employee_code });
-            const specifiedContract = 
+            const specifiedContract =
                 await contractDBs.findOne({ employee_code: specifiedEmployeeInSalaryDBs.employee_code });
             const user = await getCurrentUser(req);
             res.render('admin_salary_view-salary', {

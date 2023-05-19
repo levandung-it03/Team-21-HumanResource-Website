@@ -14,15 +14,27 @@ const authMiddlewares = require('../auth/auth.middlewares');
  * @EQUAL_RIGHT_ACTIONS
  */
 
+route.get('/home',
+    authMiddlewares.verifyTokenAndGenerateAccessTokenIfExpiring,
+    renderMethods.getHome);
+
 route.get('/login',
     authMiddlewares.checkingLogedIn,
     renderMethods.login);
+
 route.get('/password', renderMethods.password);
+route.get('/change-password',
+    authMiddlewares.verifyTokenAndGenerateAccessTokenIfExpiring,
+    renderMethods.changePassword);
 
 route.post('/api/users/login', usersController.login);
 route.post('/api/users/password', usersController.password);
-/**@_______________________________________________________________________________________________ */
+route.post('/api/change-password',
+    authMiddlewares.verifyTokenAndGenerateAccessTokenIfExpiring,
+    usersController.changePassword);
 
+route.post('/api/log-out', usersController.logout);
+/**@_______________________________________________________________________________________________ */
 /**
  * @ADMIN_RIGHT_ACTIONS____________________________________________________________________________
  */

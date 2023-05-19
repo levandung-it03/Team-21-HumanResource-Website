@@ -110,7 +110,7 @@ exports.addEmployee = async (req, res) => {
                 })
         })
         .catch((err) => {
-            res.redirect(DOMAIN + '/admin/category/employee/add-employee?error=' + encodeURIComponent(`error_${Object.keys(err.keyValue)[0]}`) + prevData);
+            res.redirect('/admin/category/employee/add-employee?error=' + encodeURIComponent(`error_${Object.keys(err.keyValue)[0]}`) + prevData);
         })
 }
 
@@ -146,11 +146,11 @@ exports.login = async (req, res) => {
                     res.redirect('/employee/general');
                 }
             } else {
-                res.redirect(DOMAIN + '/login?error=' + encodeURIComponent('error_password') + prevData);
+                res.redirect('/login?error=' + encodeURIComponent('error_password') + prevData);
             }
         })
     } else {
-        res.redirect(DOMAIN + '/login?error=' + encodeURIComponent('error_email') + prevData);
+        res.redirect('/login?error=' + encodeURIComponent('error_email') + prevData);
     }
     client.close();
 }
@@ -187,6 +187,16 @@ exports.password = async (req, res) => {
         res.status(500).send({ err_message: err.message })
     }
 
+}
+
+exports.logout = async (req, res) => {
+    if (req.body.isLogout) {
+        res.clearCookie('accessToken')
+        .clearCookie('refreshToken')
+        .clearCookie('id')
+        .clearCookie('admin')
+        .end();
+    }
 }
 
 exports.updateEmployee = async (req, res) => {
@@ -257,7 +267,7 @@ exports.updateEmployee = async (req, res) => {
             }
         })
         .catch(err => {
-            res.redirect(DOMAIN + '/admin/category/employee/update-employee/' + id + '?error=' + encodeURIComponent(`error_${Object.keys(err.keyValue)[0]}`) + prevData);
+            res.redirect('/admin/category/employee/update-employee/' + id + '?error=' + encodeURIComponent(`error_${Object.keys(err.keyValue)[0]}`) + prevData);
 
         })
 }
@@ -292,7 +302,7 @@ exports.addEmployeeType = async (req, res) => {
             res.redirect('/admin/category/employee/employee-type-list');
         })
         .catch(err => {
-            res.redirect(DOMAIN + '/admin/category/employee/add-employee-type?error=' + encodeURIComponent(`error_${Object.keys(err.keyValue)[0]}`) + prevData);
+            res.redirect('/admin/category/employee/add-employee-type?error=' + encodeURIComponent(`error_${Object.keys(err.keyValue)[0]}`) + prevData);
         })
 }
 
@@ -338,7 +348,7 @@ exports.addDegree = async (req, res) => {
             res.redirect('/admin/category/employee/degree-list');
         })
         .catch(err => {
-            res.redirect(DOMAIN + '/admin/category/employee/add-degree?error=' + encodeURIComponent(`error_${Object.keys(err.keyValue)[0]}`) + prevData);
+            res.redirect('/admin/category/employee/add-degree?error=' + encodeURIComponent(`error_${Object.keys(err.keyValue)[0]}`) + prevData);
         })
 }
 
@@ -393,7 +403,7 @@ exports.addTechnique = async (req, res) => {
             res.status(200).redirect('/admin/category/employee/technique-list');
         })
         .catch(err => {
-            res.redirect(DOMAIN + '/admin/category/employee/add-technique?error=' + encodeURIComponent(`error_${Object.keys(err.keyValue)[0]}`) + prevData);
+            res.redirect('/admin/category/employee/add-technique?error=' + encodeURIComponent(`error_${Object.keys(err.keyValue)[0]}`) + prevData);
         })
 }
 
@@ -442,7 +452,7 @@ exports.addPosition = async (req, res) => {
             res.redirect('/admin/category/employee/position-list');
         })
         .catch(err => {
-            res.redirect(DOMAIN + '/admin/category/employee/add-position?error=' + encodeURIComponent(`error_${Object.keys(err.keyValue)[0]}`) + prevData);
+            res.redirect('/admin/category/employee/add-position?error=' + encodeURIComponent(`error_${Object.keys(err.keyValue)[0]}`) + prevData);
         })
 }
 
@@ -488,7 +498,7 @@ exports.addDepartment = async (req, res) => {
             res.redirect('/admin/category/employee/department-list');
         })
         .catch(err => {
-            res.redirect(DOMAIN + '/admin/category/employee/add-department?error=' + encodeURIComponent(`error_${Object.keys(err.keyValue)[0]}`) + prevData);
+            res.redirect('/admin/category/employee/add-department?error=' + encodeURIComponent(`error_${Object.keys(err.keyValue)[0]}`) + prevData);
         })
 }
 
@@ -633,7 +643,7 @@ exports.addBussiness = async (req, res) => {
             res.status(200).redirect('/admin/category/bussiness/bussiness-list');
         })
         .catch(err => {
-            res.redirect(DOMAIN + '/admin/category/bussiness/add-bussiness?error=' + encodeURIComponent(`error_${Object.keys(err.keyValue)[0]}`) + prevData);
+            res.redirect('/admin/category/bussiness/add-bussiness?error=' + encodeURIComponent(`error_${Object.keys(err.keyValue)[0]}`) + prevData);
         })
 }
 
@@ -696,7 +706,7 @@ exports.addGroup = async (req, res) => {
             res.status(200).redirect('/admin/category/group/group-list');
         })
         .catch(err => {
-            res.redirect(DOMAIN + '/admin/category/group/add-group?error=' + encodeURIComponent(`error_${Object.keys(err.keyValue)[0]}`) + prevData);
+            res.redirect('/admin/category/group/add-group?error=' + encodeURIComponent(`error_${Object.keys(err.keyValue)[0]}`) + prevData);
         })
 }
 
@@ -755,7 +765,7 @@ exports.updateGroup = async (req, res) => {
             res.status(200).redirect('/admin/category/group/view-group/' + req.params.id);
         })
         .catch(err => {
-            res.redirect(DOMAIN + '/admin/category/group/update-group/' + req.params.id
+            res.redirect('/admin/category/group/update-group/' + req.params.id
             + '?error=' + encodeURIComponent(`error_${Object.keys(err.keyValue)[0]}`) + prevData);
         })
 }
@@ -778,7 +788,7 @@ exports.addEmployeeIntoGroup = async (req, res) => {
     const existedUser = await groupDBs.findOne({ employee_list: { "$elemMatch": { employee_code: employee_code } } });
 
     if (existedUser) {
-        res.redirect(DOMAIN + '/admin/category/group/add-employee-into-group/' + req.params.id + '?error=employee_code');
+        res.redirect('/admin/category/group/add-employee-into-group/' + req.params.id + '?error=employee_code');
     } else {
         const update = {
             "$push": {
@@ -844,7 +854,7 @@ exports.addComplimentType = async (req, res) => {
             res.status(200).redirect('/admin/category/compliment/compliment-type');
         })
         .catch(err => {
-            res.redirect(DOMAIN + '/admin/category/compliment/add-compliment-type?error=' + encodeURIComponent(`error_${Object.keys(err.keyValue)[0]}`) + prevData);
+            res.redirect('/admin/category/compliment/add-compliment-type?error=' + encodeURIComponent(`error_${Object.keys(err.keyValue)[0]}`) + prevData);
         })
 }
 
@@ -908,7 +918,7 @@ exports.addEmployeeCompliment = async (req, res) => {
         compliments_list: {"$elemMatch": {compliment_type: compliment_type, dateCreated: dateCreated,}}
     });
     if (existCompliment) {
-        res.redirect(DOMAIN + '/admin/category/compliment/add-employee-compliment?error=compliment_code' + prevData);
+        res.redirect('/admin/category/compliment/add-employee-compliment?error=compliment_code' + prevData);
     } else {
         await Employee_compliments.findOneAndUpdate(filter, update, {
             new: true,
@@ -1022,7 +1032,7 @@ exports.addGroupCompliment = async (req, res) => {
         compliments_list: {"$elemMatch": {compliment_type: compliment_type, dateCreated: dateCreated,}}
     });
     if (existCompliment) {
-        res.redirect(DOMAIN + '/admin/category/compliment/add-group-compliment?error=compliment_code' + prevData);
+        res.redirect('/admin/category/compliment/add-group-compliment?error=compliment_code' + prevData);
     } else {
         await Group_compliments.findOneAndUpdate(filter, update, {
             new: true,
@@ -1122,7 +1132,7 @@ exports.addDisciplineType = async (req, res) => {
             res.status(200).redirect('/admin/category/discipline/discipline-type');
         })
         .catch(err => {
-            res.redirect(DOMAIN + '/admin/category/discipline/add-discipline-type?error=' + encodeURIComponent(`error_${Object.keys(err.keyValue)[0]}`) + prevData);
+            res.redirect('/admin/category/discipline/add-discipline-type?error=' + encodeURIComponent(`error_${Object.keys(err.keyValue)[0]}`) + prevData);
         })
 }
 
@@ -1384,7 +1394,7 @@ exports.addInsurance = async (req, res) => {
             res.status(200).redirect('/admin/category/insurance/insurance-list');
         })
         .catch(err => {
-            res.redirect(DOMAIN + '/admin/category/insurance/add-insurance?error=' + encodeURIComponent(`error_${Object.keys(err.keyValue)[0]}`) + prevData);
+            res.redirect('/admin/category/insurance/add-insurance?error=' + encodeURIComponent(`error_${Object.keys(err.keyValue)[0]}`) + prevData);
         });
 }
 
@@ -1434,7 +1444,7 @@ exports.addContractType = async (req, res) => {
             res.status(200).redirect('/admin/category/contract/contract-type');
         })
         .catch(err => { 
-            res.redirect(DOMAIN + '/admin/category/contract/add-contract-type?error=' + encodeURIComponent(`error_${Object.keys(err.keyValue)[0]}`) + prevData);
+            res.redirect('/admin/category/contract/add-contract-type?error=' + encodeURIComponent(`error_${Object.keys(err.keyValue)[0]}`) + prevData);
         })
 }
 
@@ -1485,7 +1495,7 @@ exports.addContract = async (req, res) => {
             res.status(200).redirect('/admin/category/contract/contract-list');
         })
         .catch(err => {
-            res.redirect(DOMAIN + '/admin/category/contract/add-contract?error=' + encodeURIComponent(`error_${Object.keys(err.keyValue)[0]}`) + prevData);
+            res.redirect('/admin/category/contract/add-contract?error=' + encodeURIComponent(`error_${Object.keys(err.keyValue)[0]}`) + prevData);
         })
 }
 
@@ -1546,4 +1556,8 @@ exports.reportApplication = async (req, res) => {
     //     .catch(err => {
     //         res.status(500).send({ err_mess: err.message });
     //     })
+}
+
+exports.changePassword = async (req, res) => {
+    res.send(req.body);
 }

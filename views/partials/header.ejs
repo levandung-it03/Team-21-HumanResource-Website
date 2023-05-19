@@ -1,5 +1,9 @@
 <header>
     <style>
+        a:hover {
+            cursor: pointer;
+        }
+
         header {
             display: flex;
             flex-wrap: wrap;
@@ -146,6 +150,7 @@
             right: 17px;
             z-index: 1;
         }
+
         header #tools #settings-block::before {
             display: block;
             content: "";
@@ -168,6 +173,7 @@
             padding: 4px 8px;
             display: block;
         }
+
         header #tools .settings-block_items a:hover {
             background-color: var(--smoking-grey);
         }
@@ -203,47 +209,66 @@
             </div>
             <ul id="settings-block" class="blocks hide">
                 <li class="settings-block_items" id="change-password">
-                    <a href=""><i class="fa-solid fa-lock"></i> Đổi mật khẩu</a>
+                    <a id="change-password" href="/change-password"><i class="fa-solid fa-lock"></i> Đổi mật khẩu</a>
                 </li>
                 <li class="settings-block_items" id="log-out">
-                    <a href=""><i class="fa-solid fa-right-from-bracket"></i> Đăng xuất</a>
+                    <a id="log-out"><i class="fa-solid fa-right-from-bracket"></i> Đăng xuất</a>
                 </li>
             </ul>
         </div>
     </div>
     <script>
         const currentURL = window.location.href.slice();
-        $('form').addEventListener('submit', e => { e.preventDefault() });
-        $("button#submit").onclick = async (e) => {
-            e.preventDefault();
-            if (confirm("Bạn chắc chắn muốn gửi báo cáo này chứ!")) {
-                fetch("/test-sending-report-email", {
-                    method: "POST",
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        employee_code: $('input[name=employee_code]').value,
-                        details: $('textarea#details').value.trim(),
-                    }),
-                })
-                    .then(response => response.json())
-                    .then(async data => {
-                        window.location.href = currentURL;
-                        alert("Gửi thành công!");
-                        $('textarea#details').value = "Do ngu";
-                    })
-            }
-        }
-
-        $$("header .tools-icons i").forEach(i => {
-            i.onclick = (e) => {
-                const clickedTag = $(`div#${i.id}`).querySelector(".blocks");
-                const openingTag = [...$$(".blocks")].find(block => ![...block.classList].includes("hide"));
-                console.log(clickedTag, openingTag);
-                if (openingTag && openingTag.id != clickedTag.id) {
-                    openingTag.classList.toggle("hide");
+        (function main() {
+            (function sendingEmailReport() {
+                $('form').addEventListener('submit', e => { e.preventDefault() });
+                $("button#submit").onclick = async (e) => {
+                    e.preventDefault();
+                    if (confirm("Bạn chắc chắn muốn gửi báo cáo này chứ!")) {
+                        fetch("/test-sending-report-email", {
+                            method: "POST",
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({
+                                employee_code: $('input[name=employee_code]').value,
+                                details: $('textarea#details').value.trim(),
+                            }),
+                        })
+                            .then(response => {
+                                alert("Gửi thành công!");
+                                window.location.reload();
+                            })
+                    }
                 }
-                clickedTag.classList.toggle("hide");
-            }
-        })
+            })();
+
+            (function toggleLogs() {
+                $$("header .tools-icons i").forEach(i => {
+                    i.onclick = (e) => {
+                        e.preventDefault();
+                        const clickedTag = $(`div#${i.id}`).querySelector(".blocks");
+                        const openingTag = [...$$(".blocks")].find(block => ![...block.classList].includes("hide"));
+                        if (openingTag && openingTag.id != clickedTag.id) {
+                            openingTag.classList.toggle("hide");
+                        }
+                        clickedTag.classList.toggle("hide");
+                    }
+                })
+            })();
+
+            (function logout() {
+                $("header #settings a#log-out").onclick = (e) => {
+                    if (confirm("Bạn chắc chắn muốn đăng xuất chứ!")) {
+                        fetch("/api/log-out", {
+                            method: "POST",
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({
+                                isLogout: true,
+                            }),
+                        })
+                            .then(response => { window.location.reload() })
+                    }
+                }
+            });
+        })();
     </script>
 </header>
