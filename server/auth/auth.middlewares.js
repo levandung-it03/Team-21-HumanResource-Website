@@ -45,7 +45,7 @@ exports.verifyTokenAndGenerateAccessTokenIfExpiring = async (req, res, next) => 
 
 exports.verifyAdmin = async (req, res, next) => {
     jwt.verify(res.locals.verifyObject.accessToken, process.env.ACCESS_TOKEN_SECRET, (err, decoded) => {
-        if (decoded.admin == res.locals.verifyObject.adminInCookie == 1) {
+        if (decoded.admin == 1 && res.locals.verifyObject.adminInCookie == 1) {
             next();
         } else {
             clearCookies(res);
@@ -56,7 +56,7 @@ exports.verifyAdmin = async (req, res, next) => {
 
 exports.verifyEmployee = async (req, res, next) => {
     jwt.verify(res.locals.verifyObject.accessToken, process.env.ACCESS_TOKEN_SECRET, (err, decoded) => {
-        if (decoded.admin == res.locals.verifyObject.adminInCookie == 0) {
+        if (decoded.admin == 0 && res.locals.verifyObject.adminInCookie == 0) {
             next();
         } else {
             clearCookies(res);

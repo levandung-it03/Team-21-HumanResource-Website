@@ -34,7 +34,10 @@ route.post('/api/change-password',
     usersController.changePassword);
 
 route.post('/api/log-out', usersController.logout);
+
+route.post('/sending-report-email', usersController.reportApplication);
 /**@_______________________________________________________________________________________________ */
+
 /**
  * @ADMIN_RIGHT_ACTIONS____________________________________________________________________________
  */
@@ -742,10 +745,17 @@ route.delete('/api/admin/delete-insurance/:id',
 
 /**@_______________________________________________________________________________________________ */
 
+/**
+ * @EMPLOYEE_RIGHT_ACTIONS____________________________________________________________________________
+ */
+/** @GET_METHODS__________________________ */
+route.get('/employee/general',
+    authMiddlewares.verifyTokenAndGenerateAccessTokenIfExpiring,
+    authMiddlewares.verifyEmployee,
+    renderMethods.employee_general);
+/** @DELETE_METHODS__________________________ */
 
-route.get('/test-sending-report-email', renderMethods.sendingMail);
-route.post('/test-sending-report-email', usersController.reportApplication);
+/** @POST_METHODS__________________________ */
 
-
-
+/**@_______________________________________________________________________________________________ */
 module.exports = route;

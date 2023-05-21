@@ -27,6 +27,8 @@ app.use(bodyparser.json());
 
 // set view engines
 app.set('view engine', 'ejs');
+app.set('employee', './*');
+app.set('admin', './*');
 
 // set main layouts for ejs files.
 app.use(ejsLayouts);

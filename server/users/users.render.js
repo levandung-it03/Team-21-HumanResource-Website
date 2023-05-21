@@ -34,6 +34,19 @@ function clearCookiesAndReturnLogin(res) {
     return;
 }
 
+
+async function getSpecifiedObject(id, db) {
+    const object = await db.findOne({ _id: new ObjectId(id) });
+    return object;
+}
+
+async function getCurrentUser(req) {
+    const cookiesList = authMethods.handleCookie(req.headers.cookie);
+    const user = await getSpecifiedObject(cookiesList.id, userDBs);
+
+    return user;
+}
+
 async function getAllTechnique() {
     const allTechnique = techniqueDBs.find({});
     return await allTechnique.toArray();
@@ -72,18 +85,6 @@ async function getAllEmployees() {
 async function getAllBussiness() {
     const allBussiness = bussinessDBs.find({});
     return await allBussiness.toArray();
-}
-
-async function getSpecifiedObject(id, db) {
-    const object = await db.findOne({ _id: new ObjectId(id) });
-    return object;
-}
-
-async function getCurrentUser(req) {
-    const cookiesList = authMethods.handleCookie(req.headers.cookie);
-    const user = await getSpecifiedObject(cookiesList.id, userDBs);
-
-    return user;
 }
 
 async function getAllGroup() {
@@ -174,29 +175,20 @@ class renderMethods {
     async admin_general(req, res) {
         try {
             const user = await getCurrentUser(req);
-            if (user.admin == 1) {
-                const allEmployees = await getAllEmployees();
-                const allDepartments = await getAllDepartment();
-                const allPositions = await getAllPosition();
-                const allGroups = await getAllGroup();
-                const allBussiness = await getAllBussiness();
-                res.render('admin_general', {
-                    user: user,
-                    allEmployees: allEmployees,
-                    allDepartments: allDepartments,
-                    allPositions: allPositions,
-                    allGroups: allGroups,
-                    allBussiness: allBussiness,
-                    layout: './layouts/admin'
-                });
-            } else if (user.admin == 0) {
-                res.render('admin_general', {
-                    user: user,
-                    layout: './layouts/employee'
-                });
-            } else {
-                clearCookiesAndReturnLogin(res);
-            }
+            const allEmployees = await getAllEmployees();
+            const allDepartments = await getAllDepartment();
+            const allPositions = await getAllPosition();
+            const allGroups = await getAllGroup();
+            const allBussiness = await getAllBussiness();
+            res.render('./admin/admin_general', {
+                user: user,
+                allEmployees: allEmployees,
+                allDepartments: allDepartments,
+                allPositions: allPositions,
+                allGroups: allGroups,
+                allBussiness: allBussiness,
+                layout: './layouts/admin'
+            });
         } catch (err) {
             clearCookiesAndReturnLogin(res);
         }
@@ -205,7 +197,7 @@ class renderMethods {
         try {
             const allEmployees = await getAllEmployees();
             const user = await getCurrentUser(req);
-            res.render('admin_employee_employee-list', {
+            res.render('./admin/admin_employee_employee-list', {
                 user: user,
                 employeeList: allEmployees,
                 layout: './layouts/admin'
@@ -218,7 +210,7 @@ class renderMethods {
         try {
             const specifiedEmployee = await getSpecifiedObject(req.params.id, userDBs);
             const user = await getCurrentUser(req);
-            res.render('admin_employee_view', {
+            res.render('./admin/admin_employee_view', {
                 user: user,
                 isFromContract: false,
                 isFromInsurance: false,
@@ -236,7 +228,7 @@ class renderMethods {
             const departmentList = await getAllDepartment();
             const employeeTypeList = await getAllEmployeeType();
             const user = await getCurrentUser(req);
-            res.render('admin_employee_add-employee', {
+            res.render('./admin/admin_employee_add-employee', {
                 user: user,
                 isUpdating: false,
                 degreeList: degreeList,
@@ -257,7 +249,7 @@ class renderMethods {
             const employeeTypeList = await getAllEmployeeType();
             const user = await getCurrentUser(req);
             const specifiedUser = await getSpecifiedObject(req.params.id, userDBs);
-            res.render('admin_employee_add-employee', {
+            res.render('./admin/admin_employee_add-employee', {
                 user: user,
                 specifiedUser: specifiedUser,
                 isUpdating: true,
@@ -275,7 +267,7 @@ class renderMethods {
         try {
             const allEmployees = await getAllEmployees();
             const user = await getCurrentUser(req);
-            res.render('admin_employee_account-list', {
+            res.render('./admin/admin_employee_account-list', {
                 user: user,
                 employeeList: allEmployees,
                 layout: './layouts/admin'
@@ -288,7 +280,7 @@ class renderMethods {
         try {
             const employeeTypeList = await getAllEmployeeType();
             const user = await getCurrentUser(req);
-            res.render('admin_employee_employee-type-list', {
+            res.render('./admin/admin_employee_employee-type-list', {
                 user: user,
                 employeeTypeList: employeeTypeList,
                 layout: './layouts/admin'
@@ -300,7 +292,7 @@ class renderMethods {
     async admin_addEmployeeType(req, res) {
         try {
             const user = await getCurrentUser(req);
-            res.render('admin_employee_add-employee-type', {
+            res.render('./admin/admin_employee_add-employee-type', {
                 user: user,
                 isUpdating: false,
                 layout: './layouts/admin'
@@ -313,7 +305,7 @@ class renderMethods {
         try {
             const user = await getCurrentUser(req);
             const specifiedEmployee_type = await getSpecifiedObject(req.params.id, employee_typeDBs);
-            res.render('admin_employee_add-employee-type', {
+            res.render('./admin/admin_employee_add-employee-type', {
                 user: user,
                 isUpdating: true,
                 specifiedEmployee_type: specifiedEmployee_type,
@@ -327,7 +319,7 @@ class renderMethods {
         try {
             const user = await getCurrentUser(req);
             const degreeList = await getAllDegree();
-            res.render('admin_employee_degree-list', {
+            res.render('./admin/admin_employee_degree-list', {
                 user: user,
                 degreeList: degreeList,
                 layout: './layouts/admin'
@@ -339,7 +331,7 @@ class renderMethods {
     async admin_addDegree(req, res) {
         try {
             const user = await getCurrentUser(req);
-            res.render('admin_employee_add-degree', {
+            res.render('./admin/admin_employee_add-degree', {
                 user: user,
                 isUpdating: false,
                 layout: './layouts/admin'
@@ -352,7 +344,7 @@ class renderMethods {
         try {
             const user = await getCurrentUser(req);
             const specifiedDegree = await getSpecifiedObject(req.params.id, degreeDBs);
-            res.render('admin_employee_add-degree', {
+            res.render('./admin/admin_employee_add-degree', {
                 user: user,
                 isUpdating: true,
                 specifiedDegree: specifiedDegree,
@@ -366,7 +358,7 @@ class renderMethods {
         try {
             const user = await getCurrentUser(req);
             const techniqueList = await getAllTechnique();
-            res.render('admin_employee_technique-list', {
+            res.render('./admin/admin_employee_technique-list', {
                 user: user,
                 techniqueList: techniqueList,
                 layout: './layouts/admin'
@@ -379,7 +371,7 @@ class renderMethods {
         try {
             const user = await getCurrentUser(req);
             const allEmployees = await getAllEmployees();
-            res.render('admin_employee_add-technique', {
+            res.render('./admin/admin_employee_add-technique', {
                 user: user,
                 isUpdating: false,
                 allEmployees: allEmployees,
@@ -394,7 +386,7 @@ class renderMethods {
             const user = await getCurrentUser(req);
             const allEmployees = await getAllEmployees();
             const specifiedTechnique = await getSpecifiedObject(req.params.id, techniqueDBs);
-            res.render('admin_employee_add-technique', {
+            res.render('./admin/admin_employee_add-technique', {
                 user: user,
                 isUpdating: true,
                 allEmployees: allEmployees,
@@ -409,7 +401,7 @@ class renderMethods {
         try {
             const positionList = await getAllPosition();
             const user = await getCurrentUser(req);
-            res.render('admin_employee_position-list', {
+            res.render('./admin/admin_employee_position-list', {
                 user: user,
                 positionList: positionList,
                 layout: './layouts/admin'
@@ -421,7 +413,7 @@ class renderMethods {
     async admin_addPosition(req, res) {
         try {
             const user = await getCurrentUser(req);
-            res.render('admin_employee_add-position', {
+            res.render('./admin/admin_employee_add-position', {
                 user: user,
                 isUpdating: false,
                 layout: './layouts/admin'
@@ -434,7 +426,7 @@ class renderMethods {
         try {
             const user = await getCurrentUser(req);
             const specifiedPosition = await getSpecifiedObject(req.params.id, positionDBs);
-            res.render('admin_employee_add-position', {
+            res.render('./admin/admin_employee_add-position', {
                 user: user,
                 isUpdating: true,
                 specifiedPosition: specifiedPosition,
@@ -448,7 +440,7 @@ class renderMethods {
         try {
             const departmentList = await getAllDepartment();
             const user = await getCurrentUser(req);
-            res.render('admin_employee_department-list', {
+            res.render('./admin/admin_employee_department-list', {
                 user: user,
                 departmentList: departmentList,
                 layout: './layouts/admin'
@@ -460,7 +452,7 @@ class renderMethods {
     async admin_addDepartment(req, res) {
         try {
             const user = await getCurrentUser(req);
-            res.render('admin_employee_add-department', {
+            res.render('./admin/admin_employee_add-department', {
                 user: user,
                 isUpdating: false,
                 layout: './layouts/admin'
@@ -473,7 +465,7 @@ class renderMethods {
         try {
             const user = await getCurrentUser(req);
             const specifiedDepartment = await getSpecifiedObject(req.params.id, departmentDBs);
-            res.render('admin_employee_add-department', {
+            res.render('./admin/admin_employee_add-department', {
                 user: user,
                 isUpdating: true,
                 specifiedDepartment: specifiedDepartment,
@@ -487,7 +479,7 @@ class renderMethods {
         try {
             const salaryInfoList = await getAllSalary();
             const user = await getCurrentUser(req);
-            res.render('admin_salary_salary-list', {
+            res.render('./admin/admin_salary_salary-list', {
                 user: user,
                 salaryInfoList: salaryInfoList,
                 layout: './layouts/admin'
@@ -505,7 +497,7 @@ class renderMethods {
             const specifiedContract =
                 await contractDBs.findOne({ employee_code: specifiedEmployeeInSalaryDBs.employee_code });
             const user = await getCurrentUser(req);
-            res.render('admin_salary_view-salary', {
+            res.render('./admin/admin_salary_view-salary', {
                 user: user,
                 specifiedEmployee: specifiedEmployee,
                 specifiedContract: specifiedContract,
@@ -528,7 +520,7 @@ class renderMethods {
             const employeeId = req.params.id;
             if (employeeId != undefined) {
                 const specifiedEmployee = salaryList.find(e => e._id == employeeId);
-                res.render('admin_salary_add-salary', {
+                res.render('./admin/admin_salary_add-salary', {
                     user: user,
                     allEmployees: allEmployees,
                     employeeId: employeeId,
@@ -541,7 +533,7 @@ class renderMethods {
                     layout: './layouts/admin'
                 });
             } else {
-                res.render('admin_salary_add-salary', {
+                res.render('./admin/admin_salary_add-salary', {
                     user: user,
                     allEmployees: allEmployees,
                     employeeId: undefined,
@@ -561,7 +553,7 @@ class renderMethods {
         try {
             const bussinessList = await getAllBussiness();
             const user = await getCurrentUser(req);
-            res.render('admin_bussiness_bussiness-list', {
+            res.render('./admin/admin_bussiness_bussiness-list', {
                 user: user,
                 bussinessList: bussinessList,
                 layout: './layouts/admin'
@@ -574,7 +566,7 @@ class renderMethods {
         try {
             const user = await getCurrentUser(req);
             const allEmployees = await getAllEmployees();
-            res.render('admin_bussiness_add-bussiness', {
+            res.render('./admin/admin_bussiness_add-bussiness', {
                 user: user,
                 allEmployees: allEmployees,
                 isUpdating: false,
@@ -589,7 +581,7 @@ class renderMethods {
             const user = await getCurrentUser(req);
             const specifiedBussiness = await getSpecifiedObject(req.params.id, bussinessDBs);
             const allEmployees = await getAllEmployees();
-            res.render('admin_bussiness_add-bussiness', {
+            res.render('./admin/admin_bussiness_add-bussiness', {
                 user: user,
                 allEmployees: allEmployees,
                 isUpdating: true,
@@ -604,7 +596,7 @@ class renderMethods {
         try {
             const groupList = await getAllGroup();
             const user = await getCurrentUser(req);
-            res.render('admin_group_group-list', {
+            res.render('./admin/admin_group_group-list', {
                 user: user,
                 groupList: groupList,
                 layout: './layouts/admin'
@@ -618,7 +610,7 @@ class renderMethods {
             const allEmployees = await getAllEmployees();
             const allTechnique = await getAllTechnique();
             const user = await getCurrentUser(req);
-            res.render('admin_group_add-group', {
+            res.render('./admin/admin_group_add-group', {
                 user: user,
                 allEmployees: allEmployees,
                 isUpdating: false,
@@ -635,7 +627,7 @@ class renderMethods {
             const specifiedGroup = await getSpecifiedObject(req.params.id, groupDBs);
             const allTechnique = await getAllTechnique();
             const user = await getCurrentUser(req);
-            res.render('admin_group_add-group', {
+            res.render('./admin/admin_group_add-group', {
                 user: user,
                 allEmployees: allEmployees,
                 specifiedGroup: specifiedGroup,
@@ -651,7 +643,7 @@ class renderMethods {
         try {
             const specifiedGroup = await getSpecifiedObject(req.params.id, groupDBs);
             const user = await getCurrentUser(req);
-            res.render('admin_group_view-group', {
+            res.render('./admin/admin_group_view-group', {
                 user: user,
                 idInComplimentDBs: null,
                 idInDisciplineDBs: null,
@@ -668,7 +660,7 @@ class renderMethods {
             const allEmployees = await getAllEmployees();
             const specifiedGroup = await getSpecifiedObject(req.params.id, groupDBs);
             const user = await getCurrentUser(req);
-            res.render('admin_group_add-employee-into-group', {
+            res.render('./admin/admin_group_add-employee-into-group', {
                 user: user,
                 allEmployees: allEmployees,
                 specifiedGroup: specifiedGroup,
@@ -683,7 +675,7 @@ class renderMethods {
         try {
             const allCompliment_type = await getAllCompliment_type();
             const user = await getCurrentUser(req);
-            res.render('admin_compliment_compliment-type', {
+            res.render('./admin/admin_compliment_compliment-type', {
                 user: user,
                 allCompliment_type: allCompliment_type,
                 layout: './layouts/admin'
@@ -695,7 +687,7 @@ class renderMethods {
     async admin_addComplimentType(req, res) {
         try {
             const user = await getCurrentUser(req);
-            res.render('admin_compliment_add-compliment-type', {
+            res.render('./admin/admin_compliment_add-compliment-type', {
                 user: user,
                 isUpdating: false,
                 layout: './layouts/admin'
@@ -708,7 +700,7 @@ class renderMethods {
         try {
             const user = await getCurrentUser(req);
             const specifiedComplimentType = await getSpecifiedObject(req.params.id, compliment_typeDBs);
-            res.render('admin_compliment_add-compliment-type', {
+            res.render('./admin/admin_compliment_add-compliment-type', {
                 user: user,
                 isUpdating: true,
                 specifiedComplimentType: specifiedComplimentType,
@@ -722,7 +714,7 @@ class renderMethods {
         try {
             const employeeComplimentsList = await getEmployeeComplimentsList(req.params.id, employee_complimentsDBs);
             const user = await getCurrentUser(req);
-            res.render('admin_compliment_employee-compliments-list', {
+            res.render('./admin/admin_compliment_employee-compliments-list', {
                 user: user,
                 employeeComplimentsList: employeeComplimentsList,
                 layout: './layouts/admin'
@@ -739,7 +731,7 @@ class renderMethods {
             const employeeId = req.params.employeeId;
             if (employeeId != undefined) {
                 const specifiedEmployee = await getSpecifiedObject(employeeId, employee_complimentsDBs);
-                res.render('admin_compliment_add-employee-compliment', {
+                res.render('./admin/admin_compliment_add-employee-compliment', {
                     user: user,
                     isUpdating: false,
                     employeeId: employeeId,
@@ -749,7 +741,7 @@ class renderMethods {
                     layout: './layouts/admin'
                 });
             } else {
-                res.render('admin_compliment_add-employee-compliment', {
+                res.render('./admin/admin_compliment_add-employee-compliment', {
                     user: user,
                     isUpdating: false,
                     specifiedEmployee: undefined,
@@ -769,7 +761,7 @@ class renderMethods {
             const specifiedEmployee =
                 await userDBs.findOne({ employee_code: specifiedEmployeeInComplimentDBs.employee_code });
             const user = await getCurrentUser(req);
-            res.render('admin_compliment_employee-compliments-view', {
+            res.render('./admin/admin_compliment_employee-compliments-view', {
                 user: user,
                 specifiedEmployee: specifiedEmployee,
                 specifiedEmployeeInComplimentDBs: specifiedEmployeeInComplimentDBs,
@@ -788,7 +780,7 @@ class renderMethods {
             const specifiedCompliment =
                 specifiedEmployee.compliments_list.find(compliment => compliment._id.toString() == req.params.id);
 
-            res.render('admin_compliment_add-employee-compliment', {
+            res.render('./admin/admin_compliment_add-employee-compliment', {
                 user: user,
                 isUpdating: true,
                 specifiedEmployee: specifiedEmployee,
@@ -805,7 +797,7 @@ class renderMethods {
         try {
             const groupComplimentsList = await getGroupComplimentsList(req.params.id, group_complimentsDBs);
             const user = await getCurrentUser(req);
-            res.render('admin_compliment_group-compliments-list', {
+            res.render('./admin/admin_compliment_group-compliments-list', {
                 user: user,
                 groupComplimentsList: groupComplimentsList,
                 layout: './layouts/admin'
@@ -822,7 +814,7 @@ class renderMethods {
             const groupId = req.params.groupId;
             if (groupId != undefined) {
                 const specifiedGroup = await getSpecifiedObject(groupId, group_complimentsDBs);
-                res.render('admin_compliment_add-group-compliment', {
+                res.render('./admin/admin_compliment_add-group-compliment', {
                     user: user,
                     isUpdating: false,
                     specifiedGroup: specifiedGroup,
@@ -831,7 +823,7 @@ class renderMethods {
                     layout: './layouts/admin'
                 });
             } else {
-                res.render('admin_compliment_add-group-compliment', {
+                res.render('./admin/admin_compliment_add-group-compliment', {
                     user: user,
                     isUpdating: false,
                     specifiedGroup: undefined,
@@ -851,7 +843,7 @@ class renderMethods {
             const specifiedGroup =
                 await groupDBs.findOne({ group_code: specifiedGroupInComplimentDBs.group_code });
             const user = await getCurrentUser(req);
-            res.render('admin_compliment_group-compliments-view', {
+            res.render('./admin/admin_compliment_group-compliments-view', {
                 user: user,
                 specifiedGroup: specifiedGroup,
                 specifiedGroupInComplimentDBs: specifiedGroupInComplimentDBs,
@@ -866,7 +858,7 @@ class renderMethods {
             const specifiedGroup = await getSpecifiedObject(req.params.id, groupDBs);
             const idInComplimentDBs = req.params.idInComplimentDBs;
             const user = await getCurrentUser(req);
-            res.render('admin_group_view-group', {
+            res.render('./admin/admin_group_view-group', {
                 user: user,
                 idInDisciplineDBs: null,
                 idInComplimentDBs: idInComplimentDBs,
@@ -885,7 +877,7 @@ class renderMethods {
             const groupId = req.params.groupId;
             if (groupId != undefined) {
                 const specifiedGroup = await getSpecifiedObject(groupId, group_complimentsDBs);
-                res.render('admin_compliment_add-group-compliment', {
+                res.render('./admin/admin_compliment_add-group-compliment', {
                     user: user,
                     groupId: groupId,
                     isUpdating: false,
@@ -895,7 +887,7 @@ class renderMethods {
                     layout: './layouts/admin'
                 });
             } else {
-                res.render('admin_compliment_add-group-compliment', {
+                res.render('./admin/admin_compliment_add-group-compliment', {
                     user: user,
                     isUpdating: false,
                     specifiedGroup: undefined,
@@ -917,7 +909,7 @@ class renderMethods {
             const specifiedCompliment =
                 specifiedGroup.compliments_list.find(compliment => compliment._id.toString() == req.params.id);
 
-            res.render('admin_compliment_add-group-compliment', {
+            res.render('./admin/admin_compliment_add-group-compliment', {
                 user: user,
                 isUpdating: true,
                 specifiedGroup: specifiedGroup,
@@ -934,7 +926,7 @@ class renderMethods {
         try {
             const allDiscipline_type = await getAllDiscipline_type();
             const user = await getCurrentUser(req);
-            res.render('admin_discipline_discipline-type', {
+            res.render('./admin/admin_discipline_discipline-type', {
                 user: user,
                 allDiscipline_type: allDiscipline_type,
                 layout: './layouts/admin'
@@ -946,7 +938,7 @@ class renderMethods {
     async admin_addDisciplineType(req, res) {
         try {
             const user = await getCurrentUser(req);
-            res.render('admin_discipline_add-discipline-type', {
+            res.render('./admin/admin_discipline_add-discipline-type', {
                 user: user,
                 isUpdating: false,
                 layout: './layouts/admin'
@@ -959,7 +951,7 @@ class renderMethods {
         try {
             const user = await getCurrentUser(req);
             const specifiedDisciplineType = await getSpecifiedObject(req.params.id, discipline_typeDBs);
-            res.render('admin_discipline_add-discipline-type', {
+            res.render('./admin/admin_discipline_add-discipline-type', {
                 user: user,
                 isUpdating: true,
                 specifiedDisciplineType: specifiedDisciplineType,
@@ -973,7 +965,7 @@ class renderMethods {
         try {
             const employeeDisciplineList = await getEmployeeDisciplineList(req.params.id, employee_disciplineDBs);
             const user = await getCurrentUser(req);
-            res.render('admin_discipline_employee-discipline-list', {
+            res.render('./admin/admin_discipline_employee-discipline-list', {
                 user: user,
                 employeeDisciplineList: employeeDisciplineList,
                 layout: './layouts/admin'
@@ -990,7 +982,7 @@ class renderMethods {
             const employeeId = req.params.employeeId;
             if (employeeId != undefined) {
                 const specifiedEmployee = await getSpecifiedObject(employeeId, employee_disciplineDBs);
-                res.render('admin_discipline_add-employee-discipline', {
+                res.render('./admin/admin_discipline_add-employee-discipline', {
                     user: user,
                     isUpdating: false,
                     employeeId: employeeId,
@@ -1000,7 +992,7 @@ class renderMethods {
                     layout: './layouts/admin'
                 });
             } else {
-                res.render('admin_discipline_add-employee-discipline', {
+                res.render('./admin/admin_discipline_add-employee-discipline', {
                     user: user,
                     isUpdating: false,
                     specifiedEmployee: undefined,
@@ -1020,7 +1012,7 @@ class renderMethods {
             const specifiedEmployee =
                 await userDBs.findOne({ employee_code: specifiedEmployeeInDisciplineDBs.employee_code });
             const user = await getCurrentUser(req);
-            res.render('admin_discipline_employee-discipline-view', {
+            res.render('./admin/admin_discipline_employee-discipline-view', {
                 user: user,
                 specifiedEmployee: specifiedEmployee,
                 specifiedEmployeeInDisciplineDBs: specifiedEmployeeInDisciplineDBs,
@@ -1039,7 +1031,7 @@ class renderMethods {
             const specifiedDiscipline =
                 specifiedEmployee.discipline_list.find(discipline => discipline._id.toString() == req.params.id);
 
-            res.render('admin_discipline_add-employee-discipline', {
+            res.render('./admin/admin_discipline_add-employee-discipline', {
                 user: user,
                 isUpdating: true,
                 specifiedEmployee: specifiedEmployee,
@@ -1056,7 +1048,7 @@ class renderMethods {
         try {
             const groupDisciplineList = await getGroupDisciplineList(req.params.id, group_disciplineDBs);
             const user = await getCurrentUser(req);
-            res.render('admin_discipline_group-discipline-list', {
+            res.render('./admin/admin_discipline_group-discipline-list', {
                 user: user,
                 groupDisciplineList: groupDisciplineList,
                 layout: './layouts/admin'
@@ -1073,7 +1065,7 @@ class renderMethods {
             const groupId = req.params.groupId;
             if (groupId != undefined) {
                 const specifiedGroup = await getSpecifiedObject(groupId, group_disciplineDBs);
-                res.render('admin_discipline_add-group-discipline', {
+                res.render('./admin/admin_discipline_add-group-discipline', {
                     user: user,
                     isUpdating: false,
                     specifiedGroup: specifiedGroup,
@@ -1082,7 +1074,7 @@ class renderMethods {
                     layout: './layouts/admin'
                 });
             } else {
-                res.render('admin_discipline_add-group-discipline', {
+                res.render('./admin/admin_discipline_add-group-discipline', {
                     user: user,
                     isUpdating: false,
                     specifiedGroup: undefined,
@@ -1102,7 +1094,7 @@ class renderMethods {
             const specifiedGroup =
                 await groupDBs.findOne({ group_code: specifiedGroupInDisciplineDBs.group_code });
             const user = await getCurrentUser(req);
-            res.render('admin_discipline_group-discipline-view', {
+            res.render('./admin/admin_discipline_group-discipline-view', {
                 user: user,
                 specifiedGroup: specifiedGroup,
                 specifiedGroupInDisciplineDBs: specifiedGroupInDisciplineDBs,
@@ -1117,7 +1109,7 @@ class renderMethods {
             const specifiedGroup = await getSpecifiedObject(req.params.id, groupDBs);
             const idInDisciplineDBs = req.params.idInDisciplineDBs;
             const user = await getCurrentUser(req);
-            res.render('admin_group_view-group', {
+            res.render('./admin/admin_group_view-group', {
                 user: user,
                 idInComplimentDBs: null,
                 idInDisciplineDBs: idInDisciplineDBs,
@@ -1136,7 +1128,7 @@ class renderMethods {
             const groupId = req.params.groupId;
             if (groupId != undefined) {
                 const specifiedGroup = await getSpecifiedObject(groupId, group_disciplineDBs);
-                res.render('admin_discipline_add-group-discipline', {
+                res.render('./admin/admin_discipline_add-group-discipline', {
                     user: user,
                     groupId: groupId,
                     isUpdating: false,
@@ -1146,7 +1138,7 @@ class renderMethods {
                     layout: './layouts/admin'
                 });
             } else {
-                res.render('admin_discipline_add-group-discipline', {
+                res.render('./admin/admin_discipline_add-group-discipline', {
                     user: user,
                     isUpdating: false,
                     specifiedGroup: undefined,
@@ -1168,7 +1160,7 @@ class renderMethods {
             const specifiedDiscipline =
                 specifiedGroup.discipline_list.find(discipline => discipline._id.toString() == req.params.id);
 
-            res.render('admin_discipline_add-group-discipline', {
+            res.render('./admin/admin_discipline_add-group-discipline', {
                 user: user,
                 isUpdating: true,
                 specifiedGroup: specifiedGroup,
@@ -1185,7 +1177,7 @@ class renderMethods {
         try {
             const user = await getCurrentUser(req);
             const insuranceList = await getAllInsurance();
-            res.render('admin_insurance_insurance-list', {
+            res.render('./admin/admin_insurance_insurance-list', {
                 user: user,
                 insuranceList: insuranceList,
                 layout: './layouts/admin'
@@ -1198,7 +1190,7 @@ class renderMethods {
         try {
             const user = await getCurrentUser(req);
             const allEmployees = await getAllEmployees();
-            res.render('admin_insurance_add-insurance', {
+            res.render('./admin/admin_insurance_add-insurance', {
                 user: user,
                 allEmployees: allEmployees,
                 isUpdating: false,
@@ -1213,7 +1205,7 @@ class renderMethods {
             const user = await getCurrentUser(req);
             const allEmployees = await getAllEmployees();
             const specifiedInsurance = await getSpecifiedObject(req.params.id, insuranceDBs);
-            res.render('admin_insurance_add-insurance', {
+            res.render('./admin/admin_insurance_add-insurance', {
                 user: user,
                 allEmployees: allEmployees,
                 isUpdating: true,
@@ -1229,7 +1221,7 @@ class renderMethods {
             const specifiedInsurance = await getSpecifiedObject(req.params.id, insuranceDBs);
             const specifiedEmployee = await userDBs.findOne({ employee_code: specifiedInsurance.employee_code });
             const user = await getCurrentUser(req);
-            res.render('admin_insurance_view-insurance', {
+            res.render('./admin/admin_insurance_view-insurance', {
                 user: user,
                 specifiedEmployee: specifiedEmployee,
                 specifiedInsurance: specifiedInsurance,
@@ -1243,7 +1235,7 @@ class renderMethods {
         try {
             const specifiedEmployee = await getSpecifiedObject(req.params.id, userDBs);
             const user = await getCurrentUser(req);
-            res.render('admin_employee_view', {
+            res.render('./admin/admin_employee_view', {
                 user: user,
                 isFromInsurance: true,
                 isFromContract: false,
@@ -1259,7 +1251,7 @@ class renderMethods {
         try {
             const user = await getCurrentUser(req);
             const allContractType = await getAllContractType();
-            res.render('admin_contract_contract-type', {
+            res.render('./admin/admin_contract_contract-type', {
                 user: user,
                 allContractType: allContractType,
                 layout: './layouts/admin'
@@ -1271,7 +1263,7 @@ class renderMethods {
     async admin_addContractType(req, res) {
         try {
             const user = await getCurrentUser(req);
-            res.render('admin_contract_add-contract-type', {
+            res.render('./admin/admin_contract_add-contract-type', {
                 user: user,
                 isUpdating: false,
                 layout: './layouts/admin'
@@ -1284,7 +1276,7 @@ class renderMethods {
         try {
             const user = await getCurrentUser(req);
             const specifiedContractType = await getSpecifiedObject(req.params.id, contract_typeDBs);
-            res.render('admin_contract_add-contract-type', {
+            res.render('./admin/admin_contract_add-contract-type', {
                 user: user,
                 isUpdating: true,
                 specifiedContractType: specifiedContractType,
@@ -1298,7 +1290,7 @@ class renderMethods {
         try {
             const contractList = await getAllContract();
             const user = await getCurrentUser(req);
-            res.render('admin_contract_contract-list', {
+            res.render('./admin/admin_contract_contract-list', {
                 user: user,
                 contractList: contractList,
                 layout: './layouts/admin'
@@ -1316,7 +1308,7 @@ class renderMethods {
             const employeeTypeList = await getAllEmployeeType();
             const positionList = await getAllPosition();
             const allContractType = await getAllContractType();
-            res.render('admin_contract_add-contract', {
+            res.render('./admin/admin_contract_add-contract', {
                 user: user,
                 isUpdating: false,
                 allEmployees: allEmployees,
@@ -1341,7 +1333,7 @@ class renderMethods {
             const employeeTypeList = await getAllEmployeeType();
             const allContractType = await getAllContractType();
             const specifiedContract = await getSpecifiedObject(req.params.id, contractDBs);
-            res.render('admin_contract_add-contract', {
+            res.render('./admin/admin_contract_add-contract', {
                 user: user,
                 isUpdating: true,
                 specifiedContract: specifiedContract,
@@ -1362,7 +1354,7 @@ class renderMethods {
             const specifiedContract = await getSpecifiedObject(req.params.id, contractDBs);
             const specifiedEmployee = await userDBs.findOne({ employee_code: specifiedContract.employee_code });
             const user = await getCurrentUser(req);
-            res.render('admin_contract_view-contract', {
+            res.render('./admin/admin_contract_view-contract', {
                 user: user,
                 specifiedContract: specifiedContract,
                 specifiedEmployee: specifiedEmployee,
@@ -1376,7 +1368,7 @@ class renderMethods {
         try {
             const specifiedEmployee = await getSpecifiedObject(req.params.id, userDBs);
             const user = await getCurrentUser(req);
-            res.render('admin_employee_view', {
+            res.render('./admin/admin_employee_view', {
                 user: user,
                 isFromInsurance: false,
                 isFromContract: true,
@@ -1388,11 +1380,11 @@ class renderMethods {
             clearCookiesAndReturnLogin(res);
         }
     }
-    async sendingMail(req, res) {
+    async employee_general(req, res) {
         const user = await getCurrentUser(req);
-        res.render('sending-mail', {
+        res.render('./employee/employee_general', {
             user: user,
-            layout: './layouts/admin'
+            layout: './layouts/employee'
         });
     }
 }

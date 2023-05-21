@@ -6,7 +6,7 @@ const currentURL = window.location.href.slice();
         $("button#submit").onclick = async (e) => {
             e.preventDefault();
             if (confirm("Bạn chắc chắn muốn gửi báo cáo này chứ!")) {
-                fetch("/test-sending-report-email", {
+                fetch("/sending-report-email", {
                     method: "POST",
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
