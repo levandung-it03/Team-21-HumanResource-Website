@@ -29,8 +29,8 @@ const employee_typeDBs = client.db('company').collection('employee_type');
 const usersMethods = require('./users.methods');
 const authMethods = require('../auth/auth.methods');
 const { UserDb, Salary, Position, Degree, Department, Employee_type, Technique, Bussiness, Group,
-Compliment_type, Employee_compliments, Group_compliments, Discipline_type, Employee_discipline,
-Group_discipline, Contract_type, Contract, Insurance } = require('./users.model');
+    Compliment_type, Employee_compliments, Group_compliments, Discipline_type, Employee_discipline,
+    Group_discipline, Contract_type, Contract, Insurance } = require('./users.model');
 
 function showErrMes(res, err) {
     res.status(500).send({ err_mes: err.message });
@@ -128,7 +128,11 @@ exports.login = async (req, res) => {
     let refreshToken = authMethods.generateRefreshToken({ id: id, admin: user.admin });
 
     if (!user.refreshToken) {
-        await userDBs.updateOne({ "account.email": email }, { "$set": { "tokens.refreshToken": refreshToken } });
+        await userDBs.updateOne(
+            { "account.email": email },
+            {
+                "$set": { "tokens.refreshToken": refreshToken }
+            });
     } else {
         refreshToken = user.refreshToken;
     }
@@ -192,10 +196,10 @@ exports.password = async (req, res) => {
 exports.logout = async (req, res) => {
     if (req.body.isLogout) {
         res.clearCookie('accessToken')
-        .clearCookie('refreshToken')
-        .clearCookie('id')
-        .clearCookie('admin')
-        .end();
+            .clearCookie('refreshToken')
+            .clearCookie('id')
+            .clearCookie('admin')
+            .end();
     }
 }
 
@@ -227,21 +231,25 @@ exports.updateEmployee = async (req, res) => {
                 );
                 await groupDBs.updateOne(
                     { "employee_list.employee_code": user.employee_code },
-                    { "$set": {
+                    {
+                        "$set": {
                             "employee_list.$.employee_code": user.employee_code,
                             "employee_list.$.department": req.body.department,
                             "employee_list.$.name": req.body.name,
                             "employee_list.$.position": req.body.position,
-                    }   }
+                        }
+                    }
                 );
                 await salaryDBs.updateOne(
                     { employee_code: user.employee_code },
-                    { "$set": {
-                        employee_code: user.employee_code,
-                        department: req.body.department,
-                        name: req.body.name,
-                        position: req.body.position,
-                    }   }
+                    {
+                        "$set": {
+                            employee_code: user.employee_code,
+                            department: req.body.department,
+                            name: req.body.name,
+                            position: req.body.position,
+                        }
+                    }
                 );
                 sharp(req.file.path)
                     .resize({ height: 350 })
@@ -251,7 +259,7 @@ exports.updateEmployee = async (req, res) => {
                                 if (!err) {
                                     await userDBs.updateOne({ _id: new ObjectId(id) }, { "$set": { avatar_url: result.url } });
                                     await groupDBs.updateOne({ "employee_list.employee_code": user.employee_code },
-                                    {"$set": {"employee_list.$.avatar_url": {avatar_url: result.url} }});
+                                        { "$set": { "employee_list.$.avatar_url": { avatar_url: result.url } } });
                                     cloudinary.uploader.destroy(public_id);
                                     res.redirect('/admin/category/employee/employee-list');
                                 }
@@ -544,12 +552,32 @@ exports.addSalary = async (req, res) => {
         + Number.parseInt(req.body.bonusSalary)
         - Number.parseInt(req.body.advanceSalary)) * (negotiableRatio / 100);
 
-    const tax_type = contractOfEmployee.tax_type;
+    const tax_type = contractOfEmployee.tax_type.toUpperCase().trim();
+    let result = 0;
 
-    res.end();
+    if (tax_type == "THUẾ LUỸ TIẾN") {
+        let discount = {
+            default: 11000000,
+            dependentMembers: 0
+        };
+        let remainingSalary = (realSalary - discount.default) / 1000000 + discount.dependentMembers*4.4;
+        let negotiableTax = 0;
+
+        if (remainingSalary <= 5) negotiableTax = 0.05;
+        else if (5 < remainingSalary <= 10) negotiableTax = 0.1;
+        else if (10 < remainingSalary <= 18) negotiableTax = 0.15;
+        else if (18 < remainingSalary <= 32) negotiableTax = 0.2;
+        else if (32 < remainingSalary <= 52) negotiableTax = 0.25;
+        else if (52 < remainingSalary <= 80) negotiableTax = 0.3;
+        else negotiableTax = 0.35;
+
+        result = remainingSalary * 1000000 * (1 - negotiableTax) + discount.default;
+    }
+    else if (tax_type == "THUẾ 10%")        result = realSalary * 0.9;
+    else if (tax_type == "KHÔNG ĐÓNG THUẾ") result = realSalary;
+    else if (tax_type == "THUẾ 20%")        result = realSalary * 0.8;
 
     let filter = { employee_code: employee_code };
-
     let update = {
         "$set": {
             employee_code: employee_code,
@@ -565,10 +593,11 @@ exports.addSalary = async (req, res) => {
                 allowance: req.body.allowance,
                 advanceSalary: req.body.advanceSalary,
                 bonusSalary: req.body.bonusSalary,
-                realSalary: realSalary,
+                realSalary: result,
             }
         }
     }
+
     await Salary.findOneAndUpdate(filter, update, {
         new: true,
         upsert: true
@@ -723,21 +752,21 @@ exports.updateGroup = async (req, res) => {
     for (let index in employee_list) {
         if (employee_list[index].employee_code == employee_code) {
             notFoundEmloyeeInGroup = false;
-            if (employee_list[index].roles == "Trưởng nhóm")    newEmployee_list.push(employee_list[index]);
+            if (employee_list[index].roles == "Trưởng nhóm") newEmployee_list.push(employee_list[index]);
             else {
                 employee_list[index].roles = "Trưởng nhóm";
                 newEmployee_list.push(employee_list[index]);
             }
         } else {
-            if (employee_list[index].roles == "Trưởng nhóm")    oldLeaderIndex = index;
+            if (employee_list[index].roles == "Trưởng nhóm") oldLeaderIndex = index;
             newEmployee_list.push(employee_list[index]);
-            if (oldLeaderIndex != null)   newEmployee_list[oldLeaderIndex].roles = "Thành viên";
+            if (oldLeaderIndex != null) newEmployee_list[oldLeaderIndex].roles = "Thành viên";
         }
     }
 
     if (notFoundEmloyeeInGroup) {
         newEmployee_list.map(object => {
-            if (object.roles == "Trưởng nhóm")  object.roles = "Thành viên";
+            if (object.roles == "Trưởng nhóm") object.roles = "Thành viên";
             return object;
         })
         newEmployee_list.unshift({
@@ -766,7 +795,7 @@ exports.updateGroup = async (req, res) => {
         })
         .catch(err => {
             res.redirect('/admin/category/group/update-group/' + req.params.id
-            + '?error=' + encodeURIComponent(`error_${Object.keys(err.keyValue)[0]}`) + prevData);
+                + '?error=' + encodeURIComponent(`error_${Object.keys(err.keyValue)[0]}`) + prevData);
         })
 }
 
@@ -911,12 +940,12 @@ exports.addEmployeeCompliment = async (req, res) => {
             }
         }
     }
-    
+
     const existCompliment =
-    await employee_complimentsDBs.findOne({
-        employee_code: employee_code,
-        compliments_list: {"$elemMatch": {compliment_type: compliment_type, dateCreated: dateCreated,}}
-    });
+        await employee_complimentsDBs.findOne({
+            employee_code: employee_code,
+            compliments_list: { "$elemMatch": { compliment_type: compliment_type, dateCreated: dateCreated, } }
+        });
     if (existCompliment) {
         res.redirect('/admin/category/compliment/add-employee-compliment?error=compliment_code' + prevData);
     } else {
@@ -965,7 +994,7 @@ exports.updateEmployeeCompliment = async (req, res) => {
             "compliments_list.$.dateCreated": dateCreated,
         }
     }
-    
+
     await Employee_compliments.findOneAndUpdate(filter, update)
         .then(data => {
             res.redirect('/admin/category/compliment/view-employee-compliments/' + data._id.toString());
@@ -1025,12 +1054,12 @@ exports.addGroupCompliment = async (req, res) => {
             }
         }
     }
-    
+
     const existCompliment =
-    await group_complimentsDBs.findOne({
-        group_code: group_code,
-        compliments_list: {"$elemMatch": {compliment_type: compliment_type, dateCreated: dateCreated,}}
-    });
+        await group_complimentsDBs.findOne({
+            group_code: group_code,
+            compliments_list: { "$elemMatch": { compliment_type: compliment_type, dateCreated: dateCreated, } }
+        });
     if (existCompliment) {
         res.redirect('/admin/category/compliment/add-group-compliment?error=compliment_code' + prevData);
     } else {
@@ -1068,7 +1097,7 @@ exports.updateGroupCompliment = async (req, res) => {
             "compliments_list.$.dateCreated": dateCreated,
         }
     }
-    
+
     await Group_compliments.findOneAndUpdate(filter, update)
         .then(data => {
             res.redirect('/admin/category/compliment/view-group-compliments/' + data._id.toString());
@@ -1091,7 +1120,7 @@ exports.deleteComplimentOfGroup = async (req, res) => {
                 return object;
             }
         }) || [];
-        
+
         await group_complimentsDBs.updateOne(
             { _id: new ObjectId(groupId) },
             { "$set": { compliments_list: newCompliments_list } }
@@ -1233,7 +1262,7 @@ exports.updateEmployeeDiscipline = async (req, res) => {
             "discipline_list.$.dateCreated": dateCreated,
         }
     }
-    
+
     await Employee_discipline.findOneAndUpdate(filter, update)
         .then(data => {
             res.redirect('/admin/category/discipline/view-employee-discipline/' + data._id.toString());
@@ -1293,7 +1322,7 @@ exports.addGroupDiscipline = async (req, res) => {
             }
         }
     }
-    
+
     await Group_discipline.findOneAndUpdate(filter, update, {
         new: true,
         upsert: true
@@ -1327,7 +1356,7 @@ exports.updateGroupDiscipline = async (req, res) => {
             "discipline_list.$.dateCreated": dateCreated,
         }
     }
-    
+
     await Group_discipline.findOneAndUpdate(filter, update)
         .then(data => {
             res.redirect('/admin/category/discipline/view-group-discipline/' + data._id.toString());
@@ -1350,7 +1379,7 @@ exports.deleteDisciplineOfGroup = async (req, res) => {
                 return object;
             }
         }) || [];
-        
+
         await group_disciplineDBs.updateOne(
             { _id: new ObjectId(groupId) },
             { "$set": { discipline_list: newDiscipline_list } }
@@ -1380,7 +1409,7 @@ exports.addInsurance = async (req, res) => {
 
     delete inputData.employee;
     const remaindingData = {
-        employee_code:  splitedArray[0],
+        employee_code: splitedArray[0],
         name: splitedArray[1],
         insurance_code: usersMethods.getRandomInsuranceCode(),
         dateCreated: usersMethods.getNowDate()
@@ -1443,7 +1472,7 @@ exports.addContractType = async (req, res) => {
         .then(data => {
             res.status(200).redirect('/admin/category/contract/contract-type');
         })
-        .catch(err => { 
+        .catch(err => {
             res.redirect('/admin/category/contract/add-contract-type?error=' + encodeURIComponent(`error_${Object.keys(err.keyValue)[0]}`) + prevData);
         })
 }
@@ -1480,7 +1509,7 @@ exports.addContract = async (req, res) => {
     const inputData = req.body;
     const prevData = usersMethods.createErrorString(req.body);
     const employeeData = inputData.employee.split("-");
-    
+
     const remainingEmployeeData = {
         contract_code: usersMethods.getRandomContractCode(),
         employee_code: employeeData.shift(),
@@ -1527,37 +1556,48 @@ exports.updateContract = async (req, res) => {
 }
 
 exports.reportApplication = async (req, res) => {
-    console.log(req.body);
-    res.status(200)
-        .json(req.body)
-        .end();
-    // const admin = await userDBs.findOne({ admin: 1 });
-    // const adminEmail = admin.account.email;
-    // const sendingMailOptions = {
-    //     body: admin.account,
-    //     subject: "Reporting HR Management Website",
-    //     html: `<div>
-    //             <sytle>
-    //                 p {
-    //                     font-size: 18px;
-    //                 }
-    //             </sytle>
-    //             <h2>Mã nhân viên: <b>${req.params.employee_code}</b></h2>
-    //             <p>Nội dung: <b>${req.params.details}</b></p>
-    //         </div>`,
-    //     flexibleOptions: {
-    //         type: null,
-    //     }
-    // }
-    // await usersMethods.sendingMail(sendingMailOptions)
-    //     .then(result => {
-    //         res.status(200).send({ result: result });
-    //     })
-    //     .catch(err => {
-    //         res.status(500).send({ err_mess: err.message });
-    //     })
+    const admin = await userDBs.findOne({ admin: 1 });
+    const sendingMailOptions = {
+        body: admin.account,
+        subject: "Reporting HR Management Website",
+        html: `<div>
+                <p style="font-size:15px"><b>Tên nhân viên</b>: <i>${req.body.name}</i></p>
+                <p style="font-size:15px"><b>Email</b>: <i>${req.body.email}</i></p>
+                <p style="font-size: 14px;"><b>Nội dung</b>: ${req.body.details}</p>
+            </div>`,
+        flexibleOptions: {
+            type: null,
+        }
+    };
+    await usersMethods.sendingMail(sendingMailOptions)
+        .then(result => {
+            res.status(200).send({ result: result });
+        })
+        .catch(err => {
+            res.status(500).send({ err_mess: err.message });
+        })
 }
 
 exports.changePassword = async (req, res) => {
-    res.send(req.body);
+    await client.connect();
+    const prevData = usersMethods.createErrorString(req.body);
+    await userDBs.findOne({ "account.email": req.body.email })
+        .then(async (userFound) => {
+            const isMatchedPassword = bcrypt.compareSync(req.body["old-password"], userFound.account.password);
+            if (isMatchedPassword) {
+                await userDBs.updateOne(
+                    { "account.email": req.body.email },
+                    {
+                        "$set": {
+                            "account.password": usersMethods.getHasedPassword(req.body["new-password"])
+                        }
+                    }
+                )
+                    .then(result => res.redirect('/change-password?successfully=true'))
+                    .catch(err => res.status(500).send({ err_message: err.message }))
+            } else {
+                res.redirect('/change-password?error=' + encodeURIComponent(`error_old-password`) + prevData)
+            }
+        })
+
 }

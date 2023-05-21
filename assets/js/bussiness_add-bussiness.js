@@ -78,7 +78,7 @@ const mainData = [...$$("tr.body")];
     const urlParams = new URLSearchParams(window.location.search);
     const myParam = urlParams.get('error');
     if (myParam) {
-        alert('Nhân viên này đã tồn tại một chuyên môn khác!');
+        alert('Nhân viên này đã tồn tại một công tác khác!');
         (async function handleRedirect() {
             const dataMessages = myParam.split('?');
             const data = dataMessages.map((e) => {
