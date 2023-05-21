@@ -38,20 +38,26 @@ const mainData = [...$$("tr.body")];
     })();
 
     (function searchingEvent() {
-        $('div#turn-back-btn').onclick = (e) => {
+        $('div#heading #turn-back-btn').onclick = (e) => {
             $('tbody').innerHTML = mainData.reduce((accuTagsStr, tag) => (accuTagsStr + tag.outerHTML), "");
-            $('div#turn-back-btn').style.display = "none";
-            $('div#search').style.display = "block";
+            $('div#heading #turn-back-btn').style.display = "none";
+            $('div#heading #search').style.display = "block";
         }
         $('div#search i').onclick = (e) => {
             const inputTag = $('div#search input');
             generalMethods.searchingMethod(inputTag);
+            $('div#heading #turn-back-btn').style.display = "inline-block";
+            $('div#heading #search').style.display = "none";
+
             deleteComplimentOfGroup();
         }
         $('div#search input').onkeyup = (e) => {
             if (e.which == 13) {
                 const inputTag = e.target;
                 generalMethods.searchingMethod(inputTag);
+                $('div#heading #turn-back-btn').style.display = "inline-block";
+                $('div#heading #search').style.display = "none";
+
                 deleteComplimentOfGroup();
             }
         }

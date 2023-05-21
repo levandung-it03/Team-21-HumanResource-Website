@@ -1,0 +1,129 @@
+#info-container #title {
+    position: relative;
+}
+#info-container #title::after {
+    display: block;
+    content: "";
+    position: absolute;
+    top: 68px;
+    width: 98%;
+    margin-left: 12px;
+    border-top: solid 1px rgb(94, 94, 255);
+    padding-bottom: 8px;
+}
+#info-container #title span {
+    font-size: 2.2rem;
+    display: block;
+    padding-left: 20px;
+    padding-top: 10px;
+}
+#info-container {
+    border-radius: 8px;
+    background-color: white;
+    margin: 10px;
+    box-shadow: var(--black-box-shadow);
+}
+#info-container ul {
+    display: block;
+    padding: 20px 50px;
+    font-size: 1.2rem;
+    list-style-type: disc;
+}
+#salary {
+    background-color: white;
+    padding: 12px 0;
+    margin: 12px;
+    margin-top: 32px;
+    box-shadow: var(--black-box-shadow);
+    border-radius: 8px;
+}
+#salary #add-btn {
+    float: right;
+    margin-right: 12px;
+    margin-top: 4px;
+}
+#salary #heading {
+    position: relative; 
+    margin-bottom: 16px;
+}
+#salary #heading::after {
+    display: block;
+    content: "";
+    position: absolute;
+    top: 62px;
+    width: 98%;
+    margin-left: 12px;
+    border-top: solid 1px rgb(94, 94, 255);
+    padding-bottom: 8px;
+}
+#salary #heading #title {
+    display: inline-block;
+    padding-left: 20px;
+}
+table {
+    border-collapse: collapse;
+}
+th, td {
+    border: solid 1px var(--smoking-grey);
+}
+#salary #add-btn {
+    float: right;
+    margin-right: 12px;
+    margin-top: 4px;
+}
+#salary #title {
+    display: inline-block;
+}
+#salary #title span {
+    font-size: 2.4rem;
+    padding: 10px;
+}
+#salary table {
+    margin: 0 12px;
+    background-color: white;
+    border: solid 1px transparent;
+    border-radius: var(--form-border-radius);
+    padding: 0 12px;
+    font-size: 0.95rem;
+}
+#salary .table_title {
+    text-align: left;
+}
+#salary .table_title th i {
+    width: 20px;
+    font-size: 0.7rem;
+    float: right;
+    line-height: 24px;
+    cursor: pointer;
+}
+#salary .table_title th {
+    padding: 6px;
+    text-align: center;
+}
+#salary .table_title th#ordinal {
+    width: 5%;
+}
+#salary .table_title th#dateCreated {
+    width: 8%;
+}
+#salary .table_title th#totalDays {
+    width: 11%;
+}
+#salary .table_title th#dayOff {
+    width: 14%;
+}
+#salary .table_title th#allowance {
+    width: 10%;
+}
+#salary .table_title th#bonusSalary {
+    width: 13%;
+}
+#salary .table_title th#advanceSalary {
+    width: 13%;
+}
+#salary .table_title th#realSalary {
+    width: 10%;
+}
+#salary tr.body td {
+    text-align: center;
+}

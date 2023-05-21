@@ -129,18 +129,16 @@ th, td {
     width: 5%;
 }
 #employee-salary-list .table_title th#dateCreated {
-    width: 13%;
+    width: 17%;
+}
+#employee-salary-list .table_title th#realSalary {
+    width: 14%;
 }
 #employee-salary-list .table_title th#delete-salary {
     width: 6%;
 }
 #employee-salary-list tr.body td {
     text-align: center;
-}
-#employee-salary-list tr.body td#compliment,
-#employee-salary-list tr.body td#compliment_type,
-#employee-salary-list tr.body td#description {
-    padding: 8px;
 }
 #employee-salary-list tr.body .update-salary {
     padding: 12px;

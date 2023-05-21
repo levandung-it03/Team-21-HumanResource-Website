@@ -1387,6 +1387,61 @@ class renderMethods {
             layout: './layouts/employee'
         });
     }
+    async employee_salary(req, res) {
+        const user = await getCurrentUser(req);
+        const salary = await salaryDBs.findOne({ employee_code: user.employee_code });
+        const degree = await degreeDBs.findOne({ degree: user.degree });
+        const department = await departmentDBs.findOne({ department: user.department });
+        const position = await positionDBs.findOne({ position: user.position });
+        const employee_type = await employee_typeDBs.findOne({ employee_type: user.employee_type });
+        let salaryList = 0;
+        if (salary) {
+            salaryList = salary.salaryList.sort((object_1, object_2) => {
+                const data_1 = Date.parse(object_1.dateCreated);
+                const data_2 = Date.parse(object_2.dateCreated);
+    
+                if (data_1 > data_2) return 1;
+                if (data_1 < data_2) return -1;
+                return 0;
+            });
+        }
+        res.render('./employee/employee_salary', {
+            user: user,
+            degree: degree,
+            department: department,
+            position: position,
+            employee_type: employee_type,
+            salary: salary,
+            salaryList: salaryList,
+            layout: './layouts/employee'
+        });
+    }
+    async employee_contract(req, res) {
+        try {
+            const user = await getCurrentUser(req);
+            const specifiedContract = await contractDBs.findOne({ employee_code: user.employee_code });
+            res.render('./employee/employee_contract', {
+                user: user,
+                specifiedContract: specifiedContract,
+                layout: './layouts/employee'
+            });
+        } catch (err) {
+            clearCookiesAndReturnLogin(res);
+        }
+    }
+    async employee_insurance(req, res) {
+        try {
+            const user = await getCurrentUser(req);
+            const specifiedInsurance = await insuranceDBs.findOne({ employee_code: user.employee_code });
+            res.render('./employee/employee_insurance', {
+                user: user,
+                specifiedInsurance: specifiedInsurance,
+                layout: './layouts/employee'
+            });
+        } catch (err) {
+            clearCookiesAndReturnLogin(res);
+        }
+    }
 }
 
 module.exports = new renderMethods;

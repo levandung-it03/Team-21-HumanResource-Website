@@ -753,9 +753,21 @@ route.get('/employee/general',
     authMiddlewares.verifyTokenAndGenerateAccessTokenIfExpiring,
     authMiddlewares.verifyEmployee,
     renderMethods.employee_general);
-/** @DELETE_METHODS__________________________ */
 
-/** @POST_METHODS__________________________ */
+route.get('/employee/salary',
+    authMiddlewares.verifyTokenAndGenerateAccessTokenIfExpiring,
+    authMiddlewares.verifyEmployee,
+    renderMethods.employee_salary);
+
+route.get('/employee/contract',
+    authMiddlewares.verifyTokenAndGenerateAccessTokenIfExpiring,
+    authMiddlewares.verifyEmployee,
+    renderMethods.employee_contract);
+
+route.get('/employee/insurance',
+    authMiddlewares.verifyTokenAndGenerateAccessTokenIfExpiring,
+    authMiddlewares.verifyEmployee,
+    renderMethods.employee_insurance);
 
 /**@_______________________________________________________________________________________________ */
 module.exports = route;

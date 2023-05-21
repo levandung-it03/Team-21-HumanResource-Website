@@ -41,12 +41,16 @@ const mainData = [...$$("tr.body")];
         $('div#search i').onclick = (e) => {
             const inputTag = $('div#search input');
             generalMethods.searchingMethod(inputTag);
+            $('div#turn-back-btn').style.display = "inline-block";
+            $('div#search').style.display = "none";
             deleteCompliment_type();
         }
         $('div#search input').onkeyup = (e) => {
             if (e.which == 13) {
                 const inputTag = e.target;
                 generalMethods.searchingMethod(inputTag);
+            $('div#turn-back-btn').style.display = "inline-block";
+            $('div#search').style.display = "none";
                 deleteCompliment_type();
             }
         }

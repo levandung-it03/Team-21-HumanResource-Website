@@ -103,7 +103,5 @@ const generalMethods = {
         } else {
             $('tbody').innerHTML = result.map(tag => tag.outerHTML).join("");
         }
-        $('div#turn-back-btn').style.display = "inline-block";
-        $('div#search').style.display = "none";
     }
 }

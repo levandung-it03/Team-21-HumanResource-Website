@@ -1,0 +1,115 @@
+<link rel="stylesheet" href="/css/employee-page_salary.css">
+<% if (!salary) { %>
+    <span style="display: block;font-size: 2.4rem;padding: 40px">
+        Bạn chưa được chấm lương!
+    </span>
+<% } else { %>
+    <div id="info-container">
+        <div id="title">
+            <span>Thông tin cá nhân</span>
+        </div>
+        <ul id="container">
+            <li class="items" id="employee_code">
+                Mã nhân viên: <%= salary.employee_code %>
+            </li>
+            <li class="items" id="name">
+                Tên nhân viên: <b><%= salary.name %></b>
+            </li>
+            <li class="items" id="position">
+                Vị trí: <%= position.position %> <b>--</b> Lương: <b><%= position.salary_per_day %>VNĐ/ngày</b>.
+            </li>
+            <li class="items" id="degree">
+                Loại bằng cấp: <%= degree.degree %> <b>--</b> Tỷ lệ lương: x<%= degree.multipleSalary %> lần_lương.
+            </li>
+            <li class="items" id="employee_type">
+                Loại nhân viên: <%= employee_type.employee_type %> <b>--</b> Tỷ lệ lương: x<%= employee_type.multipleSalary %> lần_lương.
+            </li>
+            <li class="items" id="department">
+                Loại phòng ban: <%= department.department %> <b>--</b> Tỷ lệ lương: x<%= department.multipleSalary %> lần_lương.
+            </li>
+        </ul>
+    </div>
+    <div id="salary">
+        <div id="heading">
+            <div class="hide" id="turn-back-btn">
+                <a><i class="fa-solid fa-arrow-left-long"></i> Thoát</a>
+            </div>
+            <div id="title">
+                <span>Lương của bạn</span>
+            </div>
+            <div id="search">
+                <input class="search" type="text" placeholder="Tìm kiếm">
+                <i class="fa-solid fa-magnifying-glass"></i>
+            </div>
+        </div>
+        <table>
+            <thead>
+                <tr class="table_title">
+                    <th id="ordinal">
+                        <span class="title_name">STT</span>
+                        <i class="fa-solid fa-arrow-down-short-wide" id="ordinal"></i>
+                    </th>
+                    <th id="dateCreated">
+                        <span class="title_name">Ngày tạo</span>
+                        <i class="fa-solid fa-arrow-down-short-wide" id="dateCreated"></i>
+                    </th>
+                    <th id="totalDays">
+                        <span class="title_name">Ngày đi làm thực</span>
+                        <i class="fa-solid fa-arrow-down-short-wide" id="totalDays"></i>
+                    </th>
+                    <th id="dayOff">
+                        <span class="title_name">Ngày nghỉ không phép</span>
+                        <i class="fa-solid fa-arrow-down-short-wide" id="dayOff"></i>
+                    </th>
+                    <th id="allowance">
+                        <span class="title_name">Trợ cấp (VNĐ)</span>
+                        <i class="fa-solid fa-arrow-down-short-wide" id="allowance"></i>
+                    </th>
+                    <th id="bonusSalary">
+                        <span class="title_name">Lương thưởng (VNĐ)</span>
+                        <i class="fa-solid fa-arrow-down-short-wide" id="bonusSalary"></i>
+                    </th>
+                    <th id="advanceSalary">
+                        <span class="title_name">Lương ứng trước (VNĐ)</span>
+                        <i class="fa-solid fa-arrow-down-short-wide" id="advanceSalary"></i>
+                    </th>
+                    <th id="realSalary">
+                        <span class="title_name">Thực lãnh (VNĐ)</span>
+                        <i class="fa-solid fa-arrow-down-short-wide" id="realSalary"></i>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <% for (var i=0; i < salaryList.length; i++) { %>
+                    <tr class="body" id=<%=i+1 %>>
+                        <td id="ordinal">
+                            <%= (i + 1) %>
+                        </td>
+                        <td class="body_enable-searching body_enable-sorting" id="dateCreated">
+                            <%= salaryList[i].dateCreated %>
+                        </td>
+                        <td class="body_enable-searching body_enable-sorting" id="totalDays">
+                            <%= salaryList[i].totalDays %>
+                        </td>
+                        <td class="body_enable-searching body_enable-sorting" id="dayOff">
+                            <%= salaryList[i].dayOff %>
+                        </td>
+                        <td class="body_enable-searching body_enable-sorting vn_currency" id="allowance">
+                            <%= salaryList[i].allowance %>
+                        </td>
+                        <td class="body_enable-searching body_enable-sorting vn_currency" id="bonusSalary">
+                            <%= salaryList[i].bonusSalary %>
+                        </td>
+                        <td class="body_enable-searching body_enable-sorting vn_currency" id="advanceSalary">
+                            <%= salaryList[i].advanceSalary %>
+                        </td>
+                        <td class="body_enable-searching body_enable-sorting vn_currency" id="realSalary">
+                            <%= salaryList[i].realSalary %>
+                        </td>
+                    </tr>
+                <% } %>
+            </tbody>
+        </table>
+    </div>
+<% } %>
+<script src="/js/employee-page_salary.js"></script>

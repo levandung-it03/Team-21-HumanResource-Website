@@ -5,14 +5,10 @@
 #view-insurance {
     position: relative;
 }
-#view-insurance #title {
-    position: absolute;
-    top: 0;
-    left: 116px;
-}
 #view-insurance #title span {
     font-size: 2.4rem;
     display: block;
+    padding-left: 20px;
 }
 #view-insurance #main_turn-back-btn a:hover {
     background-color: rgb(109, 109, 255);
@@ -55,9 +51,4 @@
     display: block;
     width: 100%;
     font-size: 1rem;
-}
-#add-btn {
-    float: right;
-    padding-top: 4px;
-    padding-right: 20px;
 }

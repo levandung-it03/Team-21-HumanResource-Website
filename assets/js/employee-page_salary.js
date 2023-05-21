@@ -1,28 +1,5 @@
-let submitFormCancellation = false;
-
 const mainData = [...$$("tr.body")];
 (function main() {
-    function deleteEmployeeIntoGroup() {
-        $$('td.delete-employee-inside-group a').forEach((tag) => {
-            tag.onclick = async (e) => {
-                const currentUrl = window.location.href;
-                const groupId = currentUrl.split("/")[currentUrl.split("/").length - 1];
-                if (confirm('Bạn chắc chắn muốn xoá nhân viên này chứ? Dữ liệu đã xoá không thể khôi phục!')) {
-                    const id = tag.getAttribute('employee_id');
-                    await fetch(`/api/admin/delete-employee-inside-group/${groupId}/${id}`, {
-                        method: "DELETE",
-                    })
-                        .then((response) => {
-                            alert('Xoá nhân viên thành công!');
-                            window.location.href = currentUrl;
-                        })
-                }
-            }
-        })
-    }
-
-    deleteEmployeeIntoGroup();
-
     (function sortingEvent() {
         $$('.table_title i').forEach(sortingIconTag => {
             sortingIconTag.onclick = (e) => {
@@ -31,8 +8,6 @@ const mainData = [...$$("tr.body")];
                 generalMethods.sortingMethod(tagSelector);
 
                 alert("Sắp xếp thành công!");
-
-                deleteEmployeeIntoGroup();
             }
         })
     })();
@@ -48,8 +23,6 @@ const mainData = [...$$("tr.body")];
             generalMethods.searchingMethod(inputTag);
             $('div#heading #turn-back-btn').style.display = "inline-block";
             $('div#heading #search').style.display = "none";
-
-            deleteEmployeeIntoGroup();
         }
         $('div#search input').onkeyup = (e) => {
             if (e.which == 13) {
@@ -57,9 +30,21 @@ const mainData = [...$$("tr.body")];
                 generalMethods.searchingMethod(inputTag);
                 $('div#heading #turn-back-btn').style.display = "inline-block";
                 $('div#heading #search').style.display = "none";
-
-                deleteEmployeeIntoGroup();
             }
         }
     })();
-}) ();
+
+    (function defindingCurrency() {
+        $$('.vn_currency').forEach(tag => {
+            const salary = tag.innerText;
+            const length = salary.length;
+            let result = "";
+            for (var i = length - 1; i >= 0; i--) {
+                result = salary[i] + result;
+                if ((length - i) % 3 == 0)
+                    if (i)    result = "," + result;
+            }
+            tag.innerText = result;
+        })
+    })();
+})();
