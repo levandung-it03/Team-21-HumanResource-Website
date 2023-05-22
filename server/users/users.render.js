@@ -1442,6 +1442,58 @@ class renderMethods {
             clearCookiesAndReturnLogin(res);
         }
     }
+    async employee_bussiness(req, res) {
+        try {
+            const user = await getCurrentUser(req);
+            const specifiedBussiness = await bussinessDBs.findOne({ employee_code: user.employee_code });
+            res.render('./employee/employee_bussiness', {
+                user: user,
+                specifiedBussiness: specifiedBussiness,
+                layout: './layouts/employee'
+            });
+        } catch (err) {
+            clearCookiesAndReturnLogin(res);
+        }
+    }
+    async employee_group(req, res) {
+        try {
+            const user = await getCurrentUser(req);
+            const specifiedGroup = await groupDBs.findOne({ "employee_list.employee_code": user.employee_code });
+            res.render('./employee/employee_group', {
+                user: user,
+                specifiedGroup: specifiedGroup,
+                layout: './layouts/employee'
+            });
+        } catch (err) {
+            clearCookiesAndReturnLogin(res);
+        }
+    }
+    async employee_compliment(req, res) {
+        try {
+            const user = await getCurrentUser(req);
+            const specifiedCompliment = await employee_complimentsDBs.findOne({ employee_code: user.employee_code });
+            res.render('./employee/employee_compliment', {
+                user: user,
+                specifiedCompliment: specifiedCompliment,
+                layout: './layouts/employee'
+            });
+        } catch (err) {
+            clearCookiesAndReturnLogin(res);
+        }
+    }
+    async employee_discipline(req, res) {
+        try {
+            const user = await getCurrentUser(req);
+            const specifiedDiscipline = await employee_disciplineDBs.findOne({ employee_code: user.employee_code });
+            res.render('./employee/employee_discipline', {
+                user: user,
+                specifiedDiscipline: specifiedDiscipline,
+                layout: './layouts/employee'
+            });
+        } catch (err) {
+            clearCookiesAndReturnLogin(res);
+        }
+    }
 }
 
 module.exports = new renderMethods;

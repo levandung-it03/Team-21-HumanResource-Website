@@ -1,0 +1,84 @@
+<link rel="stylesheet" href="/css/discipline_view-employee-discipline.css">
+<% if (!specifiedDiscipline) { %>
+    <span style="display: block;font-size: 2.4rem;padding: 40px">
+        Bạn chưa có thông tin về lần kỷ luật nào!
+    </span>
+<% } else { %>
+    <div id="view-employee-discipline">
+        <div id="title" style="position: relative;left: 20px;width: 90%;">
+            <span>Thông tin kỷ luật chi tiết của bạn</span>
+        </div>
+        <div id="employee-discipline-list" style="margin-top: 10px">
+            <div id="heading" class="employee-discipline-list_heading">
+                <div id="turn-back-btn">
+                    <a><i class="fa-solid fa-arrow-left-long"></i> Thoát</a>
+                </div>
+                <div id="title">
+                    <span>Danh sách kỷ luật</span>
+                </div>
+                <div id="search">
+                    <input class="search" type="text" placeholder="Tìm kiếm">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                </div>
+            </div>
+            <table>
+                <thead>
+                    <tr class="table_title">
+                        <th id="ordinal">
+                            <span class="title_name">STT</span>
+                            <i class="fa-solid fa-arrow-down-short-wide" id="ordinal"></i>
+                        </th>
+                        <th id="discipline_code">
+                            <span class="title_name">Mã kỷ luật</span>
+                            <i class="fa-solid fa-arrow-down-short-wide" id="discipline_code"></i>
+                        </th>
+                        <th id="discipline">
+                            <span class="title_name">Tên kỷ luật</span>
+                        </th>
+                        <th id="numbers">
+                            <span class="title_name">Số quyết định</span>
+                        </th>
+                        <th id="discipline_type">
+                            <span class="title_name">Loại kỷ luật</span>
+                        </th>
+                        <th id="description">
+                            <span class="title_name">Mô tả</span>
+                        </th>
+                        <th id="dateCreated">
+                            <span class="title_name">Ngày quyết định</span>
+                            <i class="fa-solid fa-arrow-down-short-wide" id="dateCreated"></i>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% for (var i=0; i < specifiedDiscipline.discipline_list.length; i++) { %>
+                        <tr class="body" id=<%=i+1 %>>
+                            <td id="ordinal">
+                                <%= (i + 1) %>
+                            </td>
+                            <td class="body_enable-searching body_enable-sorting" id="discipline_code">
+                                <%= specifiedDiscipline.discipline_list[i].discipline_code %>
+                            </td>
+                            <td class="body_enable-searching body_enable-sorting" id="discipline">
+                                <%= specifiedDiscipline.discipline_list[i].discipline %>
+                            </td>
+                            <td class="body_enable-searching body_enable-sorting" id="numbers">
+                                <%= specifiedDiscipline.discipline_list[i].numbers %>
+                            </td>
+                            <td class="body_enable-searching body_enable-sorting" id="discipline_type">
+                                <%= specifiedDiscipline.discipline_list[i].discipline_type %>
+                            </td>
+                            <td class="body_enable-searching body_enable-sorting" id="description">
+                                <%= specifiedDiscipline.discipline_list[i].description %>
+                            </td>
+                            <td class="body_enable-searching body_enable-sorting" id="dateCreated">
+                                <%= specifiedDiscipline.discipline_list[i].dateCreated %>
+                            </td>
+                        </tr>
+                    <% } %>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <script src="/js/discipline_view-employee-discipline.js"></script>
+<% } %>

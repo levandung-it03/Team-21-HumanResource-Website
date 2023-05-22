@@ -1,0 +1,28 @@
+<link rel="stylesheet" href="/css/employee-page_bussiness.css">
+<% if (!specifiedBussiness) { %>
+    <span style="display: block;font-size: 2.4rem;padding: 40px">
+        Bạn chưa có nhiệm vụ công tác cần thực hiện!
+    </span>
+<% } else { %>
+    <div id="bussiness">
+        <div id="main_title">
+            <span>Thông tin về nhiệm vụ công tác</span>
+        </div>
+        <div id="main_container">
+            <div id="main_container_label">
+                <span>Mã công tác: <%= specifiedBussiness.bussiness_code %></span>
+            </div>
+            <div id="main_container_info">
+                <ul class="info">
+                    <li class="info-item">Mã nhân viên: <b><%= user.employee_code %></b></li>
+                    <li class="info-item">Tên nhân viên: <b><%= user.name %></b></li>
+                    <li class="info-item">Ngày bắt đầu công tác: <%= specifiedBussiness.startingDate %></li>
+                    <li class="info-item">Ngày kết thúc công tác: <%= specifiedBussiness.endingDate %></li>
+                    <li class="info-item">Nơi công tác: <b><%= specifiedBussiness.location %></b></li>
+                    <li class="info-item">Mục đích: <b><%= specifiedBussiness.purpose %></b></li>
+                    <li class="info-item">Ngày tạo công tác: <b><%= specifiedBussiness.dateCreated %></b></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+<% } %>

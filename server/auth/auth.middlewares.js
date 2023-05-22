@@ -83,11 +83,7 @@ exports.checkingLogedIn = async (req, res, next) => {
                     next();
                 }
                 else {
-                    if (decoded.admin == 1) {
-                        res.redirect('/admin/general');
-                    } else {
-                        res.redirect('/admin/general');
-                    }
+                    res.redirect('/home');
                 }
             })
         }

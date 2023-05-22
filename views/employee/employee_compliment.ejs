@@ -1,0 +1,84 @@
+<link rel="stylesheet" href="/css/compliment_view-employee-compliments.css">
+<% if (!specifiedCompliment) { %>
+    <span style="display: block;font-size: 2.4rem;padding: 40px">
+        Bạn chưa có thông tin về lần khen thưởng nào!
+    </span>
+<% } else { %>
+    <div id="view-employee-compliments">
+        <div id="title" style="position: relative;left: 20px;width: 90%;">
+            <span>Thông tin khen thưởng chi tiết của bạn</span>
+        </div>
+        <div id="employee-compliments-list" style="margin-top: 10px">
+            <div id="heading" class="employee-compliments-list_heading">
+                <div id="turn-back-btn">
+                    <a><i class="fa-solid fa-arrow-left-long"></i> Thoát</a>
+                </div>
+                <div id="title">
+                    <span>Danh sách khen thưởng</span>
+                </div>
+                <div id="search">
+                    <input class="search" type="text" placeholder="Tìm kiếm">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                </div>
+            </div>
+            <table>
+                <thead>
+                    <tr class="table_title">
+                        <th id="ordinal">
+                            <span class="title_name">STT</span>
+                            <i class="fa-solid fa-arrow-down-short-wide" id="ordinal"></i>
+                        </th>
+                        <th id="compliment_code">
+                            <span class="title_name">Mã khen thưởng</span>
+                            <i class="fa-solid fa-arrow-down-short-wide" id="compliment_code"></i>
+                        </th>
+                        <th id="compliment">
+                            <span class="title_name">Tên khen thưởng</span>
+                        </th>
+                        <th id="numbers">
+                            <span class="title_name">Số quyết định</span>
+                        </th>
+                        <th id="compliment_type">
+                            <span class="title_name">Loại khen thưởng</span>
+                        </th>
+                        <th id="description">
+                            <span class="title_name">Mô tả</span>
+                        </th>
+                        <th id="dateCreated">
+                            <span class="title_name">Ngày quyết định</span>
+                            <i class="fa-solid fa-arrow-down-short-wide" id="dateCreated"></i>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% for (var i=0; i < specifiedCompliment.compliments_list.length; i++) { %>
+                        <tr class="body" id=<%=i+1 %>>
+                            <td id="ordinal">
+                                <%= (i + 1) %>
+                            </td>
+                            <td class="body_enable-searching body_enable-sorting" id="compliment_code">
+                                <%= specifiedCompliment.compliments_list[i].compliment_code %>
+                            </td>
+                            <td class="body_enable-searching body_enable-sorting" id="compliment">
+                                <%= specifiedCompliment.compliments_list[i].compliment %>
+                            </td>
+                            <td class="body_enable-searching body_enable-sorting" id="numbers">
+                                <%= specifiedCompliment.compliments_list[i].numbers %>
+                            </td>
+                            <td class="body_enable-searching body_enable-sorting" id="compliment_type">
+                                <%= specifiedCompliment.compliments_list[i].compliment_type %>
+                            </td>
+                            <td class="body_enable-searching body_enable-sorting" id="description">
+                                <%= specifiedCompliment.compliments_list[i].description %>
+                            </td>
+                            <td class="body_enable-searching body_enable-sorting" id="dateCreated">
+                                <%= specifiedCompliment.compliments_list[i].dateCreated %>
+                            </td>
+                        </tr>
+                        <% } %>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <script src="/js/compliment_view-employee-compliments.js"></script>
+<% } %>

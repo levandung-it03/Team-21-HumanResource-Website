@@ -769,5 +769,25 @@ route.get('/employee/insurance',
     authMiddlewares.verifyEmployee,
     renderMethods.employee_insurance);
 
+route.get('/employee/bussiness',
+    authMiddlewares.verifyTokenAndGenerateAccessTokenIfExpiring,
+    authMiddlewares.verifyEmployee,
+    renderMethods.employee_bussiness);
+
+route.get('/employee/group',
+    authMiddlewares.verifyTokenAndGenerateAccessTokenIfExpiring,
+    authMiddlewares.verifyEmployee,
+    renderMethods.employee_group);
+
+route.get('/employee/compliment',
+    authMiddlewares.verifyTokenAndGenerateAccessTokenIfExpiring,
+    authMiddlewares.verifyEmployee,
+    renderMethods.employee_compliment);
+
+route.get('/employee/discipline',
+    authMiddlewares.verifyTokenAndGenerateAccessTokenIfExpiring,
+    authMiddlewares.verifyEmployee,
+    renderMethods.employee_discipline);
+
 /**@_______________________________________________________________________________________________ */
 module.exports = route;

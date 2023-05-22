@@ -98,7 +98,7 @@ form input[type=submit]:hover {
     display: none;
 }
 #heading {
-    display: relative;
+    position: relative;
     height: 60px;
 }
 #heading #title {
