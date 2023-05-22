@@ -194,11 +194,15 @@ const mainData = [...$$("tr.body")];
                 * departmentMulSal * degreeMulSal * employee_typeMulSal;
         }
 
-        $$('select[name=employee] option').forEach(tag => {
-            if (tag.selected && !tag.disabled) {
-                if (tag.value)  handleSelection(tag);
-            }
-        })
+        const updatingData = $('select[name=employee]').getAttribute("data");
+        if (updatingData) {
+            $$('select[name=employee] option').forEach(tag => {
+                if (tag.value.includes(updatingData)) {
+                    tag.selected = true;
+                    handleSelection(tag);
+                }
+            })
+        }
 
         $('select[name=employee]').onchange = (e) => {
             $$("option:disabled").forEach(tag => {
