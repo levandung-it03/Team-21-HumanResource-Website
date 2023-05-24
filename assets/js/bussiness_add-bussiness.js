@@ -45,24 +45,24 @@ const mainData = [...$$("tr.body")];
     })();
 
     (function setUpstrictInputTags() {
-        $$('input[type=date]').forEach((tag) => {
+        strictInputTags.forEach((tag) => {
             tag.onblur = (e) => {
-                const errMesTagObject = errorMessages[strictInputTags[0].name];
-                const errTag = $(`div#${strictInputTags[0].name} span#${strictInputTags[0].name}`);
+                if ([...tag.classList].includes("adjust-upper-and-lower-case")) {
+                    generalMethods.adjustUpperAndLowerCase(e.target);
+                }
+                generalMethods.trimInputData(e.target);
 
-                errMesTagObject.confirm(strictInputTags[0].value);
+                const errMesTagObject = errorMessages[tag.name];
+                const errTag = $(`div#${tag.name} span#${tag.name}`);
+
+                errMesTagObject.confirm(tag.value);
                 if (errMesTagObject.isValid) errTag.style.display = "none";
                 else errTag.style.display = "inline";
             }
         })
-        $$('div.need-to-trim .need-to-trim').forEach(tag => {
-            tag.onblur = (e) => {
-                generalMethods.trimInputData(e.target);
-                if ([...tag.classList].includes("adjust-upper-and-lower-case")) {
-                    generalMethods.adjustUpperAndLowerCase(e.target);
-                }
-            }
-        })
+        $('textarea').onblur = (e) => {
+            generalMethods.trimInputData(e.target);
+        }
     })();
 
     (function recoverEmployeeSelectData() {
