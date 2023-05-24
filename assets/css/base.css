@@ -156,7 +156,8 @@ header {
     color: var(--white-text);
     font-size: 0.8rem;
 }
-#turn-back-btn a {
+#turn-back-btn-for-redirecting-event a,
+#turn-back-btn-for-searching-event a {
     display: inline-block;
     font-size: 1rem;
     background-color: var(--blue);
@@ -166,7 +167,8 @@ header {
     border-radius: 8px;
     transition: background-color ease 0.3s;
 }
-#turn-back-btn a:hover {
+#turn-back-btn-for-redirecting-event a:hover,
+#turn-back-btn-for-searching-event a:hover {
     cursor: pointer;
     background-color: rgb(120, 120, 255);
 }
@@ -186,7 +188,10 @@ header {
 #add-btn a:hover {
     background-color: rgb(120, 120, 255);
 }
-#heading > #turn-back-btn {
+#turn-back-btn-for-redirecting-event {
+    display: inline-block;
+}
+#turn-back-btn-for-searching-event {
     display: none;
 }
 div#search {

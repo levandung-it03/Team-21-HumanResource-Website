@@ -14,7 +14,7 @@
     font-size: 2.4rem;
     display: block;
 }
-#bussiness #main_turn-back-btn a:hover {
+#bussiness #turn-back-btn-for-redirecting-event a:hover {
     background-color: rgb(109, 109, 255);
 }
 #bussiness #main_container {

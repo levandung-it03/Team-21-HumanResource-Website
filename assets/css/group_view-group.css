@@ -4,7 +4,7 @@ table {
 th, td {
     border: solid 1px var(--smoking-grey);
 }
-#heading #turn-back-btn {
+#heading #turn-back-btn-for-redirecting {
     float: left;
 }
 #add-btn {

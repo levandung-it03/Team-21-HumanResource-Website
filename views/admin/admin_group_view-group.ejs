@@ -1,6 +1,6 @@
 <link rel="stylesheet" href="/css/group_view-group.css">
 <div id="group-view">
-    <div id="turn-back-btn">
+    <div id="turn-back-btn-for-redirecting-event">
         <% if (idInComplimentDBs) { %>
             <a href="/admin/category/compliment/view-group-compliments/<%= idInComplimentDBs %>">
         <% } else if (idInDisciplineDBs) { %>
@@ -50,7 +50,7 @@
     </div>
     <div id="employee-list">
         <div id="heading" class="employee-list_heading">
-            <div id="turn-back-btn">
+            <div id="turn-back-btn-for-searching-event">
                 <a><i class="fa-solid fa-arrow-left-long"></i> Thoát</a>
             </div>
             <div id="title">

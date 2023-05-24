@@ -14,7 +14,7 @@
     font-size: 2.4rem;
     display: block;
 }
-#view-insurance #main_turn-back-btn a:hover {
+#view-insurance #turn-back-btn-for-redirecting-event a:hover {
     background-color: rgb(109, 109, 255);
 }
 #view-insurance #main_container {

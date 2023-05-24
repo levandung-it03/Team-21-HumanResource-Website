@@ -10,7 +10,7 @@
     display: block;
     padding-left: 20px;
 }
-#view-contract #main_turn-back-btn a:hover {
+#view-contract #turn-back-btn-for-redirecting-event a:hover {
     background-color: rgb(109, 109, 255);
 }
 #view-contract #main_container {
