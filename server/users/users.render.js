@@ -511,7 +511,7 @@ class renderMethods {
     async admin_addSalary(req, res) {
         try {
             const user = await getCurrentUser(req);
-            const allEmployees = await getAllEmployees();
+            const allEmployees = userDBs.find({ status: "Đang làm việc" });
             const degreeList = await getAllDegree();
             const salaryList = await getAllSalary();
             const positionList = await getAllPosition();
@@ -522,7 +522,7 @@ class renderMethods {
                 const specifiedEmployee = salaryList.find(e => e._id == employeeId);
                 res.render('./admin/admin_salary_add-salary', {
                     user: user,
-                    allEmployees: allEmployees,
+                    allEmployees: await allEmployees.toArray(),
                     employeeId: employeeId,
                     specifiedEmployee: specifiedEmployee,
                     degreeList: degreeList,
@@ -535,7 +535,7 @@ class renderMethods {
             } else {
                 res.render('./admin/admin_salary_add-salary', {
                     user: user,
-                    allEmployees: allEmployees,
+                    allEmployees: await allEmployees.toArray(),
                     employeeId: undefined,
                     degreeList: degreeList,
                     employeeTypeList: employeeTypeList,
@@ -565,10 +565,10 @@ class renderMethods {
     async admin_addBussiness(req, res) {
         try {
             const user = await getCurrentUser(req);
-            const allEmployees = await getAllEmployees();
+            const allEmployees = userDBs.find({ status: "Đang làm việc" });
             res.render('./admin/admin_bussiness_add-bussiness', {
                 user: user,
-                allEmployees: allEmployees,
+                allEmployees: await allEmployees.toArray(),
                 isUpdating: false,
                 layout: './layouts/admin'
             });
@@ -580,10 +580,10 @@ class renderMethods {
         try {
             const user = await getCurrentUser(req);
             const specifiedBussiness = await getSpecifiedObject(req.params.id, bussinessDBs);
-            const allEmployees = await getAllEmployees();
+            const allEmployees = userDBs.find({ status: "Đang làm việc" });
             res.render('./admin/admin_bussiness_add-bussiness', {
                 user: user,
-                allEmployees: allEmployees,
+                allEmployees: await allEmployees.toArray(),
                 isUpdating: true,
                 specifiedBussiness: specifiedBussiness,
                 layout: './layouts/admin'
@@ -607,12 +607,12 @@ class renderMethods {
     }
     async admin_addGroup(req, res) {
         try {
-            const allEmployees = await getAllEmployees();
+            const allEmployees = userDBs.find({ status: "Đang làm việc" });
             const allTechnique = await getAllTechnique();
             const user = await getCurrentUser(req);
             res.render('./admin/admin_group_add-group', {
                 user: user,
-                allEmployees: allEmployees,
+                allEmployees: await allEmployees.toArray(),
                 isUpdating: false,
                 allTechnique: allTechnique,
                 layout: './layouts/admin'
@@ -657,12 +657,12 @@ class renderMethods {
     async admin_addEmployeeIntoGroup(req, res) {
         try {
             const allTechnique = await getAllTechnique();
-            const allEmployees = await getAllEmployees();
+            const allEmployees = userDBs.find({ status: "Đang làm việc" });
             const specifiedGroup = await getSpecifiedObject(req.params.id, groupDBs);
             const user = await getCurrentUser(req);
             res.render('./admin/admin_group_add-employee-into-group', {
                 user: user,
-                allEmployees: allEmployees,
+                allEmployees: await allEmployees.toArray(),
                 specifiedGroup: specifiedGroup,
                 allTechnique: allTechnique,
                 layout: './layouts/admin'
@@ -725,7 +725,7 @@ class renderMethods {
     }
     async admin_addEmployeeCompliment(req, res) {
         try {
-            const allEmployees = await getAllEmployees();
+            const allEmployees = userDBs.find({ status: "Đang làm việc" });
             const allCompliment_type = await getAllCompliment_type();
             const user = await getCurrentUser(req);
             const employeeId = req.params.employeeId;
@@ -737,7 +737,7 @@ class renderMethods {
                     employeeId: employeeId,
                     specifiedEmployee: specifiedEmployee,
                     allCompliment_type: allCompliment_type,
-                    allEmployees: allEmployees,
+                    allEmployees: await allEmployees.toArray(),
                     layout: './layouts/admin'
                 });
             } else {
@@ -773,7 +773,7 @@ class renderMethods {
     }
     async admin_updateEmployeeCompliment(req, res) {
         try {
-            const allEmployees = await getAllEmployees();
+            const allEmployees = userDBs.find({ status: "Đang làm việc" });
             const allCompliment_type = await getAllCompliment_type();
             const user = await getCurrentUser(req);
             const specifiedEmployee = await getSpecifiedObject(req.params.employeeId, employee_complimentsDBs);
@@ -786,7 +786,7 @@ class renderMethods {
                 specifiedEmployee: specifiedEmployee,
                 specifiedCompliment: specifiedCompliment,
                 allCompliment_type: allCompliment_type,
-                allEmployees: allEmployees,
+                allEmployees: await allEmployees.toArray(),
                 layout: './layouts/admin'
             });
         } catch (err) {
@@ -976,7 +976,7 @@ class renderMethods {
     }
     async admin_addEmployeeDiscipline(req, res) {
         try {
-            const allEmployees = await getAllEmployees();
+            const allEmployees = userDBs.find({ status: "Đang làm việc" });
             const allDiscipline_type = await getAllDiscipline_type();
             const user = await getCurrentUser(req);
             const employeeId = req.params.employeeId;
@@ -988,7 +988,7 @@ class renderMethods {
                     employeeId: employeeId,
                     specifiedEmployee: specifiedEmployee,
                     allDiscipline_type: allDiscipline_type,
-                    allEmployees: allEmployees,
+                    allEmployees: await allEmployees.toArray(),
                     layout: './layouts/admin'
                 });
             } else {
@@ -1024,7 +1024,7 @@ class renderMethods {
     }
     async admin_updateEmployeeDiscipline(req, res) {
         try {
-            const allEmployees = await getAllEmployees();
+            const allEmployees = userDBs.find({ status: "Đang làm việc" });
             const allDiscipline_type = await getAllDiscipline_type();
             const user = await getCurrentUser(req);
             const specifiedEmployee = await getSpecifiedObject(req.params.employeeId, employee_disciplineDBs);
@@ -1189,10 +1189,10 @@ class renderMethods {
     async admin_addInsurance(req, res) {
         try {
             const user = await getCurrentUser(req);
-            const allEmployees = await getAllEmployees();
+            const allEmployees = userDBs.find({ status: "Đang làm việc" });
             res.render('./admin/admin_insurance_add-insurance', {
                 user: user,
-                allEmployees: allEmployees,
+                allEmployees: await allEmployees.toArray(),
                 isUpdating: false,
                 layout: './layouts/admin'
             });
@@ -1203,11 +1203,11 @@ class renderMethods {
     async admin_updateInsurance(req, res) {
         try {
             const user = await getCurrentUser(req);
-            const allEmployees = await getAllEmployees();
+            const allEmployees = userDBs.find({ status: "Đang làm việc" });
             const specifiedInsurance = await getSpecifiedObject(req.params.id, insuranceDBs);
             res.render('./admin/admin_insurance_add-insurance', {
                 user: user,
-                allEmployees: allEmployees,
+                allEmployees: await allEmployees.toArray(),
                 isUpdating: true,
                 specifiedInsurance: specifiedInsurance,
                 layout: './layouts/admin'
@@ -1302,7 +1302,7 @@ class renderMethods {
     async admin_addContract(req, res) {
         try {
             const user = await getCurrentUser(req);
-            const allEmployees = await getAllEmployees();
+            const allEmployees = userDBs.find({ status: "Đang làm việc" });
             const degreeList = await getAllDegree();
             const departmentList = await getAllDepartment();
             const employeeTypeList = await getAllEmployeeType();
@@ -1311,7 +1311,7 @@ class renderMethods {
             res.render('./admin/admin_contract_add-contract', {
                 user: user,
                 isUpdating: false,
-                allEmployees: allEmployees,
+                allEmployees: await allEmployees.toArray(),
                 degreeList: degreeList,
                 departmentList: departmentList,
                 employeeTypeList: employeeTypeList,
@@ -1326,7 +1326,7 @@ class renderMethods {
     async admin_updateContract(req, res) {
         try {
             const user = await getCurrentUser(req);
-            const allEmployees = await getAllEmployees();
+            const allEmployees = userDBs.find({ status: "Đang làm việc" });
             const degreeList = await getAllDegree();
             const positionList = await getAllPosition();
             const departmentList = await getAllDepartment();
@@ -1337,7 +1337,7 @@ class renderMethods {
                 user: user,
                 isUpdating: true,
                 specifiedContract: specifiedContract,
-                allEmployees: allEmployees,
+                allEmployees: await allEmployees.toArray(),
                 degreeList: degreeList,
                 departmentList: departmentList,
                 employeeTypeList: employeeTypeList,

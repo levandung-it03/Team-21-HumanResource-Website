@@ -1556,6 +1556,7 @@ exports.updateContract = async (req, res) => {
 }
 
 exports.reportApplication = async (req, res) => {
+    await client.connect();
     const admin = await userDBs.findOne({ admin: 1 });
     const sendingMailOptions = {
         body: admin.account,
@@ -1571,7 +1572,7 @@ exports.reportApplication = async (req, res) => {
     };
     await usersMethods.sendingMail(sendingMailOptions)
         .then(result => {
-            res.status(200).send({ result: result });
+            res.status(200).send({ result: result, sent: true });
         })
         .catch(err => {
             res.status(500).send({ err_mess: err.message });
