@@ -541,77 +541,85 @@ exports.addSalary = async (req, res) => {
     await client.connect();
     const [employee_code, name, position, salary_per_day, employee_type, multipleSalaryOfET, degree,
         multipleSalaryOfDG, department, multipleSalaryOfDepartment] = req.body.employee.split("-");
-    const dateCreated = usersMethods.getNowDate();
-    const contractOfEmployee = await contractDBs.findOne({ employee_code: employee_code });
-    const negotiableRatio = Number.parseInt(contractOfEmployee.negotiableRatio);
+    const prevData = usersMethods.createErrorString(req.body);
+    await contractDBs.findOne({ employee_code: employee_code })
+        .then(async (emptyResult) => {
+            const dateCreated = usersMethods.getNowDate();
+            const contractOfEmployee = await contractDBs.findOne({ employee_code: employee_code });
+            const negotiableRatio = Number.parseInt(contractOfEmployee.negotiableRatio);
 
-    const realSalary = ((req.body.totalDays - req.body.dayOff) * salary_per_day * multipleSalaryOfET
-        * multipleSalaryOfDepartment
-        * multipleSalaryOfDG
-        + Number.parseInt(req.body.allowance)
-        + Number.parseInt(req.body.bonusSalary)
-        - Number.parseInt(req.body.advanceSalary)) * (negotiableRatio / 100);
+            const realSalary = ((req.body.totalDays - req.body.dayOff) * salary_per_day * multipleSalaryOfET
+                * multipleSalaryOfDepartment
+                * multipleSalaryOfDG
+                + Number.parseInt(req.body.allowance)
+                + Number.parseInt(req.body.bonusSalary)
+                - Number.parseInt(req.body.advanceSalary)) * (negotiableRatio / 100);
 
-    const tax_type = contractOfEmployee.tax_type.toUpperCase().trim();
-    let result = 0;
+            const tax_type = contractOfEmployee.tax_type.toUpperCase().trim();
+            let result = 0;
 
-    if (tax_type == "THUẾ LUỸ TIẾN") {
-        let discount = {
-            default: 11000000,
-            dependentMembers: 0
-        };
-        let remainingSalary = (realSalary - discount.default) / 1000000 + discount.dependentMembers*4.4;
-        let negotiableTax = 0;
+            if (tax_type == "THUẾ LUỸ TIẾN") {
+                let discount = {
+                    default: 11000000,
+                    dependentMembers: 0
+                };
+                let remainingSalary = (realSalary - discount.default) / 1000000 + discount.dependentMembers * 4.4;
+                let negotiableTax = 0;
 
-        if (remainingSalary <= 5) negotiableTax = 0.05;
-        else if (5 < remainingSalary <= 10) negotiableTax = 0.1;
-        else if (10 < remainingSalary <= 18) negotiableTax = 0.15;
-        else if (18 < remainingSalary <= 32) negotiableTax = 0.2;
-        else if (32 < remainingSalary <= 52) negotiableTax = 0.25;
-        else if (52 < remainingSalary <= 80) negotiableTax = 0.3;
-        else negotiableTax = 0.35;
+                if (remainingSalary <= 5) negotiableTax = 0.05;
+                else if (5 < remainingSalary <= 10) negotiableTax = 0.1;
+                else if (10 < remainingSalary <= 18) negotiableTax = 0.15;
+                else if (18 < remainingSalary <= 32) negotiableTax = 0.2;
+                else if (32 < remainingSalary <= 52) negotiableTax = 0.25;
+                else if (52 < remainingSalary <= 80) negotiableTax = 0.3;
+                else negotiableTax = 0.35;
 
-        result = remainingSalary * 1000000 * (1 - negotiableTax) + discount.default;
-    }
-    else if (tax_type == "THUẾ 10%")        result = realSalary * 0.9;
-    else if (tax_type == "KHÔNG ĐÓNG THUẾ") result = realSalary;
-    else if (tax_type == "THUẾ 20%")        result = realSalary * 0.8;
-
-    let filter = { employee_code: employee_code };
-    let update = {
-        "$set": {
-            employee_code: employee_code,
-            name: name,
-            department: department,
-            position: position,
-        },
-        "$push": {
-            salaryList: {
-                dateCreated: dateCreated,
-                totalDays: req.body.totalDays,
-                dayOff: req.body.dayOff,
-                allowance: req.body.allowance,
-                advanceSalary: req.body.advanceSalary,
-                bonusSalary: req.body.bonusSalary,
-                realSalary: result,
+                result = remainingSalary * 1000000 * (1 - negotiableTax) + discount.default;
             }
-        }
-    }
+            else if (tax_type == "THUẾ 10%") result = realSalary * 0.9;
+            else if (tax_type == "KHÔNG ĐÓNG THUẾ") result = realSalary;
+            else if (tax_type == "THUẾ 20%") result = realSalary * 0.8;
 
-    await Salary.findOneAndUpdate(filter, update, {
-        new: true,
-        upsert: true
-    })
-        .then(data => {
-            if (req.params.id) {
-                res.redirect('/admin/category/salary/view-salary/' + req.params.id);
-            } else {
-                res.redirect('/admin/category/salary/salary-list');
+            let filter = { employee_code: employee_code };
+            let update = {
+                "$set": {
+                    employee_code: employee_code,
+                    name: name,
+                    department: department,
+                    position: position,
+                },
+                "$push": {
+                    salaryList: {
+                        dateCreated: dateCreated,
+                        totalDays: req.body.totalDays,
+                        dayOff: req.body.dayOff,
+                        allowance: req.body.allowance,
+                        advanceSalary: req.body.advanceSalary,
+                        bonusSalary: req.body.bonusSalary,
+                        realSalary: result,
+                    }
+                }
             }
+
+            await Salary.findOneAndUpdate(filter, update, {
+                new: true,
+                upsert: true
+            })
+                .then(data => {
+                    if (req.params.id) {
+                        res.redirect('/admin/category/salary/view-salary/' + req.params.id);
+                    } else {
+                        res.redirect('/admin/category/salary/salary-list');
+                    }
+                })
+                .catch(err => {
+                    res.status(500).send({ mes: err.message });
+                })
         })
         .catch(err => {
-            res.status(500).send({ mes: err.message });
+            res.redirect('/admin/category/salary/add-salary?error=err_employee_code' + prevData);
         })
+
 }
 
 exports.deleteSalaryOfEmployee = async (req, res) => {

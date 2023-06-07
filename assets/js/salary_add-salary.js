@@ -11,7 +11,7 @@ const mainData = [...$$("tr.body")];
         dayOff: {
             confirm: function (value) {
                 this.isValid = value.split("").every((e) => !isNaN(Number.parseInt(e))) && Number.parseInt(value) <= 31
-                && Number.parseInt($('input[name=totalDays]').value) + Number.parseInt(value) <= 31;
+                    && Number.parseInt($('input[name=totalDays]').value) + Number.parseInt(value) <= 31;
             },
             message: "Số ngày nghỉ không hợp lệ.",
             isValid: false,
@@ -92,23 +92,6 @@ const mainData = [...$$("tr.body")];
         })
     })();
 
-    (function handleAutoSelectSalaryInfoTags() {
-        const degreeOptionTags = [...$$('select[name=degree] option')];
-        const positionOptionTags = [...$$('select[name=position] option')];
-        const departmentOptionTags = [...$$('select[name=department] option')];
-        const employeeTypeOptionTags = [...$$('select[name=employee_type] option')];
-
-        $('select[name=employee]').onclick = (e) => {
-            const selectedEmployee = [...$$('select[name=employee] option')].find(optionTag => optionTag.selected);
-            const employeeData = selectedEmployee.value.split("-");
-
-            positionOptionTags.find(optionTag => optionTag.value.split("-")[0] == employeeData[2]).selected = true;
-            employeeTypeOptionTags.find(optionTag => optionTag.value.split("-")[0] == employeeData[4]).selected = true;
-            degreeOptionTags.find(optionTag => optionTag.value.split("-")[0] == employeeData[6]).selected = true;
-            departmentOptionTags.find(optionTag => optionTag.value.split("-")[0] == employeeData[8]).selected = true;
-        }
-    })();
-
     (function handleAutoSelectSalaryInfoTagsFromSpecifiedEmployee() {
         const data = $('select[name=employee]').getAttribute('data').trim();
         if (data) {
@@ -117,7 +100,7 @@ const mainData = [...$$("tr.body")];
             const departmentOptionTags = [...$$('select[name=department] option')];
             const employeeTypeOptionTags = [...$$('select[name=employee_type] option')];
             const selectedEmployee =
-            [...$$('select[name=employee] option')].find(optionTag => optionTag.value.split("-").includes(data));
+                [...$$('select[name=employee] option')].find(optionTag => optionTag.value.split("-").includes(data));
             selectedEmployee.selected = true;
             const employeeData = selectedEmployee.value.split("-");
 
@@ -127,4 +110,52 @@ const mainData = [...$$("tr.body")];
             departmentOptionTags.find(optionTag => optionTag.value.split("-")[0] == employeeData[8]).selected = true;
         }
     })();
+
+    function handleSelectsOptions() {
+        const degreeOptionTags = [...$$('select[name=degree] option')];
+        const positionOptionTags = [...$$('select[name=position] option')];
+        const departmentOptionTags = [...$$('select[name=department] option')];
+        const employeeTypeOptionTags = [...$$('select[name=employee_type] option')];
+
+        const selectedEmployee = [...$$('select[name=employee] option')].find(optionTag => optionTag.selected);
+        const employeeData = selectedEmployee.value.split("-");
+
+        positionOptionTags.find(optionTag => optionTag.value.split("-")[0] == employeeData[2]).selected = true;
+        employeeTypeOptionTags.find(optionTag => optionTag.value.split("-")[0] == employeeData[4]).selected = true;
+        degreeOptionTags.find(optionTag => optionTag.value.split("-")[0] == employeeData[6]).selected = true;
+        departmentOptionTags.find(optionTag => optionTag.value.split("-")[0] == employeeData[8]).selected = true;
+    }
+
+    (function handleAutoSelectSalaryInfoTags() {
+        $('select[name=employee]').onchange = (e) => {
+            handleSelectsOptions();
+        }
+    })();
+
+    const urlParams = new URLSearchParams(window.location.search);
+    const myParam = urlParams.get('error');
+    if (myParam) {
+        alert('Hợp đồng của nhân viên này chưa tồn tại nên không thể tính lương!');
+        (function handleRedirect() {
+            const dataMessages = myParam.split('?');
+            const data = dataMessages.map((e) => {
+                return e.split('=');
+            })
+
+            window.history.replaceState({}, "", "http://localhost:3000/admin/category/salary/add-salary");
+            strictInputTags.forEach((tag, index) => {
+                tag.value = data.find((e) => e[0] == tag.name)[1];
+                errorMessages[tag.name].confirm(tag.value);
+            })
+
+            const employee_code = data.find(data => data[0] == "employee").pop().split("-")[0];
+            const selectTag = $('.form_select-input select[name=employee]');
+            selectTag.querySelectorAll('option').forEach(optionTag => {
+                if (optionTag.value.includes(employee_code)) {
+                    optionTag.selected = true;
+                    handleSelectsOptions();
+                }
+            })
+        })();
+    }
 })();
