@@ -25,7 +25,7 @@ const mainData = [...$$("tr.body")];
 
                 generalMethods.sortingMethod(tagSelector);
 
-                alert("Sắp xếp thành công!");
+                
 
                 deleteEmployeeCompliment(); 
             }

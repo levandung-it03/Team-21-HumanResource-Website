@@ -26,7 +26,7 @@ const mainData = [...$$("tr.body")];
                     tagSelector += " span";
                 }
                 generalMethods.sortingMethod(tagSelector);
-                alert("Sắp xếp thành công!");
+                
                 
                 deleteUser();
             }
