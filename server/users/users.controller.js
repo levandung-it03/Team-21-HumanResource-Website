@@ -543,9 +543,8 @@ exports.addSalary = async (req, res) => {
         multipleSalaryOfDG, department, multipleSalaryOfDepartment] = req.body.employee.split("-");
     const prevData = usersMethods.createErrorString(req.body);
     await contractDBs.findOne({ employee_code: employee_code })
-        .then(async (emptyResult) => {
+        .then(async (contractOfEmployee) => {
             const dateCreated = usersMethods.getNowDate();
-            const contractOfEmployee = await contractDBs.findOne({ employee_code: employee_code });
             const negotiableRatio = Number.parseInt(contractOfEmployee.negotiableRatio);
 
             const realSalary = ((req.body.totalDays - req.body.dayOff) * salary_per_day * multipleSalaryOfET
@@ -579,6 +578,10 @@ exports.addSalary = async (req, res) => {
             else if (tax_type == "THUẾ 10%") result = realSalary * 0.9;
             else if (tax_type == "KHÔNG ĐÓNG THUẾ") result = realSalary;
             else if (tax_type == "THUẾ 20%") result = realSalary * 0.8;
+
+            result -= (Number.parseInt(contractOfEmployee.insuranceFee)
+                    + Number.parseInt(contractOfEmployee.internalFund)
+                    + Number.parseInt(contractOfEmployee.unionFee));
 
             let filter = { employee_code: employee_code };
             let update = {

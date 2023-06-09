@@ -51,11 +51,12 @@
                     <option selected disabled value="">--Chọn nhân viên--</option>
                 <% } %>
                 <% for(var index in allEmployees) { %>
-                <option value="<%= allEmployees[index].department
-                    + "-" + allEmployees[index].employee_code
-                    + "-" + allEmployees[index].name
-                %>">
-                    <%= `PB ${allEmployees[index].department} - ${allEmployees[index].employee_code} - ${allEmployees[index].name}` %></option>
+                    <option value="<%= allEmployees[index].department
+                        + "-" + allEmployees[index].employee_code
+                        + "-" + allEmployees[index].name
+                    %>">
+                        <%= `PB ${allEmployees[index].department} - ${allEmployees[index].employee_code} - ${allEmployees[index].name}` %>
+                    </option>
                 <% } %>
             </select>
             <% if (isUpdating || (specifiedEmployee != undefined)) { %><input type="hidden" name="employee"><% } %>

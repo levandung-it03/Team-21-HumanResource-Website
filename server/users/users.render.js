@@ -746,7 +746,7 @@ class renderMethods {
                     isUpdating: false,
                     specifiedEmployee: undefined,
                     allCompliment_type: allCompliment_type,
-                    allEmployees: allEmployees,
+                    allEmployees: await allEmployees.toArray(),
                     layout: './layouts/admin'
                 });
             }
