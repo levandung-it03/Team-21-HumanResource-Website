@@ -49,7 +49,7 @@
         sortingIconTag.onclick = (e) => {
             let tagSelector = "td#" + sortingIconTag.id;
             sortingObj.sortingMethod(`#${[...e.target.classList].pop()}`, tagSelector);
-            alert("Sắp xếp thành công!");
+            alert("Sắp xếp TĂNG DẦN thành công!");
         }
     })
 })();

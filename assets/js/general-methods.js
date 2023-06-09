@@ -2,6 +2,8 @@ const $ = document.querySelector.bind(document);
 const $$ = document.querySelectorAll.bind(document);
 
 const generalMethods = {
+    sortingAccumulator: 0,
+    sortingNumType: 1,
     trimInputData: function (inputTag) {
         const words = inputTag.value.trim().split(" ");
         let result = [];
@@ -32,6 +34,18 @@ const generalMethods = {
     sortingMethod: function (tagSelector) {
         const represTagValue = $(tagSelector).innerText;
         let check = isNaN(Number.parseInt(represTagValue)) ? "Str" : "Num";
+        if (generalMethods.sortingAccumulator == 0) {
+            generalMethods.sortingAccumulator = 1;
+            alert("Sắp xếp TĂNG DẦN thành công!");
+        } else if (generalMethods.sortingAccumulator == 1) {
+            generalMethods.sortingAccumulator = 2;
+            generalMethods.sortingNumType = -1;
+            alert("Sắp xếp GIẢM DẦN thành công!");
+        } else {
+            generalMethods.sortingAccumulator = 1;
+            generalMethods.sortingNumType = 1;
+            alert("Sắp xếp TĂNG DẦN thành công!");
+        }
         if (check == "Num") this.sortingNumberMethod(tagSelector);
         else this.sortingStringMethod(tagSelector);
     },
@@ -51,8 +65,8 @@ const generalMethods = {
             let data_1 = object_1.data.trim().toUpperCase();  // ignore upper or lower case.
             let data_2 = object_2.data.trim().toUpperCase();  // ignore upper or lower case. 
 
-            if (data_1 > data_2) return 1;
-            if (data_1 < data_2) return -1;
+            if (data_1 > data_2) return generalMethods.sortingNumType;
+            if (data_1 < data_2) return generalMethods.sortingNumType*-1;
             return 0;
         });
 
@@ -78,8 +92,8 @@ const generalMethods = {
 
         //  Sort data list.
         const dataObjectsSortedList = dataObjectList.sort((object_1, object_2) => {
-            if ( object_1.data >  object_2.data) return 1;
-            if ( object_1.data <  object_2.data) return -1;
+            if ( object_1.data >  object_2.data) return generalMethods.sortingNumType;
+            if ( object_1.data <  object_2.data) return generalMethods.sortingNumType*-1;
             return 0;
         });
 
@@ -94,7 +108,7 @@ const generalMethods = {
         else {
             result = allDataTags.filter(dataTag => {
                 const enableSearchingField = [...dataTag.querySelectorAll('.body_enable-searching')];
-                return enableSearchingField.some(field => field.innerText.trim().toUpperCase() == inputValue);
+                return enableSearchingField.some(field => field.innerText.trim().toUpperCase().includes(inputValue));
             })
         }
         if (!result.length) {
