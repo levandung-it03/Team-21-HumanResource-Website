@@ -158,7 +158,11 @@ const mainData = [...$$("tr.body")];
                 if ([...tag.classList].includes("adjust-upper-and-lower-case")) {
                     generalMethods.adjustUpperAndLowerCase(e.target);
                 }
-                generalMethods.trimInputData(e.target);
+                if(tag.name != "email") {
+                    generalMethods.trimInputData(e.target);
+                } else {
+                    tag.value = tag.value.trim();
+                }
                 const errMesTagObject = errorMessages[tag.name];
                 const errTag = $(`div#${tag.name} span#${tag.name}`);
 
