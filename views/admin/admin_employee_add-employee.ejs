@@ -67,8 +67,8 @@
         </div>
         <div class="form_text-input more-condition" id="country">
             <label for="country">Quốc gia</label>
-            <input class="adjust-upper-and-lower-case" value="<%= isUpdating ? specifiedUser.country : "" %>" name="country" type="text"
-                value="Việt Nam" required>
+            <input class="adjust-upper-and-lower-case" name="country" type="text" required
+                value="<%= isUpdating ? specifiedUser.country : "Việt Nam" %>">
             <div class="form_text-input_err-message"></div>
         </div>
         <div class="form_text-input more-condition" id="ethnic">
@@ -79,8 +79,8 @@
         </div>
         <div class="form_text-input more-condition" id="religion">
             <label for="religion">Tôn giáo</label>
-            <input class="adjust-upper-and-lower-case" value="<%= isUpdating ? specifiedUser.religion : "" %>" name="religion" type="text"
-                value="Không" required>
+            <input class="adjust-upper-and-lower-case" value="<%= isUpdating ? specifiedUser.religion : "Không" %>" name="religion" type="text"
+                required>
             <div class="form_text-input_err-message"></div>
         </div>
         <div class="form_text-input more-condition" id="phone">

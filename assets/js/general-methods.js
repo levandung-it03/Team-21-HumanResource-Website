@@ -34,16 +34,13 @@ const generalMethods = {
     sortingMethod: function (tagSelector) {
         const represTagValue = $(tagSelector).innerText;
         let check = isNaN(Number.parseInt(represTagValue)) ? "Str" : "Num";
-        if (generalMethods.sortingAccumulator == 0) {
-            generalMethods.sortingAccumulator = 1;
-            alert("Sắp xếp TĂNG DẦN thành công!");
-        } else if (generalMethods.sortingAccumulator == 1) {
-            generalMethods.sortingAccumulator = 2;
-            generalMethods.sortingNumType = -1;
+        if (this.sortingAccumulator) {
+            this.sortingAccumulator = 0;
+            this.sortingNumType = -1;
             alert("Sắp xếp GIẢM DẦN thành công!");
         } else {
-            generalMethods.sortingAccumulator = 1;
-            generalMethods.sortingNumType = 1;
+            this.sortingAccumulator = 1;
+            this.sortingNumType = 1;
             alert("Sắp xếp TĂNG DẦN thành công!");
         }
         if (check == "Num") this.sortingNumberMethod(tagSelector);
@@ -92,8 +89,8 @@ const generalMethods = {
 
         //  Sort data list.
         const dataObjectsSortedList = dataObjectList.sort((object_1, object_2) => {
-            if ( object_1.data >  object_2.data) return generalMethods.sortingNumType;
-            if ( object_1.data <  object_2.data) return generalMethods.sortingNumType*-1;
+            if ( object_1.data >  object_2.data) return this.sortingNumType;
+            if ( object_1.data <  object_2.data) return this.sortingNumType*-1;
             return 0;
         });
 
