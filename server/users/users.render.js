@@ -997,7 +997,7 @@ class renderMethods {
                     isUpdating: false,
                     specifiedEmployee: undefined,
                     allDiscipline_type: allDiscipline_type,
-                    allEmployees: allEmployees,
+                    allEmployees: await allEmployees.toArray(),
                     layout: './layouts/admin'
                 });
             }

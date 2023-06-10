@@ -23,7 +23,7 @@
         </div>
         <div class="form_textarea-input" id="description">
             <label for="description">Mô tả loại hình khen thưởng</label>
-            <textarea name="description" id="description" cols="66" rows="10"><%= isUpdating ? specifiedComplimentType.description.trim() : '' %></textarea>
+            <textarea name="description" id="description" cols="66" rows="10" required><%= isUpdating ? specifiedComplimentType.description.trim() : '' %></textarea>
         </div>
         <input type="submit" value="Xác nhận">
     </form>
