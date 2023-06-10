@@ -56,24 +56,26 @@
                         if (date_1 < date_2)    return -1;
                         return 0;
                     }).pop(); %>
-                <tr class="body" id=<%= i+1 %>>
-                    <td id="ordinal"><%= (i + 1) %></td>
-                    <td class="body_enable-searching body_enable-sorting"
-                        id="employee_code"><%= employeeComplimentsList[i].employee_code %></td>
-                    <td class="body_enable-searching body_enable-sorting"
-                        id="name"><%= employeeComplimentsList[i].name %></td>
-                    <td class="body_enable-searching body_enable-sorting"
-                        id="compliment"><%= lastCompliment.compliment %></td>
-                    <td class="body_enable-searching body_enable-sorting"
-                        id="dateCreated"><%= lastCompliment.dateCreated %></td>
-                    <td class="view-employee-compliment">
-                        <a href="/admin/category/compliment/view-employee-compliments/<%= employeeComplimentsList[i]._id.toString() %>">
-                            <i class="fa-sharp fa-solid fa-eye"></i></a>
-                    </td>
-                    <td class="delete-employee-compliment">
-                        <a employee_compliment_id=<%= employeeComplimentsList[i]._id.toString() %>><i class="fa-sharp fa-solid fa-trash"></i></a>
-                    </td>
-                </tr>
+                <% if (lastCompliment) { %>
+                    <tr class="body" id=<%= i+1 %>>
+                        <td id="ordinal"><%= (i + 1) %></td>
+                        <td class="body_enable-searching body_enable-sorting"
+                            id="employee_code"><%= employeeComplimentsList[i].employee_code %></td>
+                        <td class="body_enable-searching body_enable-sorting"
+                            id="name"><%= employeeComplimentsList[i].name %></td>
+                        <td class="body_enable-searching body_enable-sorting"
+                            id="compliment"><%= lastCompliment.compliment %></td>
+                        <td class="body_enable-searching body_enable-sorting"
+                            id="dateCreated"><%= lastCompliment.dateCreated %></td>
+                        <td class="view-employee-compliment">
+                            <a href="/admin/category/compliment/view-employee-compliments/<%= employeeComplimentsList[i]._id.toString() %>">
+                                <i class="fa-sharp fa-solid fa-eye"></i></a>
+                        </td>
+                        <td class="delete-employee-compliment">
+                            <a employee_compliment_id=<%= employeeComplimentsList[i]._id.toString() %>><i class="fa-sharp fa-solid fa-trash"></i></a>
+                        </td>
+                    </tr>
+                <% } %>
             <% } %>
         </tbody>
     </table>

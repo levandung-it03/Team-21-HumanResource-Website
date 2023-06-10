@@ -56,24 +56,26 @@
                         if (date_1 < date_2)    return -1;
                         return 0;
                     }).pop(); %>
-                <tr class="body" id=<%= i+1 %>>
-                    <td id="ordinal"><%= (i + 1) %></td>
-                    <td class="body_enable-searching body_enable-sorting"
-                        id="employee_code"><%= employeeDisciplineList[i].employee_code %></td>
-                    <td class="body_enable-searching body_enable-sorting"
-                        id="name"><%= employeeDisciplineList[i].name %></td>
-                    <td class="body_enable-searching body_enable-sorting"
-                        id="discipline"><%= lastDiscipline.discipline %></td>
-                    <td class="body_enable-searching body_enable-sorting"
-                        id="dateCreated"><%= lastDiscipline.dateCreated %></td>
-                    <td class="view-employee-discipline">
-                        <a href="/admin/category/discipline/view-employee-discipline/<%= employeeDisciplineList[i]._id.toString() %>">
-                            <i class="fa-sharp fa-solid fa-eye"></i></a>
-                    </td>
-                    <td class="delete-employee-discipline">
-                        <a employee_discipline_id=<%= employeeDisciplineList[i]._id.toString() %>><i class="fa-sharp fa-solid fa-trash"></i></a>
-                    </td>
-                </tr>
+                <% if (lastDiscipline) { %>
+                    <tr class="body" id=<%= i+1 %>>
+                        <td id="ordinal"><%= (i + 1) %></td>
+                        <td class="body_enable-searching body_enable-sorting"
+                            id="employee_code"><%= employeeDisciplineList[i].employee_code %></td>
+                        <td class="body_enable-searching body_enable-sorting"
+                            id="name"><%= employeeDisciplineList[i].name %></td>
+                        <td class="body_enable-searching body_enable-sorting"
+                            id="discipline"><%= lastDiscipline.discipline %></td>
+                        <td class="body_enable-searching body_enable-sorting"
+                            id="dateCreated"><%= lastDiscipline.dateCreated %></td>
+                        <td class="view-employee-discipline">
+                            <a href="/admin/category/discipline/view-employee-discipline/<%= employeeDisciplineList[i]._id.toString() %>">
+                                <i class="fa-sharp fa-solid fa-eye"></i></a>
+                        </td>
+                        <td class="delete-employee-discipline">
+                            <a employee_discipline_id=<%= employeeDisciplineList[i]._id.toString() %>><i class="fa-sharp fa-solid fa-trash"></i></a>
+                        </td>
+                    </tr>
+                <% } %>
             <% } %>
         </tbody>
     </table>
